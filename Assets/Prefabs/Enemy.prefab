@@ -11,6 +11,21 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1267355592298342}
   m_IsPrefabParent: 1
+--- !u!1 &1186465001717410
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4761492719486822}
+  m_Layer: 0
+  m_Name: EdgeDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1230536009568488
 GameObject:
   m_ObjectHideFlags: 1
@@ -21,7 +36,7 @@ GameObject:
   - component: {fileID: 224335478406666326}
   - component: {fileID: 222728442483155148}
   - component: {fileID: 114498697928750760}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,9 +57,11 @@ GameObject:
   - component: {fileID: 114649303036106616}
   - component: {fileID: 114245800724716210}
   - component: {fileID: 114663312890166264}
-  m_Layer: 0
+  - component: {fileID: 54921970617314718}
+  - component: {fileID: 114340828402802884}
+  m_Layer: 10
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59,7 +76,7 @@ GameObject:
   - component: {fileID: 4168449138121570}
   - component: {fileID: 33120485883081938}
   - component: {fileID: 23864733436079982}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Mohawk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +93,7 @@ GameObject:
   - component: {fileID: 224130788876525454}
   - component: {fileID: 222254262830932752}
   - component: {fileID: 114439050727815144}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +112,7 @@ GameObject:
   - component: {fileID: 114730543102056726}
   - component: {fileID: 114044322953582156}
   - component: {fileID: 114390946118150182}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Healthbar Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +130,7 @@ GameObject:
   - component: {fileID: 33349640921140220}
   - component: {fileID: 65616348610714010}
   - component: {fileID: 23952688874935876}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Visor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,8 +163,22 @@ Transform:
   - {fileID: 4949486711908246}
   - {fileID: 224386099692017244}
   - {fileID: 4168449138121570}
+  - {fileID: 4761492719486822}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4761492719486822
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1186465001717410}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4576143687695906}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4949486711908246
 Transform:
@@ -279,6 +310,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1267355592298342}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54921970617314718
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1267355592298342}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!65 &65616348610714010
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -328,6 +374,86 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
+--- !u!114 &114340828402802884
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1267355592298342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf61be09bff57d9448fa8082e1749425, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _CanFollowPlayer: 1
+  _CanFollowBreadcrumbs: 1
+  _CanFollowAi: 0
+  _CanWander: 1
+  _CanPatrol: 0
+  _CanIgnoreAi: 0
+  _CanWanderAnywhere: 0
+  _CanHover: 0
+  _CanFlee: 0
+  _CanJump: 0
+  _CanLongJump: 0
+  _IsJumping: 0
+  _HasAvoidance: 0
+  _HasEdgeAvoidance: 1
+  _HasVision: 1
+  _HasFrontVision: 0
+  _IsMelee: 1
+  _IsRanged: 0
+  _IsGround: 1
+  _IsAir: 0
+  _IsInvincible: 0
+  followSpeed: 2
+  wanderSpeed: 1
+  patrolSpeed: 0
+  rotationSpeed: 1
+  avoidSpeed: 0.01
+  jumpDistance: 0
+  jumpForce: 0
+  longJumpForce: 0
+  followDistance: 1
+  wanderDistance: 2
+  attackDistance: 0.01
+  visionDistance: 5
+  avoidDistance: 0.01
+  edgeDistance: 0.01
+  otherAiDistance: 0
+  wanderTimeLimit: 2
+  wanderTimeRate: 4
+  hoverHeight: 0
+  hoverForce: 0
+  Health: 0
+  lifeState: 0
+  visionState: 0
+  moveState: 0
+  attackState: 0
+  Player: {fileID: 0}
+  FollowingPlayer: {fileID: 0}
+  Breadcrumb: {fileID: 0}
+  FollowingAi: {fileID: 0}
+  Waypoint: {fileID: 0}
+  Hover: {fileID: 0}
+  Edge: {fileID: 4761492719486822}
+  LongJumpDetector: {fileID: 0}
+  JumpDetector: {fileID: 0}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  breadcrumbLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  waypointLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &114390946118150182
 MonoBehaviour:
   m_ObjectHideFlags: 1

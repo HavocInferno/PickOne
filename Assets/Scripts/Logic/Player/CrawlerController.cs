@@ -11,6 +11,8 @@ public class CrawlerController: NetworkBehaviour
 	public float fireRate = 0.15f;
 	private float lastFire;
 	public float bulletSpeed = 16f;
+    public float movementSpeed = 3.0f;
+    public float rotationSpeed = 150.0f;
 
 	public Text nameTag;
 
@@ -35,8 +37,8 @@ public class CrawlerController: NetworkBehaviour
 			CmdFire();
 		}
 
-		var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
-		var z = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
+		var x = Input.GetAxis("Horizontal") * Time.deltaTime * rotationSpeed;
+		var z = Input.GetAxis("Vertical") * Time.deltaTime * movementSpeed;
 
 		transform.Rotate(0, x, 0);
 		transform.Translate(0, 0, z);
