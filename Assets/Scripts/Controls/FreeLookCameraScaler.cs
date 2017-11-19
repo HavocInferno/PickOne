@@ -10,7 +10,7 @@ public class FreeLookCameraScaler : MonoBehaviour
     [SerializeField]
     private FreeLookCam freeLookCamera;
     [SerializeField]
-    private float sensivity = 0.01f;
+    private float sensivity = 1.0f;
     [SerializeField]
     private float updateSpeed = 0.1f;
     [SerializeField]
