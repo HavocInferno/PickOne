@@ -42,7 +42,7 @@ public class FollowTargetAI : NetworkBehaviour
 			bestTarget = null;
 			closestTargetRange = maxScanRange + 1f;
 			foreach (Transform t in targets) {
-				float dist = (transform.position - t.position).magnitude;
+				float dist = (t.position - transform.position).magnitude;
 				if (dist < maxScanRange) {
 					Vector3 raycastDir = t.position - transform.position;
 					RaycastHit hit;
@@ -50,18 +50,13 @@ public class FollowTargetAI : NetworkBehaviour
 						    transform.position,
 						    raycastDir,
 						    out hit,
-							maxScanRange,
-							mask) 
-						&& hit.collider.CompareTag("Crawler")) 
-					{
-						//Debug.Log("In sight: " + hit.collider.gameObject.name);
-						if (dist < closestTargetRange) {
+						    maxScanRange,
+						    mask)
+					    && hit.collider.CompareTag ("Crawler")
+						&& dist < closestTargetRange) {
 							closestTargetRange = dist;
 							bestTarget = t;
 						}
-					} else {
-						//Debug.Log ("No crawler in sight");
-					}
 				}
 			}
 			if(bestTarget != null) 

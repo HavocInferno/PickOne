@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 224335478406666326}
   - component: {fileID: 222728442483155148}
   - component: {fileID: 114498697928750760}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: Foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 114663312890166264}
   - component: {fileID: 195272145466847816}
   - component: {fileID: 114447058027518790}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 4168449138121570}
   - component: {fileID: 33120485883081938}
   - component: {fileID: 23864733436079982}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Mohawk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 224130788876525454}
   - component: {fileID: 222254262830932752}
   - component: {fileID: 114439050727815144}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 114730543102056726}
   - component: {fileID: 114044322953582156}
   - component: {fileID: 114390946118150182}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: Healthbar Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 33349640921140220}
   - component: {fileID: 65616348610714010}
   - component: {fileID: 23952688874935876}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Visor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -384,7 +384,7 @@ MonoBehaviour:
   maxScanRange: 100
   mask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1792
 --- !u!114 &114498697928750760
 MonoBehaviour:
   m_ObjectHideFlags: 1
