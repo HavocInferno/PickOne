@@ -6,9 +6,6 @@ using UnityEngine;
 public class Masterfollower : NetworkBehaviour {
 
     public Transform followed;
-	// Use this for initialization
-	void Start () {   
-	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -16,7 +13,15 @@ public class Masterfollower : NetworkBehaviour {
         {
             transform.position = followed.position;
             transform.rotation = followed.rotation;
-            this.GetComponent<Renderer>().enabled = false;
+			GetComponent<Renderer>().enabled = false; //temporary, pending a better solution
         }
     }
+
+	//unused
+	/* supposed to ćheck whether a newly "joined"/loaded crawler is a VR master, if so, disable the renderer of the masterfollower object */
+	public void CheckFollowerStatus(CrawlerController cc) {
+		Debug.Log ("Checking masterfollower " + this.gameObject.name + ": " + cc.pName + " is VR Master: " + cc.isVRMasterPlayer.ToString ());
+		if(cc.isVRMasterPlayer)
+			GetComponent<Renderer>().enabled = false;
+	}
 }

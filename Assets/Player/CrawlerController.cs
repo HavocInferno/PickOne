@@ -27,9 +27,8 @@ public class CrawlerController: NetworkBehaviour
 
 	void Update()
 	{
-		if (!isLocalPlayer) {
+		if (!isLocalPlayer)
 			return;
-		}
 
 		if (Input.GetButton("Fire1") && Time.time > lastFire)
 		{
@@ -74,7 +73,6 @@ public class CrawlerController: NetworkBehaviour
 			if(!isVRMasterPlayer)
                 FindObjectOfType<playerlist> ().players.Add (transform);
 		}
-
 	}
 
 	void OnChangeName(string newName) {

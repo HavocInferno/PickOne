@@ -61,6 +61,8 @@ namespace Prototype.NetworkLobby
 
             if (isLocalPlayer)
             {
+				if (VRDevice.isPresent)
+					isVRcapable = true;
                 SetupLocalPlayer();
             }
             else
@@ -173,7 +175,7 @@ namespace Prototype.NetworkLobby
 
 		public void CheckHMDToggle()
 		{
-			if (VRDevice.isPresent) {
+			if (isVRcapable) {
 				vrInfoIcon.SetActive (true);
 				//vrInfoIcon.GetComponentInChildren<Text> ().text = UnityEngine.VR.VRDevice.model;
 				string model = UnityEngine.VR.VRDevice.model != null ?
@@ -246,7 +248,23 @@ namespace Prototype.NetworkLobby
 		public void OnHasHMD(bool newState)
 		{
 			isVRcapable = newState;
-			vrInfoIcon.SetActive(isVRcapable);
+
+			if (isVRcapable) {
+				vrInfoIcon.SetActive (true);
+				//vrInfoIcon.GetComponentInChildren<Text> ().text = UnityEngine.VR.VRDevice.model;
+				string model = UnityEngine.VR.VRDevice.model != null ?
+					UnityEngine.VR.VRDevice.model : "";
+
+				if ( model.IndexOf("Rift") >= 0 ) {
+					vrInfoIcon.GetComponentInChildren<Text> ().text = "Rift";
+				}
+				else {
+					vrInfoIcon.GetComponentInChildren<Text> ().text = "Vive";
+				}
+			} else {
+				vrInfoIcon.SetActive (true);
+				vrInfoIcon.GetComponentInChildren<Text> ().text = "no HMD";
+			}
 		}
 
         //===== UI Handler
