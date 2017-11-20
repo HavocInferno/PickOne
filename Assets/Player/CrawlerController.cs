@@ -23,6 +23,8 @@ public class CrawlerController: NetworkBehaviour
 	[SyncVar]
 	public bool isVRMasterPlayer = false;
 
+	public Vector2 movSpeed = new Vector2(4f,4f);
+
 	void Update()
 	{
 		if (!isLocalPlayer) {
@@ -35,25 +37,27 @@ public class CrawlerController: NetworkBehaviour
 			CmdFire();
 		}
 
-		var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
-		var z = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
+		var hor = Input.GetAxis("Horizontal") * Time.deltaTime * movSpeed.x;
+		var ver = Input.GetAxis("Vertical") * Time.deltaTime * movSpeed.y;
 
-		transform.Rotate(0, x, 0);
-		transform.Translate(0, 0, z);
+		//transform.Rotate(0, x, 0);
+		transform.Translate(hor, 0, ver);
 	}
 
 	public override void OnStartLocalPlayer()
 	{
 		if (isVRMasterPlayer) {
-			FindObjectOfType<CamManager> ().nonVRCamera.SetActive(false);
+            UnityEngine.VR.VRSettings.enabled = true;
+            FindObjectOfType<CamManager> ().nonVRCamera.SetActive(false);
 			FindObjectOfType<CamManager> ().vrCamera.SetActive(true);
 			transform.position = new Vector3 (transform.position.x, transform.position.y + 1f, transform.position.z);
 			pName = pName + " (VR MASTER)";
-		} else {
-			FindObjectOfType<CamManager> ().vrCamera.SetActive(false);
+        } else {
+            UnityEngine.VR.VRSettings.enabled = false;
+            FindObjectOfType<CamManager> ().vrCamera.SetActive(false);
 			FindObjectOfType<CamManager> ().nonVRCamera.SetActive(true);
 			Camera.main.GetComponent<DungeonCam> ().target = this.gameObject;
-		}
+        }
 	}
 
 	void Start() {
@@ -67,7 +71,8 @@ public class CrawlerController: NetworkBehaviour
 
 		if (isServer) {
 			Debug.Log (pName + " is here.");
-			FindObjectOfType<playerlist> ().players.Add (transform);
+			if(!isVRMasterPlayer)
+                FindObjectOfType<playerlist> ().players.Add (transform);
 		}
 
 	}
