@@ -22,13 +22,6 @@ public class FollowTargetAI : NetworkBehaviour
 			return;
 
 		targets = FindObjectOfType<playerlist> ().players;
-		/*targets.Clear ();
-		if (targets.Count == 0) {
-			foreach (CrawlerController cc in FindObjectsOfType<CrawlerController> ()) {
-				if(!cc.isVRMasterPlayer)
-					targets.Add (cc.gameObject.transform);
-			}
-		}*/
 	}
 
 	void FixedUpdate ()
@@ -36,9 +29,16 @@ public class FollowTargetAI : NetworkBehaviour
 		if (!isServer)
 			return;
 
+		//check whether last scan was at least scanrate fraction of a second ago
 		if (Time.time > lastScan) {
 			lastScan = Time.time + scanRate;
 
+			/* reset bestTarget and closestRange to effectively null
+			 * foreach target (i.e. crawler), do:
+			 * check whether the target is in range
+			 * raycast to the target
+			 * if the target is "seen" directly, set it and its range as the "best" found
+			*/
 			bestTarget = null;
 			closestTargetRange = maxScanRange + 1f;
 			foreach (Transform t in targets) {
@@ -59,6 +59,7 @@ public class FollowTargetAI : NetworkBehaviour
 						}
 				}
 			}
+			//if after all the raycasting a most suitable target is found, navigate towards it
 			if(bestTarget != null) 
 				GetComponent<NavMeshAgent> ().destination = bestTarget.localPosition;
 		}

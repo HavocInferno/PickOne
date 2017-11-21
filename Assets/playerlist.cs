@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class playerlist : MonoBehaviour {
 
+	//level-wide container class for miscellanous necessary all-players information/access
+
 	public List<Transform> players;
 
 }
