@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -408,15 +408,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11447690, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 2}
       propertyPath: m_Color.g
-      value: 0.011678212
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11447690, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 2}
       propertyPath: m_Color.b
-      value: 0.011678212
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11447690, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 2}
       propertyPath: m_Color.r
-      value: 0.5294118
+      value: 0.6397059
       objectReference: {fileID: 0}
     - target: {fileID: 11402578, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 2}
       propertyPath: m_Text
@@ -446,11 +446,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22401550, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 22432700, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 22432700, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 2}
       propertyPath: m_SizeDelta.y
@@ -458,11 +458,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22432700, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 678.34863
+      value: 918.5
       objectReference: {fileID: 0}
     - target: {fileID: 22432700, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 1356.6973
+      value: 1837
       objectReference: {fileID: 0}
     - target: {fileID: 22432700, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 2}
       propertyPath: m_AnchorMin.y
