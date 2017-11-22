@@ -5,15 +5,28 @@ using UnityEngine;
 public class Sword : MonoBehaviour {
 
     public float SwingSpeed = 3.0f;
-    
+    public float LifeTime = 1.0f;
+
+    private void Start()
+    {
+        Destroy(gameObject, LifeTime);
+    }
+
     private void Update()
     {
+        var prevRot = transform.localRotation;
+
         // Rotate the sword
-        gameObject.transform.rotation =
+        transform.localRotation =
             Quaternion.LerpUnclamped(
-                gameObject.transform.rotation,
-                Quaternion.Euler(180f, 180f, 90f),
+                transform.localRotation,
+                Quaternion.Euler(0f, -175f, -45f),  // This is not 180 to prevent rotating behind the attacker
                 SwingSpeed * Time.deltaTime);
+
+        // If rotation is finished, disable collider to prevent further damage
+        if (transform.localRotation == prevRot
+            && GetComponentInChildren<Collider>().enabled)
+            GetComponentInChildren<Collider>().enabled = false;
     }
 
     void OnCollisionEnter(Collision collision)

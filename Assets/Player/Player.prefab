@@ -369,7 +369,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1508484646266804, guid: 7a0aa34461054fd4081fb5f06250b983,
     type: 2}
   bulletSpawn: {fileID: 4735429990382174}
-  fireRate: 0.1
+  fireRate: 0.5
   bulletSpeed: 16
   swordAttackPrefab: {fileID: 1994109118535140, guid: d08b11abff4b7f44785ec296692f2adb,
     type: 2}
@@ -377,6 +377,7 @@ MonoBehaviour:
   pName: player
   playerColor: {r: 0, g: 0, b: 1, a: 1}
   isVRMasterPlayer: 0
+  movSpeed: {x: 4, y: 4}
 --- !u!114 &114329875840092628
 MonoBehaviour:
   m_ObjectHideFlags: 1

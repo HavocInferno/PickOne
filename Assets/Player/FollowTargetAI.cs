@@ -15,7 +15,12 @@ public class FollowTargetAI : NetworkBehaviour
 	private float lastScan;
 	public float maxScanRange;
 
-	public LayerMask mask;
+    public float attackRange = 0.75f;
+    public float attackRate = 1.0f;
+    private float lastAttackTime;
+    public GameObject SwordAttack;
+
+    public LayerMask mask;
 
 	void Start() {
 		if (!isServer)
@@ -41,26 +46,41 @@ public class FollowTargetAI : NetworkBehaviour
 			*/
 			bestTarget = null;
 			closestTargetRange = maxScanRange + 1f;
-			foreach (Transform t in targets) {
+
+            foreach (Transform t in targets)
+            {
 				float dist = (t.position - transform.position).magnitude;
-				if (dist < maxScanRange) {
+
+                if (dist < maxScanRange)
+                {
 					Vector3 raycastDir = t.position - transform.position;
 					RaycastHit hit;
-					if (Physics.Raycast (
+
+                    if (Physics.Raycast (
 						    transform.position,
 						    raycastDir,
 						    out hit,
 						    maxScanRange,
 						    mask)
 					    && hit.collider.CompareTag ("Crawler")
-						&& dist < closestTargetRange) {
+						&& dist < closestTargetRange)
+                    {
 							closestTargetRange = dist;
 							bestTarget = t;
-						}
+					}
 				}
 			}
-			//if after all the raycasting a most suitable target is found, navigate towards it
-			if(bestTarget != null) 
+
+            if (closestTargetRange < attackRange
+                && Time.time > lastAttackTime)
+            {
+                lastAttackTime = Time.time + attackRate;
+
+                Instantiate(SwordAttack, transform);
+            }
+
+            //if after all the raycasting a most suitable target is found, navigate towards it
+            if (bestTarget != null) 
 				GetComponent<NavMeshAgent> ().destination = bestTarget.localPosition;
 		}
     }

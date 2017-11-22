@@ -33,9 +33,13 @@ public class CrawlerController: NetworkBehaviour
 			return;
 
 		//weapon firing. dumb and unoptimized.
-		if (Input.GetButton("Fire1") && Time.time > lastFire)
+		if (Input.GetButtonDown("Fire1") && Time.time > lastFire)
 		{
 			lastFire = Time.time + fireRate;
+
+            if (GetComponentInChildren<Sword>() != null)
+                Destroy(GetComponentInChildren<Sword>().gameObject);
+
 			CmdAttack();
 		}
 
@@ -127,7 +131,6 @@ public class CrawlerController: NetworkBehaviour
 
         NetworkServer.Spawn(sword);
 
-        // Destroy sword after 1 sec
-        Destroy(sword, 1f);
+        // Sword destroys itself
     }
 }
