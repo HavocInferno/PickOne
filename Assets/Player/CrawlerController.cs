@@ -25,37 +25,53 @@ public class CrawlerController: NetworkBehaviour
 	[SyncVar]
 	public bool isVRMasterPlayer = false;
 
+	public Vector2 movSpeed = new Vector2(4f,4f);
+
 	void Update()
 	{
-		if (!isLocalPlayer) {
+		if (!isLocalPlayer)
 			return;
-		}
 
+		//weapon firing. dumb and unoptimized.
 		if (Input.GetButton("Fire1") && Time.time > lastFire)
 		{
 			lastFire = Time.time + fireRate;
 			CmdAttack();
 		}
 
-		var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
-		var z = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
-
-		transform.Rotate(0, x, 0);
-		transform.Translate(0, 0, z);
+		//player movement..hor is forward/backward, ver is strafing
+		var hor = Input.GetAxis("Horizontal") * Time.deltaTime * movSpeed.x;
+		var ver = Input.GetAxis("Vertical") * Time.deltaTime * movSpeed.y;
+		transform.Translate(hor, 0, ver);
 	}
 
+	//is called when the local client's scene starts
 	public override void OnStartLocalPlayer()
 	{
+		/*if this is the VR Master, do:
+		 * enable VR if not done already
+		 * disable the default camera
+		 * enable the OpenVR cam rig
+		 * move transform up a bit (to compensate for the scale increase in Start()) [this is a temporary visualisation, to be removed once a proper Master representation is done]
+		 * append (VR MASTER) to the player name */
 		if (isVRMasterPlayer) {
-			FindObjectOfType<CamManager> ().nonVRCamera.SetActive(false);
+            UnityEngine.VR.VRSettings.enabled = true;
+            FindObjectOfType<CamManager> ().nonVRCamera.SetActive(false);
 			FindObjectOfType<CamManager> ().vrCamera.SetActive(true);
 			transform.position = new Vector3 (transform.position.x, transform.position.y + 1f, transform.position.z);
 			pName = pName + " (VR MASTER)";
-		} else {
-			FindObjectOfType<CamManager> ().vrCamera.SetActive(false);
+        } 
+		/*if not, do:
+		 * disable VR if not done already
+		 * enable the default camera
+		 * disable the OpenVR cam rig
+		 * set this gameObject as the main cam target */
+		else {
+            UnityEngine.VR.VRSettings.enabled = false;
+            FindObjectOfType<CamManager> ().vrCamera.SetActive(false);
 			FindObjectOfType<CamManager> ().nonVRCamera.SetActive(true);
 			Camera.main.GetComponent<DungeonCam> ().target = this.gameObject;
-		}
+        }
 	}
 
 	void Start() {
@@ -63,15 +79,17 @@ public class CrawlerController: NetworkBehaviour
 		GetComponent<MeshRenderer>().material.color = playerColor;
 		nameTag.text = pName;
 
+		//scale up the player object if this is the VR master [this is a temporary visualisation, to be removed once a proper Master representation is done]
 		if (isVRMasterPlayer) {
 			transform.localScale *= 2f;
 		}
 
+		//on the server, add yourself to the level-wide player list
 		if (isServer) {
 			Debug.Log (pName + " is here.");
-			FindObjectOfType<playerlist> ().players.Add (transform);
+			if(!isVRMasterPlayer)
+                FindObjectOfType<playerlist> ().players.Add (transform);
 		}
-
 	}
 
 	void OnChangeName(string newName) {

@@ -61,6 +61,9 @@ namespace Prototype.NetworkLobby
 
             if (isLocalPlayer)
             {
+				//check if a VR HMD is connected, if so set syncvar
+				if (VRDevice.isPresent)
+					isVRcapable = true;
                 SetupLocalPlayer();
             }
             else
@@ -101,6 +104,7 @@ namespace Prototype.NetworkLobby
 
             ChangeReadyButtonColor(NotReadyColor);
 
+			//VR Master and HMD capability checks
 			CheckMasterToggle ();
 			CheckHMDToggle ();
 
@@ -116,6 +120,7 @@ namespace Prototype.NetworkLobby
             remoteIcone.gameObject.SetActive(false);
             localIcone.gameObject.SetActive(true);
 
+			//host kick-ability, VR Master and HMD capability checks
             CheckRemoveButton();
 			CheckMasterToggle ();
 			CheckHMDToggle ();
@@ -163,7 +168,7 @@ namespace Prototype.NetworkLobby
             removePlayerButton.interactable = localPlayerCount > 1;
         }
 
-		//This enable/disable the remove button depending on if that is the only local player or not
+		//This enable/disable the vr master selection buttons for the host
 		public void CheckMasterToggle()
 		{
 			if (isServer) {
@@ -171,11 +176,14 @@ namespace Prototype.NetworkLobby
 			}
 		}
 
+		/* check whether the client in question is vr capable, 
+		 * if so check the model and display whether it is a Rift or a Vive
+		 * otherwise display "no HMD"
+		*/
 		public void CheckHMDToggle()
 		{
-			if (VRDevice.isPresent) {
+			if (isVRcapable) {
 				vrInfoIcon.SetActive (true);
-				//vrInfoIcon.GetComponentInChildren<Text> ().text = UnityEngine.VR.VRDevice.model;
 				string model = UnityEngine.VR.VRDevice.model != null ?
 					UnityEngine.VR.VRDevice.model : "";
 
@@ -236,6 +244,7 @@ namespace Prototype.NetworkLobby
             colorButton.GetComponent<Image>().color = newColor;
         }
 
+		//if the isVRMasterPlayer syncvar is changed, enable the respective icon on that lobbyplayer's UI piece
 		public void OnVRMaster(bool newState)
 		{
 			isVRMasterPlayer = newState;
@@ -243,10 +252,29 @@ namespace Prototype.NetworkLobby
 			vrMasterIcon.SetActive (newState);
 		}
 
+		/* check whether the client in question is vr capable, 
+		 * if so check the model and display whether it is a Rift or a Vive
+		 * otherwise display "no HMD"
+		*/
 		public void OnHasHMD(bool newState)
 		{
 			isVRcapable = newState;
-			vrInfoIcon.SetActive(isVRcapable);
+
+			if (isVRcapable) {
+				vrInfoIcon.SetActive (true);
+				string model = UnityEngine.VR.VRDevice.model != null ?
+					UnityEngine.VR.VRDevice.model : "";
+
+				if ( model.IndexOf("Rift") >= 0 ) {
+					vrInfoIcon.GetComponentInChildren<Text> ().text = "Rift";
+				}
+				else {
+					vrInfoIcon.GetComponentInChildren<Text> ().text = "Vive";
+				}
+			} else {
+				vrInfoIcon.SetActive (true);
+				vrInfoIcon.GetComponentInChildren<Text> ().text = "no HMD";
+			}
 		}
 
         //===== UI Handler
@@ -258,6 +286,10 @@ namespace Prototype.NetworkLobby
             CmdColorChange();
         }
 
+		/* if one of the vr master toggles is clicked, 
+		 * set all toggles to not-checked, 
+		 * then set the clicked toggle to checked 
+		 * and update the isVRMasterPlayer property of each player accordingly */
 		public void OnVRMasterClick(LobbyPlayer target)
 		{
 			if (isServer) {

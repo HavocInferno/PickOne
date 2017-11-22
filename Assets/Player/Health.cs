@@ -25,6 +25,15 @@ public class Health : NetworkBehaviour {
 		}
 	}
 
+	/* dmg handling, supposed to be entirely server-side for core data
+	 * if the health of the unit associated with this script reaches 0, 
+	 * it is either destroyed, or
+	 * respawned at any random spawn point of the available ones
+	 * if a death effect is specified for this unit, network spawn it at the hitpoint and facing the hitdirection [note, this can be done without network load, 
+	 * 																												but requires sort of duplicate code to be executed 
+	 * 																												once on the host and on the client (since for some reason 
+	 * 																												Unity doesnt wanna consider a host a client in this specific situation)]
+	*/
 	public void TakeHit(int amount, Vector3 hitPoint, Vector3 hitDirection)
 	{
 		if (!isServer)
@@ -36,10 +45,9 @@ public class Health : NetworkBehaviour {
 			if (destroyOnDeath) {
 				Destroy (gameObject);
 			} else {
-				// existing Respawn code      
 				currentHealth = maxHealth;
 
-				// called on the Server, but invoked on the Clients
+				// Rpc ==> called on the Server, but invoked on the Clients
 				RpcRespawn ();
 			}
 
@@ -57,6 +65,7 @@ public class Health : NetworkBehaviour {
 		}
 	}
 
+	//invoked whenever the currenthealth syncvar is changed, so the UI healthbar is appropriately resized
 	void OnChangeHealth (int health)
 	{
 		healthBar.sizeDelta = new Vector2(health, healthBar.sizeDelta.y);
