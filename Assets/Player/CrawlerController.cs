@@ -6,11 +6,13 @@ using UnityEngine.UI;
 
 public class CrawlerController: NetworkBehaviour
 {
-	public GameObject bulletPrefab;
-	public Transform bulletSpawn;
-	public float fireRate = 0.15f;
+    public GameObject bulletPrefab;
+    public Transform bulletSpawn;
+    public float fireRate = 0.15f;
 	private float lastFire;
-	public float bulletSpeed = 16f;
+    public float bulletSpeed = 16f;
+
+    public GameObject swordAttackPrefab;
 
 	public Text nameTag;
 
@@ -32,7 +34,7 @@ public class CrawlerController: NetworkBehaviour
 		if (Input.GetButton("Fire1") && Time.time > lastFire)
 		{
 			lastFire = Time.time + fireRate;
-			CmdFire();
+			CmdAttack();
 		}
 
 		var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
@@ -95,4 +97,19 @@ public class CrawlerController: NetworkBehaviour
 		// Destroy the bullet after 2 seconds
 		Destroy(bullet, 2.0f);
 	}
+
+    [Command]
+    void CmdAttack()
+    {
+        // Instantiate the sword attack prefab
+        var sword = Instantiate(
+            swordAttackPrefab, 
+            gameObject.transform
+            );
+
+        NetworkServer.Spawn(sword);
+
+        // Destroy sword after 1 sec
+        Destroy(sword, 1f);
+    }
 }
