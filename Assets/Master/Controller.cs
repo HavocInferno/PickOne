@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class Controller : MonoBehaviour {
 
@@ -29,6 +30,16 @@ public class Controller : MonoBehaviour {
     public float highlightSpeed = 10f;
     private ushort hapticforce = 3999;
 
+	//buff test
+	public float maxdistance = 10;
+	public Transform origin; 
+	public Transform[] targets;
+	public Texture2D tex;
+	public BezierCurve bez;
+	public int currentTarget = -1;
+	public float rayspeed = 30; 
+
+
     void Start () {
         trackedObject = GetComponent<SteamVR_TrackedObject>();
         UI.SetActive(false);
@@ -44,6 +55,8 @@ public class Controller : MonoBehaviour {
             texts[i].text = items[i];
         }
         currentColor = texts[0].color;
+		bez.Draw = false;
+		bez.origin = origin;
     }
     private int getCurrentItemIndex()
     {
@@ -99,5 +112,40 @@ public class Controller : MonoBehaviour {
             device.TriggerHapticPulse(2000);
             Debug.Log("Pew!");
         }
+
+
+
+		if (currentItem == 0 ) {
+			if(device.GetPress(SteamVR_Controller.ButtonMask.Trigger)){
+				int closest = -1;
+				float closestdistance = maxdistance;
+
+				for (int i = 0; i < targets.Length; i++) {
+					if (Vector3.Cross (origin.forward, targets [i].position - origin.position).magnitude < closestdistance && Vector3.Dot(origin.forward, targets [i].position - origin.position) > 0.1) {
+						closestdistance = Vector3.Cross (origin.forward, targets [i].position - origin.position).magnitude;
+						closest = i;
+					}
+				}
+				if (closest != -1) {
+					if (bez.Draw == false)
+						bez.Draw = true;
+					bez.destination = Vector3.Lerp(bez.destination,targets [closest].position,Time.deltaTime*rayspeed);
+					if (closest == currentTarget)
+						device.TriggerHapticPulse ((ushort)(1000 * Mathf.Pow(Vector3.Cross (origin.forward, targets [closest].position - origin.position).magnitude / maxdistance,2)));
+					else {
+						device.TriggerHapticPulse (hapticforce);
+						currentTarget = closest;
+					}
+				}
+				else
+					bez.Draw = false;
+
+			}
+			if (device.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
+				bez.Draw = true;
+			if (device.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
+				bez.Draw = false;
+				
+		}
 	}
 }
