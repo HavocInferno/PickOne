@@ -10,12 +10,16 @@ public class DungeonCam : MonoBehaviour
 
 	protected Vector3 localRot;
 	private Vector3 preUnlockLocalRot;
-	protected float camDist = 10f;
+	public float camDistIntended = 10f;
+	private float camDist = 10f;
+	private bool camObstructed = false;
 
 	public float mouseSense = 4f;
 	public float scrollSense = 2f;
 	public float orbitDampening = 10f;
-	public float scrollDampening = 6f;
+	public float scrollDampeningIntended = 6f;
+	public float scrollDampeningObstructed = 40f;
+	private float scrollDampening = 6f;
 
 	public Vector2 verticalRotationClamp = new Vector2(5f, 85f);
 	public Vector2 scrollDistanceClamp = new Vector2(1.5f, 30f);
@@ -23,12 +27,17 @@ public class DungeonCam : MonoBehaviour
 	public bool camDisabled = false;
 	private bool lockToTarget = true;
 
+	public LayerMask mask;
+
 
 	void Start() {
 		tCamera = transform;
 		tParent = transform.parent;
 
 		tCamera.localPosition = offset;
+
+		scrollDampening = scrollDampeningIntended;
+		camDist = camDistIntended;
 	}
 
 	void LateUpdate() {
@@ -65,16 +74,34 @@ public class DungeonCam : MonoBehaviour
 				}
 			}
 
+			Vector3 raycastDir = transform.position - target.transform.position;
+			RaycastHit hit;
+			if (Physics.Raycast (
+				    target.transform.position,
+				    raycastDir,
+				    out hit,
+				    camDistIntended,
+				    mask)) {
+				camDist = hit.distance;
+				camObstructed = true;
+				scrollDampening = scrollDampeningObstructed;
+				Debug.Log ("Obstruction found: " + hit.collider.gameObject.name);// + "; new dist is " + camDist + "/" + camDistIntended);
+			} else {
+				camObstructed = false;
+				camDist = camDistIntended;
+				scrollDampening = scrollDampeningIntended;
+			}
+
 			//scrolling (zoom) based on scroll wheel
 			if(Input.GetAxis("Mouse ScrollWheel") != 0f) {
-				float scrollAmount = Input.GetAxis ("Mouse Scrollwheel") * scrollSense;
+				float scrollAmount = Input.GetAxis ("Mouse ScrollWheel") * scrollSense;
 
 				//faster zoom at longer distance instead of linear speed
-				scrollAmount *= (camDist * 0.3f);
+				scrollAmount *= (camDistIntended * 0.3f);
 
-				camDist += scrollAmount * -1f;
+				camDistIntended += scrollAmount * -1f;
 
-				camDist = Mathf.Clamp (camDist, scrollDistanceClamp.x, scrollDistanceClamp.y);
+				camDistIntended = Mathf.Clamp (camDistIntended, scrollDistanceClamp.x, scrollDistanceClamp.y);
 			}
 		}
 
@@ -82,7 +109,8 @@ public class DungeonCam : MonoBehaviour
 		Quaternion QT = Quaternion.Euler(localRot.y, localRot.x, 0f);
 		tParent.rotation = Quaternion.Lerp (tParent.rotation, QT, Time.deltaTime * orbitDampening);
 
-		if (Mathf.Abs (tCamera.localPosition.z - (camDist * -1f)) < 0.0001f) {
+		Debug.Log ("Cam lpos is off by " + Mathf.Abs (tCamera.localPosition.z - (camDist * -1f)));
+		if (Mathf.Abs (tCamera.localPosition.z - (camDist * -1f)) > 0.0001f) {
 			tCamera.localPosition = new Vector3 (
 											0f, 
 											0f, 
