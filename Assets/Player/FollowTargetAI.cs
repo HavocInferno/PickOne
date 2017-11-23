@@ -76,6 +76,7 @@ public class FollowTargetAI : NetworkBehaviour
             {
                 lastAttackTime = Time.time + attackRate;
 
+				//DONT INSTANTIATE; FIX A SWORD TO ENEMY, THEN PLAYSWORDANIM
 				var sword = (GameObject)Instantiate(SwordAttack, transform);
 				// Sword is destroyed
 				Destroy(sword, SwordAttack.GetComponent<Sword>().LifeTime);

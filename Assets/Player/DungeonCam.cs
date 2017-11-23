@@ -85,7 +85,7 @@ public class DungeonCam : MonoBehaviour
 				camDist = hit.distance;
 				camObstructed = true;
 				scrollDampening = scrollDampeningObstructed;
-				Debug.Log ("Obstruction found: " + hit.collider.gameObject.name);// + "; new dist is " + camDist + "/" + camDistIntended);
+				//Debug.Log ("Obstruction found: " + hit.collider.gameObject.name);// + "; new dist is " + camDist + "/" + camDistIntended);
 			} else {
 				camObstructed = false;
 				camDist = camDistIntended;

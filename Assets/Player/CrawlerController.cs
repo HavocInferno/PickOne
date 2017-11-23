@@ -12,7 +12,7 @@ public class CrawlerController: NetworkBehaviour
 	private float lastFire;
     public float bulletSpeed = 16f;
 
-    public GameObject swordAttackPrefab;
+    public Sword sword;
 
 	public Text nameTag;
 
@@ -24,6 +24,13 @@ public class CrawlerController: NetworkBehaviour
 
 	[SyncVar]
 	public bool isVRMasterPlayer = false;
+
+	/*public enum ActionState {
+		NONE,
+		ATTACK
+	}
+	[SyncVar(hook = "OnChangeActionState")]
+	public ActionState actionState = ActionState.NONE;*/
 
 	public Vector2 movSpeed = new Vector2(4f,4f);
 
@@ -37,8 +44,8 @@ public class CrawlerController: NetworkBehaviour
 		{
 			lastFire = Time.time + fireRate;
 
-            if (GetComponentInChildren<Sword>() != null)
-                Destroy(GetComponentInChildren<Sword>().gameObject);
+            //if (GetComponentInChildren<Sword>() != null)
+              //  Destroy(GetComponentInChildren<Sword>().gameObject);
 
 			CmdAttack();
 		}
@@ -120,20 +127,28 @@ public class CrawlerController: NetworkBehaviour
 		Destroy(bullet, 2.0f);
 	}
 
-	// This [Command] code is called on the Client …
-	// … but it is run on the Server!
+
     [Command]
     void CmdAttack()
     {
-        // Instantiate the sword attack prefab
-		var sword = (GameObject)Instantiate(
-            swordAttackPrefab, 
-            gameObject.transform
-            );
-
-        NetworkServer.Spawn(sword);
-
-        // Sword is destroyed
-		Destroy(sword, swordAttackPrefab.GetComponent<Sword>().LifeTime);
+		RpcAttack ();
     }
+
+	[ClientRpc]
+	void RpcAttack() {
+		sword.playSwordAnim ();
+	}
+
+	/*void OnChangeActionState(ActionState newState) {
+		actionState = newState;
+		switch (newState) {
+		case ActionState.NONE:
+			break;
+		case ActionState.ATTACK:
+			sword.playSwordAnim (this);
+			break;
+		default:
+			break;
+		}
+	}*/
 }
