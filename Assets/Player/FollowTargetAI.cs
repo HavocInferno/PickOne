@@ -18,7 +18,7 @@ public class FollowTargetAI : NetworkBehaviour
     public float attackRange = 0.75f;
     public float attackRate = 1.0f;
     private float lastAttackTime;
-    public GameObject SwordAttack;
+	public Sword sword;
 
     public LayerMask mask;
 
@@ -77,9 +77,7 @@ public class FollowTargetAI : NetworkBehaviour
                 lastAttackTime = Time.time + attackRate;
 
 				//DONT INSTANTIATE; FIX A SWORD TO ENEMY, THEN PLAYSWORDANIM
-				var sword = (GameObject)Instantiate(SwordAttack, transform);
-				// Sword is destroyed
-				Destroy(sword, SwordAttack.GetComponent<Sword>().LifeTime);
+				RpcAttack();
             }
 
             //if after all the raycasting a most suitable target is found, navigate towards it
@@ -87,4 +85,9 @@ public class FollowTargetAI : NetworkBehaviour
 				GetComponent<NavMeshAgent> ().destination = bestTarget.localPosition;
 		}
     }
+
+	[ClientRpc]
+	void RpcAttack() {
+		sword.playSwordAnim ();
+	}
 }

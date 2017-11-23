@@ -29,9 +29,9 @@ public class Sword : MonoBehaviour {
 
 			// If rotation is finished, disable collider to prevent further damage
 			//ISSUE: inaccuracy of floats will lead to false results. also: we have the lifetime, why even check the rotation?
-			if (transform.localRotation == prevRot && GetComponentInChildren<Collider> ().enabled) {
+			/*if (transform.localRotation == prevRot && GetComponentInChildren<Collider> ().enabled) {
 				GetComponentInChildren<Collider> ().enabled = false;
-			}
+			}*/
 		}
     }
 
@@ -54,10 +54,13 @@ public class Sword : MonoBehaviour {
 		animActive = true;
 		StartCoroutine (AtkTimer());
 		GetComponentInChildren<Collider> ().enabled = true;
+		GetComponentInChildren<MeshRenderer> ().enabled = true;
 	}
 
 	IEnumerator AtkTimer() {
 		yield return new WaitForSeconds (LifeTime);
+		GetComponentInChildren<Collider> ().enabled = false;
+		GetComponentInChildren<MeshRenderer> ().enabled = false;
 		animActive = false;
 	}
 }
