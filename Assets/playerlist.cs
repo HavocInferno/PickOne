@@ -8,4 +8,6 @@ public class playerlist : MonoBehaviour {
 
 	public List<Transform> players;
 
+	public List<Transform> enemies;
+
 }

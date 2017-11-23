@@ -27,6 +27,10 @@ public class FollowTargetAI : NetworkBehaviour
 			return;
 
 		targets = FindObjectOfType<playerlist> ().players;
+
+		//on the server, add yourself to the level-wide enemies list
+		Debug.Log (gameObject.name + " is here.");
+		FindObjectOfType<playerlist> ().enemies.Add (transform);
 	}
 
 	void FixedUpdate ()
