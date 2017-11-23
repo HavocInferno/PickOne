@@ -9,7 +9,7 @@ public class Sword : MonoBehaviour {
 
     private void Start()
     {
-        Destroy(gameObject, LifeTime);
+		
     }
 
     private void Update()
@@ -24,6 +24,7 @@ public class Sword : MonoBehaviour {
                 SwingSpeed * Time.deltaTime);
 
         // If rotation is finished, disable collider to prevent further damage
+		//ISSUE: inaccuracy of floats will lead to false results. also: we have the lifetime, why even check the rotation?
         if (transform.localRotation == prevRot
             && GetComponentInChildren<Collider>().enabled)
             GetComponentInChildren<Collider>().enabled = false;
@@ -31,7 +32,7 @@ public class Sword : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
-        // Check for friendly fire
+        // Check for friendly fire 
         if (collision.collider.tag == gameObject.transform.parent.tag)
             return;
 
@@ -39,7 +40,7 @@ public class Sword : MonoBehaviour {
         var health = hit.GetComponent<Health>();
         if (health != null)
         {
-            health.TakeHit(30, this.transform.position, this.transform.forward);//Vector3.Normalize(hit.transform.position - this.transform.position));
+            health.TakeHit(30, this.transform.position, this.transform.forward);
         }
     }
 }

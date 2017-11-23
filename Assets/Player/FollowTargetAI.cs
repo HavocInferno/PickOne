@@ -76,7 +76,9 @@ public class FollowTargetAI : NetworkBehaviour
             {
                 lastAttackTime = Time.time + attackRate;
 
-                Instantiate(SwordAttack, transform);
+				var sword = (GameObject)Instantiate(SwordAttack, transform);
+				// Sword is destroyed
+				Destroy(sword, SwordAttack.GetComponent<Sword>().LifeTime);
             }
 
             //if after all the raycasting a most suitable target is found, navigate towards it

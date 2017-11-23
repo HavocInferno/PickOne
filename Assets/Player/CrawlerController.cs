@@ -120,17 +120,20 @@ public class CrawlerController: NetworkBehaviour
 		Destroy(bullet, 2.0f);
 	}
 
+	// This [Command] code is called on the Client …
+	// … but it is run on the Server!
     [Command]
     void CmdAttack()
     {
         // Instantiate the sword attack prefab
-        var sword = Instantiate(
+		var sword = (GameObject)Instantiate(
             swordAttackPrefab, 
             gameObject.transform
             );
 
         NetworkServer.Spawn(sword);
 
-        // Sword destroys itself
+        // Sword is destroyed
+		Destroy(sword, swordAttackPrefab.GetComponent<Sword>().LifeTime);
     }
 }

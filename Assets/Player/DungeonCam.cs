@@ -109,7 +109,7 @@ public class DungeonCam : MonoBehaviour
 		Quaternion QT = Quaternion.Euler(localRot.y, localRot.x, 0f);
 		tParent.rotation = Quaternion.Lerp (tParent.rotation, QT, Time.deltaTime * orbitDampening);
 
-		Debug.Log ("Cam lpos is off by " + Mathf.Abs (tCamera.localPosition.z - (camDist * -1f)));
+		//Debug.Log ("Cam lpos is off by " + Mathf.Abs (tCamera.localPosition.z - (camDist * -1f)));
 		if (Mathf.Abs (tCamera.localPosition.z - (camDist * -1f)) > 0.0001f) {
 			tCamera.localPosition = new Vector3 (
 											0f, 
