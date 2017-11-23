@@ -12,7 +12,6 @@ public class DungeonCamera : MonoBehaviour
 	private Vector3 preUnlockLocalRot;
 	public float distanceIntended = 10f;
 	private float distance = 10f;
-	private bool obstructed = false;
 
 	public float mouseSense = 4f;
 	public float scrollSense = 2f;
@@ -85,11 +84,8 @@ public class DungeonCamera : MonoBehaviour
 				    distanceIntended,
 				    mask)) {
 				distance = hit.distance;
-				obstructed = true;
 				scrollDampening = scrollDampeningObstructed;
-				//Debug.Log ("Obstruction found: " + hit.collider.gameObject.name);// + "; new dist is " + camDist + "/" + camDistIntended);
 			} else {
-				obstructed = false;
 				distance = distanceIntended;
 				scrollDampening = scrollDampeningIntended;
 			}

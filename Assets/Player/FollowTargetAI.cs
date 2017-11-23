@@ -26,8 +26,12 @@ public class FollowTargetAI : NetworkBehaviour
     {
 		if (!isServer)
 			return;
-
+        
 		targets = FindObjectOfType<PlayersManager>().players;
+
+		//on the server, add yourself to the level-wide enemies list
+		Debug.Log (gameObject.name + " is here.");
+		FindObjectOfType<PlayersManager>().enemies.Add(transform);
 	}
 
 	void FixedUpdate ()
