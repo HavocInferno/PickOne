@@ -6,11 +6,13 @@ using UnityEngine.UI;
 
 public class CrawlerController: NetworkBehaviour
 {
-	public GameObject bulletPrefab;
-	public Transform bulletSpawn;
-	public float fireRate = 0.15f;
+    public GameObject bulletPrefab;
+    public Transform bulletSpawn;
+    public float fireRate = 0.15f;
 	private float lastFire;
-	public float bulletSpeed = 16f;
+    public float bulletSpeed = 16f;
+
+    public GameObject swordAttackPrefab;
 
 	public Text nameTag;
 
@@ -31,10 +33,14 @@ public class CrawlerController: NetworkBehaviour
 			return;
 
 		//weapon firing. dumb and unoptimized.
-		if (Input.GetButton("Fire1") && Time.time > lastFire)
+		if (Input.GetButtonDown("Fire1") && Time.time > lastFire)
 		{
 			lastFire = Time.time + fireRate;
-			CmdFire();
+
+            if (GetComponentInChildren<Sword>() != null)
+                Destroy(GetComponentInChildren<Sword>().gameObject);
+
+			CmdAttack();
 		}
 
 		//player movement..hor is forward/backward, ver is strafing
@@ -113,4 +119,18 @@ public class CrawlerController: NetworkBehaviour
 		// Destroy the bullet after 2 seconds
 		Destroy(bullet, 2.0f);
 	}
+
+    [Command]
+    void CmdAttack()
+    {
+        // Instantiate the sword attack prefab
+        var sword = Instantiate(
+            swordAttackPrefab, 
+            gameObject.transform
+            );
+
+        NetworkServer.Spawn(sword);
+
+        // Sword destroys itself
+    }
 }
