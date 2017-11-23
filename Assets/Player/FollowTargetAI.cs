@@ -22,11 +22,12 @@ public class FollowTargetAI : NetworkBehaviour
 
     public LayerMask mask;
 
-	void Start() {
+	void Start()
+    {
 		if (!isServer)
 			return;
 
-		targets = FindObjectOfType<playerlist> ().players;
+		targets = FindObjectOfType<PlayersManager>().players;
 	}
 
 	void FixedUpdate ()
@@ -87,7 +88,8 @@ public class FollowTargetAI : NetworkBehaviour
     }
 
 	[ClientRpc]
-	void RpcAttack() {
-		sword.playSwordAnim ();
+	void RpcAttack()
+    {
+		sword.PlayAnimation();
 	}
 }

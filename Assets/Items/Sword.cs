@@ -49,7 +49,8 @@ public class Sword : MonoBehaviour {
         }
     }
 
-	public void playSwordAnim() {
+	public void PlayAnimation()
+    {
 		transform.localRotation = defaultRot;
 		animActive = true;
 		StartCoroutine (AtkTimer());
@@ -57,7 +58,8 @@ public class Sword : MonoBehaviour {
 		GetComponentInChildren<MeshRenderer> ().enabled = true;
 	}
 
-	IEnumerator AtkTimer() {
+	IEnumerator AtkTimer()
+    {
 		yield return new WaitForSeconds (LifeTime);
 		GetComponentInChildren<Collider> ().enabled = false;
 		GetComponentInChildren<MeshRenderer> ().enabled = false;

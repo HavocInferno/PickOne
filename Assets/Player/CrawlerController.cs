@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class CrawlerController: NetworkBehaviour
+public class CrawlerController : NetworkBehaviour
 {
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
@@ -25,13 +23,6 @@ public class CrawlerController: NetworkBehaviour
 	[SyncVar]
 	public bool isVRMasterPlayer = false;
 
-	/*public enum ActionState {
-		NONE,
-		ATTACK
-	}
-	[SyncVar(hook = "OnChangeActionState")]
-	public ActionState actionState = ActionState.NONE;*/
-
 	public Vector2 movSpeed = new Vector2(4f,4f);
 
 	void Update()
@@ -43,10 +34,6 @@ public class CrawlerController: NetworkBehaviour
 		if (Input.GetButtonDown("Fire1") && Time.time > lastFire)
 		{
 			lastFire = Time.time + fireRate;
-
-            //if (GetComponentInChildren<Sword>() != null)
-              //  Destroy(GetComponentInChildren<Sword>().gameObject);
-
 			CmdAttack();
 		}
 
@@ -65,11 +52,12 @@ public class CrawlerController: NetworkBehaviour
 		 * enable the OpenVR cam rig
 		 * move transform up a bit (to compensate for the scale increase in Start()) [this is a temporary visualisation, to be removed once a proper Master representation is done]
 		 * append (VR MASTER) to the player name */
-		if (isVRMasterPlayer) {
+		if (isVRMasterPlayer)
+        {
             UnityEngine.VR.VRSettings.enabled = true;
-            FindObjectOfType<CamManager> ().nonVRCamera.SetActive(false);
-			FindObjectOfType<CamManager> ().vrCamera.SetActive(true);
-			transform.position = new Vector3 (transform.position.x, transform.position.y + 1f, transform.position.z);
+            FindObjectOfType<CameraManager>().nonVRCamera.SetActive(false);
+			FindObjectOfType<CameraManager>().vrCamera.SetActive(true);
+            transform.position += Vector3.up;
 			pName = pName + " (VR MASTER)";
         } 
 		/*if not, do:
@@ -77,43 +65,46 @@ public class CrawlerController: NetworkBehaviour
 		 * enable the default camera
 		 * disable the OpenVR cam rig
 		 * set this gameObject as the main cam target */
-		else {
+		else
+        {
             UnityEngine.VR.VRSettings.enabled = false;
-            FindObjectOfType<CamManager> ().vrCamera.SetActive(false);
-			FindObjectOfType<CamManager> ().nonVRCamera.SetActive(true);
-			Camera.main.GetComponent<DungeonCam> ().target = this.gameObject;
+            FindObjectOfType<CameraManager>().vrCamera.SetActive(false);
+			FindObjectOfType<CameraManager>().nonVRCamera.SetActive(true);
+			Camera.main.GetComponent<DungeonCamera>().target = this.gameObject;
         }
 	}
 
-	void Start() {
-		this.gameObject.name = pName;
+	void Start()
+    {
+        gameObject.name = pName;
 		GetComponent<MeshRenderer>().material.color = playerColor;
 		nameTag.text = pName;
 
 		//scale up the player object if this is the VR master [this is a temporary visualisation, to be removed once a proper Master representation is done]
-		if (isVRMasterPlayer) {
+		if (isVRMasterPlayer)
+        {
 			transform.localScale *= 2f;
 		}
 
 		//on the server, add yourself to the level-wide player list
-		if (isServer) {
+		if (isServer)
+        {
 			Debug.Log (pName + " is here.");
 			if(!isVRMasterPlayer)
-                FindObjectOfType<playerlist> ().players.Add (transform);
+                FindObjectOfType<PlayersManager>().players.Add(transform);
 		}
 	}
 
-	void OnChangeName(string newName) {
+	void OnChangeName(string newName)
+    {
 		nameTag.text = newName;
 	}
 
-	// This [Command] code is called on the Client …
-	// … but it is run on the Server!
 	[Command]
 	void CmdFire()
 	{
 		// Create the Bullet from the Bullet Prefab
-		var bullet = (GameObject)Instantiate (
+		var bullet = Instantiate(
 			bulletPrefab,
 			bulletSpawn.position,
 			bulletSpawn.rotation);
@@ -131,12 +122,13 @@ public class CrawlerController: NetworkBehaviour
     [Command]
     void CmdAttack()
     {
-		RpcAttack ();
+		RpcAttack();
     }
 
 	[ClientRpc]
-	void RpcAttack() {
-		sword.playSwordAnim ();
+	void RpcAttack()
+    {
+		sword.PlayAnimation();
 	}
 
 	/*void OnChangeActionState(ActionState newState) {
@@ -145,7 +137,7 @@ public class CrawlerController: NetworkBehaviour
 		case ActionState.NONE:
 			break;
 		case ActionState.ATTACK:
-			sword.playSwordAnim (this);
+			sword.PlayAnimation (this);
 			break;
 		default:
 			break;
