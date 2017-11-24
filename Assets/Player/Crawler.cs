@@ -60,6 +60,10 @@ public class Crawler : NetworkBehaviour
             if (!isVRMasterPlayer)
                 FindObjectOfType<PlayersManager>().players.Add(transform);
         }
+        else
+        {
+            sword.blade.GetComponent<Collider>().enabled = false;
+        }
     }
 
     //is called when the local client's scene starts
@@ -139,7 +143,7 @@ public class Crawler : NetworkBehaviour
     [ClientRpc]
     void RpcAttack()
     {
-        sword.PlayAnimation();
+        sword.DoAttack();
     }
 
     //###################### SYNCVAR HOOKS #####################################
