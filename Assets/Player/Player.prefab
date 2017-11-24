@@ -376,7 +376,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1856442837939784}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 1
@@ -607,7 +607,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b5a8761bd2c96449f1301d95ca337b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 500
   destroyOnDeath: 0
   deathEffect: {fileID: 1105925389560420, guid: eeaea4d88f7115e42a855dbeab532d4e,
     type: 2}
@@ -735,6 +734,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SwingSpeed: 10
   LifeTime: 1
+  blade: {fileID: 1856442837939784}
 --- !u!114 &114664991993227868
 MonoBehaviour:
   m_ObjectHideFlags: 1

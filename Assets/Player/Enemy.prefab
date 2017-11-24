@@ -111,11 +111,14 @@ GameObject:
   - component: {fileID: 114245800724716210}
   - component: {fileID: 114663312890166264}
   - component: {fileID: 195272145466847816}
-  - component: {fileID: 114447058027518790}
   - component: {fileID: 114302006882383614}
   - component: {fileID: 114492721757507490}
   - component: {fileID: 114345398559302140}
   - component: {fileID: 114367508182954606}
+  - component: {fileID: 114309260403958630}
+  - component: {fileID: 114339832544986054}
+  - component: {fileID: 114231117516406636}
+  - component: {fileID: 114045312638758812}
   m_Layer: 11
   m_Name: Enemy
   m_TagString: Untagged
@@ -793,6 +796,43 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114045312638758812
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1267355592298342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bbc6bb58fe027a4caf0f4f0ffccace3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  nextPointIndex: 0
+  delayMin: 0
+  delayMax: 10
+  delayOutOfPath: 60
+  threshold: 1
+  type: 2
+--- !u!114 &114231117516406636
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1267355592298342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cae672b2cf7fd944af858a27d98796d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minScanRange: 0
+  maxScanRange: 100
+  mask:
+    serializedVersion: 2
+    m_Bits: 1792
 --- !u!114 &114245800724716210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -830,6 +870,36 @@ MonoBehaviour:
   possibleTargets: []
   sword: {fileID: 114822649998906468}
   detectionCheckRate: 0.5
+--- !u!114 &114309260403958630
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1267355592298342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04da818cb08d0fd4bb4ab641154107b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  behaviours: []
+  detectors: []
+  possibleTargets: []
+  sword: {fileID: 114822649998906468}
+  detectionCheckRate: 0.5
+--- !u!114 &114339832544986054
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1267355592298342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79ec5183c6bac341a36c1d6a850315c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackRange: 2
+  attackRate: 1
+  updateRate: 0.5
 --- !u!114 &114345398559302140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -905,33 +975,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114447058027518790
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1267355592298342}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a49d5c305cceff41bbb3a29228008aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SyncVarDirtyBits: 0
-  m_LastSendTime: 0
-  m_SyncVarGuard: 0
-  m_MyView: {fileID: 0}
-  targets: []
-  bestTarget: {fileID: 0}
-  closestTargetRange: 0
-  scanRate: 0.5
-  lastScan: 0
-  maxScanRange: 100
-  attackRange: 2
-  attackRate: 1
-  lastAttackTime: 0
-  sword: {fileID: 114822649998906468}
-  mask:
-    m_Bits: 1792
 --- !u!114 &114492721757507490
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1055,6 +1098,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SwingSpeed: 10
   LifeTime: 1
+  blade: {fileID: 1515302599334372}
 --- !u!136 &136192336644241306
 CapsuleCollider:
   m_ObjectHideFlags: 1
