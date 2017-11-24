@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 114664991993227868}
   - component: {fileID: 114127906308999894}
   - component: {fileID: 195757662979425304}
+  - component: {fileID: 114049819105015130}
   m_Layer: 10
   m_Name: Player
   m_TagString: Crawler
@@ -596,6 +597,18 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114049819105015130
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1537117793246808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 974631a61eb06a74c8e84ce0b6202eb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movSpeed: {x: 4, y: 4}
 --- !u!114 &114127906308999894
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -627,7 +640,6 @@ MonoBehaviour:
   fireRate: 0.5
   bulletSpeed: 16
   nameTag: {fileID: 114462809788171074}
-  movSpeed: {x: 4, y: 4}
   pName: player
   playerColor: {r: 0, g: 0, b: 1, a: 1}
   isVRMasterPlayer: 0
