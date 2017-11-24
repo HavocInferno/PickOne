@@ -10,7 +10,7 @@ public class CrawlerLobbyHook : LobbyHook
 		//is called by lobby once scene is loaded on clients, used to hook lobby player to client player(prefabs) and transfer information
 
 		LobbyPlayer lobby = lobbyPlayer.GetComponent<LobbyPlayer>();
-		CrawlerController localPlayer = gamePlayer.GetComponent<CrawlerController>();
+		Crawler localPlayer = gamePlayer.GetComponent<Crawler>();
 
 		Debug.Log ("CLH: Copying name/color to player " + localPlayer.pName);
 		localPlayer.pName = lobby.playerName;
