@@ -6,12 +6,6 @@ public class CrawlerController : NetworkBehaviour
 {
     public Vector2 movSpeed = new Vector2(4f, 4f);
 
-    //#######################################################################
-    //called after scene loaded
-    void Start()
-    {
-    }
-
     //called once per frame
     void Update()
     {

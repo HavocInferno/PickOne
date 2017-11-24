@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Sword : MonoBehaviour
@@ -47,7 +46,7 @@ public class Sword : MonoBehaviour
         }
     }
 
-	public void PlayAnimation()
+	public void DoAttack()
     {
 		transform.localRotation = defaultRot;
 		animActive = true;

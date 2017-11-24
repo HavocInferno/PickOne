@@ -130,6 +130,6 @@ public class Enemy : NetworkBehaviour
     [ClientRpc]
     void RpcAttack()
     {
-        sword.PlayAnimation();
+        sword.DoAttack();
     }
 }

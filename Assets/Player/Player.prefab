@@ -218,7 +218,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4716044575057528}
   - component: {fileID: 114608238118581088}
-  - component: {fileID: 136709630264700212}
   - component: {fileID: 54241648585293272}
   m_Layer: 0
   m_Name: SwordAttack
@@ -873,19 +872,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!136 &136709630264700212
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1970291731782000}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  m_Radius: 0.11
-  m_Height: 1.2
-  m_Direction: 0
-  m_Center: {x: 1.5, y: 0, z: 0}
 --- !u!136 &136862803969933124
 CapsuleCollider:
   m_ObjectHideFlags: 1
