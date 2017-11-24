@@ -23,6 +23,7 @@ public class Spawner : NetworkBehaviour
             0.0f);
 
         var enemy = Instantiate(prefab, spawnPosition, spawnRotation);
+        enemy.SetActive(true);
         NetworkServer.Spawn(enemy);
         return enemy;
     }
