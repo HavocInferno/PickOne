@@ -38,9 +38,11 @@ public class CrawlerController : NetworkBehaviour
     
 	//#######################################################################
 	//called after scene loaded
-	void Start() {
-		this.gameObject.name = pName;
-		foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>()) {
+	void Start()
+    {
+		gameObject.name = pName;
+		foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>())
+        {
 			mr.material.color = playerColor;
 		}
 		ParticleSystem.MainModule mm = GetComponentInChildren<ParticleSystem> ().main;
@@ -48,15 +50,17 @@ public class CrawlerController : NetworkBehaviour
 		nameTag.text = pName;
 
 		//scale up the player object if this is the VR master [this is a temporary visualisation, to be removed once a proper Master representation is done]
-		if (isVRMasterPlayer) {
+		if (isVRMasterPlayer)
+        {
 			transform.localScale *= 2f;
 		}
 
 		//on the server, add yourself to the level-wide player list
-		if (isServer) {
+		if (isServer)
+        {
 			Debug.Log (pName + " is here.");
 			if(!isVRMasterPlayer)
-				FindObjectOfType<PlayersManager>().players.Add (transform);
+				FindObjectOfType<PlayersManager>().players.Add(transform);
 		}
 	}
 
@@ -73,10 +77,10 @@ public class CrawlerController : NetworkBehaviour
 			CmdAttack();
 		}
 
-		//player movement..hor is forward/backward, ver is strafing
-		var hor = Input.GetAxis("Horizontal") * Time.deltaTime * movSpeed.x;
-		var ver = Input.GetAxis("Vertical") * Time.deltaTime * movSpeed.y;
-		transform.Translate(hor, 0, ver);
+        //player movement..hor is forward/backward, ver is strafing
+        Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        direction = Time.deltaTime * Vector2.Scale(direction.normalized, movSpeed);
+		transform.Translate(direction.x, 0, direction.y);
 	}
 
 	//is called when the local client's scene starts

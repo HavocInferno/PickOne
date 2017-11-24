@@ -43,7 +43,7 @@ public class Sword : MonoBehaviour
         var health = hit.GetComponent<Health>();
         if (health != null)
         {
-            health.TakeHit(30, this.transform.position, this.transform.forward);
+            health.TakeHit(30, transform.position, transform.forward);
         }
     }
 
