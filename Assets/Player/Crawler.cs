@@ -11,6 +11,14 @@ public class Crawler : NetworkBehaviour
     private float lastFire;
     public float bulletSpeed = 16f;
 
+    public CrawlerAbility primaryAbility;
+    public bool primaryAbilityActive = false;
+    public CrawlerAbility secondaryAbility;
+    public bool secondaryAbilityActive = false;
+
+    public Material cloakMaterial = null;
+    public Material defaultMaterial = null;
+
     public Text nameTag;
 
     [SyncVar(hook = "OnChangeName")]
@@ -41,6 +49,7 @@ public class Crawler : NetworkBehaviour
         gameObject.name = pName;
         foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>())
         {
+            mr.material = defaultMaterial;
             mr.material.color = playerColor;
         }
         ParticleSystem.MainModule mm = GetComponentInChildren<ParticleSystem>().main;
@@ -97,6 +106,35 @@ public class Crawler : NetworkBehaviour
         }
     }
 
+    public void Attack()
+    {
+        if (!isLocalPlayer)
+            return;
+
+        //weapon firing. dumb and unoptimized.
+        if (Time.time > lastFire)
+        {
+            lastFire = Time.time + fireRate;
+            CmdAttack();
+        }
+    }
+
+    public void TogglePrimaryAbility()
+    {
+        if (!isLocalPlayer)
+            return;
+
+        CmdPrimaryAbility();
+    }
+
+    public void ToggleSecondaryAbility()
+    {
+        if (!isLocalPlayer)
+            return;
+
+        CmdSecondaryAbility();
+    }
+
     //###################### COMMAND CALLS #####################################
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
     // This [Command] code is called on the Client …
@@ -119,23 +157,30 @@ public class Crawler : NetworkBehaviour
 		Destroy(bullet, 2.0f);
 	}*/
 
-    public void Attack()
-    {
-        if (!isLocalPlayer)
-            return;
-
-        //weapon firing. dumb and unoptimized.
-        if (Time.time > lastFire)
-        {
-            lastFire = Time.time + fireRate;
-            CmdAttack();
-        }
-    }
-
     [Command]
     void CmdAttack()
     {
         RpcAttack();
+    }
+
+    [Command]
+    void CmdPrimaryAbility()
+    {
+        if (!primaryAbilityActive)
+            primaryAbility.Activate(this);
+        else
+            primaryAbility.Deactivate(this);
+        primaryAbilityActive = !primaryAbilityActive;
+    }
+
+    [Command]
+    void CmdSecondaryAbility()
+    {
+        if (!secondaryAbilityActive)
+            secondaryAbility.Activate(this);
+        else
+            secondaryAbility.Deactivate(this);
+        secondaryAbilityActive = !secondaryAbilityActive;
     }
 
     //###################### RPC CALLS #####################################
@@ -144,6 +189,19 @@ public class Crawler : NetworkBehaviour
     void RpcAttack()
     {
         sword.DoAttack();
+    }
+    
+    [ClientRpc]
+    public void RpcSetMaterial(bool cloak)
+    {
+        foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>())
+        {
+            mr.material = cloak ? cloakMaterial : defaultMaterial;
+            if (!cloak)
+            {
+                mr.material.color = playerColor;
+            }
+        }
     }
 
     //###################### SYNCVAR HOOKS #####################################

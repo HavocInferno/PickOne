@@ -6,6 +6,9 @@ public class RayBasedDetector : EnemyTargetDetector
     public float maxScanRange = 1.0f;
     public LayerMask mask;
 
+    public DetectableObject.DetectionType type =
+        DetectableObject.DetectionType.Visual;
+
     override public bool Detect(Transform target)
     {
         Vector3 direction = target.position - enemy.transform.position;
@@ -21,9 +24,12 @@ public class RayBasedDetector : EnemyTargetDetector
                     out hit,
                     maxScanRange,
                     mask);
+            var component = hit.collider.gameObject.GetComponent<DetectableObject>();
             return hitSomething
+                && component != null
                 && hit.collider.transform == target
-                && distance < distance + 1.0f;
+                && distance < distance + 1.0f
+                && component.DetectableBy(type);
         }
 
         return false;

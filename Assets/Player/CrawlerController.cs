@@ -18,6 +18,16 @@ public class CrawlerController : NetworkBehaviour
             GetComponent<Crawler>().Attack();
         }
 
+        if (Input.GetButtonDown("Ability1"))
+        {
+            GetComponent<Crawler>().TogglePrimaryAbility();
+        }
+
+        if (Input.GetButtonDown("Ability2"))
+        {
+            GetComponent<Crawler>().ToggleSecondaryAbility();
+        }
+
         //player movement..hor is forward/backward, ver is strafing
         Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         direction = Time.deltaTime * Vector2.Scale(direction.normalized, movSpeed);
