@@ -12,6 +12,7 @@ public class SimplePatrolBehaviour : EnemyBehaviour
 
     private float nextMovementTime = 0.0f;
     private bool waits = true;
+    private bool returnsBack = false;
 
     public enum Type
     {
@@ -44,7 +45,23 @@ public class SimplePatrolBehaviour : EnemyBehaviour
         if (Vector3.Distance(enemy.transform.position,
             points[nextPointIndex].position) < threshold)
         {
-            nextPointIndex = (nextPointIndex + 1) % points.Count;
+            if (type == Type.Loop)
+                nextPointIndex = (nextPointIndex + 1) % points.Count;
+            else if (type == Type.Return)
+            {
+                if (nextPointIndex == 0 && returnsBack)
+                    returnsBack = false;
+                if (nextPointIndex == points.Count - 1 && !returnsBack)
+                    returnsBack = true;
+                nextPointIndex += returnsBack ? -1 : +1;
+            }
+            else if (type == Type.Once)
+            {
+                if (nextPointIndex < points.Count - 1)
+                    nextPointIndex++;
+            }
+            else
+                Debug.LogError("SimplePatrolBehaviour | Unknown patrol type");
             nextMovementTime = Time.time + Random.Range(delayMin, delayMax);
         }
         else
