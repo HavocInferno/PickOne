@@ -118,14 +118,13 @@ GameObject:
   - component: {fileID: 114309260403958630}
   - component: {fileID: 114339832544986054}
   - component: {fileID: 114231117516406636}
-  - component: {fileID: 114045312638758812}
   m_Layer: 11
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1478151321388144
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,7 +395,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1515302599334372}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 1
@@ -796,27 +795,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &114045312638758812
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1267355592298342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bbc6bb58fe027a4caf0f4f0ffccace3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  points:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  nextPointIndex: 0
-  delayMin: 0
-  delayMax: 10
-  delayOutOfPath: 60
-  threshold: 1
-  type: 2
 --- !u!114 &114231117516406636
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -833,6 +811,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 1792
+  type: 0
 --- !u!114 &114245800724716210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -916,6 +895,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 1792
+  type: 0
 --- !u!114 &114367508182954606
 MonoBehaviour:
   m_ObjectHideFlags: 1
