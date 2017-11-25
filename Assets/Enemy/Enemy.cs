@@ -69,7 +69,10 @@ public class Enemy : NetworkBehaviour
 	void Start()
     {
         if (!isServer)
+        {
+            sword.blade.GetComponent<Collider>().enabled = false;
             return;
+        }
 
         possibleTargets = FindObjectOfType<PlayersManager>().players;
 
