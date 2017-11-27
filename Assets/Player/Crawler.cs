@@ -27,6 +27,8 @@ public class Crawler : NetworkBehaviour
     public Color playerColor = Color.white;
     [SyncVar]
     public bool isVRMasterPlayer = false;
+	[SyncVar(hook = "OnChangeDead")]
+	public bool isDead = false;
 
     [SyncVar(hook = "OnChangeSkill1_Buffed")]
     public bool skill1_Buffed = false;
@@ -65,7 +67,7 @@ public class Crawler : NetworkBehaviour
         //on the server, add yourself to the level-wide player list
         if (isServer)
         {
-            Debug.Log(pName + " is here.");
+            Debug.Log("SERVER: " + pName + " is here.");
             if (!isVRMasterPlayer)
                 FindObjectOfType<PlayersManager>().players.Add(transform);
         }
@@ -223,4 +225,14 @@ public class Crawler : NetworkBehaviour
     {
         skill3_Healed = state;
     }
+
+	void OnChangeDead(bool dead)
+	{
+		if (!isDead) {
+			if (isServer) {
+				nameTag.text += " [DEAD]";
+			}
+			gameObject.GetComponentInChildren<CrawlerController> ().enabled = false;
+		}
+	}
 }

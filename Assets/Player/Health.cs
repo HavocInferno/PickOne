@@ -44,14 +44,16 @@ public class Health : NetworkBehaviour
 		{
 			if (destroyOnDeath)
             {
+				FindObjectOfType<EndConditions> ().markEnemyKilled (gameObject.GetComponent<Enemy>());
 				Destroy(gameObject);
 			}
             else
             {
 				// Rpc ==> called on the Server, but invoked on the Clients
-				RpcRespawn();
+				RpcDie();
+				FindObjectOfType<EndConditions> ().checkEndCondition ();
 
-				currentHealth = maxHealth;
+				//currentHealth = maxHealth;
 			}
 
 			if (deathEffect != null)
@@ -76,21 +78,8 @@ public class Health : NetworkBehaviour
 	}
 
 	[ClientRpc]
-	void RpcRespawn()
+	void RpcDie()
 	{
-		if (isLocalPlayer)
-		{
-			// Set the spawn point to origin as a default value
-			Vector3 spawnPoint = Vector3.zero;
-
-			// If there is a spawn point array and the array is not empty, pick a spawn point at random
-			if (spawnPoints != null && spawnPoints.Length > 0)
-			{
-				spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
-			}
-
-			// Set the player’s position to the chosen spawn point
-			transform.position = spawnPoint;
-		}
+		gameObject.GetComponentInChildren<Crawler> ().isDead = true;
 	}
 }
