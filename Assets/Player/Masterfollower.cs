@@ -19,7 +19,7 @@ public class Masterfollower : NetworkBehaviour {
 
 	//unused
 	/* supposed to check whether a newly "joined"/loaded crawler is a VR master, if so, disable the renderer of the masterfollower object */
-	public void CheckFollowerStatus(CrawlerController cc) {
+	public void CheckFollowerStatus(Crawler cc) {
 		Debug.Log ("Checking masterfollower " + this.gameObject.name + ": " + cc.pName + " is VR Master: " + cc.isVRMasterPlayer.ToString ());
 		if(cc.isVRMasterPlayer)
 			GetComponent<Renderer>().enabled = false;

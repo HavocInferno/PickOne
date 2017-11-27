@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor;
 
-public class Controller : MonoBehaviour {
+public class Controller : MonoBehaviour
+{
 
     
     private SteamVR_TrackedObject trackedObject;

@@ -1,37 +1,34 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Sword : MonoBehaviour {
-
+public class Sword : MonoBehaviour
+{
     public float SwingSpeed = 3.0f;
     public float LifeTime = 1.0f;
 
 	private bool animActive = false;
 	private Quaternion defaultRot;
 
+    public GameObject blade = null;
+
     private void Start()
     {
-		defaultRot = transform.localRotation;	
+		defaultRot = transform.localRotation;
+        blade.SetActive(false);
     }
 
     private void Update()
     {
-		if (animActive) {
+		if (animActive)
+        {
 			var prevRot = transform.localRotation;
 
 			// Rotate the sword
 			transform.localRotation =
-            Quaternion.LerpUnclamped (
-				transform.localRotation,
-				Quaternion.Euler (0f, -175f, -45f),  // This is not 180 to prevent rotating behind the attacker
-				SwingSpeed * Time.deltaTime);
-
-			// If rotation is finished, disable collider to prevent further damage
-			//ISSUE: inaccuracy of floats will lead to false results. also: we have the lifetime, why even check the rotation?
-			/*if (transform.localRotation == prevRot && GetComponentInChildren<Collider> ().enabled) {
-				GetComponentInChildren<Collider> ().enabled = false;
-			}*/
+                Quaternion.LerpUnclamped(
+				    transform.localRotation,
+				    Quaternion.Euler(0f, -175f, -45f),  // This is not 180 to prevent rotating behind the attacker
+				    SwingSpeed * Time.deltaTime);
 		}
     }
 
@@ -45,24 +42,22 @@ public class Sword : MonoBehaviour {
         var health = hit.GetComponent<Health>();
         if (health != null)
         {
-            health.TakeHit(30, this.transform.position, this.transform.forward);
+            health.TakeHit(30, transform.position, transform.forward);
         }
     }
 
-	public void PlayAnimation()
+	public void DoAttack()
     {
 		transform.localRotation = defaultRot;
 		animActive = true;
-		StartCoroutine (AtkTimer());
-		GetComponentInChildren<Collider> ().enabled = true;
-		GetComponentInChildren<MeshRenderer> ().enabled = true;
+		StartCoroutine(AttackRoutine());
+        blade.SetActive(true);
 	}
 
-	IEnumerator AtkTimer()
+	IEnumerator AttackRoutine()
     {
-		yield return new WaitForSeconds (LifeTime);
-		GetComponentInChildren<Collider> ().enabled = false;
-		GetComponentInChildren<MeshRenderer> ().enabled = false;
-		animActive = false;
+		yield return new WaitForSeconds(LifeTime);
+        blade.SetActive(false);
+        animActive = false;
 	}
 }

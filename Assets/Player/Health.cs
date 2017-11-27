@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Networking;
-using System.Collections;
 
-public class Health : NetworkBehaviour {
-
+public class Health : NetworkBehaviour
+{
 	public const int maxHealth = 100;
 
 	public bool destroyOnDeath;
@@ -44,22 +42,26 @@ public class Health : NetworkBehaviour {
 		currentHealth -= amount;
 		if (currentHealth <= 0)
 		{
-			if (destroyOnDeath) {
-				Destroy (gameObject);
-			} else {
+			if (destroyOnDeath)
+            {
+				Destroy(gameObject);
+			}
+            else
+            {
 				// Rpc ==> called on the Server, but invoked on the Clients
-				RpcRespawn ();
+				RpcRespawn();
 
 				currentHealth = maxHealth;
 			}
 
-			if (deathEffect != null) {
-				var ded = (GameObject)Instantiate (
+			if (deathEffect != null)
+            {
+				var ded = Instantiate(
 					deathEffect,
 					hitPoint,
 					Quaternion.LookRotation(hitDirection));
 
-				NetworkServer.Spawn (ded);
+				NetworkServer.Spawn(ded);
 
 				// Destroy the effect after 2.15 seconds
 				Destroy(ded, 2.15f);
