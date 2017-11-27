@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Networking;
-using System.Collections;
 
-public class Health : NetworkBehaviour {
-
+public class Health : NetworkBehaviour
+{
 	public const int maxHealth = 100;
 
 	public bool destroyOnDeath;
@@ -29,10 +27,12 @@ public class Health : NetworkBehaviour {
 	 * if the health of the unit associated with this script reaches 0, 
 	 * it is either destroyed, or
 	 * respawned at any random spawn point of the available ones
-	 * if a death effect is specified for this unit, network spawn it at the hitpoint and facing the hitdirection [note, this can be done without network load, 
-	 * 																												but requires sort of duplicate code to be executed 
-	 * 																												once on the host and on the client (since for some reason 
-	 * 																												Unity doesnt wanna consider a host a client in this specific situation)]
+	 * if a death effect is specified for this unit, 
+	 * 		network spawn it at the hitpoint and facing the hitdirection 
+	 * 		[note, this can be done without network load, 
+	 *		but requires sort of duplicate code to be executed 
+	 * 		once on the host and on the client (since for some reason 
+	 * 		Unity doesnt wanna consider a host a client in this specific situation)]
 	*/
 	public void TakeHit(int amount, Vector3 hitPoint, Vector3 hitDirection)
 	{
@@ -42,22 +42,26 @@ public class Health : NetworkBehaviour {
 		currentHealth -= amount;
 		if (currentHealth <= 0)
 		{
-			if (destroyOnDeath) {
-				Destroy (gameObject);
-			} else {
-				currentHealth = maxHealth;
-
+			if (destroyOnDeath)
+            {
+				Destroy(gameObject);
+			}
+            else
+            {
 				// Rpc ==> called on the Server, but invoked on the Clients
-				RpcRespawn ();
+				RpcRespawn();
+
+				currentHealth = maxHealth;
 			}
 
-			if (deathEffect != null) {
-				var ded = (GameObject)Instantiate (
+			if (deathEffect != null)
+            {
+				var ded = Instantiate(
 					deathEffect,
 					hitPoint,
 					Quaternion.LookRotation(hitDirection));
 
-				NetworkServer.Spawn (ded);
+				NetworkServer.Spawn(ded);
 
 				// Destroy the effect after 2.15 seconds
 				Destroy(ded, 2.15f);
