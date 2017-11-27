@@ -169,6 +169,7 @@ public class Controller : MonoBehaviour {
 			buffRay.Draw = true;
 		if (device.GetPressUp (SteamVR_Controller.ButtonMask.Trigger))
 			buffRay.Draw = false;
+	}
 
 	void initRays ()
 	{
