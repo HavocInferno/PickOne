@@ -46,7 +46,10 @@ public class Controller : MonoBehaviour
 	public PlayersManager crawlers;
 	public BezierCurve buffRay;
 	public int currentBuffTarget = -1;
-	public float raySpeed = 30; 
+	public float raySpeed = 30;
+
+	public Vector3 buffDestination;
+	public bool buffing = false;
 
 
 
@@ -153,7 +156,10 @@ public class Controller : MonoBehaviour
 			if (closest != -1) {
 				if (buffRay.Draw == false)
 					buffRay.Draw = true;
-				buffRay.destination = Vector3.Lerp (buffRay.destination, crawlers.players [closest].position, Time.deltaTime * raySpeed);
+				if (buffing == false)
+					buffing = true;
+				buffDestination = Vector3.Lerp (buffDestination, crawlers.players [closest].position, Time.deltaTime * raySpeed);
+				buffRay.destination = buffDestination; 
 				if (closest == currentBuffTarget)
 					device.TriggerHapticPulse ((ushort)(1000 * Mathf.Pow (Vector3.Cross (rayOrigin.forward, crawlers.players [closest].position - rayOrigin.position).magnitude / maxRayOffset, 2)));
 				else {
@@ -170,17 +176,23 @@ public class Controller : MonoBehaviour
 		}
 		//Draw bezierCurve
 		if (device.GetPressDown (SteamVR_Controller.ButtonMask.Trigger)) {
+			buffing = true;
 			buffRay.Draw = true;
-			crawlers.players [currentBuffTarget].GetComponent<Crawler> ().skill1_Buffed = true;
+			if(currentBuffTarget!=-1)
+				crawlers.players [currentBuffTarget].GetComponent<Crawler> ().skill1_Buffed = true;
 		}
 		if (device.GetPressUp (SteamVR_Controller.ButtonMask.Trigger)) {
+			buffing = false;
 			buffRay.Draw = false;
-			crawlers.players [currentBuffTarget].GetComponent<Crawler> ().skill1_Buffed = false;
+			if(currentBuffTarget!=-1)
+				crawlers.players [currentBuffTarget].GetComponent<Crawler> ().skill1_Buffed = false;
 		}
 	}
 
 	void initRays ()
 	{
+
+		buffDestination = rayOrigin.position;
 		buffRay.origin = rayOrigin;
 		crawlers = GameObject.Find ("Playerlist").GetComponent<PlayersManager>();
 	}
