@@ -173,7 +173,10 @@ public class Controller : MonoBehaviour
 
 	void initRays ()
 	{
-		buffRay.Draw = false;
 		buffRay.origin = rayOrigin;
+		GameObject playerlist = GameObject.Find ("Playerlist");
+		if (playerlist != null) {
+			buffTargets = playerlist.GetComponent<PlayersManager> ().players.ToArray(); 
+		}
 	}
 }

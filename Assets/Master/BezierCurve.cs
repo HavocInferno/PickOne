@@ -27,13 +27,18 @@ public class BezierCurve : MonoBehaviour {
 
 	private LineRenderer[] lineRenderers;
 	private Vector3 midpoint;
+
+	public string name;
+
 	// Use this for initialization
 	void Start () {
 		lineRenderers = new LineRenderer[segmentCount];
+		GameObject parent = new GameObject( name+"_BezierCurve");
+		parent.transform.parent = transform;
 		for ( int i = 0; i < segmentCount; ++i )
 		{
-			GameObject newObject = new GameObject( "LineRenderer_" + i );
-
+			GameObject newObject = new GameObject( name+"_LineSegment_" + i );
+			newObject.transform.parent = parent.transform;
 			lineRenderers[i] = newObject.AddComponent<LineRenderer>();
 
 			lineRenderers[i].receiveShadows = false;
@@ -49,7 +54,10 @@ public class BezierCurve : MonoBehaviour {
 			#endif
 			lineRenderers[i].enabled = false;
 		}
+		if (origin == null)
+			origin = transform;
 		destination = origin.position;
+		Draw = false;
 	}
 	
 	// Update is called once per frame
