@@ -4,23 +4,9 @@ using UnityEngine.UI;
 
 public class Crawler : NetworkBehaviour
 {
-    //public GameObject bulletPrefab;
-    //public Transform bulletSpawn;
-    public Sword sword;
-    public float fireRate = 0.15f;
-    private float lastFire;
-    public float bulletSpeed = 16f;
-
-    public CrawlerAbility primaryAbility;
-    public bool primaryAbilityActive = false;
-    public CrawlerAbility secondaryAbility;
-    public bool secondaryAbilityActive = false;
-
-    public Material cloakMaterial = null;
-    public Material defaultMaterial = null;
+    [Header("Player Properties")]
 
     public Text nameTag;
-
     [SyncVar(hook = "OnChangeName")]
     public string pName = "player";
     [SyncVar]
@@ -30,12 +16,39 @@ public class Crawler : NetworkBehaviour
 	[SyncVar(hook = "OnChangeDead")]
 	public bool isDead = false;
 
+    [Header("Attacks")]
+
+    public BasicAttack basicAttack;
+    public float fireRate = 0.15f;
+    private float lastFire;
+    public float bulletSpeed = 16f;
+    //public GameObject bulletPrefab;
+    //public Transform bulletSpawn;
+
+    [Space(8)]
+
+    public Stats stats;
+
+    [Header("Abilities")]
+
+    public CrawlerAbility primaryAbility;
+    public bool primaryAbilityActive = false;
+    public CrawlerAbility secondaryAbility;
+    public bool secondaryAbilityActive = false;
+    
+    [Header("Skills")]
+
     [SyncVar(hook = "OnChangeSkill1_Buffed")]
     public bool skill1_Buffed = false;
     [SyncVar(hook = "OnChangeSkill2_Debuffed")]
     public bool skill2_Debuffed = false;
     [SyncVar(hook = "OnChangeSkill3_Healed")]
     public bool skill3_Healed = false;
+
+    [Header("Others")]
+
+    public Material cloakMaterial = null;
+    public Material defaultMaterial = null;
 
     /*public enum ActionState {
 		NONE,
@@ -73,7 +86,7 @@ public class Crawler : NetworkBehaviour
         }
         else
         {
-            sword.blade.GetComponent<Collider>().enabled = false;
+            //sword.blade.GetComponent<Collider>().enabled = false;
         }
     }
 
@@ -116,6 +129,8 @@ public class Crawler : NetworkBehaviour
         //weapon firing. dumb and unoptimized.
         if (Time.time > lastFire)
         {
+            // TODO: Damage calculation
+
             lastFire = Time.time + fireRate;
             CmdAttack();
         }
@@ -190,7 +205,8 @@ public class Crawler : NetworkBehaviour
     [ClientRpc]
     void RpcAttack()
     {
-        sword.DoAttack();
+        // TODO: Damage calculation
+        basicAttack.DoAttack(30);
     }
     
     [ClientRpc]

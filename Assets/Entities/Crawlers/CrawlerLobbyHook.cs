@@ -7,7 +7,8 @@ public class CrawlerLobbyHook : LobbyHook
 {
 	public override void OnLobbyServerSceneLoadedForPlayer(NetworkManager manager, GameObject lobbyPlayer, GameObject gamePlayer)
 	{
-		//is called by lobby once scene is loaded on clients, used to hook lobby player to client player(prefabs) and transfer information
+        // is called by lobby once scene is loaded on clients, 
+        // used to hook lobby player to client player(prefabs) and transfer information
 
 		LobbyPlayer lobby = lobbyPlayer.GetComponent<LobbyPlayer>();
 		Crawler localPlayer = gamePlayer.GetComponent<Crawler>();

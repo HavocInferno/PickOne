@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Sword : MonoBehaviour
-{
+public class Sword : BasicAttack
+{ 
     public float SwingSpeed = 3.0f;
     public float LifeTime = 1.0f;
 
 	private bool animActive = false;
 	private Quaternion defaultRot;
-
+    
     public GameObject blade = null;
 
     private void Start()
@@ -38,16 +38,21 @@ public class Sword : MonoBehaviour
         if (collision.collider.tag == gameObject.transform.parent.tag)
             return;
 
-        var hit = collision.gameObject;
-        var health = hit.GetComponent<Health>();
+        // Get health component of collision object
+        var health = collision.gameObject.GetComponent<Health>();
+
+        // If it has one, call function to take damage
         if (health != null)
         {
-            health.TakeHit(30, transform.position, transform.forward);
+            health.TakeHit(damage, transform.position, transform.forward);
         }
     }
 
-	public void DoAttack()
+    public override void DoAttack(int mDamage)
     {
+        // Set the damage variable as was given
+        damage = mDamage;
+
 		transform.localRotation = defaultRot;
 		animActive = true;
 		StartCoroutine(AttackRoutine());
