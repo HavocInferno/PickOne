@@ -8,7 +8,7 @@ public class Spawner : NetworkBehaviour
 {
 	public GameObject prefab;
 	public int numberOfEnemies;
-    public Rect area = new Rect(-8.0f, -8.0f, 16.0f, 16.0f);
+    public Rect area = new Rect(0f, 0f, 20f, 20f);
 
     GameObject Spawn()
     {
@@ -31,5 +31,16 @@ public class Spawner : NetworkBehaviour
 	public override void OnStartServer()
 	{
 		for (int i = 0; i < numberOfEnemies; i++) Spawn();
+	}
+
+	void OnDrawGizmos()
+	{
+		//Gizmos.DrawIcon(transform.position, "ModuleIcon");
+
+		Gizmos.DrawWireCube(transform.position, new Vector3(area.width, 0, area.height));
+
+		Gizmos.DrawLine(transform.position - Vector3.up * 1f, transform.position + Vector3.up * 1f);
+		Gizmos.DrawLine(transform.position - Vector3.forward * 1f, transform.position + Vector3.forward * 1f);
+		Gizmos.DrawLine(transform.position - Vector3.left * 1f, transform.position + Vector3.left * 1f);
 	}
 }

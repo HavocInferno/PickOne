@@ -16,6 +16,8 @@ public class Enemy : NetworkBehaviour
     private float lastDetectionCheck = 0.0f;
     public float detectionCheckRate = 1.0f;
 
+	public bool isEndConditionKill = true;
+
     public ReadOnlyCollection<Transform> DetectedTargets
     {
         get { return detectedTargets.AsReadOnly(); }
@@ -77,8 +79,10 @@ public class Enemy : NetworkBehaviour
         possibleTargets = FindObjectOfType<PlayersManager>().players;
 
         //on the server, add yourself to the level-wide enemies list
-        Debug.Log(gameObject.name + " is here.");
+        Debug.Log("SERVER: " + gameObject.name + " is here.");
         FindObjectOfType<PlayersManager>().enemies.Add(transform);
+		if(isEndConditionKill)
+			FindObjectOfType<EndConditions>().enemiesToKill.Add(this);
     }
 	
 	void FixedUpdate()
