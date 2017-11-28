@@ -37,6 +37,8 @@ namespace Prototype.NetworkLobby
 		public bool isVRMasterPlayer = false;
 		[SyncVar(hook = "OnHasHMD")]
 		public bool isVRcapable = false;
+		[SyncVar(hook = "OnMyVRModel")]
+		public int vrDeviceModel = -1; //-1 = NONE, 1 = VIVE, 2 = RIFT
 
         public Color OddRowColor = new Color(250.0f / 255.0f, 250.0f / 255.0f, 250.0f / 255.0f, 1.0f);
         public Color EvenRowColor = new Color(180.0f / 255.0f, 180.0f / 255.0f, 180.0f / 255.0f, 1.0f);
@@ -62,8 +64,7 @@ namespace Prototype.NetworkLobby
             if (isLocalPlayer)
             {
 				//check if a VR HMD is connected, if so set syncvar
-				if (VRDevice.isPresent)
-					isVRcapable = true;
+				QueryVRDeviceModel();
                 SetupLocalPlayer();
             }
             else
@@ -84,6 +85,8 @@ namespace Prototype.NetworkLobby
             //if we return from a game, color of text can still be the one for "Ready"
             readyButton.transform.GetChild(0).GetComponent<Text>().color = Color.white;
 
+			QueryVRDeviceModel ();
+
            SetupLocalPlayer();
         }
 
@@ -99,6 +102,8 @@ namespace Prototype.NetworkLobby
 
         void SetupOtherPlayer()
         {
+			Debug.Log ("Setting up other lobby player");
+
             nameInput.interactable = false;
             removePlayerButton.interactable = NetworkServer.active;
 
@@ -116,6 +121,8 @@ namespace Prototype.NetworkLobby
 
         void SetupLocalPlayer()
         {
+			Debug.Log ("Setting up local lobby player");
+
             nameInput.interactable = true;
             remoteIcone.gameObject.SetActive(false);
             localIcone.gameObject.SetActive(true);
@@ -182,20 +189,13 @@ namespace Prototype.NetworkLobby
 		*/
 		public void CheckHMDToggle()
 		{
+			Debug.Log ("Checking HMD Toggle");
 			if (isVRcapable) {
 				vrInfoIcon.SetActive (true);
-				string model = UnityEngine.VR.VRDevice.model != null ?
-					UnityEngine.VR.VRDevice.model : "";
-
-				if ( model.IndexOf("Rift") >= 0 ) {
-					vrInfoIcon.GetComponentInChildren<Text> ().text = "Rift";
-				}
-				else {
-					vrInfoIcon.GetComponentInChildren<Text> ().text = "Vive";
-				}
+				OnMyVRModel (vrDeviceModel);
 			} else {
 				vrInfoIcon.SetActive (true);
-				vrInfoIcon.GetComponentInChildren<Text> ().text = "no HMD";
+				OnMyVRModel (vrDeviceModel);
 			}
 		}
 
@@ -230,25 +230,44 @@ namespace Prototype.NetworkLobby
             GetComponent<Image>().color = (idx % 2 == 0) ? EvenRowColor : OddRowColor;
         }
 
+		public void QueryVRDeviceModel() {
+			Debug.Log ("Querying VR Device Model");
+			if (VRDevice.isPresent) {
+				isVRcapable = true;
+			
+				string model = UnityEngine.VR.VRDevice.model != null ?
+				UnityEngine.VR.VRDevice.model : "";
+
+				if (model.IndexOf ("Rift") >= 0) {
+					vrDeviceModel = 2;
+				} else {
+					vrDeviceModel = 1;
+				}
+				Debug.Log ("VR headset found, model " + vrDeviceModel + "; " + model);
+			} else {
+				vrDeviceModel = -1;
+			}
+		}
+
         ///===== callback from sync var
 
         public void OnMyName(string newName)
         {
-            playerName = newName;
-            nameInput.text = playerName;
+            //playerName = newName;
+            nameInput.text = newName;
         }
 
         public void OnMyColor(Color newColor)
         {
-            playerColor = newColor;
+            //playerColor = newColor;
             colorButton.GetComponent<Image>().color = newColor;
         }
 
 		//if the isVRMasterPlayer syncvar is changed, enable the respective icon on that lobbyplayer's UI piece
 		public void OnVRMaster(bool newState)
 		{
-			isVRMasterPlayer = newState;
-			vrMasterToggle.isOn = isVRMasterPlayer;
+			//isVRMasterPlayer = newState;
+			vrMasterToggle.isOn = newState;
 			vrMasterIcon.SetActive (newState);
 		}
 
@@ -258,22 +277,30 @@ namespace Prototype.NetworkLobby
 		*/
 		public void OnHasHMD(bool newState)
 		{
-			isVRcapable = newState;
-
-			if (isVRcapable) {
+			if (newState) {
 				vrInfoIcon.SetActive (true);
-				string model = UnityEngine.VR.VRDevice.model != null ?
-					UnityEngine.VR.VRDevice.model : "";
-
-				if ( model.IndexOf("Rift") >= 0 ) {
-					vrInfoIcon.GetComponentInChildren<Text> ().text = "Rift";
-				}
-				else {
-					vrInfoIcon.GetComponentInChildren<Text> ().text = "Vive";
-				}
+				OnMyVRModel (vrDeviceModel);
 			} else {
 				vrInfoIcon.SetActive (true);
+				OnMyVRModel (vrDeviceModel);
+			}
+		}
+
+		public void OnMyVRModel(int model) {
+			Debug.Log ("OnMyVRModel called with " + model);
+			vrInfoIcon.SetActive (true);
+			switch (model) {
+			case -1:
 				vrInfoIcon.GetComponentInChildren<Text> ().text = "no HMD";
+				break;
+			case 1: 
+				vrInfoIcon.GetComponentInChildren<Text> ().text = "Vive";
+				break;
+			case 2:
+				vrInfoIcon.GetComponentInChildren<Text> ().text = "Rift";
+				break;
+			default:
+				break;
 			}
 		}
 

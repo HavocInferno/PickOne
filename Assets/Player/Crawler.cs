@@ -214,6 +214,10 @@ public class Crawler : NetworkBehaviour
     void OnChangeSkill1_Buffed(bool state)
     {
         skill1_Buffed = state;
+		if(state)
+			Debug.Log ("You are being buffed!");
+		else
+			Debug.Log ("You are not being buffed anymore!");
     }
     void OnChangeSkill2_Debuffed(bool state)
     {
