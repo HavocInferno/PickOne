@@ -43,7 +43,7 @@ GameObject:
   m_Layer: 0
   m_Name: MasterVisuals
   m_TagString: Untagged
-  m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -80,10 +80,8 @@ GameObject:
   - component: {fileID: 136189211779428386}
   - component: {fileID: 23135158770627940}
   - component: {fileID: 114026665407776032}
+  - component: {fileID: 114113394942450688}
   - component: {fileID: 114479689955295448}
-  - component: {fileID: 114277491390098278}
-  - component: {fileID: 114093417322266496}
-  - component: {fileID: 114190700947364120}
   m_Layer: 0
   m_Name: Hand_Right
   m_TagString: Untagged
@@ -98,7 +96,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1324183650055110}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.42, y: 0.37, z: -8.76}
+  m_LocalPosition: {x: -0.007882476, y: 0.47247005, z: -1.2918375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4195618894028130}
@@ -307,7 +305,7 @@ MonoBehaviour:
     i15: 13
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
---- !u!114 &114093417322266496
+--- !u!114 &114113394942450688
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -315,15 +313,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1464145186420316}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebfdaa6899e382e43b08fc4b5cf8b4a9, type: 3}
+  m_Script: {fileID: 11500000, guid: e8b0aa22264a66b49bd5a68f95ecb230, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  origin: {fileID: 0}
-  destination: {x: 0, y: 0, z: 0}
-  material: {fileID: 2100000, guid: a1313a5fd0b97df4798c301e337a1eb8, type: 2}
-  segmentCount: 60
-  thickness: 0.01
-  name: Buff_Vis
+  followed: {fileID: 0}
 --- !u!114 &114164353607931002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -336,41 +329,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followed: {fileID: 0}
---- !u!114 &114190700947364120
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1464145186420316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebfdaa6899e382e43b08fc4b5cf8b4a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  origin: {fileID: 0}
-  destination: {x: 0, y: 0, z: 0}
-  material: {fileID: 0}
-  segmentCount: 60
-  thickness: 0.01
-  name: Debuff_Vis
---- !u!114 &114277491390098278
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1464145186420316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb370796f809eeb4ca9d2534e13b1c38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  followed: {fileID: 0}
-  buff: {fileID: 114093417322266496}
-  debuff: {fileID: 114190700947364120}
-  origin: {fileID: 4682158048781522}
-  bufftarget: {x: 0, y: 0, z: 0}
-  controller: {fileID: 0}
-  isBuffed: 0
 --- !u!114 &114453053967700304
 MonoBehaviour:
   m_ObjectHideFlags: 1

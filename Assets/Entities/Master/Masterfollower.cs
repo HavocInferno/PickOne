@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine.Networking;
 using UnityEngine;
-using UnityEngine.Networking;
 
 public class Masterfollower : NetworkBehaviour {
 
     public Transform followed;
-
-	protected virtual void Start () {
-	}
 	
 	// Update is called once per frame
-	protected virtual void Update () {
+	void Update () {
         if (followed.gameObject.activeInHierarchy)
         {
             transform.position = followed.position;
@@ -23,7 +19,7 @@ public class Masterfollower : NetworkBehaviour {
 
 	//unused
 	/* supposed to check whether a newly "joined"/loaded crawler is a VR master, if so, disable the renderer of the masterfollower object */
-	public virtual void CheckFollowerStatus(Crawler cc) {
+	public void CheckFollowerStatus(Crawler cc) {
 		Debug.Log ("Checking masterfollower " + this.gameObject.name + ": " + cc.pName + " is VR Master: " + cc.isVRMasterPlayer.ToString ());
 		if(cc.isVRMasterPlayer)
 			GetComponent<Renderer>().enabled = false;
