@@ -9,6 +9,7 @@ public class EndConditions : NetworkBehaviour {
 	public bool hasToKillAllEnemies = true;
 	public List<Enemy> enemiesToKill;
 	public bool gameEnded = false;
+	public EndScreenUI endScreenUI;
 
 	void Start() {
 		if (!isServer)
@@ -55,10 +56,14 @@ public class EndConditions : NetworkBehaviour {
 	[ClientRpc]
 	void RpcTriggerWIN() {
 		Debug.Log ("RPC: All enemies dead, WON!");
+		endScreenUI.gameObject.SetActive (true);
+		endScreenUI.conditionLabel.text = "You WON!";
 	}
 
 	[ClientRpc]
 	void RpcTriggerLOSE() {
 		Debug.Log ("RPC: All crawlers dead, LOSE!");
+		endScreenUI.gameObject.SetActive (true);
+		endScreenUI.conditionLabel.text = "You WON!";
 	}
 }

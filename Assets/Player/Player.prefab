@@ -652,7 +652,9 @@ MonoBehaviour:
   fireRate: 0.5
   bulletSpeed: 16
   primaryAbility: {fileID: 11400000, guid: ca42143f6ba8bc04c95c29288cbeb1ae, type: 2}
+  primaryAbilityActive: 0
   secondaryAbility: {fileID: 0}
+  secondaryAbilityActive: 0
   cloakMaterial: {fileID: 2100000, guid: 927242436d33c954ab4094965cdb99d4, type: 2}
   defaultMaterial: {fileID: 2100000, guid: 3bf95fe7130362c48b7f96b0145a0b0a, type: 2}
   nameTag: {fileID: 114462809788171074}
@@ -775,7 +777,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 1
-  m_SendInterval: 0.1
+  m_SendInterval: 0.033333335
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
