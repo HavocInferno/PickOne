@@ -11,6 +11,8 @@ namespace Prototype.NetworkLobby
         protected bool isDisplayed = true;
         protected Image panelImage;
 
+		public Button quitButton;
+
         void Start()
         {
             panelImage = GetComponent<Image>();
@@ -25,6 +27,7 @@ namespace Prototype.NetworkLobby
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 ToggleVisibility(!isDisplayed);
+				quitButton.gameObject.SetActive (false);
             }
 
         }

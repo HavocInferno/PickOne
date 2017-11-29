@@ -64,6 +64,6 @@ public class EndConditions : NetworkBehaviour {
 	void RpcTriggerLOSE() {
 		Debug.Log ("RPC: All crawlers dead, LOSE!");
 		endScreenUI.gameObject.SetActive (true);
-		endScreenUI.conditionLabel.text = "You WON!";
+		endScreenUI.conditionLabel.text = "You LOST!";
 	}
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
 public class EndScreenUI : MonoBehaviour {
 
@@ -10,5 +11,6 @@ public class EndScreenUI : MonoBehaviour {
 	public void OnRetToLobbyClicked()
 	{
 		Debug.Log("a CLIENT wants to return to lobby");
+		FindObjectOfType<NetworkLobbyManager> ().ServerReturnToLobby ();
 	}
 }
