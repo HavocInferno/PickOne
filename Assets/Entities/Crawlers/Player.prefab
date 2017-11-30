@@ -95,10 +95,10 @@ GameObject:
   - component: {fileID: 136355419452760152}
   - component: {fileID: 23382711428432544}
   - component: {fileID: 114701652772776056}
-  - component: {fileID: 114155888492705784}
   - component: {fileID: 114664991993227868}
-  - component: {fileID: 114127906308999894}
   - component: {fileID: 195757662979425304}
+  - component: {fileID: 114127906308999894}
+  - component: {fileID: 114155888492705784}
   - component: {fileID: 114049819105015130}
   - component: {fileID: 114004619392973356}
   m_Layer: 10
@@ -648,30 +648,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d646c73e5acd17540bc9d9662206b659, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD:Assets/Player/Player.prefab
-  sword: {fileID: 114608238118581088}
-  fireRate: 0.5
-  bulletSpeed: 16
-  primaryAbility: {fileID: 11400000, guid: ca42143f6ba8bc04c95c29288cbeb1ae, type: 2}
-  primaryAbilityActive: 0
-  secondaryAbility: {fileID: 0}
-  secondaryAbilityActive: 0
-  cloakMaterial: {fileID: 2100000, guid: 927242436d33c954ab4094965cdb99d4, type: 2}
-  defaultMaterial: {fileID: 2100000, guid: 3bf95fe7130362c48b7f96b0145a0b0a, type: 2}
-=======
->>>>>>> aa9e7a7... Create BasicAttack base class for changing attack types easily:Assets/Entities/Crawlers/Player.prefab
   nameTag: {fileID: 114462809788171074}
   pName: player
   playerColor: {r: 0, g: 0, b: 1, a: 1}
   isVRMasterPlayer: 0
+  isDead: 0
   basicAttack: {fileID: 114608238118581088}
-  fireRate: 0.5
-  bulletSpeed: 16
   stats:
     Damage: 35
     Resistance: 10
   primaryAbility: {fileID: 0}
   secondaryAbility: {fileID: 0}
+  skill1_Buffed: 0
+  skill2_Debuffed: 0
+  skill3_Healed: 0
 --- !u!114 &114329875840092628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -770,6 +760,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fafd1aff4a50d904aa66a168b0b40cd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseDamage: 30
+  baseFireRate: 1
   SwingSpeed: 10
   LifeTime: 1
   blade: {fileID: 1856442837939784}

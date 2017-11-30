@@ -73,10 +73,10 @@ GameObject:
   - component: {fileID: 136300596146142742}
   - component: {fileID: 23255572802363296}
   - component: {fileID: 114094203658262518}
-  - component: {fileID: 114603881179059580}
   - component: {fileID: 114771519900907482}
-  - component: {fileID: 114062675334960162}
   - component: {fileID: 195381808297726500}
+  - component: {fileID: 114062675334960162}
+  - component: {fileID: 114603881179059580}
   - component: {fileID: 114869127395028576}
   - component: {fileID: 114428693055289942}
   m_Layer: 10
@@ -693,12 +693,16 @@ MonoBehaviour:
   pName: player
   playerColor: {r: 0, g: 0, b: 1, a: 1}
   isVRMasterPlayer: 0
+  isDead: 0
   basicAttack: {fileID: 114207759360733902}
   stats:
     Damage: 35
     Resistance: 10
   primaryAbility: {fileID: 0}
   secondaryAbility: {fileID: 0}
+  skill1_Buffed: 0
+  skill2_Debuffed: 0
+  skill3_Healed: 0
 --- !u!114 &114771519900907482
 MonoBehaviour:
   m_ObjectHideFlags: 1
