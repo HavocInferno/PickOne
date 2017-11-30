@@ -2,15 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class CrawlerAbility : ScriptableObject
+abstract public class CrawlerAbility : MonoBehaviour
 {
-    public float cost = 0.0f;
-
-    virtual public void Activate(Crawler crawler)
-    {
-    }
-
-    virtual public void Deactivate(Crawler crawler)
-    {
-    }
+    public abstract void Activate();
 }
