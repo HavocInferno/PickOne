@@ -12,7 +12,7 @@ public class Gun : BasicAttack
     public GameObject BulletPrefab;
     public Transform BulletSpawn;
 
-    void OnValidate()
+    override protected void OnValidate()
     {
         if (BulletPrefab == null)
         {

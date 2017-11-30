@@ -44,7 +44,7 @@ public class Health : NetworkBehaviour
 		{
 			if (destroyOnDeath)
             {
-				FindObjectOfType<EndConditions> ().markEnemyKilled (gameObject.GetComponent<Enemy>());
+				FindObjectOfType<EndConditions>().markEnemyKilled(gameObject.GetComponent<Enemy>());
 				Destroy(gameObject);
 			}
             else
@@ -80,6 +80,6 @@ public class Health : NetworkBehaviour
 	[ClientRpc]
 	void RpcDie()
 	{
-		gameObject.GetComponentInChildren<Crawler> ().isDead = true;
+		gameObject.GetComponentInChildren<Crawler>().isDead = true;
 	}
 }
