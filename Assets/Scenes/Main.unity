@@ -4228,6 +4228,16 @@ Prefab:
       propertyPath: points.Array.data[2]
       value: 
       objectReference: {fileID: 1810369549}
+    - target: {fileID: 114302006882383614, guid: 19cad6e6906082a43b84246ca1a12bc8,
+        type: 2}
+      propertyPath: detectionCheckRate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114302006882383614, guid: 19cad6e6906082a43b84246ca1a12bc8,
+        type: 2}
+      propertyPath: sword
+      value: 
+      objectReference: {fileID: 275237072}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 19cad6e6906082a43b84246ca1a12bc8, type: 2}
   m_IsPrefabParent: 0
@@ -4236,6 +4246,12 @@ GameObject:
   m_PrefabParentObject: {fileID: 1267355592298342, guid: 19cad6e6906082a43b84246ca1a12bc8,
     type: 2}
   m_PrefabInternal: {fileID: 275237070}
+--- !u!114 &275237072 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114822649998906468, guid: 19cad6e6906082a43b84246ca1a12bc8,
+    type: 2}
+  m_PrefabInternal: {fileID: 275237070}
+  m_Script: {fileID: 11500000, guid: fafd1aff4a50d904aa66a168b0b40cd6, type: 3}
 --- !u!1 &277606297
 GameObject:
   m_ObjectHideFlags: 0

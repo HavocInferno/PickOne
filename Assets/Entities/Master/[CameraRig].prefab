@@ -1511,14 +1511,12 @@ MonoBehaviour:
   lastItem: -1
   maxRayOffset: 10
   rayOrigin: {fileID: 4220737958393748}
-  buffTargets:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  crawlers: {fileID: 0}
   buffRay: {fileID: 114403937536095000}
   currentBuffTarget: -1
   raySpeed: 30
+  buffDestination: {x: 0, y: 0, z: 0}
+  buffing: 0
 --- !u!114 &114403937536095000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1591,7 +1589,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: -1
   modelOverride: 
-  shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 3}
   verbose: 0
   createComponents: 1
   updateDynamically: 1
@@ -1661,7 +1659,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: -1
   modelOverride: 
-  shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 3}
   verbose: 0
   createComponents: 1
   updateDynamically: 1

@@ -10,7 +10,7 @@ public class Masterfollower : NetworkBehaviour {
 	// Update is called once per frame
 	protected void Update()
     {
-        if (followed.gameObject.activeInHierarchy)
+        if (followed != null && followed.gameObject.activeInHierarchy)
         {
             transform.position = followed.position;
             transform.rotation = followed.rotation;

@@ -28,7 +28,7 @@ public abstract class BasicAttack : MonoBehaviour
 
     protected bool ready = true;
 
-    void OnValidate()
+    void Start()
     {
         baseDamage = Mathf.Clamp(baseDamage, 0, int.MaxValue);
         baseFireRate = Mathf.Clamp(baseFireRate, 0, float.MaxValue);
