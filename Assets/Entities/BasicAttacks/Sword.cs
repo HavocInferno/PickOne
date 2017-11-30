@@ -3,14 +3,15 @@ using UnityEngine;
 
 public class Sword : BasicAttack
 { 
+    [Header("Sword Details")]
     public float SwingSpeed = 3.0f;
     public float LifeTime = 1.0f;
 
-	private bool animActive = false;
-	private Quaternion defaultRot;
-    
     public GameObject blade = null;
 
+    private bool animActive = false;
+	private Quaternion defaultRot;
+    
     private void Start()
     {
 		defaultRot = transform.localRotation;
@@ -32,6 +33,14 @@ public class Sword : BasicAttack
 		}
     }
 
+    void OnValidate()
+    {
+        if (blade == null)
+        {
+            Debug.LogError("Blade prefab not set.");
+        }
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         // Check for friendly fire 
@@ -44,15 +53,12 @@ public class Sword : BasicAttack
         // If it has one, call function to take damage
         if (health != null)
         {
-            health.TakeHit(damage, transform.position, transform.forward);
+            health.TakeHit(Damage, transform.position, transform.forward);
         }
     }
 
-    public override void DoAttack(int mDamage)
+    public override void DoAttack()
     {
-        // Set the damage variable as was given
-        damage = mDamage;
-
 		transform.localRotation = defaultRot;
 		animActive = true;
 		StartCoroutine(AttackRoutine());

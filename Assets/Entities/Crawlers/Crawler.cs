@@ -19,9 +19,9 @@ public class Crawler : NetworkBehaviour
     [Header("Attacks")]
 
     public BasicAttack basicAttack;
-    public float fireRate = 0.15f;
-    private float lastFire;
-    public float bulletSpeed = 16f;
+    //public float fireRate = 0.15f;
+    //private float lastFire;
+    //public float bulletSpeed = 16f;
     //public GameObject bulletPrefab;
     //public Transform bulletSpawn;
 
@@ -32,9 +32,7 @@ public class Crawler : NetworkBehaviour
     [Header("Abilities")]
 
     public CrawlerAbility primaryAbility;
-    public bool primaryAbilityActive = false;
     public CrawlerAbility secondaryAbility;
-    public bool secondaryAbilityActive = false;
     
     [Header("Skills")]
 
@@ -44,11 +42,6 @@ public class Crawler : NetworkBehaviour
     public bool skill2_Debuffed = false;
     [SyncVar(hook = "OnChangeSkill3_Healed")]
     public bool skill3_Healed = false;
-
-    [Header("Others")]
-
-    public Material cloakMaterial = null;
-    public Material defaultMaterial = null;
 
     /*public enum ActionState {
 		NONE,
@@ -62,11 +55,11 @@ public class Crawler : NetworkBehaviour
     void Start()
     {
         gameObject.name = pName;
-        foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>())
-        {
-            mr.material = defaultMaterial;
-            mr.material.color = playerColor;
-        }
+        //foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>())
+        //{
+        //    mr.material = defaultMaterial;
+        //    mr.material.color = playerColor;
+        //}
         ParticleSystem.MainModule mm = GetComponentInChildren<ParticleSystem>().main;
         mm.startColor = playerColor;
         nameTag.text = pName;
@@ -84,9 +77,13 @@ public class Crawler : NetworkBehaviour
             if (!isVRMasterPlayer)
                 FindObjectOfType<PlayersManager>().players.Add(transform);
         }
-        else
+    }
+
+    void OnValidate()
+    {
+        if (basicAttack == null)
         {
-            //sword.blade.GetComponent<Collider>().enabled = false;
+            Debug.LogError("Basic attack not set.");
         }
     }
 
@@ -127,13 +124,8 @@ public class Crawler : NetworkBehaviour
             return;
 
         //weapon firing. dumb and unoptimized.
-        if (Time.time > lastFire)
-        {
-            // TODO: Damage calculation
-
-            lastFire = Time.time + fireRate;
-            CmdAttack();
-        }
+        CmdAttack();
+        
     }
 
     public void TogglePrimaryAbility()
@@ -183,21 +175,13 @@ public class Crawler : NetworkBehaviour
     [Command]
     void CmdPrimaryAbility()
     {
-        if (!primaryAbilityActive)
-            primaryAbility.Activate(this);
-        else
-            primaryAbility.Deactivate(this);
-        primaryAbilityActive = !primaryAbilityActive;
+        primaryAbility.Activate();    
     }
 
     [Command]
     void CmdSecondaryAbility()
     {
-        if (!secondaryAbilityActive)
-            secondaryAbility.Activate(this);
-        else
-            secondaryAbility.Deactivate(this);
-        secondaryAbilityActive = !secondaryAbilityActive;
+        secondaryAbility.Activate();
     }
 
     //###################### RPC CALLS #####################################
@@ -206,21 +190,21 @@ public class Crawler : NetworkBehaviour
     void RpcAttack()
     {
         // TODO: Damage calculation
-        basicAttack.DoAttack(30);
+        basicAttack.DoAttack();
     }
     
-    [ClientRpc]
-    public void RpcSetMaterial(bool cloak)
-    {
-        foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>())
-        {
-            mr.material = cloak ? cloakMaterial : defaultMaterial;
-            if (!cloak)
-            {
-                mr.material.color = playerColor;
-            }
-        }
-    }
+    //[ClientRpc]
+    //public void RpcSetMaterial(bool cloak)
+    //{
+    //    foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>())
+    //    {
+    //        mr.material = cloak ? cloakMaterial : defaultMaterial;
+    //        if (!cloak)
+    //        {
+    //            mr.material.color = playerColor;
+    //        }
+    //    }
+    //}
 
     //###################### SYNCVAR HOOKS #####################################
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
@@ -228,7 +212,7 @@ public class Crawler : NetworkBehaviour
     {
         nameTag.text = newName;
     }
-
+    
     void OnChangeSkill1_Buffed(bool state)
     {
         skill1_Buffed = state;

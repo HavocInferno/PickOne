@@ -8,7 +8,8 @@ public class Masterfollower : NetworkBehaviour {
     public Transform followed;
 	
 	// Update is called once per frame
-	void Update () {
+	protected void Update()
+    {
         if (followed.gameObject.activeInHierarchy)
         {
             transform.position = followed.position;
