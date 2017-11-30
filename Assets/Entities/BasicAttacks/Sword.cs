@@ -11,14 +11,16 @@ public class Sword : BasicAttack
 
     private bool animActive = false;
 	private Quaternion defaultRot;
-    
-    private void Start()
+
+    protected override void Start()
     {
-		defaultRot = transform.localRotation;
+        base.Start();
+
+        defaultRot = transform.localRotation;
         blade.SetActive(false);
     }
 
-    private void Update()
+    protected void Update()
     {
 		if (animActive)
         {
@@ -33,15 +35,17 @@ public class Sword : BasicAttack
 		}
     }
 
-    void OnValidate()
+    protected override void OnValidate()
     {
+        base.OnValidate();
+
         if (blade == null)
         {
             Debug.LogError("Blade prefab not set.");
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    protected void OnCollisionEnter(Collision collision)
     {
         // Check for friendly fire 
         if (collision.collider.tag == gameObject.transform.parent.tag)
@@ -54,6 +58,11 @@ public class Sword : BasicAttack
         if (health != null)
         {
             health.TakeHit(Damage, transform.position, transform.forward);
+        }
+        else
+        {
+            if (!collision.collider.CompareTag("Untagged"))
+                Debug.Log("On " + collision.collider.tag + " health was not found.");
         }
     }
 

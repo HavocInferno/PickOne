@@ -4,8 +4,6 @@ using UnityEngine;
 
 public abstract class BasicAttack : MonoBehaviour
 {
-
-
     // Public getters for external scripts
     [HideInInspector]
     public int BaseDamage { get { return baseDamage; } }
@@ -28,13 +26,16 @@ public abstract class BasicAttack : MonoBehaviour
 
     protected bool ready = true;
 
-    void Start()
+    protected virtual void Start()
+    {
+        damage = baseDamage;
+        fireRate = baseFireRate;
+    }
+
+    protected virtual void OnValidate()
     {
         baseDamage = Mathf.Clamp(baseDamage, 0, int.MaxValue);
         baseFireRate = Mathf.Clamp(baseFireRate, 0, float.MaxValue);
-
-        damage = baseDamage;
-        fireRate = baseFireRate;
     }
 
     public virtual void UpdateDamage(int mDamage)
@@ -51,10 +52,10 @@ public abstract class BasicAttack : MonoBehaviour
     public virtual void DoAttack()
     {
         ready = false;
-        StartCoroutine(WaitForReload());
+        StartCoroutine(waitForReload());
     }
 
-    public virtual IEnumerator WaitForReload()
+    protected virtual IEnumerator waitForReload()
     {
         yield return new WaitForSeconds(FireRate);
         ready = true;
