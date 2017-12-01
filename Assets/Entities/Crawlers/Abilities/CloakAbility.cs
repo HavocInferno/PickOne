@@ -2,72 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO: Create this ability
-public class CloakAbility : CrawlerActiveAbility
+[CreateAssetMenu(menuName = "Assets/Abilities/CloakAbility")]
+public class CloakAbility : AbstractAbility
 {
-    private Material defaultMaterial;   // Default crawler material
     public Material cloakMaterial;      // Cloak material
 
-    public void Start()
+    public override void Activate(Crawler crawler)
     {
-        // TODO: Debug if this gets correct material
-        defaultMaterial = GetComponentInParent<Material>();
-
-        // Initialize base class variables
-        throw new System.NotImplementedException();
-    }
-
-    public override void Activate()
-    {
-        base.Activate();
-
-        throw new System.NotImplementedException();
-
-        var crawler = GetComponentInParent<Crawler>();
+        base.Activate(crawler);
         
-        //crawler.RpcSetMaterial(true);
-
         var detectionComponent =
             crawler.gameObject.GetComponent<DetectableObject>();
         if (detectionComponent != null)
             detectionComponent.isVisuallyDetectable = false;
     }
 
-    // TODO:
-    public override void ForceDeactivate()
+    public override void EnableEffect(Crawler crawler)
     {
-        base.ForceDeactivate();
-
-        throw new System.NotImplementedException();
+        base.EnableEffect(crawler);
     }
 
-    public override void ForceRefresh()
+    public override void Deactivate(Crawler crawler)
     {
-        base.ForceRefresh();
+        base.Deactivate(crawler);
 
-        throw new System.NotImplementedException();
-    }
-
-    protected override void deactivate()
-    {
-        base.deactivate();
-
-        throw new System.NotImplementedException();
-
-        var crawler = GetComponentInParent<Crawler>();
-
-        //crawler.RpcSetMaterial(false);
-        
         var detectionComponent =
             crawler.gameObject.GetComponent<DetectableObject>();
         if (detectionComponent != null)
             detectionComponent.isVisuallyDetectable = true;
     }
 
-    protected override void refresh()
+    public override void DisableEffect(Crawler crawler)
     {
-        base.refresh();
-
-        throw new System.NotImplementedException();
+        base.DisableEffect(crawler);
     }
 }

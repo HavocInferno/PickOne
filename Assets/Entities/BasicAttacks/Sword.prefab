@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 114874548534127170}
   - component: {fileID: 54347152197750786}
   m_Layer: 0
-  m_Name: SwordAttack
+  m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -193,8 +193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fafd1aff4a50d904aa66a168b0b40cd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 0
-  FireRate: 1
+  baseDamage: 30
+  baseFireRate: 1
   SwingSpeed: 10
   LifeTime: 1
   blade: {fileID: 1180671759890578}

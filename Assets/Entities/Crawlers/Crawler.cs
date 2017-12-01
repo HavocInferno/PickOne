@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
@@ -31,9 +33,12 @@ public class Crawler : NetworkBehaviour
 
     [Header("Abilities")]
 
-    public CrawlerAbility primaryAbility;
-    public CrawlerAbility secondaryAbility;
-    
+    public AbstractAbility primaryAbility;
+    public AbstractAbility secondaryAbility;
+
+    [SerializeField]
+    protected List<CooldownAbilityInstance> _cooldownAbilities = new List<CooldownAbilityInstance>();
+
     [Header("Skills")]
 
     [SyncVar(hook = "OnChangeSkill1_Buffed")]
@@ -42,6 +47,82 @@ public class Crawler : NetworkBehaviour
     public bool skill2_Debuffed = false;
     [SyncVar(hook = "OnChangeSkill3_Healed")]
     public bool skill3_Healed = false;
+
+    // Class that handles rechargeable ability with cooldown.
+    [System.Serializable]
+    protected class CooldownAbilityInstance
+    {
+        private Crawler _crawler;
+
+        private bool _isAvailable = true;
+        private bool _isActive = false;
+
+        public bool IsAvailable { get { return _isAvailable; } }
+        public bool IsActive { get { return _isActive; } }
+
+        [HideInInspector]
+        public Coroutine deactivateCoroutine;
+        [HideInInspector]
+        public Coroutine rechargeCoroutine;
+
+        [SerializeField]
+        private AbstractAbility ability;
+
+        private IEnumerator WaitAndDeactivate(float deltaTime)
+        {
+            yield return new WaitForSeconds(deltaTime);
+            Deactivate();
+        }
+
+        private IEnumerator WaitAndRecharge(float deltaTime)
+        {
+            yield return new WaitForSeconds(deltaTime);
+            Recharge();
+        }
+
+        public void Initialize(Crawler crawler)
+        {
+            _crawler = crawler;
+        }
+
+        // Activates this ability for the crawler if it is available.
+        public void Activate()
+        {
+            if (!_isAvailable) return;
+            _isAvailable = false;
+            _isActive = true;
+
+            ability.Activate(_crawler);
+            Debug.Log("Crawler | Ability activated");
+
+            deactivateCoroutine = _crawler.StartCoroutine(
+                WaitAndDeactivate(ability.baseDuration));
+        }
+
+        // Explicitly deactivates this ability for the crawler if it is activated.
+        public void Deactivate()
+        {
+            if (!_isActive) return;
+            _isActive = false;
+
+            Debug.Log("Crawler | Ability deactivated");
+            ability.Deactivate(_crawler);
+
+            _crawler.StopCoroutine(deactivateCoroutine);
+            rechargeCoroutine = _crawler.StartCoroutine(
+                WaitAndRecharge(ability.baseCost));
+        }
+
+        // Explicitly recharge this ability for the crawler if it is activated.
+        public void Recharge()
+        {
+            if (_isAvailable) return;
+            _isAvailable = true;
+            _crawler.StopCoroutine(rechargeCoroutine);
+
+            Debug.Log("Crawler | Ability recharged");
+        }
+    }
 
     /*public enum ActionState {
 		NONE,
@@ -76,6 +157,11 @@ public class Crawler : NetworkBehaviour
             Debug.Log("SERVER: " + pName + " is here.");
             if (!isVRMasterPlayer)
                 FindObjectOfType<PlayersManager>().players.Add(transform);
+        }
+
+        foreach (var ability in _cooldownAbilities)
+        {
+            ability.Initialize(this);
         }
     }
 
@@ -175,13 +261,13 @@ public class Crawler : NetworkBehaviour
     [Command]
     void CmdPrimaryAbility()
     {
-        primaryAbility.Activate();    
+        _cooldownAbilities[0].Activate();
     }
 
     [Command]
     void CmdSecondaryAbility()
     {
-        secondaryAbility.Activate();
+        secondaryAbility.Activate(this);
     }
 
     //###################### RPC CALLS #####################################
