@@ -102,7 +102,7 @@ public class Crawler : NetworkBehaviour
             foreach (var effect in effects)
             {
                 AppliedEffect comp = crawler.gameObject.AddComponent<AppliedEffect>();
-                comp.Activate(effect, effect.baseDuration);
+                comp.Initialize(effect, effect.baseDuration);
                 totalBaseCost += effect.baseCost;
             }
 
