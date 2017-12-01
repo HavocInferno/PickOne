@@ -92,18 +92,6 @@ public class GenericCharacter : NetworkBehaviour
 		Destroy(bullet, 2.0f);
 	}*/
 
-    [Command]
-    void CmdPrimaryAbility()
-    {
-        _activeAbilities[0].Activate(this);
-    }
-
-    [Command]
-    void CmdSecondaryAbility()
-    {
-        _activeAbilities[1].Activate(this);
-    }
-
     //###################### RPC CALLS #####################################
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
     [ClientRpc]

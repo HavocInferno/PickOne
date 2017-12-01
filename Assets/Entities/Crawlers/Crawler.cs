@@ -25,62 +25,6 @@ public class Crawler : GenericCharacter
     [SyncVar(hook = "OnChangeSkill3_Healed")]
     public bool skill3_Healed = false;
 
-    // Class that handles rechargeable ability with cooldown.
-    [System.Serializable]
-    protected class ActiveAbility
-    {
-        private bool _isAvailable = true;
-
-        public bool IsAvailable { get { return _isAvailable; } }
-        public string name = "Generic Ability";
-
-        [HideInInspector]
-        public Coroutine rechargeCoroutine;
-
-        [SerializeField]
-        private List<AbstractEffect> effects = new List<AbstractEffect>();
-
-        private IEnumerator WaitAndRecharge(float deltaTime, Crawler crawler)
-        {
-            yield return new WaitForSeconds(deltaTime);
-            Recharge(crawler);
-        }
-
-        // Activates this ability for the crawler if it is available.
-        public void Activate(Crawler crawler)
-        {
-            if (!_isAvailable)
-            {
-                Debug.LogFormat("Crawler | {0} is not available", name);
-                return;
-            }
-            _isAvailable = false;
-
-            float totalBaseCost = 0.0f;
-            foreach (var effect in effects)
-            {
-                AppliedEffect comp = crawler.gameObject.AddComponent<AppliedEffect>();
-                comp.Initialize(effect, effect.baseDuration);
-                totalBaseCost += effect.baseCost;
-            }
-
-            Debug.LogFormat("Crawler | {0} activated", name);
-
-            rechargeCoroutine = crawler.StartCoroutine(
-                WaitAndRecharge(totalBaseCost, crawler));
-        }
-
-        // Explicitly recharge this ability for the crawler if it is activated.
-        public void Recharge(Crawler crawler)
-        {
-            if (_isAvailable) return;
-            _isAvailable = true;
-            crawler.StopCoroutine(rechargeCoroutine);
-
-            Debug.LogFormat("Crawler | {0} recharged", name);
-        }
-    }
-
     /*public enum ActionState {
 		NONE,
 		ATTACK
@@ -164,20 +108,12 @@ public class Crawler : GenericCharacter
         CmdAttack();
     }
 
-    public void TogglePrimaryAbility()
+    public void ActivateAbility(int index)
     {
         if (!isLocalPlayer)
             return;
 
-        CmdPrimaryAbility();
-    }
-
-    public void ToggleSecondaryAbility()
-    {
-        if (!isLocalPlayer)
-            return;
-
-        CmdSecondaryAbility();
+        CmdActivateAbility(index);
     }
 
     //###################### COMMAND CALLS #####################################
@@ -189,19 +125,20 @@ public class Crawler : GenericCharacter
     }
 
     [Command]
-    void CmdPrimaryAbility()
+    void CmdActivateAbility(int index)
     {
-        _activeAbilities[0].Activate(this);
-    }
-
-    [Command]
-    void CmdSecondaryAbility()
-    {
-        _activeAbilities[1].Activate(this);
+        RpcActivateAbility(index);
     }
 
     //###################### RPC CALLS #####################################
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+
+    [ClientRpc]
+    void RpcActivateAbility(int index)
+    {
+        if (_activeAbilities.Count > index)
+            _activeAbilities[index].Activate(this);
+    }
 
     //###################### SYNCVAR HOOKS #####################################
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
