@@ -6,10 +6,10 @@ public class RightHandFollower : MasterFollower
 	public BezierCurve buff, debuff;
 	public Transform origin;
 	[SyncVar]
-	public Vector3 bufftarget;
+	public Vector3 buffTarget, debuffTarget;
 	public Controller controller;
 	[SyncVar]
-	public bool isBuffed;
+	public bool isBuffed, isDebuffed;
 	// Use this for initialization
 	void Start()
     {
@@ -19,7 +19,7 @@ public class RightHandFollower : MasterFollower
         }
         else
         {
-            buff.origin = origin;
+			debuff.origin = buff.origin = origin;
         }
     }
 	
@@ -33,13 +33,18 @@ public class RightHandFollower : MasterFollower
                 controller = followed.GetComponent<Controller>();
             origin.position = controller.rayOrigin.position;
             origin.rotation = controller.rayOrigin.rotation;
-            bufftarget = controller.buffDestination;
+
+			buffTarget = controller.buffDestination;
             isBuffed = controller.buffing;
+			debuffTarget = controller.debuffDestination;
+			isDebuffed = controller.debuffing;
         }
         else
         {
-            buff.destination = bufftarget;
+            buff.destination = buffTarget;
             buff.Draw = isBuffed;
+			debuff.destination = debuffTarget;
+			debuff.Draw = isDebuffed;
         }
     }
 }

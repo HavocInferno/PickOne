@@ -40,17 +40,29 @@ public class Controller : MonoBehaviour
     private Vector3 currentScale;
 
 
-	//buff test
-	public float maxRayOffset = 10;
+	//Buff/Debuff Variables
+	[SerializeField]
+	private float maxRayOffset = 10;
 	public Transform rayOrigin; 
-	public PlayersManager crawlers;
-	public BezierCurve buffRay;
-	public int currentBuffTarget = -1;
-	public float raySpeed = 30;
+	[SerializeField]
+	private PlayersManager playerManager;
+	[SerializeField]
+	private float raySpeed = 30;
+
+	[SerializeField]
+	private BezierCurve buffRay;
+	[SerializeField]
+	private int currentBuffTarget = -1;
+
+	[SerializeField]
+	private BezierCurve debuffRay;	
+	[SerializeField]
+	private int currentDebuffTarget = -1;
 
 	public Vector3 buffDestination;
 	public bool buffing = false;
-
+	public Vector3 debuffDestination;
+	public bool debuffing = false;
 
 
 	// Use this for initialization
@@ -70,6 +82,9 @@ public class Controller : MonoBehaviour
 		switch (currentItem) {
 		case 0: 
 			applyBuff ();
+			break;
+		case 1: 
+			applyDebuff ();
 			break;
 		}
 	}
@@ -147,9 +162,9 @@ public class Controller : MonoBehaviour
 		if (device.GetPress (SteamVR_Controller.ButtonMask.Trigger)) {
 			int closest = -1;
 			float closestdistance = maxRayOffset;
-			for (int i = 0; i < crawlers.players.Count; i++) {
-				if (Vector3.Cross (rayOrigin.forward, crawlers.players [i].position - rayOrigin.position).magnitude < closestdistance && Vector3.Dot (rayOrigin.forward, crawlers.players [i].position - rayOrigin.position) > 0.1) {
-					closestdistance = Vector3.Cross (rayOrigin.forward, crawlers.players [i].position - rayOrigin.position).magnitude;
+			for (int i = 0; i < playerManager.players.Count; i++) {
+				if (Vector3.Cross (rayOrigin.forward, playerManager.players [i].position - rayOrigin.position).magnitude < closestdistance && Vector3.Dot (rayOrigin.forward, playerManager.players [i].position - rayOrigin.position) > 0.1) {
+					closestdistance = Vector3.Cross (rayOrigin.forward, playerManager.players [i].position - rayOrigin.position).magnitude;
 					closest = i;
 				}
 			}
@@ -158,15 +173,15 @@ public class Controller : MonoBehaviour
 					buffRay.Draw = true;
 				if (buffing == false)
 					buffing = true;
-				buffDestination = Vector3.Lerp (buffDestination, crawlers.players [closest].position, Time.deltaTime * raySpeed);
+				buffDestination = Vector3.Lerp (buffDestination, playerManager.players [closest].position, Time.deltaTime * raySpeed);
 				buffRay.destination = buffDestination; 
 				if (closest == currentBuffTarget)
-					device.TriggerHapticPulse ((ushort)(1000 * Mathf.Pow (Vector3.Cross (rayOrigin.forward, crawlers.players [closest].position - rayOrigin.position).magnitude / maxRayOffset, 2)));
+					device.TriggerHapticPulse ((ushort)(1000 * Mathf.Pow (Vector3.Cross (rayOrigin.forward, playerManager.players [closest].position - rayOrigin.position).magnitude / maxRayOffset, 2)));
 				else {
 					//new target
 					if(currentBuffTarget!=-1)
-						crawlers.players[currentBuffTarget].GetComponent<Crawler>().skill1_Buffed = false;
-					crawlers.players[closest].GetComponent<Crawler>().skill1_Buffed = true;
+						playerManager.players[currentBuffTarget].GetComponent<Crawler>().skill1_Buffed = false;
+					playerManager.players[closest].GetComponent<Crawler>().skill1_Buffed = true;
 					device.TriggerHapticPulse (hapticforce);
 					currentBuffTarget = closest;
 				}
@@ -179,21 +194,69 @@ public class Controller : MonoBehaviour
 			buffing = true;
 			buffRay.Draw = true;
 			if(currentBuffTarget!=-1)
-				crawlers.players [currentBuffTarget].GetComponent<Crawler> ().skill1_Buffed = true;
+				playerManager.players [currentBuffTarget].GetComponent<Crawler> ().skill1_Buffed = true;
 		}
 		if (device.GetPressUp (SteamVR_Controller.ButtonMask.Trigger)) {
 			buffing = false;
 			buffRay.Draw = false;
 			if(currentBuffTarget!=-1)
-				crawlers.players [currentBuffTarget].GetComponent<Crawler> ().skill1_Buffed = false;
+				playerManager.players [currentBuffTarget].GetComponent<Crawler> ().skill1_Buffed = false;
+		}
+	}
+
+	void applyDebuff ()
+	{
+		if (device.GetPress (SteamVR_Controller.ButtonMask.Trigger)) {
+			int closest = -1;
+			float closestdistance = maxRayOffset;
+			for (int i = 0; i < playerManager.enemies.Count; i++) {
+				if (Vector3.Cross (rayOrigin.forward, playerManager.enemies [i].position - rayOrigin.position).magnitude < closestdistance && Vector3.Dot (rayOrigin.forward, playerManager.enemies [i].position - rayOrigin.position) > 0.1) {
+					closestdistance = Vector3.Cross (rayOrigin.forward, playerManager.enemies [i].position - rayOrigin.position).magnitude;
+					closest = i;
+				}
+			}
+			if (closest != -1) {
+				if (debuffRay.Draw == false)
+					debuffRay.Draw = true;
+				if (debuffing == false)
+					debuffing = true;
+				debuffDestination = Vector3.Lerp (debuffDestination, playerManager.enemies [closest].position, Time.deltaTime * raySpeed);
+				debuffRay.destination = debuffDestination; 
+				if (closest == currentDebuffTarget)
+					device.TriggerHapticPulse ((ushort)(1000 * Mathf.Pow (Vector3.Cross (rayOrigin.forward, playerManager.enemies [closest].position - rayOrigin.position).magnitude / maxRayOffset, 2)));
+				else {
+					//new target
+					//if(currentDebuffTarget!=-1)
+						//playerManager.enemies[currentBuffTarget].GetComponent<Crawler>().skill1_Buffed = false;
+					//playerManager.players[closest].GetComponent<Crawler>().skill1_Buffed = true;
+					Debug.Log("New enemy target! closest: " + closest +", currentDebuffTarget: "+currentDebuffTarget);
+					device.TriggerHapticPulse (hapticforce);
+					currentDebuffTarget = closest;
+				}
+			}
+			else
+				debuffRay.Draw = false;
+		}
+		//Draw bezierCurve
+		if (device.GetPressDown (SteamVR_Controller.ButtonMask.Trigger)) {
+			debuffing = true;
+			debuffRay.Draw = true;
+			//if(currentDebuffTarget!=-1)
+				//playerManager.players [currentBuffTarget].GetComponent<Crawler> ().skill1_Buffed = true;
+		}
+		if (device.GetPressUp (SteamVR_Controller.ButtonMask.Trigger)) {
+			debuffing = false;
+			debuffRay.Draw = false;
+			//if(currentBuffTarget!=-1)
+				//playerManager.players [currentBuffTarget].GetComponent<Crawler> ().skill1_Buffed = false;
 		}
 	}
 
 	void initRays ()
 	{
 
-		buffDestination = rayOrigin.position;
-		buffRay.origin = rayOrigin;
-		crawlers = GameObject.Find ("Playerlist").GetComponent<PlayersManager>();
+		debuffDestination = buffDestination = rayOrigin.position;
+		debuffRay.origin = buffRay.origin = rayOrigin;
+		playerManager = GameObject.Find ("Playerlist").GetComponent<PlayersManager>();
 	}
 }
