@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Networking;
 
 public class DetectableObject : NetworkBehaviour
@@ -16,5 +17,6 @@ public class DetectableObject : NetworkBehaviour
         return true;
     }
 
+    public HashSet<Enemy> detectedBy = new HashSet<Enemy>();
     public bool isVisuallyDetectable = true;
 }

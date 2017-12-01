@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
 		var health = hit.GetComponent<Health>();
 		if (health != null)
 		{
-			health.TakeHit (Damage, this.transform.position, this.transform.forward);   //Vector3.Normalize(hit.transform.position - this.transform.position));
+			health.TakeHit(Damage, this.transform.position, this.transform.forward);   //Vector3.Normalize(hit.transform.position - this.transform.position));
 		}
 
 		Destroy(gameObject);

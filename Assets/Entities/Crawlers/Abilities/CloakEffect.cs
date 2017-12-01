@@ -7,22 +7,22 @@ public class CloakEffect : AbstractEffect
 {
     public Material cloakMaterial;      // Cloak material
 
-    public override void Enable(Crawler crawler)
+    public override void Enable(GenericCharacter character)
     {
-        base.Enable(crawler);
+        base.Enable(character);
         
         var detectionComponent =
-            crawler.gameObject.GetComponent<DetectableObject>();
+            character.gameObject.GetComponent<DetectableObject>();
         if (detectionComponent != null)
             detectionComponent.isVisuallyDetectable = false;
     }
 
-    public override void Disable(Crawler crawler)
+    public override void Disable(GenericCharacter character)
     {
-        base.Disable(crawler);
+        base.Disable(character);
 
         var detectionComponent =
-            crawler.gameObject.GetComponent<DetectableObject>();
+            character.gameObject.GetComponent<DetectableObject>();
         if (detectionComponent != null)
             detectionComponent.isVisuallyDetectable = true;
     }

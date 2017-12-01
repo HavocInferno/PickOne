@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class Crawler : NetworkBehaviour
+public class Crawler : GenericCharacter
 {
     [Header("Player Properties")]
 
@@ -15,48 +15,6 @@ public class Crawler : NetworkBehaviour
     public Color playerColor = Color.white;
     [SyncVar]
     public bool isVRMasterPlayer = false;
-	[SyncVar(hook = "OnChangeDead")]
-	public bool isDead = false;
-
-    [Header("Attacks")]
-
-    public BasicAttack basicAttack;
-    //public float fireRate = 0.15f;
-    //private float lastFire;
-    //public float bulletSpeed = 16f;
-    //public GameObject bulletPrefab;
-    //public Transform bulletSpawn;
-
-    [Space(8)]
-
-    public Stats stats;
-
-    [Header("Abilities")]
-
-    [SerializeField]
-    protected List<ActiveAbility> _activeAbilities = new List<ActiveAbility>();
-    [SerializeField]
-    protected List<AbstractEffect> _passiveEffects = new List<AbstractEffect>();
-
-    private HashSet<AbstractEffect> _appliedEffects = new HashSet<AbstractEffect>();
-
-    public void EnableEffect(AbstractEffect effect)
-    {
-        effect.Enable(this);
-        _appliedEffects.Add(effect);
-    }
-
-    public void DisableEffect(AbstractEffect effect)
-    {
-        effect.Disable(this);
-        _appliedEffects.Remove(effect);
-    }
-
-    public bool EffectIsEnabled(AbstractEffect effect)
-    {
-        effect.Disable(this);
-        return _appliedEffects.Contains(effect);
-    }
 
     [Header("Skills")]
 
@@ -130,10 +88,25 @@ public class Crawler : NetworkBehaviour
 	[SyncVar(hook = "OnChangeActionState")]
 	public ActionState actionState = ActionState.NONE;*/
 
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+
+        //on the server, add yourself to the level-wide player list
+        if (isServer)
+        {
+            Debug.Log("SERVER: " + pName + " is here.");
+            if (!isVRMasterPlayer)
+                FindObjectOfType<PlayersManager>().players.Add(transform);
+        }
+    }
+
     //#######################################################################
     //called after scene loaded
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         gameObject.name = pName;
         //foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>())
         //{
@@ -148,27 +121,6 @@ public class Crawler : NetworkBehaviour
         if (isVRMasterPlayer)
         {
             transform.localScale *= 2f;
-        }
-
-        //on the server, add yourself to the level-wide player list
-        if (isServer)
-        {
-            Debug.Log("SERVER: " + pName + " is here.");
-            if (!isVRMasterPlayer)
-                FindObjectOfType<PlayersManager>().players.Add(transform);
-        }
-
-        foreach (var effect in _passiveEffects)
-        {
-            EnableEffect(effect);
-        }
-    }
-
-    void OnValidate()
-    {
-        if (basicAttack == null)
-        {
-            Debug.LogError("Basic attack not set.");
         }
     }
 
@@ -210,7 +162,6 @@ public class Crawler : NetworkBehaviour
 
         //weapon firing. dumb and unoptimized.
         CmdAttack();
-        
     }
 
     public void TogglePrimaryAbility()
@@ -231,26 +182,6 @@ public class Crawler : NetworkBehaviour
 
     //###################### COMMAND CALLS #####################################
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-    // This [Command] code is called on the Client …
-    // … but it is run on the Server!
-    /*[Command]
-	void CmdFire()
-	{
-		// Create the Bullet from the Bullet Prefab
-		var bullet = Instantiate(
-			bulletPrefab,
-			bulletSpawn.position,
-			bulletSpawn.rotation);
-
-		// Add velocity to the bullet
-		bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;
-
-		NetworkServer.Spawn (bullet);
-
-		// Destroy the bullet after 2 seconds
-		Destroy(bullet, 2.0f);
-	}*/
-
     [Command]
     void CmdAttack()
     {
@@ -271,25 +202,6 @@ public class Crawler : NetworkBehaviour
 
     //###################### RPC CALLS #####################################
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-    [ClientRpc]
-    void RpcAttack()
-    {
-        // TODO: Damage calculation
-        basicAttack.DoAttack();
-    }
-    
-    //[ClientRpc]
-    //public void RpcSetMaterial(bool cloak)
-    //{
-    //    foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>())
-    //    {
-    //        mr.material = cloak ? cloakMaterial : defaultMaterial;
-    //        if (!cloak)
-    //        {
-    //            mr.material.color = playerColor;
-    //        }
-    //    }
-    //}
 
     //###################### SYNCVAR HOOKS #####################################
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
@@ -315,13 +227,12 @@ public class Crawler : NetworkBehaviour
         skill3_Healed = state;
     }
 
-	void OnChangeDead(bool dead)
+	protected override void OnDeath()
 	{
-		if (!isDead) {
-			if (isServer) {
-				nameTag.text += " [DEAD]";
-			}
-			gameObject.GetComponentInChildren<CrawlerController> ().enabled = false;
+		if (isServer)
+        {
+			nameTag.text += " [DEAD]";
 		}
+		gameObject.GetComponentInChildren<CrawlerController>().enabled = false;
 	}
 }

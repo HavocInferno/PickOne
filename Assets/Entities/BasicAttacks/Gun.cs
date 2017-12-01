@@ -44,7 +44,7 @@ public class Gun : BasicAttack
         // Add velocity to the bullet
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * BulletSpeed;
 
-        NetworkServer.Spawn(bullet);
+        // NetworkServer.Spawn(bullet);
 
         // Destroy the bullet after 2 seconds
         Destroy(bullet, BulletLife);

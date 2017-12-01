@@ -3,67 +3,78 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class EndConditions : NetworkBehaviour {
-
-
+public class EndConditions : NetworkBehaviour
+{
 	public bool hasToKillAllEnemies = true;
-	public List<Enemy> enemiesToKill;
+	public List<Enemy> enemiesToKill = new List<Enemy>();
 	public bool gameEnded = false;
 	public EndScreenUI endScreenUI;
 
-	void Start() {
+    void Start()
+    {
 		if (!isServer)
 			return;
-		
-		if (hasToKillAllEnemies && enemiesToKill.Count == 0)
+
+        NetworkServer.Spawn(gameObject);
+
+        if (hasToKillAllEnemies && enemiesToKill.Count == 0)
 			Debug.Log ("SERVER: No enemy list! Win guaranteed...");
 	}
 
-	public void markEnemyKilled(Enemy e) {
+	public void MarkEnemyKilled(Enemy e)
+    {
 		if (!isServer)
 			return;
 		
-		if (enemiesToKill.Contains (e)) {
-			enemiesToKill.Remove (e);
-			checkEndCondition ();
+		if (enemiesToKill.Contains(e))
+        {
+			enemiesToKill.Remove(e);
+			CheckEndCondition();
 		}
 	}
 
-	public void checkEndCondition() {
+	public void CheckEndCondition()
+    {
 		if (gameEnded)
 			return;
 		
 		bool anyCrawlerAlive = false;
-		foreach (Transform c in FindObjectOfType<PlayersManager>().players) {
-			if (!c.GetComponentInChildren<Crawler> ().isDead) {
+		foreach (Transform c in FindObjectOfType<PlayersManager>().players)
+        {
+			if (!c.GetComponentInChildren<Crawler>().isDead)
+            {
 				anyCrawlerAlive = true;
 				break;
 			}
 		}
-		if (!anyCrawlerAlive) {
+		if (!anyCrawlerAlive)
+        {
 			gameEnded = true;
-			RpcTriggerLOSE ();
+			RpcTriggerLOSE();
 			return;
 		}
 		
-		if (enemiesToKill.Count == 0) {
+		if (enemiesToKill.Count == 0)
+        {
 			gameEnded = true;
-			RpcTriggerWIN ();
+			RpcTriggerWIN();
 			return;
 		}
 	}
 
 	[ClientRpc]
-	void RpcTriggerWIN() {
-		Debug.Log ("RPC: All enemies dead, WON!");
-		endScreenUI.gameObject.SetActive (true);
+	void RpcTriggerWIN()
+    {
+		Debug.Log("RPC: All enemies dead, WON!");
+		endScreenUI.gameObject.SetActive(true);
 		endScreenUI.conditionLabel.text = "You WON!";
 	}
 
 	[ClientRpc]
-	void RpcTriggerLOSE() {
+	void RpcTriggerLOSE()
+    {
 		Debug.Log ("RPC: All crawlers dead, LOSE!");
-		endScreenUI.gameObject.SetActive (true);
-		endScreenUI.conditionLabel.text = "You WON!";
+		endScreenUI.gameObject.SetActive(true);
+		endScreenUI.conditionLabel.text = "You LOSE!";
 	}
 }
