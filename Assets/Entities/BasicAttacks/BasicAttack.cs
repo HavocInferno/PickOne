@@ -52,10 +52,10 @@ public abstract class BasicAttack : MonoBehaviour
     public virtual void DoAttack()
     {
         ready = false;
-        StartCoroutine(waitForReload());
+        StartCoroutine(WaitForReload());
     }
 
-    protected virtual IEnumerator waitForReload()
+    protected virtual IEnumerator WaitForReload()
     {
         yield return new WaitForSeconds(FireRate);
         ready = true;

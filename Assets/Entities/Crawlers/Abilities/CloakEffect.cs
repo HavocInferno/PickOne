@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Assets/Abilities/CloakAbility")]
-public class CloakAbility : AbstractAbility
+[CreateAssetMenu(menuName = "Assets/Effects/CloakEffect")]
+public class CloakEffect : AbstractEffect
 {
     public Material cloakMaterial;      // Cloak material
 
-    public override void Activate(Crawler crawler)
+    public override void Enable(Crawler crawler)
     {
-        base.Activate(crawler);
+        base.Enable(crawler);
         
         var detectionComponent =
             crawler.gameObject.GetComponent<DetectableObject>();
@@ -17,23 +17,13 @@ public class CloakAbility : AbstractAbility
             detectionComponent.isVisuallyDetectable = false;
     }
 
-    public override void EnableEffect(Crawler crawler)
+    public override void Disable(Crawler crawler)
     {
-        base.EnableEffect(crawler);
-    }
-
-    public override void Deactivate(Crawler crawler)
-    {
-        base.Deactivate(crawler);
+        base.Disable(crawler);
 
         var detectionComponent =
             crawler.gameObject.GetComponent<DetectableObject>();
         if (detectionComponent != null)
             detectionComponent.isVisuallyDetectable = true;
-    }
-
-    public override void DisableEffect(Crawler crawler)
-    {
-        base.DisableEffect(crawler);
     }
 }

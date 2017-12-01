@@ -33,11 +33,30 @@ public class Crawler : NetworkBehaviour
 
     [Header("Abilities")]
 
-    public AbstractAbility primaryAbility;
-    public AbstractAbility secondaryAbility;
-
     [SerializeField]
-    protected List<CooldownAbilityInstance> _cooldownAbilities = new List<CooldownAbilityInstance>();
+    protected List<ActiveAbility> _activeAbilities = new List<ActiveAbility>();
+    [SerializeField]
+    protected List<AbstractEffect> _passiveEffects = new List<AbstractEffect>();
+
+    private HashSet<AbstractEffect> _appliedEffects = new HashSet<AbstractEffect>();
+
+    public void EnableEffect(AbstractEffect effect)
+    {
+        effect.Enable(this);
+        _appliedEffects.Add(effect);
+    }
+
+    public void DisableEffect(AbstractEffect effect)
+    {
+        effect.Disable(this);
+        _appliedEffects.Remove(effect);
+    }
+
+    public bool EffectIsEnabled(AbstractEffect effect)
+    {
+        effect.Disable(this);
+        return _appliedEffects.Contains(effect);
+    }
 
     [Header("Skills")]
 
@@ -50,77 +69,57 @@ public class Crawler : NetworkBehaviour
 
     // Class that handles rechargeable ability with cooldown.
     [System.Serializable]
-    protected class CooldownAbilityInstance
+    protected class ActiveAbility
     {
-        private Crawler _crawler;
-
         private bool _isAvailable = true;
-        private bool _isActive = false;
 
         public bool IsAvailable { get { return _isAvailable; } }
-        public bool IsActive { get { return _isActive; } }
+        public string name = "Generic Ability";
 
-        [HideInInspector]
-        public Coroutine deactivateCoroutine;
         [HideInInspector]
         public Coroutine rechargeCoroutine;
 
         [SerializeField]
-        private AbstractAbility ability;
+        private List<AbstractEffect> effects = new List<AbstractEffect>();
 
-        private IEnumerator WaitAndDeactivate(float deltaTime)
+        private IEnumerator WaitAndRecharge(float deltaTime, Crawler crawler)
         {
             yield return new WaitForSeconds(deltaTime);
-            Deactivate();
-        }
-
-        private IEnumerator WaitAndRecharge(float deltaTime)
-        {
-            yield return new WaitForSeconds(deltaTime);
-            Recharge();
-        }
-
-        public void Initialize(Crawler crawler)
-        {
-            _crawler = crawler;
+            Recharge(crawler);
         }
 
         // Activates this ability for the crawler if it is available.
-        public void Activate()
+        public void Activate(Crawler crawler)
         {
-            if (!_isAvailable) return;
+            if (!_isAvailable)
+            {
+                Debug.LogFormat("Crawler | {0} is not available", name);
+                return;
+            }
             _isAvailable = false;
-            _isActive = true;
 
-            ability.Activate(_crawler);
-            Debug.Log("Crawler | Ability activated");
+            float totalBaseCost = 0.0f;
+            foreach (var effect in effects)
+            {
+                AppliedEffect comp = crawler.gameObject.AddComponent<AppliedEffect>();
+                comp.Activate(effect, effect.baseDuration);
+                totalBaseCost += effect.baseCost;
+            }
 
-            deactivateCoroutine = _crawler.StartCoroutine(
-                WaitAndDeactivate(ability.baseDuration));
-        }
+            Debug.LogFormat("Crawler | {0} activated", name);
 
-        // Explicitly deactivates this ability for the crawler if it is activated.
-        public void Deactivate()
-        {
-            if (!_isActive) return;
-            _isActive = false;
-
-            Debug.Log("Crawler | Ability deactivated");
-            ability.Deactivate(_crawler);
-
-            _crawler.StopCoroutine(deactivateCoroutine);
-            rechargeCoroutine = _crawler.StartCoroutine(
-                WaitAndRecharge(ability.baseCost));
+            rechargeCoroutine = crawler.StartCoroutine(
+                WaitAndRecharge(totalBaseCost, crawler));
         }
 
         // Explicitly recharge this ability for the crawler if it is activated.
-        public void Recharge()
+        public void Recharge(Crawler crawler)
         {
             if (_isAvailable) return;
             _isAvailable = true;
-            _crawler.StopCoroutine(rechargeCoroutine);
+            crawler.StopCoroutine(rechargeCoroutine);
 
-            Debug.Log("Crawler | Ability recharged");
+            Debug.LogFormat("Crawler | {0} recharged", name);
         }
     }
 
@@ -159,9 +158,9 @@ public class Crawler : NetworkBehaviour
                 FindObjectOfType<PlayersManager>().players.Add(transform);
         }
 
-        foreach (var ability in _cooldownAbilities)
+        foreach (var effect in _passiveEffects)
         {
-            ability.Initialize(this);
+            EnableEffect(effect);
         }
     }
 
@@ -261,13 +260,13 @@ public class Crawler : NetworkBehaviour
     [Command]
     void CmdPrimaryAbility()
     {
-        _cooldownAbilities[0].Activate();
+        _activeAbilities[0].Activate(this);
     }
 
     [Command]
     void CmdSecondaryAbility()
     {
-        secondaryAbility.Activate(this);
+        _activeAbilities[1].Activate(this);
     }
 
     //###################### RPC CALLS #####################################
