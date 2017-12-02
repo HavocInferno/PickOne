@@ -34,12 +34,16 @@ public class GenericCharacter : NetworkBehaviour
         Debug.LogFormat("{0} | Effect {1} enabled", name, effect.name);
         effect.Enable(this, isLocalPlayer, isServer);
         _appliedEffects.Add(effect);
+        if (isLocalPlayer)
+            FindObjectOfType<ActiveEffectsPanel>().AddElement(effect);
     }
 
     public void DisableEffect(AbstractEffect effect)
     {
         effect.Disable(this, isLocalPlayer, isServer);
         _appliedEffects.Remove(effect);
+        if (isLocalPlayer)
+            FindObjectOfType<ActiveEffectsPanel>().RemoveElement(effect);
     }
 
     public bool EffectIsEnabled(AbstractEffect effect)

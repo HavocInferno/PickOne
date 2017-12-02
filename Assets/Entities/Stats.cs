@@ -152,7 +152,6 @@ public class Stats : NetworkBehaviour
 
         if (isServer)
             Health -= amount;
-
         _character.OnReceiveDamage(amount, attacker, hitPoint, hitDirection);
         attacker.OnMakeDamage(amount, _character, hitPoint, hitDirection);
 
