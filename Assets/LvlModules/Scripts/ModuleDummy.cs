@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 public class ModuleDummy : MonoBehaviour {
 
+	#if UNITY_EDITOR
 	public Rect area = new Rect(0f, 0f, 18f, 18f);
 	public float height = 8f;
 	public Color gizmoColor = new Color(1, 0, 0, 0.13f);
@@ -22,4 +25,5 @@ public class ModuleDummy : MonoBehaviour {
 		Gizmos.DrawLine(transform.position - Vector3.forward * 1f, transform.position + Vector3.forward * 1f);
 		Gizmos.DrawLine(transform.position - Vector3.left * 1f, transform.position + Vector3.left * 1f);
 	}
+	#endif
 }
