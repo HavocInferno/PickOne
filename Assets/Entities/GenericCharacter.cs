@@ -32,19 +32,19 @@ public class GenericCharacter : NetworkBehaviour
 
     public void EnableEffect(AbstractEffect effect)
     {
-        effect.Enable(this);
+        effect.Enable(this, isLocalPlayer, isServer);
         _appliedEffects.Add(effect);
     }
 
     public void DisableEffect(AbstractEffect effect)
     {
-        effect.Disable(this);
+        effect.Disable(this, isLocalPlayer, isServer);
         _appliedEffects.Remove(effect);
     }
 
     public bool EffectIsEnabled(AbstractEffect effect)
     {
-        effect.Disable(this);
+        effect.Disable(this, isLocalPlayer, isServer);
         return _appliedEffects.Contains(effect);
     }
 

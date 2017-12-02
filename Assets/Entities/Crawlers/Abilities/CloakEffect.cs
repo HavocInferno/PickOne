@@ -7,16 +7,22 @@ public class CloakEffect : AbstractEffect
 {
     public Material cloakMaterial;
 
-    public override void Enable(GenericCharacter character)
+    public override void Enable(
+        GenericCharacter character,
+        bool calledByLocalPlayer,
+        bool calledByServer)
     {
-        base.Enable(character);
+        base.Enable(character, calledByLocalPlayer, calledByServer);
 
         character.gameObject.AddComponent<_CloakEffectScript>()._Initialize(cloakMaterial);
     }
 
-    public override void Disable(GenericCharacter character)
+    public override void Disable(
+        GenericCharacter character,
+        bool calledByLocalPlayer,
+        bool calledByServer)
     {
-        base.Disable(character);
+        base.Disable(character, calledByLocalPlayer, calledByServer);
 
         Destroy(character.gameObject.GetComponent<_CloakEffectScript>());
     }

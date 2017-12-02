@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
 
 /// <summary>
-/// When this component is attached to the camera, it can highlight object.
-/// For specifying which objects should be highlighted, use Highlighter component.
+/// When this component is attached to the camera, it can highlight objects.
+/// For specifying which objects should be highlighted, use Highlighter component
+/// and setup layers properly.
 /// </summary>
 [AddComponentMenu("Rendering/Highlighting Renderer")]
 [RequireComponent(typeof(Camera))]
@@ -27,22 +25,25 @@ public class HighlightingRenderer : MonoBehaviour
     private int currentResolutionX = 0;
     private int currentResolutionY = 0;
 
-    void Start()
+    void Awake()
+    {
+        material = new Material(blendShader);
+        material.name = "HighlightMaterial";
+        material.hideFlags = HideFlags.HideAndDontSave;
+    }
+
+    void OnEnable()
     {
         if (highlightShader && blendShader)
         {
             Camera camera = GetComponent<Camera>();
 
-            // Create new material for image effects
-            material = new Material(blendShader);
-            material.name = "HighlightMaterial";
-            material.hideFlags = HideFlags.HideAndDontSave;
-
             // Create additional camera to render highlighting
+            Debug.Log("Create new blit material");
             highlightCameraObject = new GameObject("_Camera");
             highlightCameraObject.transform.SetParent(transform, false);
             highlightCamera = highlightCameraObject.AddComponent<Camera>();
-            highlightCameraObject.hideFlags = HideFlags.HideAndDontSave;
+            // highlightCameraObject.hideFlags = HideFlags.HideAndDontSave;
 
             highlightCamera.CopyFrom(camera);
             highlightCamera.targetTexture = renderTexture;
@@ -76,6 +77,7 @@ public class HighlightingRenderer : MonoBehaviour
         {
             Debug.LogWarning("HighlightingRenderer | " +
                 "Trying to refresh highlight camera, but it does not exist", gameObject);
+            enabled = false;
         }
     }
 
@@ -110,16 +112,15 @@ public class HighlightingRenderer : MonoBehaviour
         {
             Debug.LogWarning("HighlightingRenderer | " +
                 "Trying to setup the material uniforms, but the material does not exist", gameObject);
+            enabled = false;
         }
     }
 
-
-    private void Update()
+    private void FixedUpdate()
     {
         RefreshRenderTexture();
         RefreshHighlightCamera();
     }
-
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
@@ -140,18 +141,14 @@ public class HighlightingRenderer : MonoBehaviour
             Graphics.Blit(source, destination);
             Debug.LogWarning("HighlightingRenderer | " +
                 "Shader is not assigned. Disabling image effect.", gameObject);
-            enabled = false;
+            // enabled = false;
         }
     }
 
-
     void OnDisable()
     {
-        if (material)
-        {
-            DestroyImmediate(material);
-            DestroyImmediate(highlightCameraObject);
-            DestroyImmediate(renderTexture);
-        }
+        DestroyImmediate(highlightCameraObject);
+        if (renderTexture)
+            renderTexture.Release();
     }
 }
