@@ -4177,23 +4177,13 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114302006882383614, guid: 19cad6e6906082a43b84246ca1a12bc8,
-        type: 2}
-      propertyPath: detectors.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114302006882383614, guid: 19cad6e6906082a43b84246ca1a12bc8,
-        type: 2}
-      propertyPath: behaviours.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4576143687695906, guid: 19cad6e6906082a43b84246ca1a12bc8, type: 2}
       propertyPath: m_LocalPosition.x
       value: 47.797256
       objectReference: {fileID: 0}
     - target: {fileID: 4576143687695906, guid: 19cad6e6906082a43b84246ca1a12bc8, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.0000055730343
+      value: 1.17
       objectReference: {fileID: 0}
     - target: {fileID: 4576143687695906, guid: 19cad6e6906082a43b84246ca1a12bc8, type: 2}
       propertyPath: m_LocalPosition.z
@@ -4238,19 +4228,7 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114302006882383614, guid: 19cad6e6906082a43b84246ca1a12bc8,
-        type: 2}
-      propertyPath: detectors.Array.data[0]
-      value: 
-      objectReference: {fileID: 275237072}
-    - target: {fileID: 114302006882383614, guid: 19cad6e6906082a43b84246ca1a12bc8,
-        type: 2}
-      propertyPath: behaviours.Array.data[0]
-      value: 
-      objectReference: {fileID: 275237073}
-    m_RemovedComponents:
-    - {fileID: 114231117516406636, guid: 19cad6e6906082a43b84246ca1a12bc8, type: 2}
-    - {fileID: 114339832544986054, guid: 19cad6e6906082a43b84246ca1a12bc8, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 19cad6e6906082a43b84246ca1a12bc8, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &275237071 stripped
@@ -4258,18 +4236,20 @@ GameObject:
   m_PrefabParentObject: {fileID: 1267355592298342, guid: 19cad6e6906082a43b84246ca1a12bc8,
     type: 2}
   m_PrefabInternal: {fileID: 275237070}
---- !u!114 &275237072 stripped
+--- !u!114 &275237072
 MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114345398559302140, guid: 19cad6e6906082a43b84246ca1a12bc8,
-    type: 2}
-  m_PrefabInternal: {fileID: 275237070}
-  m_Script: {fileID: 11500000, guid: 4cae672b2cf7fd944af858a27d98796d, type: 3}
---- !u!114 &275237073 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114492721757507490, guid: 19cad6e6906082a43b84246ca1a12bc8,
-    type: 2}
-  m_PrefabInternal: {fileID: 275237070}
-  m_Script: {fileID: 11500000, guid: a79ec5183c6bac341a36c1d6a850315c, type: 3}
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 275237071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ccc66562fceab4db71a2d2c6bae8a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  replacementTag: Highlight
+  colorAttributeName: _HighlightColor
+  color: {r: 0, g: 0.751724, b: 1, a: 0.516}
 --- !u!1 &277606297
 GameObject:
   m_ObjectHideFlags: 0
@@ -11185,6 +11165,7 @@ GameObject:
   - component: {fileID: 787790830}
   - component: {fileID: 787790829}
   - component: {fileID: 787790834}
+  - component: {fileID: 787790835}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -11221,7 +11202,7 @@ Camera:
   m_GameObject: {fileID: 787790828}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -11287,6 +11268,23 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 768
+--- !u!114 &787790835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 787790828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 900e735e2e1268f4fabf25140d3033ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightShader: {fileID: 4800000, guid: cad59ca89422c924cbd36f79acddf3dd, type: 3}
+  blendShader: {fileID: 4800000, guid: 23a7794b5a7f8ca4583d7e687ec46262, type: 3}
+  replacementTag: Highlight
+  cullingMask:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!1 &788242332
 GameObject:
   m_ObjectHideFlags: 0

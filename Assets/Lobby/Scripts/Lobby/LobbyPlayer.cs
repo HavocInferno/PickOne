@@ -232,11 +232,11 @@ namespace Prototype.NetworkLobby
 
 		public void QueryVRDeviceModel() {
 			Debug.Log ("Querying VR Device Model");
-			if (VRDevice.isPresent) {
+			if (UnityEngine.XR.XRDevice.isPresent) {
 				isVRcapable = true;
 			
-				string model = UnityEngine.VR.VRDevice.model != null ?
-				UnityEngine.VR.VRDevice.model : "";
+				string model = UnityEngine.XR.XRDevice.model != null ?
+				UnityEngine.XR.XRDevice.model : "";
 
 				if (model.IndexOf ("Rift") >= 0) {
 					vrDeviceModel = 2;

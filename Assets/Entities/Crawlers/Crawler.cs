@@ -79,7 +79,7 @@ public class Crawler : GenericCharacter
 		 * append (VR MASTER) to the player name */
         if (isVRMasterPlayer)
         {
-            UnityEngine.VR.VRSettings.enabled = true;
+            UnityEngine.XR.XRSettings.enabled = true;
             FindObjectOfType<CameraManager>().nonVRCamera.SetActive(false);
             FindObjectOfType<CameraManager>().vrCamera.SetActive(true);
             transform.position += Vector3.up;
@@ -92,7 +92,7 @@ public class Crawler : GenericCharacter
 		 * set this gameObject as the main cam target */
         else
         {
-            UnityEngine.VR.VRSettings.enabled = false;
+            UnityEngine.XR.XRSettings.enabled = false;
             FindObjectOfType<CameraManager>().vrCamera.SetActive(false);
             FindObjectOfType<CameraManager>().nonVRCamera.SetActive(true);
             Camera.main.GetComponent<DungeonCamera>().target = this.gameObject;
