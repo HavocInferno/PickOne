@@ -43,6 +43,7 @@ public class Gun : BasicAttack
         // Set damage value of the bullet
         bullet.GetComponent<Bullet>().damage = this.Damage;
         bullet.GetComponent<Bullet>().attacker = attacker;
+        bullet.GetComponent<Bullet>().direction = bullet.transform.forward;
 
         // Add velocity to the bullet
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * BulletSpeed;

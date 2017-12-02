@@ -690,7 +690,8 @@ MonoBehaviour:
   - name: Enemy Detection Ability
     effects:
     - {fileID: 11400000, guid: 538a7aa52253ae245854be874f4be8bd, type: 2}
-  _passiveEffects: []
+  _passiveEffects:
+  - {fileID: 11400000, guid: 3166d152cc481c24cae1dfb5adba5388, type: 2}
   nameTag: {fileID: 114318600357406474}
   pName: player
   playerColor: {r: 0, g: 0, b: 1, a: 1}

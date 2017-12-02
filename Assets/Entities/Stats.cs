@@ -68,26 +68,29 @@ public class Stats : NetworkBehaviour
     // Getters and setters
     //
 
-    float Health
+    public float Health
     {
         get { return GetAttributeValue("Health"); }
         set { SetAttributeValue("Health", value); }
     }
 
-    float MaxHealth
+    public float MaxHealth
     {
         get { return GetAttributeMax("Health"); }
         set { SetAttributeMax("Health", value); }
     }
 
-    void SetAttributeValue(string name, float value)
+    public void SetAttributeValue(string name, float value)
     {
         Debug.Assert(isServer, "Only server can change character stats!");
         if (isServer)
+        {
+            _attributes[name].Value = value;
             RpcSetAttributeValue(name, value);
+        }
     }
 
-    float GetAttributeValue(string name)
+    public float GetAttributeValue(string name)
     {
         return _attributes[name].Value;
     }
@@ -95,7 +98,8 @@ public class Stats : NetworkBehaviour
     [ClientRpc]
     void RpcSetAttributeValue(string name, float value)
     {
-        _attributes[name].Value = value;
+        if (!isServer)
+            _attributes[name].Value = value;
     }
 
     void SetAttributeMax(string name, float max)
@@ -105,7 +109,7 @@ public class Stats : NetworkBehaviour
             RpcSetAttributeMax(name, max);
     }
 
-    float GetAttributeMax(string name)
+    public float GetAttributeMax(string name)
     {
         return _attributes[name].Value;
     }
@@ -142,19 +146,19 @@ public class Stats : NetworkBehaviour
         Vector3 hitPoint,
         Vector3 hitDirection)
     {
-        if (!isServer) return;
-
         Stats attackerStats = attacker.GetComponent<Stats>();
         float amount = baseAmount * defenseMultiplier;
         if (attackerStats != null) amount *= attackerStats.attackMultiplier;
 
-        float newHealth = Health - amount;
+        if (isServer)
+            Health -= amount;
 
         _character.OnReceiveDamage(amount, attacker, hitPoint, hitDirection);
         attacker.OnMakeDamage(amount, _character, hitPoint, hitDirection);
 
-        Health = newHealth;
-        if (newHealth <= 0.0f)
+        if (!isServer) return;
+
+        if (Health <= 0.0f)
         {
             gameObject.GetComponent<GenericCharacter>().isDead = true;
 

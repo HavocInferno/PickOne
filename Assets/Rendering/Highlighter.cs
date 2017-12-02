@@ -54,7 +54,6 @@ public class Highlighter : MonoBehaviour
 
         foreach (var material in Hierarchy.GetMaterials(transform))
         {
-            Debug.Log(material.name);
             material.SetOverrideTag(_setupReplacementTag, "");
             material.SetOverrideTag(replacementTag, "On");
         }
