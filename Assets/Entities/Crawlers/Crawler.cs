@@ -169,7 +169,8 @@ public class Crawler : GenericCharacter
 		if (isServer)
         {
 			nameTag.text += " [DEAD]";
-		}
+            FindObjectOfType<EndConditions>().CheckEndCondition();
+        }
 		gameObject.GetComponentInChildren<CrawlerController>().enabled = false;
 	}
 }

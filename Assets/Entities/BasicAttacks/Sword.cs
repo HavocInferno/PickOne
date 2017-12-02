@@ -4,25 +4,26 @@ using UnityEngine;
 public class Sword : BasicAttack
 { 
     [Header("Sword Details")]
-    public float SwingSpeed = 3.0f;
-    public float LifeTime = 1.0f;
+    public float swingSpeed = 3.0f;
+    public float lifeTime = 1.0f;
 
     public GameObject blade = null;
 
-    private bool animActive = false;
-	private Quaternion defaultRot;
+    private bool _animActive = false;
+	private Quaternion _defaultRot;
+    GenericCharacter _attacker;
 
     protected override void Start()
     {
         base.Start();
 
-        defaultRot = transform.localRotation;
+        _defaultRot = transform.localRotation;
         blade.SetActive(false);
     }
 
     protected void Update()
     {
-		if (animActive)
+		if (_animActive)
         {
 			var prevRot = transform.localRotation;
 
@@ -31,14 +32,12 @@ public class Sword : BasicAttack
                 Quaternion.LerpUnclamped(
 				    transform.localRotation,
 				    Quaternion.Euler(0f, -175f, -45f),  // This is not 180 to prevent rotating behind the attacker
-				    SwingSpeed * Time.deltaTime);
+				    swingSpeed * Time.deltaTime);
 		}
     }
 
-    protected override void OnValidate()
+    protected virtual void OnValidate()
     {
-        base.OnValidate();
-
         if (blade == null)
         {
             Debug.LogError("Blade prefab not set.");
@@ -52,32 +51,33 @@ public class Sword : BasicAttack
             return;
 
         // Get health component of collision object
-        var health = collision.gameObject.GetComponent<Health>();
+        var stats = collision.gameObject.GetComponent<Stats>();
 
         // If it has one, call function to take damage
-        if (health != null)
+        if (stats != null)
         {
-            health.TakeHit(Damage, transform.position, transform.forward);
+            stats.Hit(Damage, _attacker, transform.position, transform.forward);
         }
         else
         {
             if (!collision.collider.CompareTag("Untagged"))
-                Debug.Log("On " + collision.collider.tag + " health was not found.");
+                Debug.LogWarning("On " + collision.collider.tag + " stats were not found.");
         }
     }
 
-    public override void DoAttack()
+    public override void DoAttack(GenericCharacter attacker)
     {
-		transform.localRotation = defaultRot;
-		animActive = true;
+        _attacker = attacker;
+		transform.localRotation = _defaultRot;
+		_animActive = true;
 		StartCoroutine(AttackRoutine());
         blade.SetActive(true);
 	}
 
 	IEnumerator AttackRoutine()
     {
-		yield return new WaitForSeconds(LifeTime);
+		yield return new WaitForSeconds(lifeTime);
         blade.SetActive(false);
-        animActive = false;
+        _animActive = false;
 	}
 }

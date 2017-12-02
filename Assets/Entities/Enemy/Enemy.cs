@@ -145,4 +145,12 @@ public class Enemy : GenericCharacter
     {
         RpcAttack();
     }
+
+    protected override void OnDeath()
+    {
+        base.OnDeath();
+
+        if (isServer)
+            FindObjectOfType<EndConditions>().MarkEnemyKilled(gameObject.GetComponent<Enemy>());
+    }
 }

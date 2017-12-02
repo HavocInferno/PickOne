@@ -1,11 +1,181 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-[System.Serializable]
-public class Stats
+/// <summary>
+/// Stats that belong to any GenericCharacter.
+/// </summary>
+[RequireComponent(typeof(GenericCharacter))]
+public class Stats : NetworkBehaviour
 {
-    // TODO: Add attack/defence types
-    public float Damage = 35;
-    public float Resistance = 10;
+    /// <summary>
+    /// Attribute that has max value and current value, such as Health, Energy, e.t.c.
+    /// To each of the attributes, its corresponding UI visualisation can be assigned.
+    /// 
+    /// Note, that for simplicity attributes always contain Health,
+    /// and shortcut properties are provided for it.
+    /// </summary>
+    [System.Serializable]
+    public class Attribute
+    {
+        [SerializeField]
+        float _max = 100.0f;
+
+        float _value = 100.0f;
+
+        public string name = "";
+        public RectTransform bar;
+
+        public float Value
+        {
+            get { return _value; }
+            set { _value = value; _Update(); }
+        }
+
+        public float Max
+        {
+            get { return _max; }
+            set { _max = value; _Update(); }
+        }
+
+        protected void _Update()
+        {
+            _value = Mathf.Min(_value, _max);
+            if (bar) bar.sizeDelta = new Vector2(100.0f * _value / _max, bar.sizeDelta.y);
+        }
+    }
+    private Dictionary<string, Attribute> _attributes = new Dictionary<string, Attribute>();
+    [SerializeField]
+    private List<Attribute> _attributesList = new List<Attribute>();
+
+    public float attackMultiplier = 1.0f;
+    public float defenseMultiplier = 1.0f;
+
+    public bool destroyOnDeath;
+    public GameObject deathEffect;
+
+    private GenericCharacter _character;
+
+    private void Reset()
+    {
+        _attributesList.Add(new Attribute
+        {
+            name = "Health"
+        });
+    }
+
+    //
+    // Getters and setters
+    //
+
+    float Health
+    {
+        get { return GetAttributeValue("Health"); }
+        set { SetAttributeValue("Health", value); }
+    }
+
+    float MaxHealth
+    {
+        get { return GetAttributeMax("Health"); }
+        set { SetAttributeMax("Health", value); }
+    }
+
+    void SetAttributeValue(string name, float value)
+    {
+        Debug.Assert(isServer, "Only server can change character stats!");
+        if (isServer)
+            RpcSetAttributeValue(name, value);
+    }
+
+    float GetAttributeValue(string name)
+    {
+        return _attributes[name].Value;
+    }
+
+    [ClientRpc]
+    void RpcSetAttributeValue(string name, float value)
+    {
+        _attributes[name].Value = value;
+    }
+
+    void SetAttributeMax(string name, float max)
+    {
+        Debug.Assert(isServer, "Only server can change character stats!");
+        if (isServer)
+            RpcSetAttributeMax(name, max);
+    }
+
+    float GetAttributeMax(string name)
+    {
+        return _attributes[name].Value;
+    }
+
+    [ClientRpc]
+    void RpcSetAttributeMax(string name, float value)
+    {
+        _attributes[name].Max = value;
+    }
+
+    bool HasAttribute(string name)
+    {
+        return _attributes.ContainsKey(name);
+    }
+
+    //
+    // Logic
+    //
+
+    void Start()
+    {
+        _character = gameObject.GetComponent<GenericCharacter>();
+        foreach (var attribute in _attributesList)
+        {
+            _attributes.Add(attribute.name, attribute);
+            attribute.Value = attribute.Max;
+        }
+    }
+
+    // Damage handling, supposed to be entirely server-side for core data.
+    public void Hit(
+        float baseAmount,
+        GenericCharacter attacker,
+        Vector3 hitPoint,
+        Vector3 hitDirection)
+    {
+        if (!isServer) return;
+
+        Stats attackerStats = attacker.GetComponent<Stats>();
+        float amount = baseAmount * defenseMultiplier;
+        if (attackerStats != null) amount *= attackerStats.attackMultiplier;
+
+        float newHealth = Health - amount;
+
+        _character.OnReceiveDamage(amount, attacker, hitPoint, hitDirection);
+        attacker.OnMakeDamage(amount, _character, hitPoint, hitDirection);
+
+        Health = newHealth;
+        if (newHealth <= 0.0f)
+        {
+            gameObject.GetComponent<GenericCharacter>().isDead = true;
+
+            if (deathEffect != null)
+            {
+                var ded = Instantiate(
+                    deathEffect,
+                    hitPoint,
+                    Quaternion.LookRotation(hitDirection));
+
+                NetworkServer.Spawn(ded);
+
+                // Destroy the effect after 2.15 seconds
+                Destroy(ded, 2.15f);
+            }
+        }
+    }
+
+    [ClientRpc]
+    void RpcDie()
+    {
+        gameObject.GetComponentInChildren<Crawler>().isDead = true;
+    }
 }

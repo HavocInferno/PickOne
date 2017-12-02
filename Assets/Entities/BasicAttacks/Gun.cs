@@ -9,8 +9,10 @@ public class Gun : BasicAttack
     public GameObject BulletPrefab;
     public Transform BulletSpawn;
 
-    override protected void OnValidate()
+    override protected void Start()
     {
+        base.Start();
+
         if (BulletPrefab == null)
         {
             Debug.LogError("Bullet prefab not set.");
@@ -22,12 +24,12 @@ public class Gun : BasicAttack
         }
     }
 
-    public override void DoAttack()
+    public override void DoAttack(GenericCharacter attacker)
     {
         if (ready != true)
             return;
 
-        base.DoAttack();
+        base.DoAttack(attacker);
 
         if (BulletPrefab == null)
             return;
@@ -39,12 +41,11 @@ public class Gun : BasicAttack
             BulletSpawn.rotation);
 
         // Set damage value of the bullet
-        bullet.GetComponent<Bullet>().Damage = this.Damage;
+        bullet.GetComponent<Bullet>().damage = this.Damage;
+        bullet.GetComponent<Bullet>().attacker = attacker;
 
         // Add velocity to the bullet
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * BulletSpeed;
-
-        // NetworkServer.Spawn(bullet);
 
         // Destroy the bullet after 2 seconds
         Destroy(bullet, BulletLife);

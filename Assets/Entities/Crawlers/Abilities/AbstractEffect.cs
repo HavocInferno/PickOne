@@ -21,4 +21,24 @@ abstract public class AbstractEffect : ScriptableObject
         bool calledByLocalPlayer,
         bool calledByServer)
     { }
+
+    public virtual void OnReceiveDamage(
+        float amount,
+        GenericCharacter attacker,
+        GenericCharacter target,
+        Vector3 hitPoint,
+        Vector3 hitDirection,
+        bool calledByLocalPlayer,
+        bool calledByServer)
+    { }
+
+    public virtual void OnMakeDamage(
+        float amount,
+        GenericCharacter attacker,
+        GenericCharacter target,
+        Vector3 hitPoint,
+        Vector3 hitDirection,
+        bool calledByLocalPlayer,
+        bool calledByServer)
+    { }
 }

@@ -75,10 +75,10 @@ GameObject:
   - component: {fileID: 114094203658262518}
   - component: {fileID: 114771519900907482}
   - component: {fileID: 195381808297726500}
-  - component: {fileID: 114062675334960162}
   - component: {fileID: 114603881179059580}
   - component: {fileID: 114869127395028576}
   - component: {fileID: 114428693055289942}
+  - component: {fileID: 114944430408673822}
   m_Layer: 10
   m_Name: PistolCrawler
   m_TagString: Crawler
@@ -240,7 +240,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1272645852402114}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 10.960991, y: -3.3772235, z: 14.568951}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4609409759258854}
@@ -510,22 +510,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 2.5
---- !u!114 &114062675334960162
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1272645852402114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44b5a8761bd2c96449f1301d95ca337b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyOnDeath: 0
-  deathEffect: {fileID: 1105925389560420, guid: eeaea4d88f7115e42a855dbeab532d4e,
-    type: 2}
-  currentHealth: 100
-  healthBar: {fileID: 224063249059875452}
 --- !u!114 &114094203658262518
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -699,9 +683,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDead: 0
   basicAttack: {fileID: 114207759360733902}
-  stats:
-    Damage: 35
-    Resistance: 10
   _activeAbilities:
   - name: Cloak Ability
     effects:
@@ -729,7 +710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 1
-  m_SendInterval: 0.1
+  m_SendInterval: 0.033333335
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
@@ -766,6 +747,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movSpeed: {x: 4, y: 4}
+--- !u!114 &114944430408673822
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1272645852402114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 868dd164cf63f89439d95e061ceba79b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attributesList:
+  - _max: 100
+    name: Health
+    bar: {fileID: 224063249059875452}
+  attackMultiplier: 1
+  defenseMultiplier: 1
+  destroyOnDeath: 0
+  deathEffect: {fileID: 1105925389560420, guid: eeaea4d88f7115e42a855dbeab532d4e,
+    type: 2}
 --- !u!135 &135452139805642642
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.AI;
 
 /// <summary>
 /// Generic character that can move, attack, has body and stats.
@@ -20,8 +21,6 @@ public class GenericCharacter : NetworkBehaviour
     public BasicAttack basicAttack;
 
     [Space(8)]
-
-    public Stats stats;
 
     [Header("Abilities")]
     
@@ -57,6 +56,7 @@ public class GenericCharacter : NetworkBehaviour
 
     //#######################################################################
     //called after scene loaded
+
     protected virtual void Start()
     {
         foreach (var effect in _passiveEffects) EnableEffect(effect);
@@ -98,7 +98,7 @@ public class GenericCharacter : NetworkBehaviour
     protected void RpcAttack()
     {
         // TODO: Damage calculation
-        basicAttack.DoAttack();
+        basicAttack.DoAttack(this);
     }
 
     //[ClientRpc]
@@ -118,9 +118,51 @@ public class GenericCharacter : NetworkBehaviour
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
     void OnChangeDead(bool dead)
     {
-        if (!isDead) OnDeath();
+        if (!isDead)
+        {
+            isDead = true;
+            OnDeath();
+        }
     }
 
     protected virtual void OnDeath() { }
+
+    public virtual void OnReceiveDamage(
+        float amount,
+        GenericCharacter attacker,
+        Vector3 hitPoint,
+        Vector3 hitDirection)
+    {
+        foreach (AbstractEffect effect in _appliedEffects)
+        {
+            effect.OnReceiveDamage(
+                amount,
+                attacker,
+                this,
+                hitPoint,
+                hitDirection,
+                isLocalPlayer,
+                isServer);
+        }
+    }
+
+    public virtual void OnMakeDamage(
+        float amount,
+        GenericCharacter target,
+        Vector3 hitPoint,
+        Vector3 hitDirection)
+    {
+        foreach (AbstractEffect effect in _appliedEffects)
+        {
+            effect.OnMakeDamage(
+                amount,
+                this,
+                target,
+                hitPoint,
+                hitDirection,
+                isLocalPlayer,
+                isServer);
+        }
+    }
 }
 
