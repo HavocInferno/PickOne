@@ -683,18 +683,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDead: 0
   basicAttack: {fileID: 114207759360733902}
-  _activeAbilities:
-  - name: Cloak Ability
-    effects:
-    - {fileID: 11400000, guid: c30af1f30c0430c488d0ba17165ef8de, type: 2}
-  - name: Laser Beam Ability
-    effects:
-    - {fileID: 11400000, guid: 8bea51102c5fb83439e6bf9800d49a26, type: 2}
-  - name: Enemy Detection Ability
-    effects:
-    - {fileID: 11400000, guid: 538a7aa52253ae245854be874f4be8bd, type: 2}
   _passiveEffects:
   - {fileID: 11400000, guid: 3166d152cc481c24cae1dfb5adba5388, type: 2}
+  - {fileID: 11400000, guid: 6ade0c3341663004c9d35033e938b1f7, type: 2}
   nameTag: {fileID: 114318600357406474}
   pName: player
   playerColor: {r: 0, g: 0, b: 1, a: 1}
@@ -702,6 +693,17 @@ MonoBehaviour:
   skill1_Buffed: 0
   skill2_Debuffed: 0
   skill3_Healed: 0
+  activeAbilities:
+  - type: 0
+    attributeName: 
+    name: Cloak
+    effects:
+    - {fileID: 11400000, guid: c30af1f30c0430c488d0ba17165ef8de, type: 2}
+  - type: 1
+    attributeName: Adrenaline
+    name: Laser
+    effects:
+    - {fileID: 11400000, guid: 8bea51102c5fb83439e6bf9800d49a26, type: 2}
 --- !u!114 &114771519900907482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -764,8 +766,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _attributesList:
   - _max: 100
-    name: Health
+    name: Adrenaline
     bar: {fileID: 224063249059875452}
+  - _max: 100
+    name: Health
+    bar: {fileID: 0}
   attackMultiplier: 1
   defenseMultiplier: 1
   destroyOnDeath: 0

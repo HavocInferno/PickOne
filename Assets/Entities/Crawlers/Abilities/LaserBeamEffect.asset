@@ -16,3 +16,8 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 46e3565b787fcc84fb55b88507d62127, type: 3}
   laserBeamPrefab: {fileID: 1595428073098470, guid: 6a134e87703fbc14191b465e65fc9754,
     type: 2}
+  damagePerSecond: 20
+  damageRegisterRate: 0.1
+  laserHitMask:
+    serializedVersion: 2
+    m_Bits: 2048

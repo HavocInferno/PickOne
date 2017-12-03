@@ -24,7 +24,6 @@ public class GenericCharacter : NetworkBehaviour
 
     [Header("Abilities")]
     
-    public List<ActiveAbility> _activeAbilities = new List<ActiveAbility>();
     public List<AbstractEffect> _passiveEffects = new List<AbstractEffect>();
 
     private HashSet<AbstractEffect> _appliedEffects = new HashSet<AbstractEffect>();

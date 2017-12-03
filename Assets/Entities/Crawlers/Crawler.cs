@@ -25,6 +25,8 @@ public class Crawler : GenericCharacter
     [SyncVar(hook = "OnChangeSkill3_Healed")]
     public bool skill3_Healed = false;
 
+    public List<ActiveAbility> activeAbilities = new List<ActiveAbility>();
+
     /*public enum ActionState {
 		NONE,
 		ATTACK
@@ -42,6 +44,14 @@ public class Crawler : GenericCharacter
             Debug.Log("SERVER: " + pName + " is here.");
             if (!isVRMasterPlayer)
                 FindObjectOfType<PlayersManager>().players.Add(transform);
+        }
+    }
+
+    protected virtual void FixedUpdate()
+    {
+        foreach (var ability in activeAbilities)
+        {
+            ability.Update(this);
         }
     }
 
@@ -136,8 +146,8 @@ public class Crawler : GenericCharacter
     [ClientRpc]
     void RpcActivateAbility(int index)
     {
-        if (_activeAbilities.Count > index)
-            _activeAbilities[index].Activate(this);
+        if (activeAbilities.Count > index)
+            activeAbilities[index].Activate(this);
     }
 
     //###################### SYNCVAR HOOKS #####################################

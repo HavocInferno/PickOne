@@ -120,7 +120,7 @@ public class Stats : NetworkBehaviour
         _attributes[name].Max = value;
     }
 
-    bool HasAttribute(string name)
+    public bool HasAttribute(string name)
     {
         return _attributes.ContainsKey(name);
     }
