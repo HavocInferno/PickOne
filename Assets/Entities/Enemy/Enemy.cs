@@ -152,5 +152,7 @@ public class Enemy : GenericCharacter
 
         if (isServer)
             FindObjectOfType<EndConditions>().MarkEnemyKilled(gameObject.GetComponent<Enemy>());
+
+        Destroy(gameObject);
     }
 }
