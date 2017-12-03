@@ -194,6 +194,6 @@ public class Controller : MonoBehaviour
 
 		buffDestination = rayOrigin.position;
 		buffRay.origin = rayOrigin;
-		crawlers = GameObject.Find ("Playerlist").GetComponent<PlayersManager>();
+		crawlers = GameObject.Find ("PlayerManagers").GetComponent<PlayersManager>();
 	}
 }
