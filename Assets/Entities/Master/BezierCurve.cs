@@ -39,6 +39,7 @@ public class BezierCurve : MonoBehaviour {
 		{
 			GameObject newObject = new GameObject( name+"_LineSegment_" + i );
 			newObject.transform.parent = parent.transform;
+			newObject.transform.position = parent.transform.position;
 			lineRenderers[i] = newObject.AddComponent<LineRenderer>();
 
 			lineRenderers[i].receiveShadows = false;
