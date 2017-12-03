@@ -17,13 +17,18 @@ namespace Prototype.NetworkLobby
         static List<int> _colorInUse = new List<int>();
 
         public Button colorButton;
-		public Toggle vrMasterToggle;
-		public GameObject vrMasterIcon;
-		public GameObject vrInfoIcon;
         public InputField nameInput;
         public Button readyButton;
         public Button waitingPlayerButton;
         public Button removePlayerButton;
+
+		public Toggle vrMasterToggle;
+		public GameObject vrMasterIcon;
+		public GameObject vrInfoIcon;
+		public Button class1Button;
+		public Button class2Button;
+		public Button class3Button;
+		public Button class4Button;
 
         public GameObject localIcone;
         public GameObject remoteIcone;
@@ -39,6 +44,8 @@ namespace Prototype.NetworkLobby
 		public bool isVRcapable = false;
 		[SyncVar(hook = "OnMyVRModel")]
 		public int vrDeviceModel = -1; //-1 = NONE, 1 = VIVE, 2 = RIFT
+		[SyncVar(hook = "OnMyClassIndex")]
+		public int classIndex = -1; //-1 = NONE, x = Class x
 
         public Color OddRowColor = new Color(250.0f / 255.0f, 250.0f / 255.0f, 250.0f / 255.0f, 1.0f);
         public Color EvenRowColor = new Color(180.0f / 255.0f, 180.0f / 255.0f, 180.0f / 255.0f, 1.0f);
@@ -157,6 +164,15 @@ namespace Prototype.NetworkLobby
             readyButton.onClick.RemoveAllListeners();
             readyButton.onClick.AddListener(OnReadyClicked);
 
+			class1Button.onClick.RemoveAllListeners ();
+			class1Button.onClick.AddListener (delegate {ClassPicker (class1Button.name);});
+			class2Button.onClick.RemoveAllListeners ();
+			class2Button.onClick.AddListener (delegate {ClassPicker (class2Button.name);});
+			class3Button.onClick.RemoveAllListeners ();
+			class3Button.onClick.AddListener (delegate {ClassPicker (class3Button.name);});
+			class4Button.onClick.RemoveAllListeners ();
+			class4Button.onClick.AddListener (delegate {ClassPicker (class4Button.name);});
+
             //when OnClientEnterLobby is called, the loval PlayerController is not yet created, so we need to redo that here to disable
             //the add button if we reach maxLocalPlayer. We pass 0, as it was already counted on OnClientEnterLobby
             if (LobbyManager.s_Singleton != null) LobbyManager.s_Singleton.OnPlayersNumberModified(0);
@@ -247,6 +263,30 @@ namespace Prototype.NetworkLobby
 			} else {
 				vrDeviceModel = -1;
 			}
+		}
+
+		void ClassPicker(string buttonName) {
+			switch (buttonName) {
+			case "Class1Button":
+				classIndex = 1;
+				break;
+			case "Class2Button":
+				classIndex = 2;
+				break;
+			case "Class3Button":
+				classIndex = 3;
+				break;
+			case "Class4Button":
+				classIndex = 4;
+				break;
+			default:
+				break;
+			}
+
+			if (isServer)
+				RpcClassPicked (classIndex);
+			else
+				CmdClassPicked (classIndex);
 		}
 
         ///===== callback from sync var
