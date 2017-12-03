@@ -257,6 +257,6 @@ public class Controller : MonoBehaviour
 
 		debuffDestination = buffDestination = rayOrigin.position;
 		debuffRay.origin = buffRay.origin = rayOrigin;
-		playerManager = GameObject.Find ("Playerlist").GetComponent<PlayersManager>();
+		playerManager = GameObject.Find ("PlayerManagers").GetComponent<PlayersManager>();
 	}
 }
