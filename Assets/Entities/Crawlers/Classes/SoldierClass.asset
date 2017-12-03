@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f910beb0015fc7541a0c5453d5aff831, type: 3}
+  m_Name: SoldierClass
+  m_EditorClassIdentifier: 
+  passiveEffects: []
+  activeAbilities:
+  - type: 0
+    attributeName: 
+    name: Laser Beam
+    effects:
+    - {fileID: 11400000, guid: 8bea51102c5fb83439e6bf9800d49a26, type: 2}

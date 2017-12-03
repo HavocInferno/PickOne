@@ -24,7 +24,7 @@ public class GenericCharacter : NetworkBehaviour
 
     [Header("Abilities")]
     
-    public List<AbstractEffect> _passiveEffects = new List<AbstractEffect>();
+    public List<AbstractEffect> passiveEffects = new List<AbstractEffect>();
 
     private HashSet<AbstractEffect> _appliedEffects = new HashSet<AbstractEffect>();
 
@@ -63,7 +63,7 @@ public class GenericCharacter : NetworkBehaviour
 
     protected virtual void Start()
     {
-        foreach (var effect in _passiveEffects) EnableEffect(effect);
+        foreach (var effect in passiveEffects) EnableEffect(effect);
     }
 
     void OnValidate()

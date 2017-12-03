@@ -25,6 +25,7 @@ public class Crawler : GenericCharacter
     [SyncVar(hook = "OnChangeSkill3_Healed")]
     public bool skill3_Healed = false;
 
+    public CrawlerClass crawlerClass;
     public List<ActiveAbility> activeAbilities = new List<ActiveAbility>();
 
     /*public enum ActionState {
@@ -59,6 +60,9 @@ public class Crawler : GenericCharacter
     //called after scene loaded
     protected override void Start()
     {
+        if (crawlerClass != null)
+            crawlerClass.Apply(this);
+
         base.Start();
 
         gameObject.name = pName;
