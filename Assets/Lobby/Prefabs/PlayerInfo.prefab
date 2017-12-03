@@ -976,13 +976,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowLobbyGUI: 0
   colorButton: {fileID: 11488840}
-  vrMasterToggle: {fileID: 114289081442646390}
-  vrMasterIcon: {fileID: 1035824025917888}
-  vrInfoIcon: {fileID: 1825598544410766}
   nameInput: {fileID: 11487112}
   readyButton: {fileID: 11413860}
   waitingPlayerButton: {fileID: 11405868}
   removePlayerButton: {fileID: 11443358}
+  vrMasterToggle: {fileID: 114289081442646390}
+  vrMasterIcon: {fileID: 1035824025917888}
+  vrInfoIcon: {fileID: 1825598544410766}
+  class1Button: {fileID: 114012323283284600}
+  class2Button: {fileID: 114215783937339086}
+  class3Button: {fileID: 114967421589636490}
+  class4Button: {fileID: 114499902839971326}
   localIcone: {fileID: 153088}
   remoteIcone: {fileID: 189178}
   playerName: 
@@ -990,6 +994,7 @@ MonoBehaviour:
   isVRMasterPlayer: 0
   isVRcapable: 0
   vrDeviceModel: -1
+  classIndex: -1
   OddRowColor: {r: 0.98039216, g: 0.98039216, b: 0.98039216, a: 1}
   EvenRowColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
 --- !u!114 &11487112

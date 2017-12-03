@@ -44,7 +44,7 @@ namespace Prototype.NetworkLobby
 		public bool isVRcapable = false;
 		[SyncVar(hook = "OnMyVRModel")]
 		public int vrDeviceModel = -1; //-1 = NONE, 1 = VIVE, 2 = RIFT
-		[SyncVar(hook = "OnMyClassIndex")]
+		//[SyncVar(hook = "OnMyClassIndex")]
 		public int classIndex = -1; //-1 = NONE, x = Class x
 
         public Color OddRowColor = new Color(250.0f / 255.0f, 250.0f / 255.0f, 250.0f / 255.0f, 1.0f);
@@ -268,16 +268,16 @@ namespace Prototype.NetworkLobby
 		void ClassPicker(string buttonName) {
 			switch (buttonName) {
 			case "Class1Button":
-				classIndex = 1;
+				classIndex = 0;
 				break;
 			case "Class2Button":
-				classIndex = 2;
+				classIndex = 1;
 				break;
 			case "Class3Button":
-				classIndex = 3;
+				classIndex = 2;
 				break;
 			case "Class4Button":
-				classIndex = 4;
+				classIndex = 3;
 				break;
 			default:
 				break;
@@ -287,6 +287,16 @@ namespace Prototype.NetworkLobby
 				RpcClassPicked (classIndex);
 			else
 				CmdClassPicked (classIndex);
+		}
+
+		[ClientRpc]
+		public void RpcClassPicked(int cIndex) {
+			CmdClassPicked (cIndex);
+		}
+
+		[Command]
+		public void CmdClassPicked(int cIndex) {
+			LobbyManager.s_Singleton.SetPlayerTypeLobby (GetComponent<NetworkIdentity> ().connectionToClient, cIndex);
 		}
 
         ///===== callback from sync var
