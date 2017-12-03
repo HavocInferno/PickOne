@@ -58,8 +58,8 @@ GameObject:
   - component: {fileID: 23644300748792054}
   - component: {fileID: 114453053967700304}
   - component: {fileID: 114466349876804316}
-  - component: {fileID: 114138040156756702}
   - component: {fileID: 108529817133633056}
+  - component: {fileID: 114520366192996152}
   m_Layer: 0
   m_Name: Headset
   m_TagString: Untagged
@@ -340,7 +340,7 @@ Transform:
   m_GameObject: {fileID: 1094360533384730}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 4, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 0.7}
+  m_LocalScale: {x: 6, y: 3, z: 2}
   m_Children:
   - {fileID: 4927569112366278}
   - {fileID: 4115862693423942}
@@ -754,18 +754,6 @@ MonoBehaviour:
   controller: {fileID: 0}
   isBuffed: 0
   isDebuffed: 0
---- !u!114 &114138040156756702
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1094360533384730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8b0aa22264a66b49bd5a68f95ecb230, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  followed: {fileID: 0}
 --- !u!114 &114325879453083100
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -852,6 +840,27 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
+--- !u!114 &114520366192996152
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1094360533384730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 296f8db5f5c126949b556bd3f79bac9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followed: {fileID: 0}
+  left: {fileID: 4927569112366278}
+  right: {fileID: 4115862693423942}
+  leftLight: {fileID: 108262797835864048}
+  rightLight: {fileID: 108778639122267430}
+  blinkMin: 1
+  blinkMax: 5
+  blinkTime: 0.1
+  singleWeight: 5
+  doubleWeight: 1
 --- !u!114 &114627846515615932
 MonoBehaviour:
   m_ObjectHideFlags: 1
