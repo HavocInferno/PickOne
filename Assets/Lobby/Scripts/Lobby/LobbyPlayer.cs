@@ -118,7 +118,7 @@ namespace Prototype.NetworkLobby
 
 			//VR Master and HMD capability checks
 			CheckMasterToggle ();
-			//CheckHMDToggle ();
+			CheckHMDToggle ();
 
             readyButton.transform.GetChild(0).GetComponent<Text>().text = "...";
             readyButton.interactable = false;
@@ -137,7 +137,7 @@ namespace Prototype.NetworkLobby
 			//host kick-ability, VR Master and HMD capability checks
             CheckRemoveButton();
 			CheckMasterToggle ();
-			//CheckHMDToggle ();
+			CheckHMDToggle ();
 			EnableClassButtons ();
 
             if (playerColor == Color.white)
@@ -326,6 +326,9 @@ namespace Prototype.NetworkLobby
 				CmdClassPicked (classIndex);
 		}
 
+		//ISSUE: apparently changing class on the server has "No authority"? 
+		// thus not actually changing the value on the clients permanently? 
+		// however the info is still transmitted and the correct class selection is displayed...
 		[ClientRpc]
 		public void RpcClassPicked(int cIndex) {
 			CmdClassPicked (cIndex);
@@ -357,6 +360,23 @@ namespace Prototype.NetworkLobby
 			//isVRMasterPlayer = newState;
 			vrMasterToggle.isOn = newState;
 			vrMasterIcon.SetActive (newState);
+
+			if (newState == true) {
+				class1Button.gameObject.SetActive (false);
+				class2Button.gameObject.SetActive (false);
+				class3Button.gameObject.SetActive (false);
+				class4Button.gameObject.SetActive (false);
+			} else {
+				if (isLocalPlayer) {
+					class1Button.gameObject.SetActive (true);
+					class2Button.gameObject.SetActive (true);
+					class3Button.gameObject.SetActive (true);
+					class4Button.gameObject.SetActive (true);
+				} else {
+					Debug.Log ("class index of otherplayer is " + classIndex);
+					OnMyClassIndex (classIndex);
+				}
+			}
 		}
 
 		/* display whether the client in question is vr capable, 
