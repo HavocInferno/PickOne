@@ -40,8 +40,8 @@ namespace Prototype.NetworkLobby
         public Color playerColor = Color.white;
 		[SyncVar(hook = "OnVRMaster")]
 		public bool isVRMasterPlayer = false;
-		[SyncVar(hook = "OnHasHMD")]
-		public bool isVRcapable = false;
+		//[SyncVar(hook = "OnHasHMD")]
+		//public bool isVRcapable = false;
 		[SyncVar(hook = "OnMyVRModel")]
 		public int vrDeviceModel = -1; //-1 = NONE, 1 = VIVE, 2 = RIFT
 		[SyncVar(hook = "OnMyClassIndex")]
@@ -118,7 +118,7 @@ namespace Prototype.NetworkLobby
 
 			//VR Master and HMD capability checks
 			CheckMasterToggle ();
-			CheckHMDToggle ();
+			//CheckHMDToggle ();
 
             readyButton.transform.GetChild(0).GetComponent<Text>().text = "...";
             readyButton.interactable = false;
@@ -137,7 +137,7 @@ namespace Prototype.NetworkLobby
 			//host kick-ability, VR Master and HMD capability checks
             CheckRemoveButton();
 			CheckMasterToggle ();
-			CheckHMDToggle ();
+			//CheckHMDToggle ();
 			EnableClassButtons ();
 
             if (playerColor == Color.white)
@@ -198,13 +198,7 @@ namespace Prototype.NetworkLobby
 		public void CheckHMDToggle()
 		{
 			Debug.Log ("Checking HMD Toggle");
-			if (isVRcapable) {
-				vrInfoIcon.SetActive (true);
-				OnMyVRModel (vrDeviceModel);
-			} else {
-				vrInfoIcon.SetActive (true);
-				OnMyVRModel (vrDeviceModel);
-			}
+			OnMyVRModel (vrDeviceModel);
 		}
 
         public override void OnClientReady(bool readyState)
@@ -241,7 +235,7 @@ namespace Prototype.NetworkLobby
 		public void QueryVRDeviceModel() {
 			Debug.Log ("Querying VR Device Model");
 			if (VRDevice.isPresent) {
-				isVRcapable = true;
+				//isVRcapable = true;
 			
 				string model = UnityEngine.VR.VRDevice.model != null ?
 				UnityEngine.VR.VRDevice.model : "";
@@ -255,6 +249,21 @@ namespace Prototype.NetworkLobby
 			} else {
 				vrDeviceModel = -1;
 			}
+
+			if (isServer)
+				RpcVRDetected(vrDeviceModel);
+			else
+				CmdVRDetected (vrDeviceModel);
+		}
+
+		[ClientRpc]
+		public void RpcVRDetected(int vrmodel) {
+			CmdVRDetected (vrmodel);
+		}
+
+		[Command]
+		public void CmdVRDetected(int vrmodel) {
+			vrDeviceModel = vrmodel;
 		}
 
 		public void EnableClassButtons() {
@@ -279,6 +288,18 @@ namespace Prototype.NetworkLobby
 			class3Button.onClick.AddListener (delegate {ClassPicker (class3Button.name);});
 			class4Button.onClick.RemoveAllListeners ();
 			class4Button.onClick.AddListener (delegate {ClassPicker (class4Button.name);});
+		}
+
+		public void DisableClassButtons() {
+			class1Button.interactable = false;
+			class2Button.interactable = false;
+			class3Button.interactable = false;
+			class4Button.interactable = false;
+
+			class1Button.gameObject.SetActive (false);
+			class2Button.gameObject.SetActive (false);
+			class3Button.gameObject.SetActive (false);
+			class4Button.gameObject.SetActive (false);
 		}
 
 		void ClassPicker(string buttonName) {
@@ -338,21 +359,9 @@ namespace Prototype.NetworkLobby
 			vrMasterIcon.SetActive (newState);
 		}
 
-		/* check whether the client in question is vr capable, 
-		 * if so check the model and display whether it is a Rift or a Vive
-		 * otherwise display "no HMD"
+		/* display whether the client in question is vr capable, 
+		 * and whether it is a Rift or a Vive or "no HMD"
 		*/
-		public void OnHasHMD(bool newState)
-		{
-			if (newState) {
-				vrInfoIcon.SetActive (true);
-				OnMyVRModel (vrDeviceModel);
-			} else {
-				vrInfoIcon.SetActive (true);
-				OnMyVRModel (vrDeviceModel);
-			}
-		}
-
 		public void OnMyVRModel(int model) {
 			Debug.Log ("OnMyVRModel called with " + model);
 			vrInfoIcon.SetActive (true);
