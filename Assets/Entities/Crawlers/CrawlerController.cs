@@ -20,12 +20,12 @@ public class CrawlerController : NetworkBehaviour
 
         if (Input.GetButtonDown("Ability1"))
         {
-            GetComponent<Crawler>().TogglePrimaryAbility();
+            GetComponent<Crawler>().ActivateAbility(0);
         }
 
         if (Input.GetButtonDown("Ability2"))
         {
-            GetComponent<Crawler>().ToggleSecondaryAbility();
+            GetComponent<Crawler>().ActivateAbility(1);
         }
 
         //player movement..hor is forward/backward, ver is strafing

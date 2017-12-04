@@ -416,6 +416,8 @@ namespace Prototype.NetworkLobby
 
         public override void OnClientConnect(NetworkConnection conn)
         {
+            Debug.LogWarning(conn);
+
             base.OnClientConnect(conn);
 
             infoPanel.gameObject.SetActive(false);

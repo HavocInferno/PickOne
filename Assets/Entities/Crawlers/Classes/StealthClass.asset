@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f910beb0015fc7541a0c5453d5aff831, type: 3}
+  m_Name: StealthClass
+  m_EditorClassIdentifier: 
+  passiveEffects:
+  - {fileID: 11400000, guid: 3166d152cc481c24cae1dfb5adba5388, type: 2}
+  activeAbilities:
+  - type: 0
+    attributeName: 
+    name: Detect Enemies
+    effects:
+    - {fileID: 11400000, guid: 538a7aa52253ae245854be874f4be8bd, type: 2}
+  - type: 0
+    attributeName: 
+    name: Cloak
+    effects:
+    - {fileID: 11400000, guid: c30af1f30c0430c488d0ba17165ef8de, type: 2}

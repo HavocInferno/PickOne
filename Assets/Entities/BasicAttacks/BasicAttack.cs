@@ -6,22 +6,22 @@ public abstract class BasicAttack : MonoBehaviour
 {
     // Public getters for external scripts
     [HideInInspector]
-    public int BaseDamage { get { return baseDamage; } }
+    public float BaseDamage { get { return baseDamage; } }
     [HideInInspector]
     public float BaseFireRate { get { return baseFireRate; } }
     [HideInInspector]
-    public int Damage { get { return damage; } }
+    public float Damage { get { return damage; } }
     [HideInInspector]
     public float FireRate { get { return fireRate; } }
 
     [Header("Basic Details")]
     [SerializeField]
-    protected int baseDamage = 30;      // Base damage before damage modications
+    protected float baseDamage = 30.0f;    // Base damage before damage modications
     [SerializeField]
     
-    protected float baseFireRate = 1f;  // Base fire rate before buff/debuff
+    protected float baseFireRate = 1.0f;// Base fire rate before buff/debuff
 
-    protected int damage;               // Updated damage after damage calculations
+    protected float damage;             // Updated damage after damage calculations
     protected float fireRate;           // Updated fire rate after modications
 
     protected bool ready = true;
@@ -30,10 +30,6 @@ public abstract class BasicAttack : MonoBehaviour
     {
         damage = baseDamage;
         fireRate = baseFireRate;
-    }
-
-    protected virtual void OnValidate()
-    {
         baseDamage = Mathf.Clamp(baseDamage, 0, int.MaxValue);
         baseFireRate = Mathf.Clamp(baseFireRate, 0, float.MaxValue);
     }
@@ -49,13 +45,13 @@ public abstract class BasicAttack : MonoBehaviour
     }
     
     // TODO: Pick a better name for this function
-    public virtual void DoAttack()
+    public virtual void DoAttack(GenericCharacter attacker)
     {
         ready = false;
-        StartCoroutine(waitForReload());
+        StartCoroutine(WaitForReload());
     }
 
-    protected virtual IEnumerator waitForReload()
+    protected virtual IEnumerator WaitForReload()
     {
         yield return new WaitForSeconds(FireRate);
         ready = true;

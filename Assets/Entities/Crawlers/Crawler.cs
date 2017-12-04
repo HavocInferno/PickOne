@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class Crawler : NetworkBehaviour
+public class Crawler : GenericCharacter
 {
     [Header("Player Properties")]
 
@@ -13,27 +15,7 @@ public class Crawler : NetworkBehaviour
     public Color playerColor = Color.white;
     [SyncVar]
     public bool isVRMasterPlayer = false;
-	[SyncVar(hook = "OnChangeDead")]
-	public bool isDead = false;
 
-    [Header("Attacks")]
-
-    public BasicAttack basicAttack;
-    //public float fireRate = 0.15f;
-    //private float lastFire;
-    //public float bulletSpeed = 16f;
-    //public GameObject bulletPrefab;
-    //public Transform bulletSpawn;
-
-    [Space(8)]
-
-    public Stats stats;
-
-    [Header("Abilities")]
-
-    public CrawlerAbility primaryAbility;
-    public CrawlerAbility secondaryAbility;
-    
     [Header("Skills")]
 
     [SyncVar(hook = "OnChangeSkill1_Buffed")]
@@ -43,6 +25,9 @@ public class Crawler : NetworkBehaviour
     [SyncVar(hook = "OnChangeSkill3_Healed")]
     public bool skill3_Healed = false;
 
+    public CrawlerClass crawlerClass;
+    public List<ActiveAbility> activeAbilities = new List<ActiveAbility>();
+
     /*public enum ActionState {
 		NONE,
 		ATTACK
@@ -50,10 +35,36 @@ public class Crawler : NetworkBehaviour
 	[SyncVar(hook = "OnChangeActionState")]
 	public ActionState actionState = ActionState.NONE;*/
 
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+
+        //on the server, add yourself to the level-wide player list
+        if (isServer)
+        {
+            Debug.Log("SERVER: " + pName + " is here.");
+            if (!isVRMasterPlayer)
+                FindObjectOfType<PlayersManager>().players.Add(transform);
+        }
+    }
+
+    protected virtual void FixedUpdate()
+    {
+        foreach (var ability in activeAbilities)
+        {
+            ability.Update(this);
+        }
+    }
+
     //#######################################################################
     //called after scene loaded
-    void Start()
+    protected override void Start()
     {
+        if (crawlerClass != null)
+            crawlerClass.Apply(this);
+
+        base.Start();
+
         gameObject.name = pName;
         //foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>())
         //{
@@ -70,20 +81,9 @@ public class Crawler : NetworkBehaviour
             transform.localScale *= 2f;
         }
 
-        //on the server, add yourself to the level-wide player list
-        if (isServer)
+        if (isLocalPlayer)
         {
-            Debug.Log("SERVER: " + pName + " is here.");
-            if (!isVRMasterPlayer)
-                FindObjectOfType<PlayersManager>().players.Add(transform);
-        }
-    }
-
-    void OnValidate()
-    {
-        if (basicAttack == null)
-        {
-            Debug.LogError("Basic attack not set.");
+            FindObjectOfType<AttributesPanel>().Register(GetComponent<Stats>());
         }
     }
 
@@ -98,7 +98,7 @@ public class Crawler : NetworkBehaviour
 		 * append (VR MASTER) to the player name */
         if (isVRMasterPlayer)
         {
-            UnityEngine.VR.VRSettings.enabled = true;
+            UnityEngine.XR.XRSettings.enabled = true;
             FindObjectOfType<CameraManager>().nonVRCamera.SetActive(false);
             FindObjectOfType<CameraManager>().vrCamera.SetActive(true);
             transform.position += Vector3.up;
@@ -111,7 +111,7 @@ public class Crawler : NetworkBehaviour
 		 * set this gameObject as the main cam target */
         else
         {
-            UnityEngine.VR.VRSettings.enabled = false;
+            UnityEngine.XR.XRSettings.enabled = false;
             FindObjectOfType<CameraManager>().vrCamera.SetActive(false);
             FindObjectOfType<CameraManager>().nonVRCamera.SetActive(true);
             Camera.main.GetComponent<DungeonCamera>().target = this.gameObject;
@@ -125,47 +125,18 @@ public class Crawler : NetworkBehaviour
 
         //weapon firing. dumb and unoptimized.
         CmdAttack();
-        
     }
 
-    public void TogglePrimaryAbility()
+    public void ActivateAbility(int index)
     {
         if (!isLocalPlayer)
             return;
 
-        CmdPrimaryAbility();
-    }
-
-    public void ToggleSecondaryAbility()
-    {
-        if (!isLocalPlayer)
-            return;
-
-        CmdSecondaryAbility();
+        CmdActivateAbility(index);
     }
 
     //###################### COMMAND CALLS #####################################
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-    // This [Command] code is called on the Client …
-    // … but it is run on the Server!
-    /*[Command]
-	void CmdFire()
-	{
-		// Create the Bullet from the Bullet Prefab
-		var bullet = Instantiate(
-			bulletPrefab,
-			bulletSpawn.position,
-			bulletSpawn.rotation);
-
-		// Add velocity to the bullet
-		bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;
-
-		NetworkServer.Spawn (bullet);
-
-		// Destroy the bullet after 2 seconds
-		Destroy(bullet, 2.0f);
-	}*/
-
     [Command]
     void CmdAttack()
     {
@@ -173,38 +144,20 @@ public class Crawler : NetworkBehaviour
     }
 
     [Command]
-    void CmdPrimaryAbility()
+    void CmdActivateAbility(int index)
     {
-        primaryAbility.Activate();    
-    }
-
-    [Command]
-    void CmdSecondaryAbility()
-    {
-        secondaryAbility.Activate();
+        RpcActivateAbility(index);
     }
 
     //###################### RPC CALLS #####################################
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+
     [ClientRpc]
-    void RpcAttack()
+    void RpcActivateAbility(int index)
     {
-        // TODO: Damage calculation
-        basicAttack.DoAttack();
+        if (activeAbilities.Count > index)
+            activeAbilities[index].Activate(this);
     }
-    
-    //[ClientRpc]
-    //public void RpcSetMaterial(bool cloak)
-    //{
-    //    foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>())
-    //    {
-    //        mr.material = cloak ? cloakMaterial : defaultMaterial;
-    //        if (!cloak)
-    //        {
-    //            mr.material.color = playerColor;
-    //        }
-    //    }
-    //}
 
     //###################### SYNCVAR HOOKS #####################################
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
@@ -230,13 +183,13 @@ public class Crawler : NetworkBehaviour
         skill3_Healed = state;
     }
 
-	void OnChangeDead(bool dead)
+	protected override void OnDeath()
 	{
-		if (!isDead) {
-			if (isServer) {
-				nameTag.text += " [DEAD]";
-			}
-			gameObject.GetComponentInChildren<CrawlerController> ().enabled = false;
-		}
+		if (isServer)
+        {
+			nameTag.text += " [DEAD]";
+            FindObjectOfType<EndConditions>().CheckEndCondition();
+        }
+		gameObject.GetComponentInChildren<CrawlerController>().enabled = false;
 	}
 }

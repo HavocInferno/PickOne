@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using UnityEngine.AI;
-using UnityEngine.Networking;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class Enemy : NetworkBehaviour
+public class Enemy : GenericCharacter
 {
     public List<EnemyBehaviour> behaviours = new List<EnemyBehaviour>();
     public List<EnemyTargetDetector> detectors = new List<EnemyTargetDetector>();
     public List<Transform> possibleTargets = new List<Transform>();
-    public Sword sword;
     private List<Transform> detectedTargets = new List<Transform>();
     private float lastDetectionCheck = 0.0f;
     public float detectionCheckRate = 1.0f;
@@ -33,6 +31,7 @@ public class Enemy : NetworkBehaviour
     {
         if (!detectedTargets.Contains(target))
         {
+            Debug.LogFormat("{0} detected {1}", name, target.name);
             detectedTargets.Add(target);
             foreach (var behaviour in behaviours)
             {
@@ -45,6 +44,7 @@ public class Enemy : NetworkBehaviour
     {
         if (detectedTargets.Remove(target))
         {
+            Debug.LogFormat("{0} lost {1}", name, target.name);
             foreach (var behaviour in behaviours)
             {
                 behaviour.OnLoseTarget(target);
@@ -68,21 +68,28 @@ public class Enemy : NetworkBehaviour
         return closestTarget;
     }
 
-	void Start()
+    public override void OnStartServer()
     {
-        if (!isServer)
+        base.OnStartServer();
+
+        if (isServer)
         {
-            sword.blade.GetComponent<Collider>().enabled = false;
-            return;
+            // On the server, add yourself to the level-wide enemies list.
+            Debug.Log("SERVER: " + gameObject.name + " is here.");
+            FindObjectOfType<PlayersManager>().enemies.Add(transform);
+
+            if (isEndConditionKill)
+                FindObjectOfType<EndConditions>().enemiesToKill.Add(this);
         }
+    }
 
-        possibleTargets = FindObjectOfType<PlayersManager>().players;
-
-        //on the server, add yourself to the level-wide enemies list
-        Debug.Log("SERVER: " + gameObject.name + " is here.");
-        FindObjectOfType<PlayersManager>().enemies.Add(transform);
-		if(isEndConditionKill)
-			FindObjectOfType<EndConditions>().enemiesToKill.Add(this);
+    protected override void Start()
+    {
+        // Populate the list of possible targets for detection.
+        foreach (var crawler in FindObjectOfType<PlayersManager>().players)
+        {
+            possibleTargets.Add(crawler);
+        }
     }
 	
 	void FixedUpdate()
@@ -90,11 +97,13 @@ public class Enemy : NetworkBehaviour
         if (!isServer)
             return;
 
+        // Update enemy AI.
         foreach (var behaviour in behaviours)
         {
             behaviour.OnFixedUpdate();
         }
 
+        // Check if the enemy is idle.
         var navMeshAgent = GetComponent<NavMeshAgent>();
         if (!navMeshAgent.pathPending)
         {
@@ -114,16 +123,19 @@ public class Enemy : NetworkBehaviour
             return;
 
         lastDetectionCheck = Time.time + detectionCheckRate;
-            
+
+        // Perform detection checks against all possible targets.
         foreach (var target in possibleTargets)
         {
             bool detected = detectors.Any((detector) => detector.Detect(target));
             if (detected)
             {
+                target.GetComponent<DetectableObject>().detectedBy.Add(this);
                 DetectTarget(target);
             }
             else
             {
+                target.GetComponent<DetectableObject>().detectedBy.Remove(this);
                 LoseTarget(target);
             }
         }
@@ -134,9 +146,13 @@ public class Enemy : NetworkBehaviour
         RpcAttack();
     }
 
-    [ClientRpc]
-    void RpcAttack()
+    protected override void OnDeath()
     {
-        sword.DoAttack();
+        base.OnDeath();
+
+        if (isServer)
+            FindObjectOfType<EndConditions>().MarkEnemyKilled(gameObject.GetComponent<Enemy>());
+
+        Destroy(gameObject);
     }
 }

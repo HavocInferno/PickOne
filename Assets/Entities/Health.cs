@@ -44,14 +44,13 @@ public class Health : NetworkBehaviour
 		{
 			if (destroyOnDeath)
             {
-				FindObjectOfType<EndConditions>().markEnemyKilled(gameObject.GetComponent<Enemy>());
+				FindObjectOfType<EndConditions>().MarkEnemyKilled(gameObject.GetComponent<Enemy>());
 				Destroy(gameObject);
 			}
             else
             {
-				// Rpc ==> called on the Server, but invoked on the Clients
-				RpcDie();
-				FindObjectOfType<EndConditions> ().checkEndCondition ();
+                gameObject.GetComponent<Crawler>().isDead = true;
+				FindObjectOfType<EndConditions>().CheckEndCondition();
 
 				//currentHealth = maxHealth;
 			}
