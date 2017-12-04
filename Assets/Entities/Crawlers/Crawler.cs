@@ -80,6 +80,11 @@ public class Crawler : GenericCharacter
         {
             transform.localScale *= 2f;
         }
+
+        if (isLocalPlayer)
+        {
+            FindObjectOfType<AttributesPanel>().Register(GetComponent<Stats>());
+        }
     }
 
     //is called when the local client's scene starts

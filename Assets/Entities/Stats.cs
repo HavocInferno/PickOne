@@ -44,7 +44,7 @@ public class Stats : NetworkBehaviour
             if (bar) bar.sizeDelta = new Vector2(100.0f * _value / _max, bar.sizeDelta.y);
         }
     }
-    private Dictionary<string, Attribute> _attributes = new Dictionary<string, Attribute>();
+    public Dictionary<string, Attribute> attributes = new Dictionary<string, Attribute>();
     [SerializeField]
     private List<Attribute> _attributesList = new List<Attribute>();
 
@@ -85,21 +85,21 @@ public class Stats : NetworkBehaviour
         Debug.Assert(isServer, "Only server can change character stats!");
         if (isServer)
         {
-            _attributes[name].Value = value;
+            attributes[name].Value = value;
             RpcSetAttributeValue(name, value);
         }
     }
 
     public float GetAttributeValue(string name)
     {
-        return _attributes[name].Value;
+        return attributes[name].Value;
     }
 
     [ClientRpc]
     void RpcSetAttributeValue(string name, float value)
     {
         if (!isServer)
-            _attributes[name].Value = value;
+            attributes[name].Value = value;
     }
 
     void SetAttributeMax(string name, float max)
@@ -111,30 +111,30 @@ public class Stats : NetworkBehaviour
 
     public float GetAttributeMax(string name)
     {
-        return _attributes[name].Value;
+        return attributes[name].Value;
     }
 
     [ClientRpc]
     void RpcSetAttributeMax(string name, float value)
     {
-        _attributes[name].Max = value;
+        attributes[name].Max = value;
     }
 
     public bool HasAttribute(string name)
     {
-        return _attributes.ContainsKey(name);
+        return attributes.ContainsKey(name);
     }
 
     //
     // Logic
     //
 
-    void Start()
+    public override void OnStartServer()
     {
         _character = gameObject.GetComponent<GenericCharacter>();
         foreach (var attribute in _attributesList)
         {
-            _attributes.Add(attribute.name, attribute);
+            attributes.Add(attribute.name, attribute);
             attribute.Value = attribute.Max;
         }
     }
