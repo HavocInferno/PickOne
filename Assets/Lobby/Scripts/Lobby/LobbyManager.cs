@@ -284,7 +284,7 @@ namespace Prototype.NetworkLobby
         public override GameObject OnLobbyServerCreateLobbyPlayer(NetworkConnection conn, short playerControllerId)
         {
 			if (!currentPlayers.ContainsKey (conn.connectionId))
-				currentPlayers.Add (conn.connectionId, 1);
+				currentPlayers.Add (conn.connectionId, 0);
 			
             GameObject obj = Instantiate(lobbyPlayerPrefab.gameObject) as GameObject;
 

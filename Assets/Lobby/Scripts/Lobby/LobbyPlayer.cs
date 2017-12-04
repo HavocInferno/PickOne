@@ -44,7 +44,7 @@ namespace Prototype.NetworkLobby
 		public bool isVRcapable = false;
 		[SyncVar(hook = "OnMyVRModel")]
 		public int vrDeviceModel = -1; //-1 = NONE, 1 = VIVE, 2 = RIFT
-		//[SyncVar(hook = "OnMyClassIndex")]
+		[SyncVar(hook = "OnMyClassIndex")]
 		public int classIndex = -1; //-1 = NONE, x = Class x
 
         public Color OddRowColor = new Color(250.0f / 255.0f, 250.0f / 255.0f, 250.0f / 255.0f, 1.0f);
@@ -138,6 +138,7 @@ namespace Prototype.NetworkLobby
             CheckRemoveButton();
 			CheckMasterToggle ();
 			CheckHMDToggle ();
+			EnableClassButtons ();
 
             if (playerColor == Color.white)
                 CmdColorChange();
@@ -163,15 +164,6 @@ namespace Prototype.NetworkLobby
 
             readyButton.onClick.RemoveAllListeners();
             readyButton.onClick.AddListener(OnReadyClicked);
-
-			class1Button.onClick.RemoveAllListeners ();
-			class1Button.onClick.AddListener (delegate {ClassPicker (class1Button.name);});
-			class2Button.onClick.RemoveAllListeners ();
-			class2Button.onClick.AddListener (delegate {ClassPicker (class2Button.name);});
-			class3Button.onClick.RemoveAllListeners ();
-			class3Button.onClick.AddListener (delegate {ClassPicker (class3Button.name);});
-			class4Button.onClick.RemoveAllListeners ();
-			class4Button.onClick.AddListener (delegate {ClassPicker (class4Button.name);});
 
             //when OnClientEnterLobby is called, the loval PlayerController is not yet created, so we need to redo that here to disable
             //the add button if we reach maxLocalPlayer. We pass 0, as it was already counted on OnClientEnterLobby
@@ -265,6 +257,30 @@ namespace Prototype.NetworkLobby
 			}
 		}
 
+		public void EnableClassButtons() {
+			if (!hasAuthority)
+				return;
+			
+			class1Button.interactable = true;
+			class2Button.interactable = true;
+			class3Button.interactable = true;
+			class4Button.interactable = true;
+
+			class1Button.gameObject.SetActive (true);
+			class2Button.gameObject.SetActive (true);
+			class3Button.gameObject.SetActive (true);
+			class4Button.gameObject.SetActive (true);
+
+			class1Button.onClick.RemoveAllListeners ();
+			class1Button.onClick.AddListener (delegate {ClassPicker (class1Button.name);});
+			class2Button.onClick.RemoveAllListeners ();
+			class2Button.onClick.AddListener (delegate {ClassPicker (class2Button.name);});
+			class3Button.onClick.RemoveAllListeners ();
+			class3Button.onClick.AddListener (delegate {ClassPicker (class3Button.name);});
+			class4Button.onClick.RemoveAllListeners ();
+			class4Button.onClick.AddListener (delegate {ClassPicker (class4Button.name);});
+		}
+
 		void ClassPicker(string buttonName) {
 			switch (buttonName) {
 			case "Class1Button":
@@ -351,6 +367,31 @@ namespace Prototype.NetworkLobby
 				break;
 			default:
 				break;
+			}
+		}
+
+		public void OnMyClassIndex(int cIndex) {
+			if (!hasAuthority) {
+				class1Button.gameObject.SetActive (false);
+				class2Button.gameObject.SetActive (false);
+				class3Button.gameObject.SetActive (false);
+				class4Button.gameObject.SetActive (false);
+				switch (cIndex) {
+				case 0:
+					class1Button.gameObject.SetActive (true);
+					break;
+				case 1:
+					class2Button.gameObject.SetActive (true);
+					break;
+				case 2:
+					class3Button.gameObject.SetActive (true);
+					break;
+				case 3:
+					class4Button.gameObject.SetActive (true);
+					break;
+				default:
+					break;
+				}
 			}
 		}
 
