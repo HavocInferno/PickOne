@@ -129,7 +129,7 @@ public class Stats : NetworkBehaviour
     // Logic
     //
 
-    public override void OnStartServer()
+    public void Start()
     {
         _character = gameObject.GetComponent<GenericCharacter>();
         foreach (var attribute in _attributesList)

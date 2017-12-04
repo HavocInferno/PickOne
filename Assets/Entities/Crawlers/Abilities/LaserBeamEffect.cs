@@ -26,15 +26,14 @@ public class LaserBeamEffect : AbstractEffect
 
         base.Enable(character, calledByLocalPlayer, calledByServer);
 
-        if (!calledByServer) return;
-
         var component = character.gameObject.AddComponent<_LaserBeamEffectScript>();
         component._Initialize(
             Instantiate(laserBeamPrefab, character.basicAttack.transform),
             damageRegisterRate,
             damagePerSecond,
             laserHitMask,
-            character);
+            character,
+            calledByServer);
     }
 
     public override void Disable(
@@ -49,8 +48,6 @@ public class LaserBeamEffect : AbstractEffect
 
         base.Disable(character, calledByLocalPlayer, calledByServer);
 
-        if (!calledByServer) return;
-
         Destroy(character.gameObject.GetComponent<_LaserBeamEffectScript>());
     }
 
@@ -61,6 +58,7 @@ public class LaserBeamEffect : AbstractEffect
         float _nextDamageCheckTime;
         float _damageRegisterRate;
         float _damagePerSecond;
+        bool _registerDamage;
         LayerMask _laserHitMask;
         GenericCharacter _character;
 
@@ -69,7 +67,8 @@ public class LaserBeamEffect : AbstractEffect
             float damageRegisterRate,
             float damagePerSecond,
             LayerMask laserHitMask,
-            GenericCharacter character)
+            GenericCharacter character,
+            bool registerDamage)
         {
             _laserHitMask = laserHitMask;
             _damagePerSecond = damagePerSecond;
@@ -77,10 +76,13 @@ public class LaserBeamEffect : AbstractEffect
             _laserInstance = laserInstance;
             _character = character;
             _nextDamageCheckTime = Time.time + _damageRegisterRate;
+            _registerDamage = registerDamage;
         }
 
         private void FixedUpdate()
         {
+            if (!_registerDamage) return;
+
             if (Time.time < _damageRegisterRate) return;
             _nextDamageCheckTime = Time.time + _damageRegisterRate;
 
