@@ -240,7 +240,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1272645852402114}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.960991, y: -3.3772235, z: 14.568951}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4609409759258854}
@@ -683,9 +683,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDead: 0
   basicAttack: {fileID: 114207759360733902}
-  _passiveEffects:
-  - {fileID: 11400000, guid: 3166d152cc481c24cae1dfb5adba5388, type: 2}
-  - {fileID: 11400000, guid: 6ade0c3341663004c9d35033e938b1f7, type: 2}
+  passiveEffects: []
   nameTag: {fileID: 114318600357406474}
   pName: player
   playerColor: {r: 0, g: 0, b: 1, a: 1}
@@ -693,6 +691,7 @@ MonoBehaviour:
   skill1_Buffed: 0
   skill2_Debuffed: 0
   skill3_Healed: 0
+  crawlerClass: {fileID: 0}
   activeAbilities:
   - type: 0
     attributeName: 

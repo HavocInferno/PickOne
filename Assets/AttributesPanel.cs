@@ -24,7 +24,6 @@ public class AttributesPanel : MonoBehaviour
         {
             if (stats.HasAttribute(attributeInfo.name))
             {
-                Debug.LogError(attributeInfo.name);
                 GameObject instance = Instantiate(elementPrefab, transform);
                 instance.name += "_" + attributeInfo.name;
                 Transform text = instance.transform.Find("Text");

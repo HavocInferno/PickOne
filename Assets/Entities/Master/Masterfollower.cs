@@ -12,7 +12,10 @@ public class MasterFollower : NetworkBehaviour
         {
             transform.position = followed.position;
             transform.rotation = followed.rotation;
-			GetComponent<Renderer>().enabled = false; //temporary, pending a better solution
+			if(GetComponent<Renderer>() != null)
+				GetComponent<Renderer>().enabled = false; //temporary, pending a better solution
+			for (int i = 0; i < transform.childCount; i++)
+				transform.GetChild (i).gameObject.SetActive(false);
         }
     }
 
