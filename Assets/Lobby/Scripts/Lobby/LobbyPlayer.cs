@@ -313,6 +313,7 @@ namespace Prototype.NetworkLobby
 		[Command]
 		public void CmdClassPicked(int cIndex) {
 			LobbyManager.s_Singleton.SetPlayerTypeLobby (GetComponent<NetworkIdentity> ().connectionToClient, cIndex);
+			classIndex = cIndex;
 		}
 
         ///===== callback from sync var
@@ -371,27 +372,31 @@ namespace Prototype.NetworkLobby
 		}
 
 		public void OnMyClassIndex(int cIndex) {
-			if (!hasAuthority) {
+			if (!isLocalPlayer) {
 				class1Button.gameObject.SetActive (false);
 				class2Button.gameObject.SetActive (false);
 				class3Button.gameObject.SetActive (false);
 				class4Button.gameObject.SetActive (false);
+			Button selectedButton = null;
 				switch (cIndex) {
-				case 0:
-					class1Button.gameObject.SetActive (true);
+			case 0:
+				selectedButton = class1Button;
 					break;
-				case 1:
-					class2Button.gameObject.SetActive (true);
+			case 1:
+				selectedButton = class2Button;
 					break;
-				case 2:
-					class3Button.gameObject.SetActive (true);
+			case 2:
+				selectedButton = class3Button;
 					break;
-				case 3:
-					class4Button.gameObject.SetActive (true);
+			case 3:
+				selectedButton = class4Button;
 					break;
 				default:
 					break;
 				}
+
+				if(selectedButton != null)
+					selectedButton.gameObject.SetActive (true);
 			}
 		}
 
