@@ -770,6 +770,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fafd1aff4a50d904aa66a168b0b40cd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseDamage: 30
+  baseFireRate: 1
   SwingSpeed: 10
   LifeTime: 1
   blade: {fileID: 1972687527298028}
@@ -811,20 +813,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d646c73e5acd17540bc9d9662206b659, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sword: {fileID: 114656747908195818}
-  fireRate: 0.5
-  bulletSpeed: 16
-  primaryAbility: {fileID: 11400000, guid: ca42143f6ba8bc04c95c29288cbeb1ae, type: 2}
-  primaryAbilityActive: 0
-  secondaryAbility: {fileID: 0}
-  secondaryAbilityActive: 0
-  cloakMaterial: {fileID: 2100000, guid: 927242436d33c954ab4094965cdb99d4, type: 2}
-  defaultMaterial: {fileID: 2100000, guid: 3bf95fe7130362c48b7f96b0145a0b0a, type: 2}
   nameTag: {fileID: 114186206427492224}
   pName: player
   playerColor: {r: 0, g: 0, b: 1, a: 1}
   isVRMasterPlayer: 0
   isDead: 0
+  basicAttack: {fileID: 114656747908195818}
+  stats:
+    Damage: 35
+    Resistance: 10
+  primaryAbility: {fileID: 0}
+  secondaryAbility: {fileID: 0}
   skill1_Buffed: 0
   skill2_Debuffed: 0
   skill3_Healed: 0
