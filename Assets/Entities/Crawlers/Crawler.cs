@@ -20,8 +20,6 @@ public class Crawler : GenericCharacter
 
     [SyncVar(hook = "OnChangeSkill1_Buffed")]
     public bool skill1_Buffed = false;
-    [SyncVar(hook = "OnChangeSkill2_Debuffed")]
-    public bool skill2_Debuffed = false;
     [SyncVar(hook = "OnChangeSkill3_Healed")]
     public bool skill3_Healed = false;
 
@@ -175,10 +173,6 @@ public class Crawler : GenericCharacter
 			Debug.Log ("You are being buffed!");
 		else
 			Debug.Log ("You are not being buffed anymore!");
-    }
-    void OnChangeSkill2_Debuffed(bool state)
-    {
-        skill2_Debuffed = state;
     }
     void OnChangeSkill3_Healed(bool state)
     {

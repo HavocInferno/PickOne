@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using UnityEngine.AI;
+using UnityEngine.Networking;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : GenericCharacter
@@ -15,6 +16,9 @@ public class Enemy : GenericCharacter
     public float detectionCheckRate = 1.0f;
 
 	public bool isEndConditionKill = true;
+
+	[SyncVar(hook = "OnChangeSkill2_Debuffed")]
+	public bool skill2_Debuffed = false;
 
     public ReadOnlyCollection<Transform> DetectedTargets
     {
@@ -145,6 +149,12 @@ public class Enemy : GenericCharacter
     {
         RpcAttack();
     }
+
+	void OnChangeSkill2_Debuffed(bool state)
+	{
+		Debug.Log (name + " is now " + (state ? "debuffed" : "undebuffed"));
+		skill2_Debuffed = state;
+	}
 
     protected override void OnDeath()
     {
