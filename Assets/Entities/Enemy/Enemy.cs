@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using UnityEngine.AI;
+using UnityEngine.Networking;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : GenericCharacter
@@ -153,6 +154,6 @@ public class Enemy : GenericCharacter
         if (isServer)
             FindObjectOfType<EndConditions>().MarkEnemyKilled(gameObject.GetComponent<Enemy>());
 
-        Destroy(gameObject);
+        NetworkServer.Destroy(gameObject);
     }
 }

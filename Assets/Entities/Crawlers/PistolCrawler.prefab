@@ -695,14 +695,14 @@ MonoBehaviour:
   activeAbilities:
   - type: 0
     attributeName: 
-    name: Cloak
+    name: Debuff
     effects:
-    - {fileID: 11400000, guid: c30af1f30c0430c488d0ba17165ef8de, type: 2}
-  - type: 1
-    attributeName: Adrenaline
-    name: Laser
+    - {fileID: 11400000, guid: cfd9fa65d1f6bbe45980e1238a4a9b85, type: 2}
+  - type: 0
+    attributeName: 
+    name: Buff
     effects:
-    - {fileID: 11400000, guid: 8bea51102c5fb83439e6bf9800d49a26, type: 2}
+    - {fileID: 11400000, guid: 47293973425a6214b8d032764d7da0ed, type: 2}
 --- !u!114 &114771519900907482
 MonoBehaviour:
   m_ObjectHideFlags: 1

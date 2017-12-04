@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class Controller : MonoBehaviour
 {
-
-    
     private SteamVR_TrackedObject trackedObject;
     private SteamVR_Controller.Device device;
     private Vector2 trackpad;
@@ -59,7 +57,12 @@ public class Controller : MonoBehaviour
 	[SerializeField]
 	private int currentDebuffTarget = -1;
 
-	public Vector3 buffDestination;
+    [SerializeField]
+    private AbstractEffect buffEffect;
+    [SerializeField]
+    private AbstractEffect debuffEffect;
+
+    public Vector3 buffDestination;
 	public bool buffing = false;
 	public Vector3 debuffDestination;
 	public bool debuffing = false;
@@ -179,9 +182,9 @@ public class Controller : MonoBehaviour
 					device.TriggerHapticPulse ((ushort)(1000 * Mathf.Pow (Vector3.Cross (rayOrigin.forward, playerManager.players [closest].position - rayOrigin.position).magnitude / maxRayOffset, 2)));
 				else {
 					//new target
-					if(currentBuffTarget!=-1)
-						playerManager.players[currentBuffTarget].GetComponent<Crawler>().skill1_Buffed = false;
-					playerManager.players[closest].GetComponent<Crawler>().skill1_Buffed = true;
+					if(currentBuffTarget != -1)
+                        playerManager.players[closest].GetComponent<Crawler>().DisableEffect(buffEffect);
+                    playerManager.players[closest].GetComponent<Crawler>().EnableEffect(buffEffect);
 					device.TriggerHapticPulse (hapticforce);
 					currentBuffTarget = closest;
 				}
@@ -193,15 +196,15 @@ public class Controller : MonoBehaviour
 		if (device.GetPressDown (SteamVR_Controller.ButtonMask.Trigger)) {
 			buffing = true;
 			buffRay.Draw = true;
-			if(currentBuffTarget!=-1)
-				playerManager.players [currentBuffTarget].GetComponent<Crawler> ().skill1_Buffed = true;
+            if (currentBuffTarget != -1)
+                playerManager.players[currentBuffTarget].GetComponent<Crawler>().EnableEffect(buffEffect);
 		}
 		if (device.GetPressUp (SteamVR_Controller.ButtonMask.Trigger)) {
 			buffing = false;
 			buffRay.Draw = false;
 			if(currentBuffTarget!=-1)
-				playerManager.players [currentBuffTarget].GetComponent<Crawler> ().skill1_Buffed = false;
-		}
+                playerManager.players[currentBuffTarget].GetComponent<Crawler>().DisableEffect(buffEffect);
+        }
 	}
 
 	void applyDebuff ()

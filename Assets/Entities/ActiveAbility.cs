@@ -75,8 +75,7 @@ public class ActiveAbility
         float totalBaseCost = 0.0f;
         foreach (var effect in effects)
         {
-            AppliedEffect comp = character.gameObject.AddComponent<AppliedEffect>();
-            comp.Initialize(effect, effect.baseDuration);
+            character.EnableEffectDuration(effect, effect.baseDuration);
             totalBaseCost += effect.baseCost;
         }
 

@@ -18,7 +18,6 @@ public class ActiveEffectsPanel : MonoBehaviour
         GameObject newObject = GameObject.Instantiate(elementPrefab, transform);
         Image image = newObject.transform.Find("EffectIcon").GetComponentInChildren<Image>();
         image.sprite = effect.icon;
-        Debug.Log(effect.icon.name);
         _elements.Add(effect, newObject);
     }
 

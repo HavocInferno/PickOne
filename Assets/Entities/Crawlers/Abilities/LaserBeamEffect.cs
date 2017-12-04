@@ -11,6 +11,7 @@ public class LaserBeamEffect : AbstractEffect
     public GameObject laserBeamPrefab;
     public float damagePerSecond = 20.0f;
     public float damageRegisterRate = 0.1f;
+    public float maxLength = 100.0f;
     public LayerMask laserHitMask;
 
     public override void Enable(
@@ -58,6 +59,7 @@ public class LaserBeamEffect : AbstractEffect
         float _nextDamageCheckTime;
         float _damageRegisterRate;
         float _damagePerSecond;
+        float _maxLength;
         bool _registerDamage;
         LayerMask _laserHitMask;
         GenericCharacter _character;
