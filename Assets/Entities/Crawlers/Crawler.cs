@@ -79,6 +79,8 @@ public class Crawler : GenericCharacter
         if (isVRMasterPlayer)
         {
             transform.localScale *= 2f;
+			gameObject.GetComponentInChildren<CrawlerController>().enabled = false;
+			gameObject.SetActive (false);
         }
 
         if (isLocalPlayer)
