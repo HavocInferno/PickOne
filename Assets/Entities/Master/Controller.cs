@@ -65,7 +65,7 @@ public class Controller : MonoBehaviour
     public Vector3 buffDestination;
 	public bool buffing = false;
 	public Vector3 debuffDestination;
-	public bool debuffing = false;
+    public bool debuffing = false;
 
 
 	// Use this for initialization
@@ -172,10 +172,8 @@ public class Controller : MonoBehaviour
 				}
 			}
 			if (closest != -1) {
-				if (buffRay.Draw == false)
-					buffRay.Draw = true;
-				if (buffing == false)
-					buffing = true;
+                if (!buffing)
+                    startBuffing();
 				buffDestination = Vector3.Lerp (buffDestination, playerManager.players [closest].position, Time.deltaTime * raySpeed);
 				buffRay.destination = buffDestination; 
 				if (closest == currentBuffTarget)
@@ -190,26 +188,36 @@ public class Controller : MonoBehaviour
 				}
 			}
 			else
-				buffRay.Draw = false;
+                stopBuffing();
 		}
 		//Draw bezierCurve
-		if (device.GetPressDown (SteamVR_Controller.ButtonMask.Trigger)) {
-			buffing = true;
-			buffRay.Draw = true;
-            if (currentBuffTarget != -1)
-                playerManager.players[currentBuffTarget].GetComponent<Crawler>().EnableEffect(buffEffect);
-		}
-		if (device.GetPressUp (SteamVR_Controller.ButtonMask.Trigger)) {
-			buffing = false;
-			buffRay.Draw = false;
-			if(currentBuffTarget!=-1)
-                playerManager.players[currentBuffTarget].GetComponent<Crawler>().DisableEffect(buffEffect);
-        }
-	}
+		if (device.GetPressDown (SteamVR_Controller.ButtonMask.Trigger))
+            startBuffing();
+        if (device.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
+            stopBuffing();
+    }
 
-	void applyDebuff ()
+    private void startBuffing()
+    {
+        if (currentBuffTarget != -1)
+        {
+            buffing = true;
+            buffRay.Draw = true;
+            playerManager.players[currentBuffTarget].GetComponent<Crawler>().EnableEffect(buffEffect);
+        }
+    }
+
+    private void stopBuffing()
+    {
+        buffing = false;
+        buffRay.Draw = false;
+        if (currentBuffTarget != -1)
+            playerManager.players[currentBuffTarget].GetComponent<Crawler>().DisableEffect(buffEffect);
+    }
+
+    void applyDebuff ()
 	{
-		if (device.GetPress (SteamVR_Controller.ButtonMask.Trigger)) {
+		if (device.GetPress (SteamVR_Controller.ButtonMask.Trigger) && currentItem == 1) {
 			int closest = -1;
 			float closestdistance = maxRayOffset;
 			for (int i = 0; i < playerManager.enemies.Count; i++) {
@@ -219,10 +227,8 @@ public class Controller : MonoBehaviour
 				}
 			}
 			if (closest != -1) {
-				if (debuffRay.Draw == false)
-					debuffRay.Draw = true;
-				if (debuffing == false)
-					debuffing = true;
+                if (!debuffing)
+                    startDebuffing();
 				debuffDestination = Vector3.Lerp (debuffDestination, playerManager.enemies [closest].position, Time.deltaTime * raySpeed);
 				debuffRay.destination = debuffDestination; 
 				if (closest == currentDebuffTarget)
@@ -233,28 +239,39 @@ public class Controller : MonoBehaviour
                         playerManager.enemies[currentBuffTarget].GetComponent<Enemy>().DisableEffect(debuffEffect);
                     playerManager.enemies[closest].GetComponent<Enemy>().EnableEffect(debuffEffect);
                     Debug.Log("New enemy target! closest: " + closest +", currentDebuffTarget: "+currentDebuffTarget);
-					currentDebuffTarget = closest;
+                    device.TriggerHapticPulse(hapticforce);
+                    currentDebuffTarget = closest;
 				}
 			}
 			else
-				debuffRay.Draw = false;
-		}
+                stopDebuffing();
+        }
 		//Draw bezierCurve
-		if (device.GetPressDown (SteamVR_Controller.ButtonMask.Trigger)) {
-			debuffing = true;
-			debuffRay.Draw = true;
-			//if(currentDebuffTarget!=-1)
-				//playerManager.players [currentBuffTarget].GetComponent<Crawler> ().skill1_Buffed = true;
-		}
-		if (device.GetPressUp (SteamVR_Controller.ButtonMask.Trigger)) {
-			debuffing = false;
-			debuffRay.Draw = false;
-			//if(currentBuffTarget!=-1)
-				//playerManager.players [currentBuffTarget].GetComponent<Crawler> ().skill1_Buffed = false;
-		}
-	}
+		if (device.GetPressDown (SteamVR_Controller.ButtonMask.Trigger))
+            startDebuffing();
+        if (device.GetPressUp (SteamVR_Controller.ButtonMask.Trigger))
+            stopDebuffing();
+    }
 
-	void initRays ()
+    private void startDebuffing()
+    {
+        if (currentDebuffTarget != -1)
+        {
+            debuffing = true;
+            debuffRay.Draw = true;
+            playerManager.enemies[currentBuffTarget].GetComponent<Enemy>().EnableEffect(debuffEffect);
+        }
+    }
+
+    private void stopDebuffing()
+    {
+        debuffing = false;
+        debuffRay.Draw = false;
+        if (currentBuffTarget != -1)
+            playerManager.enemies[currentBuffTarget].GetComponent<Enemy>().DisableEffect(debuffEffect);
+    }
+
+    void initRays ()
 	{
 		debuffDestination = buffDestination = rayOrigin.position;
 		debuffRay.origin = buffRay.origin = rayOrigin;
