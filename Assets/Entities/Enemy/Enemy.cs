@@ -17,6 +17,9 @@ public class Enemy : GenericCharacter
 
 	public bool isEndConditionKill = true;
 
+	[SyncVar(hook = "OnChangeSkill2_Debuffed")]
+	public bool skill2_Debuffed = false;
+
     public ReadOnlyCollection<Transform> DetectedTargets
     {
         get { return detectedTargets.AsReadOnly(); }
@@ -147,6 +150,12 @@ public class Enemy : GenericCharacter
     {
         RpcAttack();
     }
+
+	void OnChangeSkill2_Debuffed(bool state)
+	{
+		Debug.Log (name + " is now " + (state ? "debuffed" : "undebuffed"));
+		skill2_Debuffed = state;
+	}
 
     protected override void OnDeath()
     {

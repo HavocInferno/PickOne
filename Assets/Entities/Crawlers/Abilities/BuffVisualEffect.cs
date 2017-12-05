@@ -53,7 +53,6 @@ public class BuffVisualEffect : AbstractEffect
             bool createLight,
             GenericCharacter character)
         {
-            Debug.LogError("!!!");
             _color = color;
             _createLight = createLight;
             _character = character;
