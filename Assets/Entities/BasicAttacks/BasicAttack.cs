@@ -44,9 +44,10 @@ public abstract class BasicAttack : MonoBehaviour
         fireRate = Mathf.Clamp(mFireRate, 0, float.MaxValue);
     }
     
-    // TODO: Pick a better name for this function
     public virtual void DoAttack(GenericCharacter attacker)
     {
+        if (!ready) return;
+
         ready = false;
         StartCoroutine(WaitForReload());
     }

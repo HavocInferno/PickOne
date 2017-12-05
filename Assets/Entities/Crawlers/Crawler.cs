@@ -62,6 +62,8 @@ public class Crawler : GenericCharacter
     {
         if (crawlerClass != null)
             crawlerClass.Apply(this);
+        foreach (var activeAbility in activeAbilities)
+            activeAbility.Recharge(this);
 
         base.Start();
 
@@ -191,5 +193,6 @@ public class Crawler : GenericCharacter
             FindObjectOfType<EndConditions>().CheckEndCondition();
         }
 		gameObject.GetComponentInChildren<CrawlerController>().enabled = false;
+        Destroy(gameObject.GetComponent<DetectableObject>());
 	}
 }

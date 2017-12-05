@@ -129,14 +129,15 @@ public class Enemy : GenericCharacter
         foreach (var target in possibleTargets)
         {
             bool detected = detectors.Any((detector) => detector.Detect(target));
+            DetectableObject comp = target.GetComponent<DetectableObject>();
             if (detected)
             {
-                target.GetComponent<DetectableObject>().detectedBy.Add(this);
+                if (comp) comp.detectedBy.Add(this);
                 DetectTarget(target);
             }
             else
             {
-                target.GetComponent<DetectableObject>().detectedBy.Remove(this);
+                if (comp) comp.detectedBy.Remove(this);
                 LoseTarget(target);
             }
         }

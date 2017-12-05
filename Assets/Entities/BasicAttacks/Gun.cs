@@ -26,8 +26,7 @@ public class Gun : BasicAttack
 
     public override void DoAttack(GenericCharacter attacker)
     {
-        if (ready != true)
-            return;
+        if (!ready) return;
 
         base.DoAttack(attacker);
 

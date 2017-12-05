@@ -8,11 +8,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: GainAdrenalineFromKills
-  m_EditorClassIdentifier: Assembly-CSharp::GainAttributeFromKills
+  m_Script: {fileID: 11500000, guid: 16aba7a20ffccb34ea3ac625df5b6317, type: 3}
+  m_Name: RageVisualEffect
+  m_EditorClassIdentifier: 
   baseCost: 0
   baseDuration: 0
-  icon: {fileID: 21300000, guid: cd55308abb95ee945839e5131c82182a, type: 3}
-  valuePerKill: 40
-  attributeName: Adrenaline
+  icon: {fileID: 0}
+  color: {r: 1, g: 0.80689657, b: 0, a: 1}
+  createLight: 1

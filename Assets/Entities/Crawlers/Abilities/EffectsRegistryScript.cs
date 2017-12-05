@@ -11,7 +11,12 @@ public class EffectsRegistryScript : MonoBehaviour
     {
         foreach (var effect in effects)
         {
-            strToEffect.Add(effect.name, effect);
+            if (effect == null) Debug.LogError("One of effects is null");
+            else
+            {
+                strToEffect.Add(effect.name, effect);
+                Debug.LogFormat("Effect {0} was loaded", effect.name);
+            }
         }
     }
 }

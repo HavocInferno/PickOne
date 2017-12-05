@@ -11,8 +11,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f910beb0015fc7541a0c5453d5aff831, type: 3}
   m_Name: SoldierClass
   m_EditorClassIdentifier: 
-  passiveEffects: []
+  passiveEffects:
+  - {fileID: 11400000, guid: 4c7ec2208b528914b931964fb3460698, type: 2}
   activeAbilities:
+  - type: 1
+    attributeName: Adrenaline
+    name: Rage
+    effects:
+    - {fileID: 11400000, guid: 73a941762eff7074d842b8394127ec9c, type: 2}
   - type: 0
     attributeName: 
     name: Laser Beam

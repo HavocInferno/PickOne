@@ -29,7 +29,7 @@ public class MultiplyDamageFromBehindEffect : AbstractEffect
             calledByLocalPlayer,
             calledByServer);
         
-        if (calledByServer && Vector3.Dot(hitDirection, target.transform.forward) > 0.5f)
+        if (calledByServer && Vector3.Dot(hitDirection, target.transform.forward) > 0.7f)
         {
             target.GetComponent<Stats>().Health -= (damageMultiplier - 1.0f) * amount;
         }

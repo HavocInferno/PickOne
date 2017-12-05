@@ -46,10 +46,15 @@ public class GenericCharacter : NetworkBehaviour
     private void RpcEnableEffect(string effectName)
     {
         var effect = Effects.GetByName(effectName);
+        LocalEnableEffect(effect);
+    }
+
+    private void LocalEnableEffect(AbstractEffect effect)
+    {
         Debug.LogFormat("{0} | Effect {1} enabled", name, effect.name);
         effect.Enable(this, isLocalPlayer, isServer);
         _appliedEffects.Add(effect);
-        if (isLocalPlayer)
+        if (isLocalPlayer && effect.icon != null)
             FindObjectOfType<ActiveEffectsPanel>().AddElement(effect);
     }
 
@@ -63,9 +68,15 @@ public class GenericCharacter : NetworkBehaviour
     private void RpcDisableEffect(string effectName)
     {
         var effect = Effects.GetByName(effectName);
+        LocalDisableEffect(effect);
+    }
+
+    private void LocalDisableEffect(AbstractEffect effect)
+    {
         effect.Disable(this, isLocalPlayer, isServer);
+        Debug.LogFormat("{0} | Effect {1} disabled", name, effect.name);
         _appliedEffects.Remove(effect);
-        if (isLocalPlayer)
+        if (isLocalPlayer && effect.icon != null)
             FindObjectOfType<ActiveEffectsPanel>().RemoveElement(effect);
     }
 
@@ -86,7 +97,10 @@ public class GenericCharacter : NetworkBehaviour
 
     protected virtual void Start()
     {
-        foreach (var effect in passiveEffects) EnableEffect(effect);
+        foreach (var effect in passiveEffects)
+        {
+            LocalEnableEffect(effect);
+        }
     }
 
     void OnValidate()

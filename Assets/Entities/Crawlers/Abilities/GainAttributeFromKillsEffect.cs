@@ -6,7 +6,7 @@ using UnityEngine;
 /// After enabled, damage of backstabbing is multiplied by the specified factor
 /// </summary>
 [CreateAssetMenu(menuName = "Assets/Effects/GainAttributeFromKills")]
-public class GainAttributeFromKills : AbstractEffect
+public class GainAttributeFromKillsEffect : AbstractEffect
 {
     public float valuePerKill = 10.0f;
     public string attributeName = "Health";
