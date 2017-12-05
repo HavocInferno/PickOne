@@ -28,7 +28,7 @@ public class SimplePatrolBehaviour : EnemyBehaviour
     {
         base.OnFixedUpdate();
 
-        if (waits && Time.time > nextMovementTime)
+		if (waits && Time.time > nextMovementTime && points.Count > 0)
         {
             enemy.Destination = points[nextPointIndex].position;
             waits = false;

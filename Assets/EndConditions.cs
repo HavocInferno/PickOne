@@ -35,7 +35,7 @@ public class EndConditions : NetworkBehaviour
 
 	public void CheckEndCondition()
     {
-		if (gameEnded)
+		if (gameEnded || !isServer)
 			return;
 		
 		bool anyCrawlerAlive = false;

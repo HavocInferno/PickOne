@@ -26,6 +26,9 @@ public class Crawler : GenericCharacter
     public CrawlerClass crawlerClass;
     public List<ActiveAbility> activeAbilities = new List<ActiveAbility>();
 
+	[Header("UI (to be disabled for local)")]
+	public GameObject tpsUI;
+
     /*public enum ActionState {
 		NONE,
 		ATTACK
@@ -86,6 +89,8 @@ public class Crawler : GenericCharacter
         if (isLocalPlayer)
         {
             FindObjectOfType<AttributesPanel>().Register(GetComponent<Stats>());
+			if (tpsUI)
+				tpsUI.SetActive (false);
         }
     }
 
@@ -170,7 +175,7 @@ public class Crawler : GenericCharacter
     
     void OnChangeSkill1_Buffed(bool state)
     {
-        skill1_Buffed = state;
+        //skill1_Buffed = state;
 		if(state)
 			Debug.Log ("You are being buffed!");
 		else
@@ -183,11 +188,8 @@ public class Crawler : GenericCharacter
 
 	protected override void OnDeath()
 	{
-		if (isServer)
-        {
-			nameTag.text += " [DEAD]";
-            FindObjectOfType<EndConditions>().CheckEndCondition();
-        }
+        FindObjectOfType<EndConditions>().CheckEndCondition();
+		nameTag.text += " [DEAD]";
 		gameObject.GetComponentInChildren<CrawlerController>().enabled = false;
         Destroy(gameObject.GetComponent<DetectableObject>());
 	}

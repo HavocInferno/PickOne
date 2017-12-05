@@ -603,7 +603,6 @@ MonoBehaviour:
   playerColor: {r: 0, g: 0, b: 1, a: 1}
   isVRMasterPlayer: 0
   skill1_Buffed: 0
-  skill2_Debuffed: 0
   skill3_Healed: 0
   crawlerClass: {fileID: 0}
   activeAbilities:
@@ -617,6 +616,7 @@ MonoBehaviour:
     name: Detect Enemies
     effects:
     - {fileID: 11400000, guid: 538a7aa52253ae245854be874f4be8bd, type: 2}
+  tpsUI: {fileID: 1331759435515112}
 --- !u!114 &114312325543870292
 MonoBehaviour:
   m_ObjectHideFlags: 1

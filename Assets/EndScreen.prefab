@@ -74,13 +74,15 @@ GameObject:
   - component: {fileID: 223952339593590250}
   - component: {fileID: 114142026284496744}
   - component: {fileID: 114129717470117728}
+  - component: {fileID: 114868326309375772}
+  - component: {fileID: 114007314377326128}
   m_Layer: 5
   m_Name: EndScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1986347453451512
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,6 +100,38 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &114007314377326128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1789881156878360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 72
+    i1: 183
+    i2: 109
+    i3: 144
+    i4: 116
+    i5: 96
+    i6: 81
+    i7: 180
+    i8: 104
+    i9: 28
+    i10: 102
+    i11: 70
+    i12: 19
+    i13: 48
+    i14: 221
+    i15: 58
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114129717470117728
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -266,9 +300,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114637888596187206}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114868326309375772}
+        m_MethodName: OnRetToLobbyClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114868326309375772
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1789881156878360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db9cf003f18091a4e9869ec42a753a6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditionLabel: {fileID: 114741493282856428}
 --- !u!114 &114941716102112892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -347,7 +404,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1170875247991702}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -110, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224645581851476532}
