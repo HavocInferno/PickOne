@@ -26,28 +26,62 @@ public class GenericCharacter : NetworkBehaviour
     
     public List<AbstractEffect> passiveEffects = new List<AbstractEffect>();
 
-    private HashSet<AbstractEffect> _appliedEffects = new HashSet<AbstractEffect>();
+    private List<AbstractEffect> _appliedEffects = new List<AbstractEffect>();
 
+    // Enable specified effect for a given period of time.
+    public void EnableEffectDuration(AbstractEffect effect, float duration)
+    {
+        AppliedEffect comp = gameObject.AddComponent<AppliedEffect>();
+        comp.Initialize(effect, duration);
+    }
+    
     public void EnableEffect(AbstractEffect effect)
+    {
+        if (!isServer) return;
+        RpcEnableEffect(effect.name);
+    }
+
+    // Enable specified effect (can be disabled manually via Disable call)
+    [ClientRpc]
+    private void RpcEnableEffect(string effectName)
+    {
+        var effect = Effects.GetByName(effectName);
+        LocalEnableEffect(effect);
+    }
+
+    private void LocalEnableEffect(AbstractEffect effect)
     {
         Debug.LogFormat("{0} | Effect {1} enabled", name, effect.name);
         effect.Enable(this, isLocalPlayer, isServer);
         _appliedEffects.Add(effect);
-        if (isLocalPlayer)
+        if (isLocalPlayer && effect.icon != null)
             FindObjectOfType<ActiveEffectsPanel>().AddElement(effect);
     }
 
     public void DisableEffect(AbstractEffect effect)
     {
+        if (!isServer) return;
+        RpcDisableEffect(effect.name);
+    }
+
+    [ClientRpc]
+    private void RpcDisableEffect(string effectName)
+    {
+        var effect = Effects.GetByName(effectName);
+        LocalDisableEffect(effect);
+    }
+
+    private void LocalDisableEffect(AbstractEffect effect)
+    {
         effect.Disable(this, isLocalPlayer, isServer);
+        Debug.LogFormat("{0} | Effect {1} disabled", name, effect.name);
         _appliedEffects.Remove(effect);
-        if (isLocalPlayer)
+        if (isLocalPlayer && effect.icon != null)
             FindObjectOfType<ActiveEffectsPanel>().RemoveElement(effect);
     }
 
     public bool EffectIsEnabled(AbstractEffect effect)
     {
-        effect.Disable(this, isLocalPlayer, isServer);
         return _appliedEffects.Contains(effect);
     }
 
@@ -63,7 +97,10 @@ public class GenericCharacter : NetworkBehaviour
 
     protected virtual void Start()
     {
-        foreach (var effect in passiveEffects) EnableEffect(effect);
+        foreach (var effect in passiveEffects)
+        {
+            LocalEnableEffect(effect);
+        }
     }
 
     void OnValidate()

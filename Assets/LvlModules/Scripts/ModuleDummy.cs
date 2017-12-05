@@ -7,12 +7,12 @@ using UnityEditor;
 
 public class ModuleDummy : MonoBehaviour {
 
-	#if UNITY_EDITOR
 	public Rect area = new Rect(0f, 0f, 18f, 18f);
 	public float height = 8f;
 	public Color gizmoColor = new Color(1, 0, 0, 0.13f);
 
-	void OnDrawGizmos()
+    #if UNITY_EDITOR
+    void OnDrawGizmos()
 	{
 		Gizmos.DrawWireCube(transform.position, new Vector3(area.width, height, area.height));
 

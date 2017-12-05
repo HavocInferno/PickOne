@@ -20,18 +20,23 @@ public class ActiveAbility
     private bool _isAvailable = true;
 
     public bool IsAvailable { get { return _isAvailable; } }
-    public string name = "Generic Ability";
+    public string name;
 
     [HideInInspector]
     public Coroutine rechargeCoroutine;
 
     [SerializeField]
-    private List<AbstractEffect> effects = new List<AbstractEffect>();
+    private List<AbstractEffect> effects;
 
     private IEnumerator WaitAndRecharge(float deltaTime, GenericCharacter character)
     {
         yield return new WaitForSeconds(deltaTime);
         Recharge(character);
+    }
+
+    public void Initialize()
+    {
+        _isAvailable = true;
     }
 
     public void Update(GenericCharacter character)
@@ -75,8 +80,7 @@ public class ActiveAbility
         float totalBaseCost = 0.0f;
         foreach (var effect in effects)
         {
-            AppliedEffect comp = character.gameObject.AddComponent<AppliedEffect>();
-            comp.Initialize(effect, effect.baseDuration);
+            character.EnableEffectDuration(effect, effect.baseDuration);
             totalBaseCost += effect.baseCost;
         }
 
@@ -102,7 +106,8 @@ public class ActiveAbility
     {
         if (_isAvailable) return;
         _isAvailable = true;
-        character.StopCoroutine(rechargeCoroutine);
+        if (rechargeCoroutine != null)
+            character.StopCoroutine(rechargeCoroutine);
 
         Debug.LogFormat("{0} | {1} recharged", character.name, name);
     }
