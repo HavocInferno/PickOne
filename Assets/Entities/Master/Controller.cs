@@ -183,7 +183,7 @@ public class Controller : MonoBehaviour
 				else {
 					//new target
 					if(currentBuffTarget != -1)
-                        playerManager.players[closest].GetComponent<Crawler>().DisableEffect(buffEffect);
+                        playerManager.players[currentBuffTarget].GetComponent<Crawler>().DisableEffect(buffEffect);
                     playerManager.players[closest].GetComponent<Crawler>().EnableEffect(buffEffect);
 					device.TriggerHapticPulse (hapticforce);
 					currentBuffTarget = closest;
@@ -228,12 +228,11 @@ public class Controller : MonoBehaviour
 				if (closest == currentDebuffTarget)
 					device.TriggerHapticPulse ((ushort)(1000 * Mathf.Pow (Vector3.Cross (rayOrigin.forward, playerManager.enemies [closest].position - rayOrigin.position).magnitude / maxRayOffset, 2)));
 				else {
-					//new target
-					//if(currentDebuffTarget!=-1)
-						//playerManager.enemies[currentBuffTarget].GetComponent<Crawler>().skill1_Buffed = false;
-					//playerManager.players[closest].GetComponent<Crawler>().skill1_Buffed = true;
-					Debug.Log("New enemy target! closest: " + closest +", currentDebuffTarget: "+currentDebuffTarget);
-					device.TriggerHapticPulse (hapticforce);
+                    //new target
+                    if (currentDebuffTarget != -1)
+                        playerManager.enemies[currentBuffTarget].GetComponent<Enemy>().DisableEffect(debuffEffect);
+                    playerManager.enemies[closest].GetComponent<Enemy>().EnableEffect(debuffEffect);
+                    Debug.Log("New enemy target! closest: " + closest +", currentDebuffTarget: "+currentDebuffTarget);
 					currentDebuffTarget = closest;
 				}
 			}
