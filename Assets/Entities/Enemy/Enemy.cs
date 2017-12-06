@@ -129,7 +129,7 @@ public class Enemy : GenericCharacter
         lastDetectionCheck = Time.time + detectionCheckRate;
 
         // Perform detection checks against all possible targets.
-        foreach (var target in possibleTargets)
+		foreach (var target in FindObjectOfType<PlayersManager>().players)
         {
             bool detected = detectors.Any((detector) => detector.Detect(target));
             DetectableObject comp = target.GetComponent<DetectableObject>();

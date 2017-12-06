@@ -23,9 +23,11 @@ public class ActiveEffectsPanel : MonoBehaviour
 
     public void RemoveElement(AbstractEffect effect)
     {
-        _elements[effect].GetComponent<Image>().color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
-        _toRemove.Enqueue(_elements[effect]);
-        _elements.Remove(effect);
+		if (_elements.ContainsKey (effect)) {
+			_elements [effect].GetComponent<Image> ().color = new Color (0.0f, 0.0f, 0.0f, 0.0f);
+			_toRemove.Enqueue (_elements [effect]);
+			_elements.Remove (effect);
+		}
     }
 
     private void FixedUpdate()

@@ -865,6 +865,7 @@ MonoBehaviour:
   possibleTargets: []
   detectionCheckRate: 1
   isEndConditionKill: 1
+  skill2_Debuffed: 0
 --- !u!114 &114345398559302140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -893,10 +894,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bbc6bb58fe027a4caf0f4f0ffccace3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  points: []
   nextPointIndex: 0
   delayMin: 0
   delayMax: 10
