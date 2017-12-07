@@ -8,6 +8,7 @@ public class RightHandFollower : MasterFollower
 	[SyncVar]
 	public Vector3 buffTarget, debuffTarget;
 	public Controller controller;
+	public Master master;
 	[SyncVar]
 	public bool isBuffed, isDebuffed;
 	// Use this for initialization
@@ -31,13 +32,13 @@ public class RightHandFollower : MasterFollower
         {
             if (controller == null)
                 controller = followed.GetComponent<Controller>();
-            origin.position = controller.rayOrigin.position;
-            origin.rotation = controller.rayOrigin.rotation;
+			origin.position = master.rayOrigin.position;
+            origin.rotation = master.rayOrigin.rotation;
 
-			buffTarget = controller.buffDestination;
-            isBuffed = controller.buffing;
-			debuffTarget = controller.debuffDestination;
-			isDebuffed = controller.debuffing;
+			buffTarget = master.buffDestination;
+			isBuffed = master.buffing;
+			debuffTarget = master.debuffDestination;
+			isDebuffed = master.debuffing;
         }
         else
         {

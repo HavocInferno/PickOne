@@ -131,6 +131,8 @@ public class Enemy : GenericCharacter
         // Perform detection checks against all possible targets.
 		foreach (var target in FindObjectOfType<PlayersManager>().players)
         {
+			if (target == null)
+				continue;
             bool detected = detectors.Any((detector) => detector.Detect(target));
             DetectableObject comp = target.GetComponent<DetectableObject>();
             if (detected)
