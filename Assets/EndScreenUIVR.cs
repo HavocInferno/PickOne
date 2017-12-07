@@ -7,5 +7,4 @@ using Prototype.NetworkLobby;
 
 public class EndScreenUIVR : EndScreenUI {
 
-
 }

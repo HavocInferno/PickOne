@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class VRUIInput : MonoBehaviour
 {
     private SteamVR_LaserPointer laserPointer;
-	private SteamVR_TrackedObject trackedController;
+    private SteamVR_TrackedController trackedController;
 
     private void OnEnable()
     {
@@ -16,10 +16,10 @@ public class VRUIInput : MonoBehaviour
         laserPointer.PointerOut -= HandlePointerOut;
         laserPointer.PointerOut += HandlePointerOut;
 
-        trackedController = GetComponent<SteamVR_TrackedObject>();
+        trackedController = GetComponent<SteamVR_TrackedController>();
         if (trackedController == null)
         {
-			trackedController = GetComponentInParent<SteamVR_TrackedObject>();
+            trackedController = GetComponentInParent<SteamVR_TrackedController>();
         }
         trackedController.TriggerClicked -= HandleTriggerClicked;
         trackedController.TriggerClicked += HandleTriggerClicked;
