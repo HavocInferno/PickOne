@@ -11,6 +11,8 @@ public class RayBasedDetector : EnemyTargetDetector
 
     override public bool Detect(Transform target)
     {
+		if (target == null)
+			return false;
         Vector3 direction = target.position - enemy.transform.position;
         float distance = direction.magnitude;
 

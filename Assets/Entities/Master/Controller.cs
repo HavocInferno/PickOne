@@ -33,6 +33,7 @@ public class Controller : MonoBehaviour
 	[SerializeField]
 
     private int currentItem =-1, lastItem =-1;
+	private bool radialMenuAccessed = false;
 	private Text[] texts;
     private Color currentColor;
     private Vector3 currentScale;
@@ -81,15 +82,8 @@ public class Controller : MonoBehaviour
 	void Update () {
 
 		pollRadialMenu ();
-			
-		switch (currentItem) {
-		case 0: 
-			applyBuff ();
-			break;
-		case 1: 
-			applyDebuff ();
-			break;
-		}
+		applyBuff ();
+		applyDebuff ();
 	}
 
 	void initRadialMenu ()
@@ -128,12 +122,14 @@ public class Controller : MonoBehaviour
 	{
 		device.TriggerHapticPulse (hapticforce);
 		UI.SetActive (true);
+		radialMenuAccessed = true;
 	}
 
 	void closeRadialMenu ()
 	{
 		device.TriggerHapticPulse (hapticforce);
 		UI.SetActive (false);
+		radialMenuAccessed = false;
 	}
 
 	void updateRadialMenu ()
@@ -162,10 +158,19 @@ public class Controller : MonoBehaviour
 
 	void applyBuff ()
 	{
+		//if we are not supposed to buff or the radial menu is open, don't buff
+		if (currentItem != 0 || radialMenuAccessed) {
+			if (buffing)
+				stopBuffing ();
+			return;
+		}
+
 		if (device.GetPress (SteamVR_Controller.ButtonMask.Trigger)) {
 			int closest = -1;
 			float closestdistance = maxRayOffset;
 			for (int i = 0; i < playerManager.players.Count; i++) {
+				if (playerManager.players [i] == null)
+					continue;
 				if (Vector3.Cross (rayOrigin.forward, playerManager.players [i].position - rayOrigin.position).magnitude < closestdistance && Vector3.Dot (rayOrigin.forward, playerManager.players [i].position - rayOrigin.position) > 0.1) {
 					closestdistance = Vector3.Cross (rayOrigin.forward, playerManager.players [i].position - rayOrigin.position).magnitude;
 					closest = i;
@@ -179,21 +184,18 @@ public class Controller : MonoBehaviour
 				else {
 					//new target
 					if (currentBuffTarget != -1)
-						stopBuffing (); //playerManager.players[currentBuffTarget].GetComponent<Crawler>().DisableEffect(buffEffect);
-                    //playerManager.players[closest].GetComponent<Crawler>().EnableEffect(buffEffect);
-					device.TriggerHapticPulse (hapticforce);
+						stopBuffing ();
 					currentBuffTarget = closest;
 					startBuffing ();
+					device.TriggerHapticPulse (hapticforce);
 				}
+				//for some weird reason we might not be buffing at this stage
 				if (!buffing)
 					startBuffing();
 			}
 			else
                 stopBuffing();
 		}
-		//Draw bezierCurve
-		/*if (device.GetPressDown (SteamVR_Controller.ButtonMask.Trigger))
-            startBuffing();*/
         if (device.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
             stopBuffing();
     }
@@ -210,7 +212,7 @@ public class Controller : MonoBehaviour
 
     private void stopBuffing()
     {
-		if (currentBuffTarget != -1 && buffing)
+		if (currentBuffTarget != -1 && buffing && playerManager.players[currentBuffTarget]!= null)
             playerManager.players[currentBuffTarget].GetComponent<Crawler>().DisableEffect(buffEffect);
 		buffing = false;
 		buffRay.Draw = false;
@@ -218,10 +220,18 @@ public class Controller : MonoBehaviour
 
     void applyDebuff ()
 	{
+		if (currentItem != 1 || radialMenuAccessed) {
+			if (debuffing)
+				stopDebuffing ();
+			return;
+		}
+
 		if (device.GetPress (SteamVR_Controller.ButtonMask.Trigger) && currentItem == 1) {
 			int closest = -1;
 			float closestdistance = maxRayOffset;
 			for (int i = 0; i < playerManager.enemies.Count; i++) {
+				if (playerManager.enemies [i] == null)
+					continue;
 				if (Vector3.Cross (rayOrigin.forward, playerManager.enemies [i].position - rayOrigin.position).magnitude < closestdistance && Vector3.Dot (rayOrigin.forward, playerManager.enemies [i].position - rayOrigin.position) > 0.1) {
 					closestdistance = Vector3.Cross (rayOrigin.forward, playerManager.enemies [i].position - rayOrigin.position).magnitude;
 					closest = i;
@@ -235,12 +245,11 @@ public class Controller : MonoBehaviour
 				else {
                     //new target
 					if (currentDebuffTarget != -1)
-						stopDebuffing (); //playerManager.enemies[currentBuffTarget].GetComponent<Enemy>().DisableEffect(debuffEffect);
-                    //playerManager.enemies[closest].GetComponent<Enemy>().EnableEffect(debuffEffect);
-                    Debug.Log("New enemy target! closest: " + closest +", currentDebuffTarget: "+currentDebuffTarget);
-                    device.TriggerHapticPulse(hapticforce);
+						stopDebuffing (); 
                     currentDebuffTarget = closest;
 					startDebuffing ();
+					Debug.Log("New enemy target! closest: " + closest +", currentDebuffTarget: "+currentDebuffTarget);
+					device.TriggerHapticPulse(hapticforce);
 				}
 				if (!debuffing)
 					startDebuffing();
@@ -248,9 +257,6 @@ public class Controller : MonoBehaviour
 			else
                 stopDebuffing();
         }
-		//Draw bezierCurve
-		/*if (device.GetPressDown (SteamVR_Controller.ButtonMask.Trigger))
-            startDebuffing();*/
         if (device.GetPressUp (SteamVR_Controller.ButtonMask.Trigger))
             stopDebuffing();
     }
@@ -267,7 +273,7 @@ public class Controller : MonoBehaviour
 
     private void stopDebuffing()
     {
-		if (currentDebuffTarget != -1 && debuffing)
+		if (currentDebuffTarget != -1 && debuffing && playerManager.enemies[currentDebuffTarget]!= null)
             playerManager.enemies[currentDebuffTarget].GetComponent<Enemy>().DisableEffect(debuffEffect);
 		debuffing = false;
 		debuffRay.Draw = false;
