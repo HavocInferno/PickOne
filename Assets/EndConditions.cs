@@ -12,6 +12,9 @@ public class EndConditions : NetworkBehaviour
 
     void Start()
     {
+		if (FindObjectOfType<Master> ())//.gameObject.activeInHierarchy)
+			endScreenUI = FindObjectOfType<Master> ().vrEndScreenUI;
+
 		if (!isServer)
 			return;
 

@@ -34,6 +34,9 @@ public class Master : MonoBehaviour {
 	[SerializeField]
 	private AbstractEffect debuffEffect;
 
+	[SerializeField]
+	public EndScreenUIVR vrEndScreenUI;
+
 	public Vector3 buffDestination;
 	public bool buffing = false;
 	public Vector3 debuffDestination;
@@ -42,6 +45,8 @@ public class Master : MonoBehaviour {
 
 	void Start () {
 		initRays ();
+
+		//initVRUI ();
 	}
 	
 	// Update is called once per frame
@@ -179,5 +184,13 @@ public class Master : MonoBehaviour {
 		debuffDestination = buffDestination = rayOrigin.position;
 		debuffRay.origin = buffRay.origin = rayOrigin;
 		playerManager = GameObject.Find ("PlayerManagers").GetComponent<PlayersManager>();
+	}
+
+	void initVRUI ()
+	{
+		//vrEndScreenUI.gameObject.SetActive (true);
+		if(FindObjectOfType<EndConditions> ())//.endScreenUI.gameObject.activeInHierarchy)
+			FindObjectOfType<EndConditions> ().endScreenUI.gameObject.SetActive (false);
+		FindObjectOfType<EndConditions> ().endScreenUI = vrEndScreenUI;
 	}
 }
