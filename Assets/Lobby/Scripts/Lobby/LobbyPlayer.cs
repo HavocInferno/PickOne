@@ -25,10 +25,10 @@ namespace Prototype.NetworkLobby
 		public Toggle vrMasterToggle;
 		public GameObject vrMasterIcon;
 		public GameObject vrInfoIcon;
-		public Button class1Button;
-		public Button class2Button;
-		public Button class3Button;
-		public Button class4Button;
+		public Toggle class1Button;
+		public Toggle class2Button;
+		public Toggle class3Button;
+		public Toggle class4Button;
 
         public GameObject localIcone;
         public GameObject remoteIcone;
@@ -109,7 +109,7 @@ namespace Prototype.NetworkLobby
 
         void SetupOtherPlayer()
         {
-			Debug.Log ("Setting up other lobby player");
+			Debug.Log ("Setting up other lobby player; ---- Name: " + playerName + "; Color: " + playerColor.ToString() + "; VR model: " + vrDeviceModel + "; isMaster: " + isVRMasterPlayer.ToString());
 
             nameInput.interactable = false;
             removePlayerButton.interactable = NetworkServer.active;
@@ -119,6 +119,8 @@ namespace Prototype.NetworkLobby
 			//VR Master and HMD capability checks
 			CheckMasterToggle ();
 			CheckHMDToggle ();
+			if(!isVRMasterPlayer)
+				OnMyClassIndex (classIndex);
 
             readyButton.transform.GetChild(0).GetComponent<Text>().text = "...";
             readyButton.interactable = false;
@@ -188,6 +190,10 @@ namespace Prototype.NetworkLobby
 		{
 			if (isServer) {
 				vrMasterToggle.gameObject.SetActive (true);
+			}
+
+			if (isVRMasterPlayer) {
+				vrMasterIcon.SetActive (true);
 			}
 		}
 
@@ -280,14 +286,14 @@ namespace Prototype.NetworkLobby
 			class3Button.gameObject.SetActive (true);
 			class4Button.gameObject.SetActive (true);
 
-			class1Button.onClick.RemoveAllListeners ();
-			class1Button.onClick.AddListener (delegate {ClassPicker (class1Button.name);});
-			class2Button.onClick.RemoveAllListeners ();
-			class2Button.onClick.AddListener (delegate {ClassPicker (class2Button.name);});
-			class3Button.onClick.RemoveAllListeners ();
-			class3Button.onClick.AddListener (delegate {ClassPicker (class3Button.name);});
-			class4Button.onClick.RemoveAllListeners ();
-			class4Button.onClick.AddListener (delegate {ClassPicker (class4Button.name);});
+			class1Button.onValueChanged.RemoveAllListeners ();
+			class1Button.onValueChanged.AddListener (delegate {ClassPicker (class1Button.name, class1Button.isOn);});
+			class2Button.onValueChanged.RemoveAllListeners ();
+			class2Button.onValueChanged.AddListener (delegate {ClassPicker (class2Button.name, class2Button.isOn);});
+			class3Button.onValueChanged.RemoveAllListeners ();
+			class3Button.onValueChanged.AddListener (delegate {ClassPicker (class3Button.name, class3Button.isOn);});
+			class4Button.onValueChanged.RemoveAllListeners ();
+			class4Button.onValueChanged.AddListener (delegate {ClassPicker (class4Button.name, class4Button.isOn);});
 		}
 
 		public void DisableClassButtons() {
@@ -302,7 +308,10 @@ namespace Prototype.NetworkLobby
 			class4Button.gameObject.SetActive (false);
 		}
 
-		void ClassPicker(string buttonName) {
+		void ClassPicker(string buttonName, bool isOn) {
+			if (!isOn)
+				return;
+			
 			switch (buttonName) {
 			case "Class1Button":
 				classIndex = 0;
@@ -319,6 +328,8 @@ namespace Prototype.NetworkLobby
 			default:
 				break;
 			}
+
+			Debug.Log ("picked new class: " + buttonName + ", #" + classIndex);
 
 			if (isServer)
 				RpcClassPicked (classIndex);
@@ -358,7 +369,7 @@ namespace Prototype.NetworkLobby
 		public void OnVRMaster(bool newState)
 		{
 			//isVRMasterPlayer = newState;
-			vrMasterToggle.isOn = newState;
+			//vrMasterToggle.isOn = newState;
 			vrMasterIcon.SetActive (newState);
 
 			if (newState == true) {
@@ -406,7 +417,7 @@ namespace Prototype.NetworkLobby
 				class2Button.gameObject.SetActive (false);
 				class3Button.gameObject.SetActive (false);
 				class4Button.gameObject.SetActive (false);
-			Button selectedButton = null;
+			Toggle selectedButton = null;
 				switch (cIndex) {
 			case 0:
 				selectedButton = class1Button;

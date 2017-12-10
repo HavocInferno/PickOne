@@ -367,8 +367,12 @@ namespace Prototype.NetworkLobby
 			bool allready = true;
 			for(int i = 0; i < lobbySlots.Length; ++i)
 			{
-				if(lobbySlots[i] != null)
-					allready &= lobbySlots[i].readyToBegin;
+				if (lobbySlots [i] != null) {
+					allready &= lobbySlots [i].readyToBegin;
+
+					LobbyPlayer p = lobbySlots[i] as LobbyPlayer;
+					Debug.Log("Starting match with Player " + i + "/" + (p.isVRMasterPlayer ? "Master" : "Crawler") + " as: " + p.playerName + ", color " + p.playerColor.ToString() + ", Class " + p.classIndex + ", VR model: " + p.vrDeviceModel);
+				}
 			}
 
 			if(allready)
