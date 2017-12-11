@@ -70,7 +70,11 @@ public class EndConditions : NetworkBehaviour
     {
 		Debug.Log("RPC: All enemies dead, WON!");
 		endScreenUI.gameObject.SetActive(true);
-		endScreenUI.conditionLabel.text = "You WON!";
+		endScreenUI.SetEndScreen (true);
+
+		if (FindObjectOfType<Master> ()) {
+			FindObjectOfType<SteamVR_LaserPointer> ().enabled = true;
+		}
 	}
 
 	[ClientRpc]
@@ -78,6 +82,10 @@ public class EndConditions : NetworkBehaviour
     {
 		Debug.Log ("RPC: All crawlers dead, LOSE!");
 		endScreenUI.gameObject.SetActive (true);
-		endScreenUI.conditionLabel.text = "You LOST!";
+		endScreenUI.SetEndScreen (false);
+
+		if (FindObjectOfType<Master> ()) {
+			FindObjectOfType<SteamVR_LaserPointer> ().enabled = true;
+		}
 	}
 }

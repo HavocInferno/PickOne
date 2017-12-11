@@ -219,6 +219,11 @@ namespace Prototype.NetworkLobby
                 readyButton.interactable = false;
                 colorButton.interactable = false;
                 nameInput.interactable = false;
+				vrMasterToggle.interactable = false;
+				class1Button.interactable = false;
+				class2Button.interactable = false;
+				class3Button.interactable = false;
+				class4Button.interactable = false;
             }
             else
             {
@@ -230,6 +235,11 @@ namespace Prototype.NetworkLobby
                 readyButton.interactable = isLocalPlayer;
                 colorButton.interactable = isLocalPlayer;
                 nameInput.interactable = isLocalPlayer;
+				vrMasterToggle.interactable = isServer;
+				class1Button.interactable = isLocalPlayer;
+				class2Button.interactable = isLocalPlayer;
+				class3Button.interactable = isLocalPlayer;
+				class4Button.interactable = isLocalPlayer;
             }
         }
 

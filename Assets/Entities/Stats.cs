@@ -52,6 +52,7 @@ public class Stats : NetworkBehaviour
     public float defenseMultiplier = 1.0f;
 
     public bool destroyOnDeath;
+	public GameObject hitEffect;
     public GameObject deathEffect;
 
     private GenericCharacter _character;
@@ -156,6 +157,19 @@ public class Stats : NetworkBehaviour
         attacker.OnMakeDamage(amount, _character, hitPoint, hitDirection);
 
         if (!isServer) return;
+
+		if (hitEffect != null)
+		{
+			var hit = Instantiate(
+				hitEffect,
+				hitPoint,
+				Quaternion.LookRotation(hitDirection));
+
+			NetworkServer.Spawn(hit);
+
+			// Destroy the effect after 2.15 seconds
+			Destroy(hit, 2.15f);
+		}
 
         if (Health <= 0.0f)
         {

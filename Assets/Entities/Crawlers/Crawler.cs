@@ -18,11 +18,6 @@ public class Crawler : GenericCharacter
 
     [Header("Skills")]
 
-    [SyncVar(hook = "OnChangeSkill1_Buffed")]
-    public bool skill1_Buffed = false;
-    [SyncVar(hook = "OnChangeSkill3_Healed")]
-    public bool skill3_Healed = false;
-
     public CrawlerClass crawlerClass;
     public List<ActiveAbility> activeAbilities = new List<ActiveAbility>();
 
@@ -171,19 +166,6 @@ public class Crawler : GenericCharacter
     void OnChangeName(string newName)
     {
         nameTag.text = newName;
-    }
-    
-    void OnChangeSkill1_Buffed(bool state)
-    {
-        //skill1_Buffed = state;
-		if(state)
-			Debug.Log ("You are being buffed!");
-		else
-			Debug.Log ("You are not being buffed anymore!");
-    }
-    void OnChangeSkill3_Healed(bool state)
-    {
-        skill3_Healed = state;
     }
 
 	protected override void OnDeath()

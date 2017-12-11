@@ -1985,6 +1985,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224260393887980250}
   - component: {fileID: 114289081442646390}
+  - component: {fileID: 114008857103775944}
   m_Layer: 5
   m_Name: vrMasterToggle
   m_TagString: Untagged
@@ -2025,6 +2026,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &114008857103775944
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1895472070755302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1184210157, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AllowSwitchOff: 0
 --- !u!114 &114022790045595326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2225,7 +2238,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114543683308046070}
   toggleTransition: 1
   graphic: {fileID: 114767013072581080}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 114008857103775944}
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
