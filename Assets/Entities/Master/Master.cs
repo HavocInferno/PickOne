@@ -41,8 +41,16 @@ public class Master : MonoBehaviour {
 	public bool buffing = false;
 	public Vector3 debuffDestination;
 	public bool debuffing = false;
-	// Use this for initialization
 
+    //physics based ability
+    public GameObject abilityPrefab;
+    public float maxCharge, chargeRate;
+    private float charge;
+    bool charging = false;
+    public Transform throwBase;
+    Vector3 lastPos;
+
+	// Use this for initialization
 	void Start () {
 		initRays ();
 
@@ -53,6 +61,7 @@ public class Master : MonoBehaviour {
 	void Update () {
 		applyBuff ();
 		applyDebuff ();
+        applyThrowable();
 	}
 
 	void applyBuff ()
@@ -111,11 +120,11 @@ public class Master : MonoBehaviour {
 
 	private void stopBuffing()
 	{
-		if (currentBuffTarget != -1 && buffing && playerManager.players[currentBuffTarget]!= null)
-			playerManager.players[currentBuffTarget].GetComponent<Crawler>().DisableEffect(buffEffect);
 		buffing = false;
 		buffRay.Draw = false;
-	}
+        if (currentBuffTarget != -1 && buffing && playerManager.players[currentBuffTarget] != null && playerManager.players[currentBuffTarget].GetComponent<Crawler>() != null)
+            playerManager.players[currentBuffTarget].GetComponent<Crawler>().DisableEffect(buffEffect);
+    }
 
 	void applyDebuff ()
 	{
@@ -173,10 +182,10 @@ public class Master : MonoBehaviour {
 
 	private void stopDebuffing()
 	{
-		if (currentDebuffTarget != -1 && debuffing && playerManager.enemies[currentDebuffTarget]!= null)
+        debuffing = false;
+        debuffRay.Draw = false;
+        if (currentDebuffTarget != -1 && debuffing && playerManager.enemies[currentDebuffTarget]!= null && playerManager.enemies[currentDebuffTarget].GetComponent<Enemy>() != null)
 			playerManager.enemies[currentDebuffTarget].GetComponent<Enemy>().DisableEffect(debuffEffect);
-		debuffing = false;
-		debuffRay.Draw = false;
 	}
 
 	void initRays ()
@@ -186,7 +195,34 @@ public class Master : MonoBehaviour {
 		playerManager = GameObject.Find ("PlayerManagers").GetComponent<PlayersManager>();
 	}
 
-	void initVRUI ()
+    void applyThrowable()
+    {
+        if (mainHand.currentItem != 2 || mainHand.radialMenuAccessed)
+        {
+            if (charging)
+                dropThrowable();
+            return;
+        }
+        if (mainHand.getTriggerUp())
+            dropThrowable();
+
+        lastPos = throwBase.position;
+    }
+    void dropThrowable()
+    {
+        GameObject throwable = Instantiate(abilityPrefab, throwBase.position, throwBase.rotation);
+        throwable.GetComponent<Rigidbody>().velocity = (throwBase.position - lastPos)/Time.deltaTime;
+        throwable.GetComponent<ThrowableAbility>().chargeMulti = charge / maxCharge;
+        charge = 0;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("abilityPool"))
+            Debug.Log("fibb");
+    }
+
+    void initVRUI ()
 	{
 		//vrEndScreenUI.gameObject.SetActive (true);
 		if(FindObjectOfType<EndConditions> ())//.endScreenUI.gameObject.activeInHierarchy)
