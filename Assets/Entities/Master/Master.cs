@@ -44,15 +44,20 @@ public class Master : MonoBehaviour {
 
     //physics based ability
     public GameObject abilityPrefab;
+	public GameObject abilityVis;
+	private Vector3 abilityVisScale;
     public float maxCharge, chargeRate;
     private float charge;
     bool charging = false;
     public Transform throwBase;
+	public AbilityPicker picker;
     Vector3 lastPos;
 
 	// Use this for initialization
 	void Start () {
 		initRays ();
+		abilityVis.SetActive (false);
+		abilityVisScale = abilityVis.transform.localScale;
 
 		//initVRUI ();
 	}
@@ -203,17 +208,35 @@ public class Master : MonoBehaviour {
                 dropThrowable();
             return;
         }
+		if (mainHand.getTrigger () && picker.pooling) {
+			Debug.Log ("Charging: " + charge);
+			if (!charging) {
+				charging = true;
+				abilityVis.SetActive (true);
+			}
+			charge += chargeRate * Time.deltaTime;
+			charge = Mathf.Clamp (charge, 0, maxCharge);
+			abilityVis.transform.localScale = charge / maxCharge * abilityVisScale;
+			mainHand.hapticFeedback ((ushort)(charge/maxCharge*hapticforce));
+		}
+		mainHand.hapticFeedback ((ushort)(charge/maxCharge*hapticforce));
         if (mainHand.getTriggerUp())
             dropThrowable();
+		
 
         lastPos = throwBase.position;
     }
     void dropThrowable()
     {
-        GameObject throwable = Instantiate(abilityPrefab, throwBase.position, throwBase.rotation);
-        throwable.GetComponent<Rigidbody>().velocity = (throwBase.position - lastPos)/Time.deltaTime;
-        throwable.GetComponent<ThrowableAbility>().chargeMulti = charge / maxCharge;
+		if (charge != 0) {
+			GameObject throwable = Instantiate (abilityPrefab, throwBase.position, throwBase.rotation);
+			throwable.GetComponent<Rigidbody> ().velocity = (throwBase.position - lastPos) / Time.deltaTime;
+			throwable.GetComponent<ThrowableAbility> ().chargeMulti = charge / maxCharge;
+			throwable.transform.localScale = abilityVis.transform.lossyScale;
+		}
+		abilityVis.SetActive (false);
         charge = 0;
+		charging = false;
     }
 
     private void OnTriggerStay(Collider other)
