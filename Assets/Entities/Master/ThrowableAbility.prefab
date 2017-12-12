@@ -176,8 +176,11 @@ MonoBehaviour:
   maxVel: 10
   minDistance: 1
   maxDistance: 10
+  explosionForce: 10
   effect: {fileID: 0}
-  explosionPrefab: {fileID: 0}
+  explosionPrefab: {fileID: 1980389091118084, guid: 973fd7de5f981ac41b9ad9ddfa406f50,
+    type: 2}
+  dieTime: 20
 --- !u!135 &135803158371913196
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -250,7 +253,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -1940640416
+  randomSeed: -1787404320
   InitialModule:
     serializedVersion: 3
     enabled: 1

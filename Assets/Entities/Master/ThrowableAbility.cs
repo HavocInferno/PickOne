@@ -8,8 +8,10 @@ public class ThrowableAbility : MonoBehaviour {
     public float chargeMulti =1f;
     public float minVel=1, maxVel =10;
     public float minDistance= 1, maxDistance=10;
+    public float explosionForce = 10;
     public AbstractEffect effect;
     public GameObject explosionPrefab;
+    public float dieTime = 20;
 
     private Rigidbody rb;
     private PlayersManager playerManager;
@@ -18,6 +20,7 @@ public class ThrowableAbility : MonoBehaviour {
     void Start () {
         playerManager = FindObjectOfType<PlayersManager>();
         rb = GetComponent<Rigidbody>();
+        StartCoroutine(die());
 	}
 	
 	// Update is called once per frame
@@ -63,9 +66,7 @@ public class ThrowableAbility : MonoBehaviour {
                 applyEffect(totalMulti, enemy.GetComponent<Enemy>());
             }
         }
-        if(explosionPrefab)
-            Instantiate(explosionPrefab, transform.position, transform.rotation);
-        Destroy(gameObject);
+        kill(velMulti);
     }
 
     public float getTotalMulti(float velMulti, float distanceMulti)
@@ -89,8 +90,40 @@ public class ThrowableAbility : MonoBehaviour {
         Debug.Log("Applying affect: "+ multi);
     }
 
+    IEnumerator die()
+    {
+        yield return new WaitForSeconds(dieTime);
+        kill(1);
+    }
+    void kill(float velMulti)
+    {
+        foreach (MeshRenderer rend in GetComponentsInChildren<MeshRenderer>())
+            rend.enabled = false;
+        foreach (Collider col in GetComponentsInChildren<Collider>())
+            col.enabled = false;
+        foreach (ParticleSystem part in GetComponentsInChildren<ParticleSystem>())
+            part.enableEmission = false;
+        foreach (Rigidbody rb in GetComponentsInChildren<Rigidbody>())
+            rb.isKinematic = true;
+        if (explosionPrefab)
+        {
+            GameObject expl = Instantiate(explosionPrefab, transform.position, transform.rotation);
+            expl.transform.localScale = velMulti * transform.lossyScale;
+        }
+
+        Collider[] colliders = Physics.OverlapSphere(transform.position, maxDistance);
+        foreach (Collider hit in colliders)
+        {
+            Rigidbody rb = hit.GetComponent<Rigidbody>();
+            if (rb != null)
+                rb.AddExplosionForce(explosionForce*velMulti*chargeMulti, transform.position, maxDistance, 3.0F, ForceMode.Impulse);
+        }
+
+        Destroy(gameObject,2);
+    }
+
 #if UNITY_EDITOR
-    void OnDrawGizmos()
+        void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, minDistance);
