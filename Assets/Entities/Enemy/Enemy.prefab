@@ -865,7 +865,6 @@ MonoBehaviour:
   possibleTargets: []
   detectionCheckRate: 1
   isEndConditionKill: 1
-  skill2_Debuffed: 0
 --- !u!114 &114345398559302140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -998,6 +997,7 @@ MonoBehaviour:
   attackMultiplier: 1
   defenseMultiplier: 1
   destroyOnDeath: 0
+  hitEffect: {fileID: 1428753401126268, guid: 6445b425064fcb343a223bdba0f82eba, type: 2}
   deathEffect: {fileID: 1105925389560420, guid: eeaea4d88f7115e42a855dbeab532d4e,
     type: 2}
 --- !u!114 &114649303036106616

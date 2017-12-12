@@ -1903,7 +1903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13333334, g: 0.17254902, b: 0.21568628, a: 1}
+  m_Color: {r: 0.93333334, g: 0.9647059, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3206,13 +3206,12 @@ MonoBehaviour:
   m_OnlineScene: 
   m_SpawnPrefabs:
   - {fileID: 1272645852402114, guid: cf3a28b16b1c7b647abadfb5e9c38cd7, type: 2}
-  - {fileID: 1526715982102184, guid: ef1156d2aba1d5141af71ed3c4214db5, type: 2}
-  - {fileID: 1009117625498722, guid: 2a98e4519ec01d64f95d202a305c7d46, type: 2}
-  - {fileID: 1507359028942722, guid: 47353d003caf0914ba0a91ff96b9c087, type: 2}
+  - {fileID: 1026321081107524, guid: 18bd534c03e45584cbe2cc9ea21bd227, type: 2}
+  - {fileID: 1272645852402114, guid: cf3a28b16b1c7b647abadfb5e9c38cd7, type: 2}
+  - {fileID: 1026321081107524, guid: 18bd534c03e45584cbe2cc9ea21bd227, type: 2}
   - {fileID: 1508484646266804, guid: 7a0aa34461054fd4081fb5f06250b983, type: 2}
   - {fileID: 1267355592298342, guid: 19cad6e6906082a43b84246ca1a12bc8, type: 2}
   - {fileID: 1105925389560420, guid: eeaea4d88f7115e42a855dbeab532d4e, type: 2}
-  - {fileID: 1994109118535140, guid: d08b11abff4b7f44785ec296692f2adb, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -3270,11 +3269,11 @@ MonoBehaviour:
   matchMaker: {fileID: 0}
   m_ShowLobbyGUI: 0
   m_MaxPlayers: 5
-  m_MaxPlayersPerConnection: 2
+  m_MaxPlayersPerConnection: 5
   m_MinPlayers: 1
   m_LobbyPlayerPrefab: {fileID: 11487034, guid: ad727d7e1462ecc4f83c898ecc501997,
     type: 2}
-  m_GamePlayerPrefab: {fileID: 1537117793246808, guid: 114cf2cea97a3f04591bda5aa97b6ceb,
+  m_GamePlayerPrefab: {fileID: 1272645852402114, guid: cf3a28b16b1c7b647abadfb5e9c38cd7,
     type: 2}
   m_LobbyScene: Lobby
   m_PlayScene: Main
@@ -3292,9 +3291,10 @@ MonoBehaviour:
   countdownPanel: {fileID: 11413810}
   addPlayerButton: {fileID: 144256}
   backButton: {fileID: 11477488}
-  quitButton: {fileID: 114963729126836290}
+  toMainButton: {fileID: 114963729126836290}
   statusInfo: {fileID: 11403930}
   hostInfo: {fileID: 11415712}
+  mainMenuUI: {fileID: 0}
   _playerNumber: 0
   _isMatchmaking: 0
 --- !u!114 &11476426
@@ -3549,10 +3549,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 0, b: 0.39607847, a: 1}
-    m_HighlightedColor: {r: 1, g: 0, b: 0.39607847, a: 1}
-    m_PressedColor: {r: 1, g: 0, b: 0.39607847, a: 1}
-    m_DisabledColor: {r: 1, g: 0, b: 0.39607847, a: 0.5019608}
+    m_NormalColor: {r: 0.43529412, g: 0, b: 0, a: 1}
+    m_HighlightedColor: {r: 1, g: 0, b: 0, a: 1}
+    m_PressedColor: {r: 1, g: 0.6117647, b: 0.6117647, a: 1}
+    m_DisabledColor: {r: 0.7411765, g: 0, b: 0, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -3758,7 +3758,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.28627452, g: 0.64705884, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3934,7 +3934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.9191176, b: 0.9191176, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5728,7 +5728,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1416037436216856
 GameObject:
   m_ObjectHideFlags: 1
@@ -5742,7 +5742,7 @@ GameObject:
   - component: {fileID: 114963729126836290}
   - component: {fileID: 114286663279534932}
   m_Layer: 5
-  m_Name: QuitButton
+  m_Name: ToMainButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5764,7 +5764,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &114200656990489340
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5788,16 +5788,16 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 87c316b602156405d92e616621658222, type: 3}
     m_FontSize: 40
     m_FontStyle: 1
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 1
-    m_MaxSize: 100
+    m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: QUIT
+  m_Text: TO MAIN
 --- !u!114 &114286663279534932
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5913,8 +5913,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114286663279534932}
-        m_MethodName: OnQuitClicked
+      - m_Target: {fileID: 11475086}
+        m_MethodName: OnBackToMainUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

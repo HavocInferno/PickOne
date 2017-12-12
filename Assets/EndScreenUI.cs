@@ -16,9 +16,9 @@ public class EndScreenUI : NetworkBehaviour {
 	{
 		Debug.Log("a CLIENT wants to return to lobby");
 		if (isServer)
-			LobbyManager.s_Singleton.StopHostClbk ();
+			LobbyManager.s_Singleton.GoBackButton (); //.StopHostClbk ();
 		else
-			LobbyManager.s_Singleton.StopClientClbk ();
+			LobbyManager.s_Singleton.GoBackButton (); //.StopClientClbk ();
 	}
 
 	public void SetEndScreen(bool won) {

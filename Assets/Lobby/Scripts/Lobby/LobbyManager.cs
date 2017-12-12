@@ -37,10 +37,13 @@ namespace Prototype.NetworkLobby
         protected RectTransform currentPanel;
 
         public Button backButton;
-		public Button quitButton;
+		public Button toMainButton;
 
         public Text statusInfo;
         public Text hostInfo;
+
+		public GameObject mainMenuUI;
+		public bool straightToLobby;
 
         //Client numPlayers from NetworkManager is always 0, so we count (throught connect/destroy in LobbyPlayer) the number
         //of players, so that even client know how many player there is.
@@ -56,6 +59,10 @@ namespace Prototype.NetworkLobby
         protected ulong _currentMatchID;
 
         protected LobbyHook _lobbyHooks;
+
+		void Awake() {
+			s_Singleton = this;
+		}
 
         void Start()
         {
@@ -115,7 +122,7 @@ namespace Prototype.NetworkLobby
             {
                 ChangeTo(null);
 
-                Destroy(GameObject.Find("MainMenuUI(Clone)"));
+                //Destroy(GameObject.Find("MainMenuUI(Clone)"));
 
                 //backDelegate = StopGameClbk;
                 topPanel.isInGame = true;
@@ -140,12 +147,12 @@ namespace Prototype.NetworkLobby
             if (currentPanel != mainMenuPanel)
             {
                 backButton.gameObject.SetActive(true);
-				quitButton.gameObject.SetActive(false);
+				toMainButton.gameObject.SetActive(false);
             }
             else
             {
                 backButton.gameObject.SetActive(false);
-				quitButton.gameObject.SetActive(true);
+				toMainButton.gameObject.SetActive(true);
                 SetServerInfo("Offline", "None");
                 _isMatchmaking = false;
             }
@@ -170,6 +177,7 @@ namespace Prototype.NetworkLobby
         {
             backDelegate();
 			topPanel.isInGame = false;
+			straightToLobby = true;
         }
 
         // ----------------- Server management
@@ -448,5 +456,12 @@ namespace Prototype.NetworkLobby
             ChangeTo(mainMenuPanel);
             infoPanel.Display("Cient error : " + (errorCode == 6 ? "timeout" : errorCode.ToString()), "Close", null);
         }
+
+
+		//-------------------- UI interaction calls
+		public void OnBackToMainUI()
+		{
+			mainMenuUI.SetActive (true);
+		}
     }
 }

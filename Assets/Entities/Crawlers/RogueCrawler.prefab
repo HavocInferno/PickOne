@@ -538,6 +538,7 @@ MonoBehaviour:
   attackMultiplier: 1
   defenseMultiplier: 1
   destroyOnDeath: 0
+  hitEffect: {fileID: 1428753401126268, guid: 6445b425064fcb343a223bdba0f82eba, type: 2}
   deathEffect: {fileID: 1105925389560420, guid: eeaea4d88f7115e42a855dbeab532d4e,
     type: 2}
 --- !u!114 &114225731833222284
@@ -602,8 +603,6 @@ MonoBehaviour:
   pName: player
   playerColor: {r: 0, g: 0, b: 1, a: 1}
   isVRMasterPlayer: 0
-  skill1_Buffed: 0
-  skill3_Healed: 0
   crawlerClass: {fileID: 0}
   activeAbilities:
   - type: 0
