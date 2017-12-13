@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 199443024324193532}
   - component: {fileID: 114472548910875608}
   - component: {fileID: 108177629796755596}
+  - component: {fileID: 114762050590282814}
   m_Layer: 0
   m_Name: FireBallExplosion
   m_TagString: Untagged
@@ -92,6 +93,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dimming: 1
   dimSpeed: 4
+--- !u!114 &114762050590282814
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1081783069242824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a69d53d23ae31546a7db9710a970137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 1
+  destroyAfterDuration: 1
+  origin: {fileID: 4651603721143542}
+  shakeyStrength: 10
+  maxShakeDistance: 100
 --- !u!198 &198843632271742962
 ParticleSystem:
   m_ObjectHideFlags: 1
