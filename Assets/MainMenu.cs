@@ -7,6 +7,7 @@ public class MainMenu : MonoBehaviour {
 
 	public GameObject mainPanel;
 	public GameObject settingsPanel;
+	public GameObject infoPanel;
 
 	private GameObject currentPanel;
 
@@ -42,5 +43,15 @@ public class MainMenu : MonoBehaviour {
 		if (currentPanel)
 			currentPanel.SetActive (false);
 		currentPanel = nextPanel;
+	}
+
+	public void StartDisplayInfo(string infoText) {
+		infoPanel.SetActive (true);
+		infoPanel.GetComponent<LobbyInfoPanel> ().infoText.text = infoText;
+		//infoPanel.GetComponent<LobbyInfoPanel> ().singleButton.gameObject.SetActive (false);
+	}
+
+	public void StopDisplayInfo() {
+		infoPanel.SetActive (false);
 	}
 }

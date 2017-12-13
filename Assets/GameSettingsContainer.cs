@@ -6,6 +6,7 @@
 	public int antialiasing;
 	public int vSync;
 	public int resolutionIndex;
+	public int presetIndex;
 
 	//audio
 	public float musicVolume;
