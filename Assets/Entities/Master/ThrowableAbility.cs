@@ -21,7 +21,9 @@ public class ThrowableAbility : MonoBehaviour {
         playerManager = FindObjectOfType<PlayersManager>();
         rb = GetComponent<Rigidbody>();
         StartCoroutine(die());
-	}
+        foreach (Light lit in GetComponentsInChildren<Light>())
+            lit.range = maxDistance*chargeMulti;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -105,6 +107,8 @@ public class ThrowableAbility : MonoBehaviour {
             part.enableEmission = false;
         foreach (Rigidbody rb in GetComponentsInChildren<Rigidbody>())
             rb.isKinematic = true;
+        foreach (Light lit in GetComponentsInChildren<Light>())
+            lit.intensity = 0;
         if (explosionPrefab)
         {
             GameObject expl = Instantiate(explosionPrefab, transform.position, transform.rotation);
