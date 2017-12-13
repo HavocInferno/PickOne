@@ -10,9 +10,16 @@ public class MainMenu : MonoBehaviour {
 
 	private GameObject currentPanel;
 
+	static public MainMenu s_Singleton;
+
+	void Awake () {
+		s_Singleton = this;
+	}
+
 	// Use this for initialization
 	void Start () {
-		LobbyManager.s_Singleton.mainMenuUI = gameObject;
+		if(LobbyManager.s_Singleton)
+			LobbyManager.s_Singleton.mainMenuUI = gameObject;
 
 		if (LobbyManager.s_Singleton.straightToLobby) {
 			OnClickPlay ();

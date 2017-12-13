@@ -60,10 +60,6 @@ namespace Prototype.NetworkLobby
 
         protected LobbyHook _lobbyHooks;
 
-		void Awake() {
-			s_Singleton = this;
-		}
-
         void Start()
         {
 			currentPlayers = new Dictionary<int, int> ();
@@ -78,6 +74,9 @@ namespace Prototype.NetworkLobby
             DontDestroyOnLoad(gameObject);
 
             SetServerInfo("Offline", "None");
+
+			if(!mainMenuUI)
+				mainMenuUI = MainMenu.s_Singleton.gameObject;
         }
 
         public override void OnLobbyClientSceneChanged(NetworkConnection conn)
