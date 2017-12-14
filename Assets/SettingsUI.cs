@@ -128,20 +128,22 @@ public class SettingsUI : MonoBehaviour {
 	}
 
 	public void LoadSettings() {
-		MainMenu.s_Singleton.StartDisplayInfo ("Loading Settings");
-		gameSettings = JsonUtility.FromJson<GameSettingsContainer> (File.ReadAllText(Application.persistentDataPath + "/gamesettings.json"));
+		if (File.Exists (Application.persistentDataPath + "/gamesettings.json")) {
+			MainMenu.s_Singleton.StartDisplayInfo ("Loading Settings");
+			gameSettings = JsonUtility.FromJson<GameSettingsContainer> (File.ReadAllText (Application.persistentDataPath + "/gamesettings.json"));
 
-		//visual
-		fullScreenToggle.isOn = gameSettings.fullscreen;
-		resolutionDropdown.value = gameSettings.resolutionIndex;
-		//textureQualityDropdown.value = gameSettings.textureQuality;
-		//antialiasingDropdown.value = gameSettings.antialiasing;
-		vSyncDropdown.value = gameSettings.vSync;
-		presetDropdown.value = gameSettings.presetIndex;
+			//visual
+			fullScreenToggle.isOn = gameSettings.fullscreen;
+			resolutionDropdown.value = gameSettings.resolutionIndex;
+			//textureQualityDropdown.value = gameSettings.textureQuality;
+			//antialiasingDropdown.value = gameSettings.antialiasing;
+			vSyncDropdown.value = gameSettings.vSync;
+			presetDropdown.value = gameSettings.presetIndex;
 
-		//audio controls
-		//musicVolumeSlider.value = gameSettings.musicVolume;
-		dirtySetting = false;
-		MainMenu.s_Singleton.StopDisplayInfo ();
+			//audio controls
+			//musicVolumeSlider.value = gameSettings.musicVolume;
+			dirtySetting = false;
+			MainMenu.s_Singleton.StopDisplayInfo ();
+		}
 	}
 }

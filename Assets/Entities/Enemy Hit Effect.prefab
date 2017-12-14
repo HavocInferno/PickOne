@@ -9,46 +9,46 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1428753401126268}
+  m_RootGameObject: {fileID: 1027569601392326}
   m_IsPrefabParent: 1
---- !u!1 &1428753401126268
+--- !u!1 &1027569601392326
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4143891567041222}
-  - component: {fileID: 198693019840008920}
-  - component: {fileID: 199349479547209076}
-  - component: {fileID: 114056534519163148}
-  - component: {fileID: 114311485375565086}
+  - component: {fileID: 4021901827457942}
+  - component: {fileID: 198066652116636434}
+  - component: {fileID: 199912314530423270}
+  - component: {fileID: 114377351965301298}
+  - component: {fileID: 114458062327388046}
   m_Layer: 0
-  m_Name: Hit Effect
+  m_Name: Enemy Hit Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4143891567041222
+--- !u!4 &4021901827457942
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1428753401126268}
+  m_GameObject: {fileID: 1027569601392326}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1254.5142, y: 867.30896, z: 3.7}
+  m_LocalPosition: {x: 450.70444, y: -389.93863, z: 3.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114056534519163148
+--- !u!114 &114377351965301298
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1428753401126268}
+  m_GameObject: {fileID: 1027569601392326}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
@@ -57,30 +57,30 @@ MonoBehaviour:
   m_SceneId:
     m_Value: 0
   m_AssetId:
-    i0: 100
-    i1: 69
-    i2: 180
-    i3: 37
-    i4: 6
-    i5: 79
-    i6: 203
+    i0: 122
+    i1: 26
+    i2: 141
+    i3: 125
+    i4: 141
+    i5: 46
+    i6: 208
     i7: 52
-    i8: 58
-    i9: 34
-    i10: 59
-    i11: 219
-    i12: 160
-    i13: 248
-    i14: 46
-    i15: 186
+    i8: 57
+    i9: 2
+    i10: 0
+    i11: 225
+    i12: 0
+    i13: 198
+    i14: 3
+    i15: 71
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
---- !u!114 &114311485375565086
+--- !u!114 &114458062327388046
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1428753401126268}
+  m_GameObject: {fileID: 1027569601392326}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5a69d53d23ae31546a7db9710a970137, type: 3}
@@ -88,15 +88,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration: 0.5
   destroyAfterDuration: 1
-  origin: {fileID: 4143891567041222}
-  shakeyStrength: 5
-  maxShakeDistance: 10
---- !u!198 &198693019840008920
+  origin: {fileID: 4021901827457942}
+  shakeyStrength: 3
+  maxShakeDistance: 5
+--- !u!198 &198066652116636434
 ParticleSystem:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1428753401126268}
+  m_GameObject: {fileID: 1027569601392326}
   serializedVersion: 5
   lengthInSec: 0.3
   simulationSpeed: 1
@@ -151,7 +151,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 628130284
+  randomSeed: 1186893674
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3453,13 +3453,13 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!199 &199349479547209076
+--- !u!199 &199912314530423270
 ParticleSystemRenderer:
   serializedVersion: 4
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1428753401126268}
+  m_GameObject: {fileID: 1027569601392326}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0

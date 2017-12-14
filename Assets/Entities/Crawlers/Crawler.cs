@@ -117,6 +117,7 @@ public class Crawler : GenericCharacter
             FindObjectOfType<CameraManager>().vrCamera.SetActive(false);
             FindObjectOfType<CameraManager>().nonVRCamera.SetActive(true);
             Camera.main.GetComponent<DungeonCamera>().target = this.gameObject;
+			Camera.main.GetComponent<DungeonCamera>().shakeDistanceTarget = transform;
         }
     }
 

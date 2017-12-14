@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class DungeonCamera : MonoBehaviour
 {
+	[Header("base cam options")]
 	public GameObject target;
 	public Vector3 offset;
 
@@ -28,6 +30,16 @@ public class DungeonCamera : MonoBehaviour
 
 	public LayerMask mask;
 
+	[Space]
+	[Header("Screenshake options")]
+	//screenshake stuff
+	public List<Screenshaker> shakeybakeys = new List<Screenshaker>();
+
+	public float cumulativeShakeyStrength;
+	public float maxCumStrength;
+	private Vector3 originalPos;
+	private bool shaking = false;
+	public Transform shakeDistanceTarget;
 
 	void Start()
     {
@@ -38,6 +50,10 @@ public class DungeonCamera : MonoBehaviour
 
 		scrollDampening = scrollDampeningIntended;
         distance = distanceIntended;
+
+		originalPos = transform.localPosition;
+		if (!shakeDistanceTarget)
+			shakeDistanceTarget = transform;
 	}
 
 	void LateUpdate()
@@ -49,7 +65,7 @@ public class DungeonCamera : MonoBehaviour
 		tParent.position = target.transform.position;
 
 		//while Alt is pressed, allow free look around player without affecting player rotation
-		if (Input.GetKeyDown (KeyCode.LeftAlt)) {
+		/*if (Input.GetKeyDown (KeyCode.LeftAlt)) {
 			lockToTarget = false;
 			preUnlockLocalRot = localRot;
 		}
@@ -57,7 +73,7 @@ public class DungeonCamera : MonoBehaviour
 			lockToTarget = true;
 			tParent.rotation = target.transform.rotation;
 			localRot = preUnlockLocalRot;
-		}
+		}*/
 
 		if (!camDisabled) {
 			//Rot of cam based on mouse coords
@@ -91,7 +107,7 @@ public class DungeonCamera : MonoBehaviour
 			}
 
 			//scrolling (zoom) based on scroll wheel
-			if(Input.GetAxis("Mouse ScrollWheel") != 0f) {
+			/*if(Input.GetAxis("Mouse ScrollWheel") != 0f) {
 				float scrollAmount = Input.GetAxis ("Mouse ScrollWheel") * scrollSense;
 
 				//faster zoom at longer distance instead of linear speed
@@ -100,7 +116,7 @@ public class DungeonCamera : MonoBehaviour
 				distanceIntended += scrollAmount * -1f;
 
 				distanceIntended = Mathf.Clamp (distanceIntended, scrollDistanceClamp.x, scrollDistanceClamp.y);
-			}
+			}*/
 		}
 
 		//actual cam rig transformations
@@ -117,5 +133,25 @@ public class DungeonCamera : MonoBehaviour
 													distance * -1f, 
 													Time.deltaTime * scrollDampening));
 		}
+
+		shakeScreen ();
+	}
+
+	void shakeScreen() {
+		//calculate total shake strength
+		cumulativeShakeyStrength = 0f;
+		foreach (Screenshaker ss in shakeybakeys) {
+			float dist = Vector3.Magnitude (shakeDistanceTarget.position - ss.origin.position);
+			if (dist < ss.maxShakeDistance) {
+				cumulativeShakeyStrength += ss.shakeyStrength * (1 - dist / ss.maxShakeDistance);
+			}
+		}
+		cumulativeShakeyStrength = Mathf.Clamp (cumulativeShakeyStrength, 0f, maxCumStrength);
+
+		//actual camera shake part
+		if (cumulativeShakeyStrength > 0) {
+			transform.localPosition += Random.insideUnitSphere * cumulativeShakeyStrength * Time.deltaTime;
+		}
+		transform.localPosition = Vector3.Lerp (transform.localPosition, originalPos, Time.deltaTime);
 	}
 }
