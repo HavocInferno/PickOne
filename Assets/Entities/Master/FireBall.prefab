@@ -209,8 +209,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chargeMulti: 1
-  minVel: 1
-  maxVel: 10
+  minVel: 5
+  maxVel: 25
   minDistance: 1
   maxDistance: 10
   explosionForce: 10
@@ -218,6 +218,7 @@ MonoBehaviour:
   explosionPrefab: {fileID: 1081783069242824, guid: b530c926c1d2191488d4ed04e029f15f,
     type: 2}
   dieTime: 20
+  maxDamage: 150
 --- !u!135 &135303389967400850
 SphereCollider:
   m_ObjectHideFlags: 1

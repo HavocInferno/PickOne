@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class FireBall : ThrowableAbility
 {
+    public float maxDamage;
     public override void applyEffect(float multi, GenericCharacter target)
     {
-        Debug.Log(" gets rekt by a fireball with "+multi+" times max damage.");
+        if(target && target.GetComponent<Stats>())
+            target.GetComponent<Stats>().Health -= maxDamage * multi;
     }
 }

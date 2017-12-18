@@ -25,10 +25,12 @@ public class ParticleAttractor : MonoBehaviour {
             // Change only the particles that are alive
             for (int i = 0; i < numParticlesAlive; i++)
             {
-                particles[i].velocity += (goal.position - particles[i].position).normalized * acceleration*Time.deltaTime;
+                particles[i].velocity += (goal.position - particles[i].position).normalized * (goal.position - particles[i].position).magnitude * acceleration*Time.deltaTime;
                 //  Debug.Log((goal.position - particles[i].position).normalized * acceleration);
                 if ((goal.position - particles[i].position).magnitude < 1)
-                    particles[i].remainingLifetime *= .5f;
+                    particles[i].remainingLifetime *= 1-Mathf.Clamp((Time.deltaTime),0,1);
+                else
+                    particles[i].remainingLifetime += Time.deltaTime*0.75f;
             }
             // Apply the particle changes to the particle system
             part.SetParticles(particles, numParticlesAlive);

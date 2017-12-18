@@ -1,13 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class Master : MonoBehaviour {
 
 	[SerializeField]
 	private ushort hapticforce = 3999;
-	[SerializeField]
+    [SerializeField]
+    float vibrateFrequency = 10;
+    [SerializeField]
 	Controller mainHand, offHand;
 
 	//Buff/Debuff Variables
@@ -42,25 +41,38 @@ public class Master : MonoBehaviour {
 	public Vector3 debuffDestination;
 	public bool debuffing = false;
 
-    //physics based ability
+    //general physics based ability
+    [SerializeField]
+    float maxChargeDistance = 15;
+    [SerializeField]
+    float minCharge = 10, maxCharge = 100, chargeRate = 30;
+    [SerializeField]
+    Transform throwBase;
+    [SerializeField]
+    AbilityPicker picker;
+    [SerializeField]
+    Material abilityPicker, pickerVisible, pickerInvisible;
+    [SerializeField]
+    float poolGrowSpeed = 5;
+
+    float charge;
+    bool charging = false;
+    Vector3 lastPos;
+
     public GameObject fireBallPrefab;
 	public GameObject fireBallVis;
-	private Vector3 abilityVisScale;
-    public float maxChargeDistance;
-    public float maxCharge, chargeRate;
-    private float charge;
-    bool charging = false;
-    public Transform throwBase;
-	public AbilityPicker picker;
-    Vector3 lastPos;
+	Vector3 fireVisScale;
     public GameObject firePool;
     public ParticleAttractor fireAtt;
+    Vector3 firePoolScale;
+
 
 	// Use this for initialization
 	void Start () {
 		initRays ();
 		fireBallVis.SetActive (false);
-		abilityVisScale = fireBallVis.transform.localScale;
+		fireVisScale = fireBallVis.transform.localScale;
+        firePoolScale = firePool.transform.localScale;
 
 		//initVRUI ();
 	}
@@ -69,7 +81,8 @@ public class Master : MonoBehaviour {
 	void Update () {
 		applyBuff ();
 		applyDebuff ();
-        applyThrowable();
+        UpdateAbilityPicker();
+        applyFireBall();
 	}
 
 	void applyBuff ()
@@ -203,50 +216,60 @@ public class Master : MonoBehaviour {
 		playerManager = GameObject.Find ("PlayerManagers").GetComponent<PlayersManager>();
 	}
 
-    void applyThrowable()
+    void applyFireBall()
     {
         if (mainHand.currentItem != 2 || mainHand.radialMenuAccessed)
         {
-
-            firePool.SetActive(false);
+            if (firePool.transform.localScale.magnitude >= 0.01 * firePoolScale.magnitude)
+                firePool.transform.localScale = Vector3.Lerp(firePool.transform.localScale, Vector3.zero, Time.deltaTime * poolGrowSpeed);
+            else
+                firePool.SetActive(false);
             if (charging)
-                dropThrowable();
+                dropFireBall();
             return;
         }
         else
         {
             firePool.SetActive(true);
+            if (firePool.transform.localScale.magnitude < 0.99 * firePoolScale.magnitude)
+                firePool.transform.localScale = Vector3.Lerp(firePool.transform.localScale, firePoolScale, Time.deltaTime* poolGrowSpeed );
         }
-        if (mainHand.getTrigger() && picker.pooling && !charging)
+
+        if (mainHand.getTrigger() && picker.pooling && !charging && charge<maxCharge)
         {
                 charging = true;
                 fireBallVis.SetActive(true);
                 fireAtt.attracting = true;
         }
-        if (mainHand.getTrigger() && charging && charge<maxCharge)
+        if (mainHand.getTrigger() && charging && charge<maxCharge && (mainHand.transform.position-offHand.transform.position).magnitude < maxChargeDistance)
         {
-            Debug.Log("Charging: " + charge);
             charge += chargeRate * Time.deltaTime;
 			charge = Mathf.Clamp (charge, 0, maxCharge);
-			fireBallVis.transform.localScale = charge / maxCharge * abilityVisScale;
+			fireBallVis.transform.localScale = charge / maxCharge * fireVisScale;
 			mainHand.hapticFeedback ((ushort)(charge/maxCharge*hapticforce));
 		}
-        if (charge >= maxCharge)
+
+        if (charge >= maxCharge || (mainHand.transform.position - offHand.transform.position).magnitude >= maxChargeDistance)
+        {
             fireAtt.attracting = false;
-		mainHand.hapticFeedback ((ushort)(charge/maxCharge*hapticforce));
+            charging = false;
+        }
+        if(charging || Mathf.Sin(Time.time*Mathf.PI*2* vibrateFrequency) > 0)
+		    mainHand.hapticFeedback ((ushort)(charge/maxCharge*hapticforce));
+
         if (mainHand.getTriggerUp())
-            dropThrowable();
+            dropFireBall();
 		
 
         lastPos = throwBase.position;
     }
-    void dropThrowable()
+    void dropFireBall()
     {
-		if (charge != 0) {
-			GameObject throwable = Instantiate (fireBallPrefab, throwBase.position, throwBase.rotation);
-			throwable.GetComponent<Rigidbody> ().velocity = (throwBase.position - lastPos) / Time.deltaTime;
-			throwable.GetComponent<ThrowableAbility> ().chargeMulti = charge / maxCharge;
-			throwable.transform.localScale = fireBallVis.transform.lossyScale;
+		if (charge > minCharge) {
+			GameObject fireball = Instantiate (fireBallPrefab, throwBase.position, throwBase.rotation);
+			fireball.GetComponent<Rigidbody> ().velocity = (throwBase.position - lastPos) / Time.deltaTime;
+			fireball.GetComponent<ThrowableAbility> ().chargeMulti = charge / maxCharge;
+			fireball.transform.localScale = fireBallVis.transform.lossyScale;
 		}
 		fireBallVis.SetActive (false);
         charge = 0;
@@ -254,10 +277,17 @@ public class Master : MonoBehaviour {
         fireAtt.attracting = false;
     }
 
-    private void OnTriggerStay(Collider other)
+
+    void UpdateAbilityPicker()
     {
-        if (other.CompareTag("abilityPool"))
-            Debug.Log("fibb");
+        if (mainHand.currentItem == 2 && mainHand.getTrigger() && !charging && charge < maxCharge)
+        {
+            abilityPicker.Lerp(abilityPicker, pickerVisible, Time.deltaTime);
+        }
+        else
+        {
+            abilityPicker.Lerp(abilityPicker, pickerInvisible, Time.deltaTime*4);
+        }
     }
 
     void initVRUI ()
