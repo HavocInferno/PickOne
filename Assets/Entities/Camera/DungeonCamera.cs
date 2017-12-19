@@ -6,6 +6,9 @@ public class DungeonCamera : MonoBehaviour
 	[Header("base cam options")]
 	public GameObject target;
 	public Vector3 offset;
+	public Vector3 pivotOffsetIntended;
+	private Vector3 pivotOffset;
+	private float pivotHitDist;
 
 	protected Transform tCamera;
 	protected Transform tParent;
@@ -43,8 +46,13 @@ public class DungeonCamera : MonoBehaviour
 
 	void Start()
     {
+		pivotOffset = pivotOffsetIntended;
+		pivotHitDist = pivotOffsetIntended.x;
+
 		tCamera = transform;
 		tParent = transform.parent;
+		tParent.SetParent (target.transform);
+		tParent.localPosition = Vector3.zero + pivotOffset;
 
 		tCamera.localPosition = offset;
 
@@ -62,7 +70,7 @@ public class DungeonCamera : MonoBehaviour
 			return;
 
 		//sticks the cam rig to the target. alternatively better: in Start(), parent target to the cam rig, set cam rig to pos 0,0,0
-		tParent.position = target.transform.position;
+		//tParent.position = target.transform.position;
 
 		//while Alt is pressed, allow free look around player without affecting player rotation
 		/*if (Input.GetKeyDown (KeyCode.LeftAlt)) {
@@ -105,6 +113,20 @@ public class DungeonCamera : MonoBehaviour
 				distance = distanceIntended;
 				scrollDampening = scrollDampeningIntended;
 			}
+
+			raycastDir = tParent.position - target.transform.position;
+			if (Physics.Raycast (
+				target.transform.position,
+				raycastDir,
+				out hit,
+				pivotHitDist,
+				mask)) {
+				pivotOffset = Vector3.zero;
+			} else {
+				pivotOffset = pivotOffsetIntended;
+			}
+
+			tParent.localPosition = Vector3.Lerp(tParent.localPosition, pivotOffset, scrollDampeningObstructed);
 
 			//scrolling (zoom) based on scroll wheel
 			/*if(Input.GetAxis("Mouse ScrollWheel") != 0f) {
