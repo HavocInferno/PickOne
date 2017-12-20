@@ -59,12 +59,21 @@ public class Master : MonoBehaviour {
     bool charging = false;
     Vector3 lastPos;
 
+	//fireBall
     public GameObject fireBallPrefab;
 	public GameObject fireBallVis;
 	Vector3 fireVisScale;
     public GameObject firePool;
     public ParticleAttractor fireAtt;
     Vector3 firePoolScale;
+
+	//healOrb
+	public GameObject healOrbPrefab;
+	public GameObject healOrbVis;
+	Vector3 healVisScale;
+	public GameObject healPool;
+	public ParticleAttractor healOrbAtt;
+	Vector3 healPoolScale;
 
 
 	// Use this for initialization
@@ -255,7 +264,7 @@ public class Master : MonoBehaviour {
             charging = false;
         }
         if(charging || Mathf.Sin(Time.time*Mathf.PI*2* vibrateFrequency) > 0)
-		    mainHand.hapticFeedback ((ushort)(charge/maxCharge*hapticforce));
+			mainHand.hapticFeedback ((ushort)(Mathf.Pow(charge/maxCharge,2)*hapticforce));
 
         if (mainHand.getTriggerUp())
             dropFireBall();
@@ -289,6 +298,67 @@ public class Master : MonoBehaviour {
             abilityPicker.Lerp(abilityPicker, pickerInvisible, Time.deltaTime*4);
         }
     }
+
+	void applyHealOrb()
+	{
+		if (mainHand.currentItem != 3 || mainHand.radialMenuAccessed)
+		{
+			if (healPool.transform.localScale.magnitude >= 0.01 * healPoolScale.magnitude)
+				healPool.transform.localScale = Vector3.Lerp(healPool.transform.localScale, Vector3.zero, Time.deltaTime * poolGrowSpeed);
+			else
+				healPool.SetActive(false);
+			if (charging)
+				dropHealOrb();
+			return;
+		}
+		else
+		{
+			healPool.SetActive(true);
+			if (healPool.transform.localScale.magnitude < 0.99 * healPoolScale.magnitude)
+				healPool.transform.localScale = Vector3.Lerp(healPool.transform.localScale, healPoolScale, Time.deltaTime* poolGrowSpeed );
+		}
+
+		if (mainHand.getTrigger() && picker.pooling && !charging && charge<maxCharge)
+		{
+			charging = true;
+			healOrbVis.SetActive(true);
+			healOrbAtt.attracting = true;
+		}
+		if (mainHand.getTrigger() && charging && charge<maxCharge && (mainHand.transform.position-offHand.transform.position).magnitude < maxChargeDistance)
+		{
+			charge += chargeRate * Time.deltaTime;
+			charge = Mathf.Clamp (charge, 0, maxCharge);
+			healOrbVis.transform.localScale = charge / maxCharge * healVisScale;
+			mainHand.hapticFeedback ((ushort)(charge/maxCharge*hapticforce));
+		}
+
+		if (charge >= maxCharge || (mainHand.transform.position - offHand.transform.position).magnitude >= maxChargeDistance)
+		{
+			healOrbAtt.attracting = false;
+			charging = false;
+		}
+		if(charging || Mathf.Sin(Time.time*Mathf.PI*2* vibrateFrequency) > 0)
+			mainHand.hapticFeedback ((ushort)(Mathf.Pow(charge/maxCharge,2)*hapticforce));
+
+		if (mainHand.getTriggerUp())
+			dropHealOrb();
+
+
+		lastPos = throwBase.position;
+	}
+	void dropHealOrb()
+	{
+		if (charge > minCharge) {
+			GameObject healOrb = Instantiate (healOrbPrefab, throwBase.position, throwBase.rotation);
+			healOrb.GetComponent<Rigidbody> ().velocity = (throwBase.position - lastPos) / Time.deltaTime;
+			healOrb.GetComponent<ThrowableAbility> ().chargeMulti = charge / maxCharge;
+			healOrb.transform.localScale = healOrbVis.transform.lossyScale;
+		}
+		healOrbVis.SetActive (false);
+		charge = 0;
+		charging = false;
+		healOrbAtt.attracting = false;
+	}
 
     void initVRUI ()
 	{
