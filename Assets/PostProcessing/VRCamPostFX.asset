@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a3bdb2cd68f901469e7cc149151eb49, type: 3}
-  m_Name: test
+  m_Name: VRCamPostFX
   m_EditorClassIdentifier: 
   debugViews:
     m_Enabled: 1
@@ -50,7 +50,7 @@ MonoBehaviour:
       ambientOnly: 0
       highPrecision: 0
   screenSpaceReflection:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       reflection:
         blendType: 0
@@ -69,7 +69,7 @@ MonoBehaviour:
       screenEdgeMask:
         intensity: 0.03
   depthOfField:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       focusDistance: 10
       aperture: 5.6
@@ -80,10 +80,10 @@ MonoBehaviour:
     m_Enabled: 0
     m_Settings:
       shutterAngle: 270
-      sampleCount: 32
+      sampleCount: 10
       frameBlending: 0
   eyeAdaptation:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       lowPercent: 45
       highPercent: 95
@@ -100,19 +100,19 @@ MonoBehaviour:
     m_Enabled: 1
     m_Settings:
       bloom:
-        intensity: 0.18
+        intensity: 1.5
         threshold: 1.1
         softKnee: 1
-        radius: 6.73
+        radius: 3.04
         antiFlicker: 1
       lensDirt:
-        texture: {fileID: 2800000, guid: 7a051dbda2d7bc447bee412427cd311e, type: 3}
-        intensity: 5
+        texture: {fileID: 0}
+        intensity: 3
   colorGrading:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
       tonemapping:
-        tonemapper: 2
+        tonemapper: 1
         neutralBlackIn: 0.02
         neutralWhiteIn: 10
         neutralBlackOut: 0
@@ -127,7 +127,7 @@ MonoBehaviour:
         saturation: 1
         contrast: 1
       channelMixer:
-        red: {x: 2, y: 2, z: 2}
+        red: {x: 1, y: 0, z: 0}
         green: {x: 0, y: 1, z: 0}
         blue: {x: 0, y: 0, z: 1}
         currentEditingChannel: 0
@@ -135,12 +135,12 @@ MonoBehaviour:
         mode: 1
         log:
           slope: {r: 1, g: 1, b: 1, a: 0}
-          power: {r: 1, g: 0, b: 0.94441557, a: 0}
-          offset: {r: 0, g: 1, b: 0.36723232, a: 0}
+          power: {r: 1, g: 1, b: 1, a: 0}
+          offset: {r: 1, g: 1, b: 1, a: 0}
         linear:
-          lift: {r: 1, g: 1, b: 1, a: 0}
-          gamma: {r: 1, g: 1, b: 1, a: 0}
-          gain: {r: 1, g: 1, b: 1, a: 0}
+          lift: {r: 0, g: 0, b: 0, a: 0}
+          gamma: {r: 0, g: 0, b: 0, a: 0}
+          gain: {r: 0, g: 0, b: 0, a: 0}
       curves:
         master:
           curve:
@@ -293,12 +293,12 @@ MonoBehaviour:
       size: 1
       luminanceContribution: 0.8
   vignette:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       mode: 0
       color: {r: 0, g: 0, b: 0, a: 1}
       center: {x: 0.5, y: 0.5}
-      intensity: 0.2
+      intensity: 0.45
       smoothness: 0.2
       roundness: 1
       mask: {fileID: 0}

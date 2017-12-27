@@ -24,8 +24,8 @@ public class DungeonCamera : MonoBehaviour
 	public float scrollDampeningIntended = 6f;
 	public float scrollDampeningObstructed = 40f;
 	private float scrollDampening = 6f;
-	public float pivotDampeningIntended = 6f;
-	public float pivotDampeningObstructed = 40f;
+	public float pivotDampeningIntended = 1f;
+	public float pivotDampeningObstructed = 20f;
 	private float pivotDampening = 6f;
 
 	public Vector2 verticalRotationClamp = new Vector2(5f, 85f);
@@ -117,11 +117,12 @@ public class DungeonCamera : MonoBehaviour
 				scrollDampening = scrollDampeningIntended;
 			}
 
-			raycastDir = tParent.position - target.transform.position;
+			Vector3 raycastDir1 = tParent.TransformPoint(pivotOffsetIntended) - target.transform.position;
+			RaycastHit hit1;
 			if (Physics.Raycast (
 					target.transform.position,
-					raycastDir,
-					out hit,
+					raycastDir1,
+					out hit1,
 					pivotHitDist,
 					mask)) {
 				pivotOffset = Vector3.zero;
