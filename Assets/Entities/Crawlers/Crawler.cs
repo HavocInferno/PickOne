@@ -86,6 +86,9 @@ public class Crawler : GenericCharacter
             FindObjectOfType<AttributesPanel>().Register(GetComponent<Stats>());
 			if (tpsUI)
 				tpsUI.SetActive (false);
+			if (!isVRMasterPlayer) {
+				FindObjectOfType<CUI_crosshair> ().registerCrawler (this);
+			}
         }
     }
 

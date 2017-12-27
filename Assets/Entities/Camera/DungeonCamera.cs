@@ -24,6 +24,9 @@ public class DungeonCamera : MonoBehaviour
 	public float scrollDampeningIntended = 6f;
 	public float scrollDampeningObstructed = 40f;
 	private float scrollDampening = 6f;
+	public float pivotDampeningIntended = 6f;
+	public float pivotDampeningObstructed = 40f;
+	private float pivotDampening = 6f;
 
 	public Vector2 verticalRotationClamp = new Vector2(5f, 85f);
 	public Vector2 scrollDistanceClamp = new Vector2(1.5f, 30f);
@@ -116,17 +119,21 @@ public class DungeonCamera : MonoBehaviour
 
 			raycastDir = tParent.position - target.transform.position;
 			if (Physics.Raycast (
-				target.transform.position,
-				raycastDir,
-				out hit,
-				pivotHitDist,
-				mask)) {
+					target.transform.position,
+					raycastDir,
+					out hit,
+					pivotHitDist,
+					mask)) {
 				pivotOffset = Vector3.zero;
+				pivotDampening = pivotDampeningObstructed;
+				Debug.Log ("cam pivot obstructed (" + hit.distance + "u away)");
 			} else {
 				pivotOffset = pivotOffsetIntended;
+				pivotDampening = pivotDampeningIntended;
+				Debug.Log ("cam pivot unobstructed");
 			}
 
-			tParent.localPosition = Vector3.Lerp(tParent.localPosition, pivotOffset, scrollDampeningObstructed);
+			tParent.localPosition = Vector3.Lerp(tParent.localPosition, pivotOffset, pivotDampening);
 
 			//scrolling (zoom) based on scroll wheel
 			/*if(Input.GetAxis("Mouse ScrollWheel") != 0f) {
