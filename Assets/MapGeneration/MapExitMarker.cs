@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MapExitMarker : MonoBehaviour
 {
-    [Tooltip("This will be enabled/disabled if the exit is not used")]
+    [Tooltip("This will be disabled if the exit is used.")]
     public GameObject wallPrefab;
 
     private void OnValidate()

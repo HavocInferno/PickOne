@@ -14,14 +14,22 @@ public class MapGeneratorEditor : Editor
         // Get the object being inspected
         MapGenerator mapGen = target as MapGenerator;
 
-        if(GUILayout.Button("Generate Map"))
+        if(GUILayout.Button("Reset Map"))
         {
-            mapGen.GenerateMap();
+            mapGen.ResetMap();
         }
 
         if (GUILayout.Button("Do Iteration Step"))
         {
             mapGen.PerformIteration();
+        }
+
+        if (GUILayout.Button("Do Given Iterations"))
+        {
+            for (int iterIdx = 0; iterIdx < mapGen.numberOfIterations; iterIdx++)
+            {
+                mapGen.PerformIteration();
+            }
         }
     }
 }

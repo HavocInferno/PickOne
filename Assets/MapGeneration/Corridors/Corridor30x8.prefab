@@ -20,9 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4961332367949254}
   - component: {fileID: 114566837376717858}
+  - component: {fileID: 65107344701575492}
   m_Layer: 0
   m_Name: Corridor30x8
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -578,6 +579,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65107344701575492
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1199403640899528}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 30, y: 8, z: 8}
+  m_Center: {x: 0, y: 4, z: 0}
 --- !u!65 &65362473787815016
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -638,7 +651,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  allowedConnections: 0000000002000000
+  allowedConnections: 0200000000000000
   exitMarkers:
   - {fileID: 114126050478317328}
   - {fileID: 114789016944477846}
