@@ -80,13 +80,7 @@ public class Master : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		initRays ();
-		fireBallVis.SetActive (false);
-		fireVisScale = fireBallVis.transform.localScale;
-		firePoolScale = firePool.transform.localScale;		
-		healOrbVis.SetActive (false);
-		healVisScale = fireBallVis.transform.localScale;
-		healPoolScale = firePool.transform.localScale;
-
+		initThrowables ();
 		//initVRUI ();
 	}
 	
@@ -228,6 +222,16 @@ public class Master : MonoBehaviour {
 		debuffDestination = buffDestination = rayOrigin.position;
 		debuffRay.origin = buffRay.origin = rayOrigin;
 		playerManager = GameObject.Find ("PlayerManagers").GetComponent<PlayersManager>();
+	}
+
+	void initThrowables ()
+	{
+		fireBallVis.SetActive (false);
+		fireVisScale = fireBallVis.transform.localScale;
+		firePoolScale = firePool.transform.localScale;
+		healOrbVis.SetActive (false);
+		healVisScale = fireBallVis.transform.localScale;
+		healPoolScale = firePool.transform.localScale;
 	}
 
     void applyFireBall()
