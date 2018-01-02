@@ -56,10 +56,10 @@ public class Master : MonoBehaviour {
     float poolGrowSpeed = 5;
 
     float charge;
-    bool charging = false;
     Vector3 lastPos;
 
 	//fireBall
+	bool chargingFire = false;
     public GameObject fireBallPrefab;
 	public GameObject fireBallVis;
 	Vector3 fireVisScale;
@@ -68,6 +68,7 @@ public class Master : MonoBehaviour {
     Vector3 firePoolScale;
 
 	//healOrb
+	bool chargingHeal = false;
 	public GameObject healOrbPrefab;
 	public GameObject healOrbVis;
 	Vector3 healVisScale;
@@ -81,7 +82,10 @@ public class Master : MonoBehaviour {
 		initRays ();
 		fireBallVis.SetActive (false);
 		fireVisScale = fireBallVis.transform.localScale;
-        firePoolScale = firePool.transform.localScale;
+		firePoolScale = firePool.transform.localScale;		
+		healOrbVis.SetActive (false);
+		healVisScale = fireBallVis.transform.localScale;
+		healPoolScale = firePool.transform.localScale;
 
 		//initVRUI ();
 	}
@@ -92,6 +96,7 @@ public class Master : MonoBehaviour {
 		applyDebuff ();
         UpdateAbilityPicker();
         applyFireBall();
+		applyHealOrb ();
 	}
 
 	void applyBuff ()
@@ -233,7 +238,7 @@ public class Master : MonoBehaviour {
                 firePool.transform.localScale = Vector3.Lerp(firePool.transform.localScale, Vector3.zero, Time.deltaTime * poolGrowSpeed);
             else
                 firePool.SetActive(false);
-            if (charging)
+            if (chargingFire)
                 dropFireBall();
             return;
         }
@@ -244,13 +249,13 @@ public class Master : MonoBehaviour {
                 firePool.transform.localScale = Vector3.Lerp(firePool.transform.localScale, firePoolScale, Time.deltaTime* poolGrowSpeed );
         }
 
-        if (mainHand.getTrigger() && picker.pooling && !charging && charge<maxCharge)
+        if (mainHand.getTrigger() && picker.pooling && !chargingFire && charge<maxCharge)
         {
-                charging = true;
+				chargingFire = true;
                 fireBallVis.SetActive(true);
                 fireAtt.attracting = true;
         }
-        if (mainHand.getTrigger() && charging && charge<maxCharge && (mainHand.transform.position-offHand.transform.position).magnitude < maxChargeDistance)
+        if (mainHand.getTrigger() && chargingFire && charge<maxCharge && (mainHand.transform.position-offHand.transform.position).magnitude < maxChargeDistance)
         {
             charge += chargeRate * Time.deltaTime;
 			charge = Mathf.Clamp (charge, 0, maxCharge);
@@ -261,9 +266,9 @@ public class Master : MonoBehaviour {
         if (charge >= maxCharge || (mainHand.transform.position - offHand.transform.position).magnitude >= maxChargeDistance)
         {
             fireAtt.attracting = false;
-            charging = false;
+            chargingFire = false;
         }
-        if(charging || Mathf.Sin(Time.time*Mathf.PI*2* vibrateFrequency) > 0)
+        if(chargingFire || Mathf.Sin(Time.time*Mathf.PI*2* vibrateFrequency) > 0)
 			mainHand.hapticFeedback ((ushort)(Mathf.Pow(charge/maxCharge,2)*hapticforce));
 
         if (mainHand.getTriggerUp())
@@ -282,14 +287,14 @@ public class Master : MonoBehaviour {
 		}
 		fireBallVis.SetActive (false);
         charge = 0;
-		charging = false;
+		chargingFire = false;
         fireAtt.attracting = false;
     }
 
 
     void UpdateAbilityPicker()
     {
-        if (mainHand.currentItem == 2 && mainHand.getTrigger() && !charging && charge < maxCharge)
+		if (((mainHand.currentItem == 3  && !chargingHeal)|| (mainHand.currentItem == 2 && !chargingFire )) && mainHand.getTrigger()&& charge < maxCharge)
         {
             abilityPicker.Lerp(abilityPicker, pickerVisible, Time.deltaTime);
         }
@@ -307,7 +312,7 @@ public class Master : MonoBehaviour {
 				healPool.transform.localScale = Vector3.Lerp(healPool.transform.localScale, Vector3.zero, Time.deltaTime * poolGrowSpeed);
 			else
 				healPool.SetActive(false);
-			if (charging)
+			if (chargingHeal)
 				dropHealOrb();
 			return;
 		}
@@ -318,13 +323,13 @@ public class Master : MonoBehaviour {
 				healPool.transform.localScale = Vector3.Lerp(healPool.transform.localScale, healPoolScale, Time.deltaTime* poolGrowSpeed );
 		}
 
-		if (mainHand.getTrigger() && picker.pooling && !charging && charge<maxCharge)
+		if (mainHand.getTrigger() && picker.pooling && !chargingHeal && charge<maxCharge)
 		{
-			charging = true;
+			chargingHeal = true;
 			healOrbVis.SetActive(true);
 			healOrbAtt.attracting = true;
 		}
-		if (mainHand.getTrigger() && charging && charge<maxCharge && (mainHand.transform.position-offHand.transform.position).magnitude < maxChargeDistance)
+		if (mainHand.getTrigger() && chargingHeal && charge<maxCharge && (mainHand.transform.position-offHand.transform.position).magnitude < maxChargeDistance)
 		{
 			charge += chargeRate * Time.deltaTime;
 			charge = Mathf.Clamp (charge, 0, maxCharge);
@@ -335,9 +340,9 @@ public class Master : MonoBehaviour {
 		if (charge >= maxCharge || (mainHand.transform.position - offHand.transform.position).magnitude >= maxChargeDistance)
 		{
 			healOrbAtt.attracting = false;
-			charging = false;
+			chargingHeal = false;
 		}
-		if(charging || Mathf.Sin(Time.time*Mathf.PI*2* vibrateFrequency) > 0)
+		if(chargingHeal || Mathf.Sin(Time.time*Mathf.PI*2* vibrateFrequency) > 0)
 			mainHand.hapticFeedback ((ushort)(Mathf.Pow(charge/maxCharge,2)*hapticforce));
 
 		if (mainHand.getTriggerUp())
@@ -356,7 +361,7 @@ public class Master : MonoBehaviour {
 		}
 		healOrbVis.SetActive (false);
 		charge = 0;
-		charging = false;
+		chargingHeal = false;
 		healOrbAtt.attracting = false;
 	}
 

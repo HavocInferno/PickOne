@@ -13,8 +13,10 @@ public class Screenshaker : MonoBehaviour {
 
 	void Start() {
 		shakenibba = shakeyStrength;
-		FindObjectOfType<ScreenShakey> ().shakeybakeys.Add (this);
-		FindObjectOfType<DungeonCamera> ().shakeybakeys.Add (this);
+		if(FindObjectOfType<ScreenShakey> ())
+			FindObjectOfType<ScreenShakey> ().shakeybakeys.Add (this);
+		if(FindObjectOfType<DungeonCamera> ())
+			FindObjectOfType<DungeonCamera> ().shakeybakeys.Add (this);
 
 		if (duration > 0) {
 			if (destroyAfterDuration)
@@ -27,7 +29,9 @@ public class Screenshaker : MonoBehaviour {
 	}
 
 	void OnDestroy() {
-		FindObjectOfType<ScreenShakey> ().shakeybakeys.Remove (this);
-		FindObjectOfType<DungeonCamera> ().shakeybakeys.Remove (this);
+		if(FindObjectOfType<ScreenShakey> ())
+			FindObjectOfType<ScreenShakey> ().shakeybakeys.Remove (this);
+		if(FindObjectOfType<DungeonCamera> ())
+			FindObjectOfType<DungeonCamera> ().shakeybakeys.Remove (this);
 	}
 }
