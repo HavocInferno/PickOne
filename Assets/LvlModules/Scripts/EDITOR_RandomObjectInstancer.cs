@@ -17,7 +17,7 @@ public class EDITOR_RandomObjectInstancer : Editor {
 
 	private static GUIContent
 		rollButtonContent = new GUIContent ("Roll the dice!", "Randomly spawn an item from the list"),
-		resetButtonContent = new GUIContent ("Delete instances", "Delete current random instance");
+		resetButtonContent = new GUIContent ("Delete instance", "Delete current random instance");
 
 	void OnEnable() {
 		roi_objectType = serializedObject.FindProperty ("objectType");
@@ -31,36 +31,36 @@ public class EDITOR_RandomObjectInstancer : Editor {
 	public override void OnInspectorGUI()
 	{
 		serializedObject.Update ();
-		//EditorGUILayout.LabelField ("skrrraaa");
+
 		EditorGUILayout.PropertyField (roi_objectType);
+		EditorGUILayout.Space ();
+
 		EditorGUILayout.PropertyField (roi_maxSize);
 		EditorGUILayout.PropertyField (roi_volumeOffset);
-		//EditorGUILayout.PropertyField (roi_objects,true);
+
+		EditorGUILayout.Space ();
 		CustomEditorList.Show(roi_objects);
+		EditorGUILayout.Space ();
 
 		if (GUILayout.Button (rollButtonContent)) {
 			foreach (Object roi in targets) {
 				((RandomObjectInstancer)roi).rolledObject = ((RandomObjectInstancer)roi).objects [Random.Range (0, ((RandomObjectInstancer)roi).objects.Count)];
 			}
-			//roi_rolledObject.objectReferenceValue = roi_objects.GetArrayElementAtIndex(Random.Range(0, roi_objects.arraySize)).objectReferenceValue;
-			//serializedObject.ApplyModifiedProperties ();
-			//serializedObject.Update ();
 			foreach (Object roi in targets) {
 				((RandomObjectInstancer)roi).showObject ();
 				EditorUtility.SetDirty (roi);
 				EditorSceneManager.MarkSceneDirty (EditorSceneManager.GetActiveScene ());
 			}
-			serializedObject.Update ();
-			serializedObject.ApplyModifiedProperties ();
 		}
 		if (GUILayout.Button (resetButtonContent)) {
 			foreach (Object roi in targets) {
 				((RandomObjectInstancer)roi).delObject ();
 			}
-			serializedObject.ApplyModifiedProperties ();
 		}
+		EditorGUI.BeginDisabledGroup (true);
 		EditorGUILayout.PropertyField (roi_rolledObject);
 		EditorGUILayout.PropertyField (roi_instance);
+		EditorGUI.EndDisabledGroup ();
 		serializedObject.ApplyModifiedProperties ();
 
 		//base.OnInspectorGUI ();
