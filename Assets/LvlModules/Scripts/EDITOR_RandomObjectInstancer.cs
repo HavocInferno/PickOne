@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 
 [CustomEditor(typeof(RandomObjectInstancer))]
 [CanEditMultipleObjects]
@@ -42,11 +43,14 @@ public class EDITOR_RandomObjectInstancer : Editor {
 				((RandomObjectInstancer)roi).rolledObject = ((RandomObjectInstancer)roi).objects [Random.Range (0, ((RandomObjectInstancer)roi).objects.Count)];
 			}
 			//roi_rolledObject.objectReferenceValue = roi_objects.GetArrayElementAtIndex(Random.Range(0, roi_objects.arraySize)).objectReferenceValue;
-			serializedObject.ApplyModifiedProperties ();
-			serializedObject.Update ();
+			//serializedObject.ApplyModifiedProperties ();
+			//serializedObject.Update ();
 			foreach (Object roi in targets) {
 				((RandomObjectInstancer)roi).showObject ();
+				EditorUtility.SetDirty (roi);
+				EditorSceneManager.MarkSceneDirty (EditorSceneManager.GetActiveScene ());
 			}
+			serializedObject.Update ();
 			serializedObject.ApplyModifiedProperties ();
 		}
 		if (GUILayout.Button (resetButtonContent)) {

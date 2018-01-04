@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
+[System.Serializable]
 public class RandomObjectInstancer : MonoBehaviour {
 
 	public enum ObjectType {
