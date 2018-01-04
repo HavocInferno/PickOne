@@ -15,9 +15,10 @@ public class RandomObjectInstancer : MonoBehaviour {
 	}
 	public ObjectType objectType;
 	public Vector3 maxSize = Vector3.one;
+	public Vector3 volumeOffset = Vector3.zero;
 	public List<GameObject> objects = new List<GameObject>();
 	public GameObject rolledObject;
-	private GameObject instance;
+	public GameObject instance;
 
 	// Use this for initialization
 	void Start () {
@@ -32,17 +33,30 @@ public class RandomObjectInstancer : MonoBehaviour {
 	public void showObject() {
 		if (instance)
 			DestroyImmediate (instance);
-		instance = Instantiate (rolledObject, transform.position, Quaternion.identity);
+		instance = Instantiate (rolledObject, transform.position, transform.rotation);
+	}
+	public void delObject() {
+		if (instance)
+			DestroyImmediate (instance);
 	}
 
 	#if UNITY_EDITOR
 	void OnDrawGizmos()
 	{
-		Gizmos.color = new Color (1f, 0f, 0f, 0.3f);
-		Gizmos.DrawCube(transform.position, maxSize);
+		if (Selection.Contains (gameObject)) {
+			Gizmos.color = new Color (1f, 0f, 0f, 0.03f);
+		} else {
+			Gizmos.color = new Color (1f, 0f, 0f, 0.3f);
+		}
+		Gizmos.matrix = transform.localToWorldMatrix;
+		Gizmos.DrawCube(Vector3.zero + volumeOffset, maxSize);
 
-		Gizmos.color = Color.red;
-		Gizmos.DrawWireCube(transform.position, maxSize);
+		if (Selection.Contains (gameObject)) {
+			Gizmos.color = new Color (1f, 0f, 0f, 0.3f);
+		} else {
+			Gizmos.color = Color.red;
+		}
+		Gizmos.DrawWireCube(Vector3.zero + volumeOffset, maxSize);
 
 		/*Gizmos.DrawLine(transform.position - Vector3.up * 1f, transform.position + Vector3.up * 1f);
 		Gizmos.DrawLine(transform.position - Vector3.forward * 1f, transform.position + Vector3.forward * 1f);
