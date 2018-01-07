@@ -364,7 +364,10 @@ public class Master : NetworkBehaviour {
 			healOrb.GetComponent<Rigidbody> ().velocity = (throwBase.position - lastPos) / Time.deltaTime;
 			healOrb.GetComponent<ThrowableAbility> ().chargeMulti = charge / maxCharge;
 			healOrb.transform.localScale = healOrbVis.transform.lossyScale;
+
 			NetworkServer.Spawn(healOrb);
+			Debug.Log("Spawned healorb");
+
 		}
 		healOrbVis.SetActive (false);
 		charge = 0;
