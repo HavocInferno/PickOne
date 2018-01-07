@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class DungeonCamera : MonoBehaviour
 {
@@ -54,7 +55,8 @@ public class DungeonCamera : MonoBehaviour
 
 		tCamera = transform;
 		tParent = transform.parent;
-		tParent.SetParent (target.transform);
+		//tParent.SetParent (target.transform);
+		StartCoroutine (parentCam());
 		tParent.localPosition = Vector3.zero + pivotOffset;
 
 		tCamera.localPosition = offset;
@@ -127,11 +129,11 @@ public class DungeonCamera : MonoBehaviour
 					mask)) {
 				pivotOffset = Vector3.zero;
 				pivotDampening = pivotDampeningObstructed;
-				Debug.Log ("cam pivot obstructed (" + hit.distance + "u away)");
+				//Debug.Log ("cam pivot obstructed (" + hit.distance + "u away)");
 			} else {
 				pivotOffset = pivotOffsetIntended;
 				pivotDampening = pivotDampeningIntended;
-				Debug.Log ("cam pivot unobstructed");
+				//Debug.Log ("cam pivot unobstructed");
 			}
 
 			tParent.localPosition = Vector3.Lerp(tParent.localPosition, pivotOffset, pivotDampening);
@@ -183,5 +185,12 @@ public class DungeonCamera : MonoBehaviour
 			transform.localPosition += Random.insideUnitSphere * cumulativeShakeyStrength * Time.deltaTime;
 		}
 		transform.localPosition = Vector3.Lerp (transform.localPosition, originalPos, Time.deltaTime);
+	}
+
+	IEnumerator parentCam() {
+		while (!target) {
+			yield return new WaitForEndOfFrame ();
+		}
+		tParent.SetParent (target.transform);
 	}
 }
