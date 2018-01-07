@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 
-public class Master : MonoBehaviour {
+public class Master : NetworkBehaviour {
 
 	[SerializeField]
 	private ushort hapticforce = 3999;
@@ -288,6 +289,7 @@ public class Master : MonoBehaviour {
 			fireball.GetComponent<Rigidbody> ().velocity = (throwBase.position - lastPos) / Time.deltaTime;
 			fireball.GetComponent<ThrowableAbility> ().chargeMulti = charge / maxCharge;
 			fireball.transform.localScale = fireBallVis.transform.lossyScale;
+			NetworkServer.Spawn(fireball);
 		}
 		fireBallVis.SetActive (false);
         charge = 0;
@@ -362,6 +364,7 @@ public class Master : MonoBehaviour {
 			healOrb.GetComponent<Rigidbody> ().velocity = (throwBase.position - lastPos) / Time.deltaTime;
 			healOrb.GetComponent<ThrowableAbility> ().chargeMulti = charge / maxCharge;
 			healOrb.transform.localScale = healOrbVis.transform.lossyScale;
+			NetworkServer.Spawn(healOrb);
 		}
 		healOrbVis.SetActive (false);
 		charge = 0;

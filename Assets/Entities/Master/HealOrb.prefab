@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 114514240204866150}
   - component: {fileID: 114918767391616488}
   - component: {fileID: 114090576779478122}
+  - component: {fileID: 114962020193691868}
   m_Layer: 13
   m_Name: HealOrb
   m_TagString: ThrowableAbility
@@ -234,7 +235,7 @@ MonoBehaviour:
   explosionPrefab: {fileID: 1567200062633362, guid: c0c8d2fa3c376364aa2abf41cc81f98b,
     type: 2}
   dieTime: 20
-  maxHeal: 0
+  maxHeal: 100
 --- !u!114 &114918767391616488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -267,6 +268,27 @@ MonoBehaviour:
     i15: 12
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114962020193691868
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1524338109988192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 3
+  m_SendInterval: 0.033333335
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!135 &135868815140447832
 SphereCollider:
   m_ObjectHideFlags: 1
