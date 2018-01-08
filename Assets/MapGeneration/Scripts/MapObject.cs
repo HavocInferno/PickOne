@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEditor;
 #endif
 
-[ExecuteInEditMode]
+#if UNITY_EDITOR
 public class MapObject : MonoBehaviour
 {
     public enum ObjectTag
@@ -19,12 +19,12 @@ public class MapObject : MonoBehaviour
     public ObjectTag type;
     public List<ObjectTag> allowedConnections;
 
-    private void OnValidate()
+    public void SetDefaultConnections()
     {
         // Populate allowedConnections with default values when type is changed
         allowedConnections.Clear();
 
-        switch(type)
+        switch (type)
         {
             case ObjectTag.Junction:
             case ObjectTag.Room:
@@ -40,7 +40,10 @@ public class MapObject : MonoBehaviour
                 Debug.LogErrorFormat("Invalid object type assigned to {0}", this.name);
                 break;
         }
+    }
 
+    private void OnValidate()
+    {
         // Fix BoxCollider's dimensions when Floor's size is changed.
         var collider = GetComponent<BoxCollider>();
         var floorChild = GetComponentsInChildren<Transform>()
@@ -55,3 +58,4 @@ public class MapObject : MonoBehaviour
         collider.size = new Vector3(floorChild.lossyScale.x * 10, 8, floorChild.lossyScale.z * 10);
     }
 }
+#endif

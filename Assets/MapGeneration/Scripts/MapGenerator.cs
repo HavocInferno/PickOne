@@ -6,11 +6,11 @@ using System.IO;
 using UnityEditor;
 #endif
 
-
+#if UNITY_EDITOR
 public class MapGenerator : MonoBehaviour
 {
-    public int mapWidth = 600,
-                mapHeight = 600;
+    public int mapWidth = 300,
+               mapHeight = 300;
     public string seed = "seed";
     public bool useRandomSeed;
 
@@ -36,6 +36,8 @@ public class MapGenerator : MonoBehaviour
 
     public void ResetMap()
     {
+        OnValidate();
+
         DestroyImmediate(GameObject.Find("Map"));
 
         // Create a variable for the map object
@@ -49,7 +51,7 @@ public class MapGenerator : MonoBehaviour
     }
 
     /// <summary>
-    /// A public method to perform a single step of the algorithm.
+    /// Performs a single step of the algorithm.
     /// </summary>
     public void PerformIteration()
     {
@@ -233,11 +235,6 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    private void _AlignTransforms(Transform firstTransform, Transform secondTransform)
-    {
-
-    }
-
     /// <summary>
     /// Connects two exit marker objects by disabling their walls prefabs and their exit marker objects.
     /// </summary>
@@ -360,7 +357,6 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-#if UNITY_EDITOR
     void OnDrawGizmos()
     {
         Gizmos.color = _gizmoColor;
@@ -369,5 +365,6 @@ public class MapGenerator : MonoBehaviour
             Gizmos.DrawCube(Vector3.zero, new Vector3(_mapArea.width, 0, _mapArea.height));
         }
     }
-#endif
+
 }
+#endif
