@@ -12,14 +12,25 @@ public class RightHandFollower : MasterFollower
 	[SyncVar]
 	public bool isBuffed, isDebuffed;
 	public Material masterMaterial;
+	public Material defaultMaterial;
 	public Material[] abilityMaterials;
+	public Material pingMaterial;
+
+	public Transform pingArrow, capsule;
+	public float growspeed =20;
+	public Vector3 arrowscale, capsuleScale;
+
 	[SyncVar]
 	int lastItem = -1;
 	[SyncVar]
 	int currentitem =-1;
+	[SyncVar]
+	bool gripping = false;
 	// Use this for initialization
 	void Start()
     {
+		arrowscale = pingArrow.localScale;
+		capsuleScale = capsule.localScale;
         if (followed.gameObject.activeInHierarchy)
         {
             controller = followed.GetComponent<Controller>();
@@ -47,6 +58,7 @@ public class RightHandFollower : MasterFollower
 			isDebuffed = master.debuffing;
 			lastItem = currentitem;
 			currentitem = controller.currentItem;
+			gripping = controller.getGrip ();
 			//color change
         }
         else
@@ -56,7 +68,19 @@ public class RightHandFollower : MasterFollower
 			debuff.destination = debuffTarget;
 			debuff.Draw = isDebuffed;
         }
-		if (currentitem >= 0 && currentitem < abilityMaterials.Length)
-			masterMaterial.Lerp (masterMaterial, abilityMaterials [currentitem], Time.deltaTime);
+		if (gripping) {
+			masterMaterial.Lerp (masterMaterial, pingMaterial, Time.deltaTime*5);
+			pingArrow.localScale = Vector3.Lerp (pingArrow.localScale, arrowscale, Time.deltaTime*growspeed);
+			capsule.localScale = Vector3.Lerp (capsule.localScale, Vector3.zero, Time.deltaTime*growspeed);
+		} else {
+			if (currentitem >= 0 && currentitem < abilityMaterials.Length)
+				masterMaterial.Lerp (masterMaterial, abilityMaterials [currentitem], Time.deltaTime);
+			else
+				masterMaterial.Lerp (masterMaterial, defaultMaterial, Time.deltaTime);
+				
+			pingArrow.localScale = Vector3.Lerp (pingArrow.localScale, Vector3.zero, Time.deltaTime*growspeed);
+			capsule.localScale = Vector3.Lerp (capsule.localScale, capsuleScale, Time.deltaTime*growspeed);
+			
+		}
     }
 }

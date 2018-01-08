@@ -139,4 +139,19 @@ public class Controller : MonoBehaviour
 	{
 		return device.GetPressUp (SteamVR_Controller.ButtonMask.Trigger);
 	}
+	public bool getGrip()
+	{
+		return device.GetPress (SteamVR_Controller.ButtonMask.Grip);
+	}
+	public bool getGripDown()
+	{
+		return device.GetPressDown (SteamVR_Controller.ButtonMask.Grip);
+	}	
+	public bool getGripUp()
+	{
+		return device.GetPressUp (SteamVR_Controller.ButtonMask.Grip);
+	}
+
+
+
 }
