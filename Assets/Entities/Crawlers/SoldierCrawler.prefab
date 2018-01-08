@@ -700,7 +700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseDamage: 20
-  baseFireRate: 0.5
+  baseFireRate: 0.1
   BulletSpeed: 16
   BulletLife: 2
   BulletPrefab: {fileID: 1508484646266804, guid: 7a0aa34461054fd4081fb5f06250b983,
@@ -885,7 +885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 974631a61eb06a74c8e84ce0b6202eb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movSpeed: {x: 4, y: 4}
+  movSpeed: {x: 8, y: 8}
 --- !u!114 &114944430408673822
 MonoBehaviour:
   m_ObjectHideFlags: 1
