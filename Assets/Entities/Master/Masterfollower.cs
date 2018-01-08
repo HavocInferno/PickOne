@@ -4,18 +4,16 @@ using UnityEngine;
 public class MasterFollower : NetworkBehaviour
 {
     public Transform followed;
-	
+	protected bool following = false;
 	// Update is called once per frame
 	protected virtual void Update()
     {
-        if (followed != null && followed.gameObject.activeInHierarchy)
+        if (!following && followed != null && followed.gameObject.activeInHierarchy)
         {
-            transform.position = followed.position;
-            transform.rotation = followed.rotation;
-			if(GetComponent<Renderer>() != null)
-				GetComponent<Renderer>().enabled = false; //temporary, pending a better solution
-			for (int i = 0; i < transform.childCount; i++)
-				transform.GetChild (i).gameObject.SetActive(false);
+			transform.parent = followed;
+			transform.localRotation = Quaternion.identity;
+			transform.localPosition = Vector3.zero;
+			following = true; 
         }
     }
 

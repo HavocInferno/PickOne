@@ -11,6 +11,12 @@ public class RightHandFollower : MasterFollower
 	public Master master;
 	[SyncVar]
 	public bool isBuffed, isDebuffed;
+	public Material masterMaterial;
+	public Material[] abilityMaterials;
+	[SyncVar]
+	int lastItem = -1;
+	[SyncVar]
+	int currentitem =-1;
 	// Use this for initialization
 	void Start()
     {
@@ -39,6 +45,9 @@ public class RightHandFollower : MasterFollower
 			isBuffed = master.buffing;
 			debuffTarget = master.debuffDestination;
 			isDebuffed = master.debuffing;
+			lastItem = currentitem;
+			currentitem = controller.currentItem;
+			//color change
         }
         else
         {
@@ -47,5 +56,7 @@ public class RightHandFollower : MasterFollower
 			debuff.destination = debuffTarget;
 			debuff.Draw = isDebuffed;
         }
+		if (currentitem >= 0 && currentitem < abilityMaterials.Length)
+			masterMaterial.Lerp (masterMaterial, abilityMaterials [currentitem], Time.deltaTime);
     }
 }

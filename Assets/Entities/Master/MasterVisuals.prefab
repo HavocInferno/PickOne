@@ -275,7 +275,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1324183650055110}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -10.04, z: 0}
+  m_LocalPosition: {x: 0, y: -50, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4195618894028130}
@@ -748,6 +748,12 @@ MonoBehaviour:
   master: {fileID: 0}
   isBuffed: 0
   isDebuffed: 0
+  masterMaterial: {fileID: 2100000, guid: e408ed00b476ba742955127b8eafb0c8, type: 2}
+  abilityMaterials:
+  - {fileID: 2100000, guid: 8673edca8e7806248b17cd74f9dcb886, type: 2}
+  - {fileID: 2100000, guid: 700dd09c4793cc44abf890c5f208660d, type: 2}
+  - {fileID: 2100000, guid: c98183eb5798dca4fbde634af971bb0a, type: 2}
+  - {fileID: 2100000, guid: 753480e1a7dc31d46b9170c86786d2b5, type: 2}
 --- !u!114 &114325879453083100
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -850,11 +856,19 @@ MonoBehaviour:
   right: {fileID: 4115862693423942}
   leftLight: {fileID: 108262797835864048}
   rightLight: {fileID: 108778639122267430}
+  headLight: {fileID: 108529817133633056}
   blinkMin: 1
   blinkMax: 5
   blinkTime: 0.1
   singleWeight: 5
   doubleWeight: 1
+  controller: {fileID: 0}
+  lightColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  lightColors:
+  - {r: 0.26666665, g: 0.5411765, b: 1, a: 1}
+  - {r: 0.8784314, g: 0.25098035, b: 0.98431367, a: 1}
+  - {r: 1, g: 0.67058825, b: 0.25098038, a: 1}
+  - {r: 0.69803923, g: 1, b: 0.34901962, a: 1}
 --- !u!114 &114627846515615932
 MonoBehaviour:
   m_ObjectHideFlags: 1
