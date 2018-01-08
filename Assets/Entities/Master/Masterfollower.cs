@@ -10,10 +10,12 @@ public class MasterFollower : NetworkBehaviour
     {
         if (!following && followed != null && followed.gameObject.activeInHierarchy)
         {
-			transform.parent = followed;
-			transform.localRotation = Quaternion.identity;
-			transform.localPosition = Vector3.zero;
-			following = true; 
+			//transform.parent = followed;
+			//transform.localRotation = Quaternion.identity;
+			//transform.localPosition = Vector3.zero;
+			//following = true; 
+			transform.position = followed.position;
+			transform.rotation = followed.rotation;
         }
     }
 
