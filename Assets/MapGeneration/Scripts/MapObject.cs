@@ -64,6 +64,12 @@ public class MapObject : MonoBehaviour
         }
         else
         {
+            collider.center = new Vector3(
+                floorChild.localPosition.x,
+                0,
+                floorChild.localPosition.z
+            );
+
             collider.size = new Vector3(
                 floorCollider.size.x * floorChild.localScale.x,
                  8,
