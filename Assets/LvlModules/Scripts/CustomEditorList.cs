@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 
 public static class CustomEditorList {
@@ -32,3 +33,4 @@ public static class CustomEditorList {
 		EditorGUI.indentLevel -= 1;
 	}
 }
+#endif

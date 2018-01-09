@@ -1,0 +1,99 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+/// <summary>
+/// Basic attack for the sumo character damages multiple enemies in
+/// a cone in front of the player.
+/// </summary>
+public class SumoSlap : BasicAttack
+{
+    public Collider attackCollider;
+    public new ParticleSystem particleSystem;
+
+    GenericCharacter _attacker;
+
+    protected override void Start()
+    {
+        base.Start();
+
+        if(!attackCollider)
+        {
+            Debug.LogErrorFormat("{0} does not have a collider set.", name);
+        }
+
+        attackCollider.enabled = false;
+
+        if (particleSystem)
+            particleSystem.Stop();
+    }
+
+    public override void DoAttack(GenericCharacter attacker)
+    {
+        // Default checks before attacking
+        if (!ready) return;
+
+        ready = false;
+        _attacker = attacker;
+
+        StartCoroutine(AttackRoutine());
+    }
+
+    // private void OnCollisionEnter(Collision other)
+    // {
+    //     // Check for friendly fire
+    //     if (other.collider.tag == gameObject.transform.parent.tag)
+    //         return;
+
+    //     // Get health component of collision object
+    //     var stats = other.gameObject.GetComponent<Stats>();
+
+    //     // If it has one, call function to take damage
+    //     if (stats != null)
+    //     {
+    //         stats.Hit(Damage, _attacker, transform.position,
+    //             (other.transform.position - _attacker.transform.position).normalized);
+    //     }
+    //     else
+    //     {
+    //         if (!other.collider.CompareTag("Untagged"))
+    //             Debug.LogWarning("On " + other.collider.tag + " stats were not found.");
+    //     }
+    // }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // Check for friendly fire
+        if (other.tag == gameObject.transform.parent.tag)
+            return;
+
+        // Get health component of collision object
+        var stats = other.gameObject.GetComponent<Stats>();
+
+        // If it has one, call function to take damage
+        if (stats != null)
+        {
+            stats.Hit(Damage, _attacker, transform.position,
+                (other.transform.position - _attacker.transform.position).normalized);
+        }
+        else
+        {
+            if (!other.CompareTag("Untagged"))
+                Debug.LogWarning("On " + other.tag + " stats were not found.");
+        }
+    }
+
+    IEnumerator AttackRoutine()
+    {
+        // Enable the collider in front of the crawler
+        attackCollider.enabled = true;
+        if (particleSystem)
+        {
+            particleSystem.Play();
+        }
+
+		yield return new WaitForSeconds(FireRate);
+        ready = true;
+        attackCollider.enabled = false;
+	}
+}
