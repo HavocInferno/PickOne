@@ -61,6 +61,12 @@ public class Master : NetworkBehaviour {
 
 	//fireBall
 	bool chargingFire = false;
+	public float chargeFire{
+		get{if (mainHand.currentItem == 2)
+			return charge/maxCharge;
+			else
+				return 0;}
+	}
     public GameObject fireBallPrefab;
 	public GameObject fireBallVis;
 	Vector3 fireVisScale;
@@ -70,6 +76,12 @@ public class Master : NetworkBehaviour {
 
 	//healOrb
 	bool chargingHeal = false;
+	public float chargeHeal{
+		get{if (mainHand.currentItem == 3)
+			return charge/maxCharge;
+		else
+			return 0;}
+	}
 	public GameObject healOrbPrefab;
 	public GameObject healOrbVis;
 	Vector3 healVisScale;

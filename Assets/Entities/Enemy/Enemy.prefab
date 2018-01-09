@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 114367508182954606}
   - component: {fileID: 114199718451250132}
   - component: {fileID: 114621228432150888}
+  - component: {fileID: 114737822897168780}
   m_Layer: 11
   m_Name: Enemy
   m_TagString: Enemy
@@ -817,7 +818,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1267355592298342}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4ccc66562fceab4db71a2d2c6bae8a5, type: 3}
   m_Name: 
@@ -1053,6 +1054,20 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114737822897168780
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1267355592298342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc72ea761c874734aaa6bd09e6934661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseMat: {fileID: 2100000, guid: e875893e5c9edc2439eea754ee6fa7f9, type: 2}
+  highlightMat: {fileID: 2100000, guid: b2dccd7d36d59624588dd530427965de, type: 2}
+  target: {fileID: 23980854685618006}
 --- !u!114 &114822649998906468
 MonoBehaviour:
   m_ObjectHideFlags: 1

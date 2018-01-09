@@ -10,10 +10,17 @@ public class MasterHeadFollower : MasterFollower {
 	private Transform left, right;
 	[SerializeField]
 	private Light leftLight, rightLight;
+	public Light headLight;
 	[SerializeField]
 	float blinkMin = 2, blinkMax = 5, blinkTime = 0.1f;
 	[SerializeField]
 	float singleWeight = 5, doubleWeight =2;
+
+	public Controller controller;
+	[SyncVar]
+	int currentItem =-1;
+	public Color lightColor = Color.gray;
+	public Color[] lightColors;
 
 
 	void Start () {
@@ -22,6 +29,25 @@ public class MasterHeadFollower : MasterFollower {
 	
 	// Update is called once per frame
 	void Update () {
+		if (!following && followed != null && followed.gameObject.activeInHierarchy) {
+			if (GetComponent<Renderer> () != null)
+				GetComponent<Renderer> ().enabled = false; //temporary, pending a better solution
+			for (int i = 0; i < transform.childCount; i++)
+				transform.GetChild (i).gameObject.SetActive (false);
+			
+		}
+		if (controller && followed != null && followed.gameObject.activeInHierarchy) {
+			currentItem = controller.currentItem;
+		}
+
+		if (currentItem >= 0 && currentItem < lightColors.Length)
+			lightColor = Color.Lerp (lightColor, lightColors[currentItem], Time.deltaTime);
+		else
+			lightColor = Color.Lerp (lightColor, Color.gray, Time.deltaTime);
+			
+		leftLight.color = lightColor;
+		rightLight.color = lightColor;
+		headLight.color = lightColor;
 		base.Update();
 
 	}

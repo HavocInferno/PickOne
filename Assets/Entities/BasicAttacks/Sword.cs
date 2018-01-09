@@ -2,7 +2,7 @@
 using UnityEngine;
 
 public class Sword : BasicAttack
-{
+{ 
     [Header("Sword Details")]
     public float swingSpeed = 3.0f;
     public float lifeTime = 1.0f;
@@ -46,7 +46,7 @@ public class Sword : BasicAttack
 
     protected void OnCollisionEnter(Collision collision)
     {
-        // Check for friendly fire
+        // Check for friendly fire 
         if (collision.collider.tag == gameObject.transform.parent.tag)
             return;
 
@@ -56,7 +56,7 @@ public class Sword : BasicAttack
         // If it has one, call function to take damage
         if (stats != null)
         {
-            stats.Hit(Damage, _attacker, transform.position,
+            stats.Hit(damage, _attacker, transform.position,
                 (collision.transform.position - _attacker.transform.position).normalized);
         }
         else
@@ -68,22 +68,21 @@ public class Sword : BasicAttack
 
     public override void DoAttack(GenericCharacter attacker)
     {
-        if (!ready) return;
+        if (!_ready) return;
 
-        ready = false;
+        _ready = false;
+
         _attacker = attacker;
-
+		transform.localRotation = _defaultRot;
+		_animActive = true;
 		StartCoroutine(AttackRoutine());
+        blade.SetActive(true);
 	}
 
 	IEnumerator AttackRoutine()
     {
-        transform.localRotation = _defaultRot;
-		_animActive = true;
-        blade.SetActive(true);
-
-		yield return new WaitForSeconds(FireRate);
-        ready = true;
+		yield return new WaitForSeconds(fireRate);
+        _ready = true;
         blade.SetActive(false);
         _animActive = false;
 	}
