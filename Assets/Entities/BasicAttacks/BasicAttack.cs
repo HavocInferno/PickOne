@@ -6,55 +6,55 @@ public abstract class BasicAttack : MonoBehaviour
 {
     // Public getters for external scripts
     [HideInInspector]
-    public float baseDamage { get { return _baseDamage; } }
+    public float BaseDamage { get { return baseDamage; } }
     [HideInInspector]
-    public float baseFireRate { get { return _baseFireRate; } }
+    public float BaseFireRate { get { return baseFireRate; } }
     [HideInInspector]
-    public float damage { get { return _damage; } }
+    public float Damage { get { return damage; } }
     [HideInInspector]
-    public float fireRate { get { return _fireRate; } }
+    public float FireRate { get { return fireRate; } }
 
     [Header("Basic Details")]
     [SerializeField]
-    protected float _baseDamage = 30.0f;    // Base damage before damage modications
+    protected float baseDamage = 30.0f;    // Base damage before damage modications
     [SerializeField]
     
-    protected float _baseFireRate = 1.0f;// Base fire rate before buff/debuff
+    protected float baseFireRate = 1.0f;// Base fire rate before buff/debuff
 
-    protected float _damage;             // Updated damage after damage calculations
-    protected float _fireRate;           // Updated fire rate after modications
+    protected float damage;             // Updated damage after damage calculations
+    protected float fireRate;           // Updated fire rate after modications
 
-    protected bool _ready = true;
+    protected bool ready = true;
 
     protected virtual void Start()
     {
-        _damage = _baseDamage;
-        _fireRate = _baseFireRate;
-        _baseDamage = Mathf.Clamp(_baseDamage, 0, int.MaxValue);
-        _baseFireRate = Mathf.Clamp(_baseFireRate, 0, float.MaxValue);
+        damage = baseDamage;
+        fireRate = baseFireRate;
+        baseDamage = Mathf.Clamp(baseDamage, 0, int.MaxValue);
+        baseFireRate = Mathf.Clamp(baseFireRate, 0, float.MaxValue);
     }
 
     public virtual void UpdateDamage(int mDamage)
     {
-        _damage = Mathf.Clamp(mDamage, 0, int.MaxValue);
+        damage = Mathf.Clamp(mDamage, 0, int.MaxValue);
     }
 
     public virtual void UpdateFireRate(float mFireRate)
     {
-        _fireRate = Mathf.Clamp(mFireRate, 0, float.MaxValue);
+        fireRate = Mathf.Clamp(mFireRate, 0, float.MaxValue);
     }
     
     public virtual void DoAttack(GenericCharacter attacker)
     {
-        if (!_ready) return;
+        if (!ready) return;
 
-        _ready = false;
-        StartCoroutine(_WaitForReload());
+        ready = false;
+        StartCoroutine(WaitForReload());
     }
 
-    protected virtual IEnumerator _WaitForReload()
+    protected virtual IEnumerator WaitForReload()
     {
-        yield return new WaitForSeconds(fireRate);
-        _ready = true;
+        yield return new WaitForSeconds(FireRate);
+        ready = true;
     }
 }
