@@ -748,8 +748,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1776535338110476}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12, y: 0.87, z: -10.973755}
-  m_LocalScale: {x: 6, y: 6, z: 6}
+  m_LocalPosition: {x: 46.38188, y: 1.000001, z: -42.345383}
+  m_LocalScale: {x: 7, y: 7, z: 7}
   m_Children:
   - {fileID: 4590790682316066}
   - {fileID: 4581388088364916}
@@ -984,7 +984,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1366919432022098}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.07045808, y: -0.7035878, z: 0.070458084, w: 0.7035878}
   m_LocalPosition: {x: -6.5, y: -0.8, z: -1.9}
   m_LocalScale: {x: 15, y: 15, z: 15}
   m_Children:
@@ -992,7 +992,7 @@ Transform:
   - {fileID: 4534280653773594}
   m_Father: {fileID: 4407841626939598}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 11.437, y: -90.00001, z: 0}
 --- !u!4 &4635498175036404
 Transform:
   m_ObjectHideFlags: 1
@@ -1042,7 +1042,7 @@ Transform:
   m_GameObject: {fileID: 1463463736387542}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.119, y: -0.021, z: 0.066}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4785890653028314}
   m_Father: {fileID: 4597171380045134}
@@ -1295,7 +1295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fcaf87c0ef2d0a4f8b078d95db248a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamage: 1
+  baseDamage: 1.5
   baseFireRate: 2.3
   flameEffect: {fileID: 198249129697097322}
   startTime: 0.1
@@ -1602,7 +1602,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -639943603
+  randomSeed: -1066287246
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4859,7 +4859,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -75288616
+  randomSeed: 163248548
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4895,7 +4895,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 6
+      scalar: 8.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -7185,10 +7185,10 @@ ParticleSystem:
         m_RotationOrder: 4
     minKillSpeed: 0
     maxKillSpeed: 10000
-    radiusScale: 0.25
+    radiusScale: 0.5
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294965247
+      m_Bits: 4294964991
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -8056,7 +8056,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1634330022
+  randomSeed: -940312867
   InitialModule:
     serializedVersion: 3
     enabled: 1

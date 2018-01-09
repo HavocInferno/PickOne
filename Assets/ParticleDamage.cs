@@ -7,7 +7,7 @@ public class ParticleDamage : MonoBehaviour
 
     void OnParticleCollision(GameObject other)
     {
-        if (other.tag == gameObject.transform.parent.tag)
+        if (other == attacker)
             return;
 
         // Get health component of collision object
