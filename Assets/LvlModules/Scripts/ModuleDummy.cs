@@ -14,16 +14,20 @@ public class ModuleDummy : MonoBehaviour {
     #if UNITY_EDITOR
     void OnDrawGizmos()
 	{
-		Gizmos.DrawWireCube(transform.position, new Vector3(area.width, height, area.height));
+        Vector3 pos = transform.position;
+        pos.x += area.x;
+        pos.y += area.y;
+
+        Gizmos.DrawWireCube(pos, new Vector3(area.width, height, area.height));
 
 		if (!Selection.Contains (gameObject)) {
 			Gizmos.color = gizmoColor;
-			Gizmos.DrawCube (transform.position, new Vector3 (area.width, height, area.height));
+			Gizmos.DrawCube (pos, new Vector3 (area.width, height, area.height));
 		}
 
-		Gizmos.DrawLine(transform.position - Vector3.up * 1f, transform.position + Vector3.up * 1f);
-		Gizmos.DrawLine(transform.position - Vector3.forward * 1f, transform.position + Vector3.forward * 1f);
-		Gizmos.DrawLine(transform.position - Vector3.left * 1f, transform.position + Vector3.left * 1f);
+		Gizmos.DrawLine(pos - Vector3.up * 1f, pos + Vector3.up * 1f);
+		Gizmos.DrawLine(pos - Vector3.forward * 1f, pos + Vector3.forward * 1f);
+		Gizmos.DrawLine(pos - Vector3.left * 1f, pos + Vector3.left * 1f);
 	}
 	#endif
 }
