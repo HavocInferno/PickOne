@@ -15,7 +15,7 @@ public class MapObject : MonoBehaviour
         Corridor,
         Junction
     }
-    
+
     public ObjectTag type;
     public List<ObjectTag> allowedConnections;
 
@@ -55,7 +55,20 @@ public class MapObject : MonoBehaviour
             return;
         }
 
-        collider.size = new Vector3(floorChild.lossyScale.x * 10, 8, floorChild.lossyScale.z * 10);
+        var floorCollider = floorChild.GetComponent<BoxCollider>();
+
+        if(!floorCollider)
+        {
+            Debug.LogWarningFormat("{0} has no box collider!", floorChild.name);
+            collider.size = new Vector3(floorChild.lossyScale.x, 8, floorChild.lossyScale.z);
+        }
+        else
+        {
+            collider.size = new Vector3(
+                floorCollider.size.x * floorChild.localScale.x,
+                 8,
+                 floorCollider.size.z * floorChild.localScale.z);
+        }
     }
 }
 #endif
