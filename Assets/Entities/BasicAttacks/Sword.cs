@@ -2,7 +2,7 @@
 using UnityEngine;
 
 public class Sword : BasicAttack
-{ 
+{
     [Header("Sword Details")]
     public float swingSpeed = 3.0f;
     public float lifeTime = 1.0f;
@@ -40,13 +40,17 @@ public class Sword : BasicAttack
     {
         if (blade == null)
         {
-            Debug.LogError("Blade prefab not set.");
+            // Try to find the prefab automatically
+            blade = transform.Find("Blade").gameObject;
+
+            if (!blade)
+                Debug.LogError("Blade prefab not set.");
         }
     }
 
     protected void OnCollisionEnter(Collision collision)
     {
-        // Check for friendly fire 
+        // Check for friendly fire
         if (collision.collider.tag == gameObject.transform.parent.tag)
             return;
 

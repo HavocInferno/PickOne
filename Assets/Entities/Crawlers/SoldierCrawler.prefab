@@ -699,8 +699,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63381684f6703774e981c15d58dacadc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamage: 20
-  baseFireRate: 0.1
+  _baseDamage: 30
+  _baseFireRate: 1
   BulletSpeed: 16
   BulletLife: 2
   BulletPrefab: {fileID: 1508484646266804, guid: 7a0aa34461054fd4081fb5f06250b983,
@@ -728,8 +728,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fafd1aff4a50d904aa66a168b0b40cd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamage: 60
-  baseFireRate: 0.4
+  _baseDamage: 30
+  _baseFireRate: 1
   swingSpeed: 6
   lifeTime: 0.5
   blade: {fileID: 1561657782694470}
@@ -819,7 +819,7 @@ MonoBehaviour:
   isDead: 0
   basicAttack: {fileID: 114207759360733902}
   passiveEffects:
-  - {fileID: 11400000, guid: 6e0b482b02be2e74b9a545b9e636ba34, type: 2}
+  - {fileID: 0}
   nameTag: {fileID: 114318600357406474}
   pName: player
   playerColor: {r: 0, g: 0, b: 1, a: 1}
@@ -829,13 +829,12 @@ MonoBehaviour:
   - type: 0
     attributeName: 
     name: Laser Beam
-    effects:
-    - {fileID: 11400000, guid: 8bea51102c5fb83439e6bf9800d49a26, type: 2}
+    effects: []
   - type: 1
     attributeName: Adrenaline
     name: Rage
     effects:
-    - {fileID: 11400000, guid: 73a941762eff7074d842b8394127ec9c, type: 2}
+    - {fileID: 0}
   tpsUI: {fileID: 1680696492008940}
 --- !u!114 &114771519900907482
 MonoBehaviour:

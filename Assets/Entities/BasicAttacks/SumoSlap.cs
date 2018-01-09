@@ -31,40 +31,18 @@ public class SumoSlap : BasicAttack
     public override void DoAttack(GenericCharacter attacker)
     {
         // Default checks before attacking
-        if (!ready) return;
+        if (!_ready) return;
 
-        ready = false;
+        _ready = false;
         _attacker = attacker;
 
         StartCoroutine(AttackRoutine());
     }
 
-    // private void OnCollisionEnter(Collision other)
-    // {
-    //     // Check for friendly fire
-    //     if (other.collider.tag == gameObject.transform.parent.tag)
-    //         return;
-
-    //     // Get health component of collision object
-    //     var stats = other.gameObject.GetComponent<Stats>();
-
-    //     // If it has one, call function to take damage
-    //     if (stats != null)
-    //     {
-    //         stats.Hit(Damage, _attacker, transform.position,
-    //             (other.transform.position - _attacker.transform.position).normalized);
-    //     }
-    //     else
-    //     {
-    //         if (!other.collider.CompareTag("Untagged"))
-    //             Debug.LogWarning("On " + other.collider.tag + " stats were not found.");
-    //     }
-    // }
-
-    private void OnTriggerEnter(Collider other)
+    protected void OnCollisionEnter(Collision other)
     {
         // Check for friendly fire
-        if (other.tag == gameObject.transform.parent.tag)
+        if (other.collider.tag == gameObject.transform.parent.tag)
             return;
 
         // Get health component of collision object
@@ -73,13 +51,13 @@ public class SumoSlap : BasicAttack
         // If it has one, call function to take damage
         if (stats != null)
         {
-            stats.Hit(Damage, _attacker, transform.position,
+            stats.Hit(_damage, _attacker, transform.position,
                 (other.transform.position - _attacker.transform.position).normalized);
         }
         else
         {
-            if (!other.CompareTag("Untagged"))
-                Debug.LogWarning("On " + other.tag + " stats were not found.");
+            if (!other.collider.CompareTag("Untagged"))
+                Debug.LogWarning("On " + other.collider.tag + " stats were not found.");
         }
     }
 
@@ -92,8 +70,8 @@ public class SumoSlap : BasicAttack
             particleSystem.Play();
         }
 
-		yield return new WaitForSeconds(FireRate);
-        ready = true;
+		yield return new WaitForSeconds(fireRate);
+        _ready = true;
         attackCollider.enabled = false;
 	}
 }
