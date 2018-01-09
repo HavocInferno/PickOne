@@ -46,7 +46,8 @@ public class RightHandFollower : MasterFollower
 		capsuleScale = capsule.localScale;
         if (followed.gameObject.activeInHierarchy)
         {
-            controller = followed.GetComponent<Controller>();
+			if(controller == null)
+				controller = followed.GetComponentInParent<Controller> ();
         }
         else
         {
@@ -82,8 +83,7 @@ public class RightHandFollower : MasterFollower
         base.Update();
         if (followed.gameObject.activeInHierarchy)
         {
-            if (controller == null)
-                controller = followed.GetComponent<Controller>();
+
 			origin.position = master.rayOrigin.position;
             origin.rotation = master.rayOrigin.rotation;
 
@@ -92,9 +92,12 @@ public class RightHandFollower : MasterFollower
 			debuffTarget = master.debuffDestination;
 			isDebuffed = master.debuffing;
 			lastItem = currentitem;
-			currentitem = controller.currentItem;
-			gripping = controller.getGrip ();
-			//color change
+			if (controller == null)
+				controller = followed.GetComponentInParent<Controller> ();
+			else {
+				currentitem = controller.currentItem;
+				gripping = controller.getGrip ();
+			}
         }
         else
         {
