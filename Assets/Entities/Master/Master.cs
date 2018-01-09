@@ -249,21 +249,24 @@ public class Master : NetworkBehaviour {
 
     void applyFireBall()
     {
+		
+		if (mainHand.currentItem == 2) {
+			firePool.SetActive(true);
+			if (firePool.transform.localScale.magnitude < 0.99 * firePoolScale.magnitude)
+				firePool.transform.localScale = Vector3.Lerp(firePool.transform.localScale, firePoolScale, Time.deltaTime* poolGrowSpeed );
+		} else {
+			if (firePool.transform.localScale.magnitude >= 0.01 * firePoolScale.magnitude)
+				firePool.transform.localScale = Vector3.Lerp(firePool.transform.localScale, Vector3.zero, Time.deltaTime * poolGrowSpeed);
+			else
+				firePool.SetActive(false);
+		}
+
         if (mainHand.currentItem != 2 || mainHand.radialMenuAccessed)
         {
-            if (firePool.transform.localScale.magnitude >= 0.01 * firePoolScale.magnitude)
-                firePool.transform.localScale = Vector3.Lerp(firePool.transform.localScale, Vector3.zero, Time.deltaTime * poolGrowSpeed);
-            else
-                firePool.SetActive(false);
+
             if (chargingFire)
                 dropFireBall();
             return;
-        }
-        else
-        {
-            firePool.SetActive(true);
-            if (firePool.transform.localScale.magnitude < 0.99 * firePoolScale.magnitude)
-                firePool.transform.localScale = Vector3.Lerp(firePool.transform.localScale, firePoolScale, Time.deltaTime* poolGrowSpeed );
         }
 
         if (mainHand.getTrigger() && picker.pooling && !chargingFire && charge<maxCharge)
@@ -324,21 +327,22 @@ public class Master : NetworkBehaviour {
 
 	void applyHealOrb()
 	{
-		if (mainHand.currentItem != 3 || mainHand.radialMenuAccessed)
-		{
-			if (healPool.transform.localScale.magnitude >= 0.01 * healPoolScale.magnitude)
-				healPool.transform.localScale = Vector3.Lerp(healPool.transform.localScale, Vector3.zero, Time.deltaTime * poolGrowSpeed);
-			else
-				healPool.SetActive(false);
-			if (chargingHeal)
-				dropHealOrb();
-			return;
-		}
-		else
-		{
+		if (mainHand.currentItem == 3) {
 			healPool.SetActive(true);
 			if (healPool.transform.localScale.magnitude < 0.99 * healPoolScale.magnitude)
 				healPool.transform.localScale = Vector3.Lerp(healPool.transform.localScale, healPoolScale, Time.deltaTime* poolGrowSpeed );
+		} 
+		else {			
+			if (healPool.transform.localScale.magnitude >= 0.01 * healPoolScale.magnitude)
+				healPool.transform.localScale = Vector3.Lerp(healPool.transform.localScale, Vector3.zero, Time.deltaTime * poolGrowSpeed);
+			else
+			healPool.SetActive(false);
+		}
+		if (mainHand.currentItem != 3 || mainHand.radialMenuAccessed)
+		{
+			if (chargingHeal)
+				dropHealOrb();
+			return;
 		}
 
 		if (mainHand.getTrigger() && picker.pooling && !chargingHeal && charge<maxCharge)
