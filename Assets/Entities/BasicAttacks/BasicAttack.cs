@@ -48,6 +48,7 @@ public abstract class BasicAttack : MonoBehaviour
     {
         if (!ready) return;
 
+        PlayAnimation(attacker);
         ready = false;
         StartCoroutine(WaitForReload());
     }
@@ -56,5 +57,15 @@ public abstract class BasicAttack : MonoBehaviour
     {
         yield return new WaitForSeconds(FireRate);
         ready = true;
+    }
+
+    protected void PlayAnimation(GenericCharacter character)
+    {
+        Animator animator = character.GetComponent<Animator>();
+        if (animator != null)
+        {
+            Debug.LogWarning("TriggerAttack");
+            animator.Play("Attack");
+        }
     }
 }

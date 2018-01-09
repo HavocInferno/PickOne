@@ -116,8 +116,10 @@ public class GenericCharacter : NetworkBehaviour
     [ClientRpc]
     protected void RpcAttack()
     {
-        // TODO: Damage calculation
-        basicAttack.DoAttack(this);
+        if (basicAttack != null)
+            basicAttack.DoAttack(this);
+        else
+            Debug.LogErrorFormat("{0} | BasicAttack is not set", name);
     }
 
     //[ClientRpc]

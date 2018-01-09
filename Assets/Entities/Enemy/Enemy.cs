@@ -13,7 +13,10 @@ public class Enemy : GenericCharacter
     public List<Transform> possibleTargets = new List<Transform>();
     private List<Transform> detectedTargets = new List<Transform>();
     private float lastDetectionCheck = 0.0f;
+    private int currentPriority = 0;
     public float detectionCheckRate = 1.0f;
+    public float rotationSpeed = 240.0f;
+    public float meleeRange = 10.0f;
 
 	public bool isEndConditionKill = true;
 
@@ -22,7 +25,7 @@ public class Enemy : GenericCharacter
         get { return detectedTargets.AsReadOnly(); }
     }
 
-    public Vector3 Destination
+    private Vector3 Destination
     {
         get { return GetComponent<NavMeshAgent>().destination; }
         set { GetComponent<NavMeshAgent>().destination = value; }
@@ -93,7 +96,25 @@ public class Enemy : GenericCharacter
         }
     }
 	
-	void FixedUpdate()
+    public void SetDestination(Vector3 point, int priority)
+    {
+        if (priority <= currentPriority)
+            return;
+        Destination = point;
+    }
+
+    private bool RotateTowards(Vector3 position)
+    {
+        Vector3 direction = (position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        float angle = Quaternion.Angle(transform.rotation, lookRotation);
+        if (angle < 1e-06f) return false;
+        transform.rotation = Quaternion.RotateTowards(
+            transform.rotation, lookRotation, Time.fixedDeltaTime * rotationSpeed);
+        return true;
+    }
+
+    void FixedUpdate()
     {
         if (!isServer)
             return;
@@ -104,12 +125,23 @@ public class Enemy : GenericCharacter
             behaviour.OnFixedUpdate();
         }
 
-        // Check if the enemy is idle.
+        var animator = GetComponent<Animator>();
         var navMeshAgent = GetComponent<NavMeshAgent>();
+        if (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance && !RotateTowards(Destination))
+        {
+            if (animator != null) animator.SetBool("IsRunning", false);
+        }
+        else
+        {
+            if (animator != null) animator.SetBool("IsRunning", true);
+        }
+
+        // Check if the enemy is idle.
         if (!navMeshAgent.pathPending)
         {
             if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
             {
+                currentPriority = 0;
                 if (!navMeshAgent.hasPath || navMeshAgent.velocity.sqrMagnitude == 0f)
                 {
                     foreach (var behaviour in behaviours)
