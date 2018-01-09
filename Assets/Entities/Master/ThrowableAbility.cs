@@ -47,10 +47,9 @@ public class ThrowableAbility : MonoBehaviour {
                     continue;
 
                 totalMulti = getTotalMulti(velMulti, distanceMulti);
-
-                if (crawler.GetComponent<Crawler>() != null)
-                    continue;
-                applyEffect(totalMulti, crawler.GetComponent<Crawler>());
+                Crawler cr = crawler.GetComponent<Crawler>();
+                if (cr != null)
+                     applyEffect(totalMulti, cr);
             }
             for (int i = 0; i < playerManager.enemies.Count; i++)
             {
@@ -62,10 +61,9 @@ public class ThrowableAbility : MonoBehaviour {
                 if (distanceMulti == 0)
                     continue;
                 totalMulti = getTotalMulti(velMulti, distanceMulti);
-
-                if (enemy.GetComponent<Enemy>() != null)
-                    continue;
-                applyEffect(totalMulti, enemy.GetComponent<Enemy>());
+                
+                if (enemy.GetComponent<Enemy>())
+                    applyEffect(totalMulti, enemy.GetComponent<Enemy>());
             }
         }
         kill(velMulti);
@@ -83,7 +81,7 @@ public class ThrowableAbility : MonoBehaviour {
 
     public float getDistMulti(Transform other)
     {
-        return Mathf.Clamp((((transform.position - other.position).magnitude) - minDistance) / (maxDistance - minDistance), 0, 1);
+        return 1-Mathf.Clamp((((transform.position - other.position).magnitude) - minDistance) / (maxDistance - minDistance), 0, 1);
     }
 
     public virtual void applyEffect(float multi, GenericCharacter target)

@@ -1,13 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
+using UnityEngine.Networking;
 
-public class Master : MonoBehaviour {
+public class Master : NetworkBehaviour {
 
 	[SerializeField]
 	private ushort hapticforce = 3999;
-	[SerializeField]
+    [SerializeField]
+    float vibrateFrequency = 10;
+    [SerializeField]
 	Controller mainHand, offHand;
 
 	//Buff/Debuff Variables
@@ -42,23 +42,58 @@ public class Master : MonoBehaviour {
 	public Vector3 debuffDestination;
 	public bool debuffing = false;
 
-    //physics based ability
-    public GameObject abilityPrefab;
-	public GameObject abilityVis;
-	private Vector3 abilityVisScale;
-    public float maxCharge, chargeRate;
-    private float charge;
-    bool charging = false;
-    public Transform throwBase;
-	public AbilityPicker picker;
+    //general physics based ability
+    [SerializeField]
+    float maxChargeDistance = 15;
+    [SerializeField]
+    float minCharge = 10, maxCharge = 100, chargeRate = 30;
+    [SerializeField]
+    Transform throwBase;
+    [SerializeField]
+    AbilityPicker picker;
+    [SerializeField]
+    Material abilityPicker, pickerVisible, pickerInvisible;
+    [SerializeField]
+    float poolGrowSpeed = 5;
+
+    float charge;
     Vector3 lastPos;
+
+	//fireBall
+	bool chargingFire = false;
+	public float chargeFire{
+		get{if (mainHand.currentItem == 2)
+			return charge/maxCharge;
+			else
+				return 0;}
+	}
+    public GameObject fireBallPrefab;
+	public GameObject fireBallVis;
+	Vector3 fireVisScale;
+    public GameObject firePool;
+    public ParticleAttractor fireAtt;
+    Vector3 firePoolScale;
+
+	//healOrb
+	bool chargingHeal = false;
+	public float chargeHeal{
+		get{if (mainHand.currentItem == 3)
+			return charge/maxCharge;
+		else
+			return 0;}
+	}
+	public GameObject healOrbPrefab;
+	public GameObject healOrbVis;
+	Vector3 healVisScale;
+	public GameObject healPool;
+	public ParticleAttractor healOrbAtt;
+	Vector3 healPoolScale;
+
 
 	// Use this for initialization
 	void Start () {
 		initRays ();
-		abilityVis.SetActive (false);
-		abilityVisScale = abilityVis.transform.localScale;
-
+		initThrowables ();
 		//initVRUI ();
 	}
 	
@@ -66,7 +101,9 @@ public class Master : MonoBehaviour {
 	void Update () {
 		applyBuff ();
 		applyDebuff ();
-        applyThrowable();
+        UpdateAbilityPicker();
+        applyFireBall();
+		applyHealOrb ();
 	}
 
 	void applyBuff ()
@@ -200,50 +237,159 @@ public class Master : MonoBehaviour {
 		playerManager = GameObject.Find ("PlayerManagers").GetComponent<PlayersManager>();
 	}
 
-    void applyThrowable()
+	void initThrowables ()
+	{
+		fireBallVis.SetActive (false);
+		fireVisScale = fireBallVis.transform.localScale;
+		firePoolScale = firePool.transform.localScale;
+		healOrbVis.SetActive (false);
+		healVisScale = fireBallVis.transform.localScale;
+		healPoolScale = firePool.transform.localScale;
+	}
+
+    void applyFireBall()
     {
+		
+		if (mainHand.currentItem == 2) {
+			firePool.SetActive(true);
+			if (firePool.transform.localScale.magnitude < 0.99 * firePoolScale.magnitude)
+				firePool.transform.localScale = Vector3.Lerp(firePool.transform.localScale, firePoolScale, Time.deltaTime* poolGrowSpeed );
+		} else {
+			if (firePool.transform.localScale.magnitude >= 0.01 * firePoolScale.magnitude)
+				firePool.transform.localScale = Vector3.Lerp(firePool.transform.localScale, Vector3.zero, Time.deltaTime * poolGrowSpeed);
+			else
+				firePool.SetActive(false);
+		}
+
         if (mainHand.currentItem != 2 || mainHand.radialMenuAccessed)
         {
-            if (charging)
-                dropThrowable();
+
+            if (chargingFire)
+                dropFireBall();
             return;
         }
-		if (mainHand.getTrigger () && picker.pooling) {
-			Debug.Log ("Charging: " + charge);
-			if (!charging) {
-				charging = true;
-				abilityVis.SetActive (true);
-			}
-			charge += chargeRate * Time.deltaTime;
+
+        if (mainHand.getTrigger() && picker.pooling && !chargingFire && charge<maxCharge)
+        {
+				chargingFire = true;
+                fireBallVis.SetActive(true);
+                fireAtt.attracting = true;
+        }
+        if (mainHand.getTrigger() && chargingFire && charge<maxCharge && (mainHand.transform.position-offHand.transform.position).magnitude < maxChargeDistance)
+        {
+            charge += chargeRate * Time.deltaTime;
 			charge = Mathf.Clamp (charge, 0, maxCharge);
-			abilityVis.transform.localScale = charge / maxCharge * abilityVisScale;
+			fireBallVis.transform.localScale = charge / maxCharge * fireVisScale;
 			mainHand.hapticFeedback ((ushort)(charge/maxCharge*hapticforce));
 		}
-		mainHand.hapticFeedback ((ushort)(charge/maxCharge*hapticforce));
+
+        if (charge >= maxCharge || (mainHand.transform.position - offHand.transform.position).magnitude >= maxChargeDistance)
+        {
+            fireAtt.attracting = false;
+            chargingFire = false;
+        }
+        if(chargingFire || Mathf.Sin(Time.time*Mathf.PI*2* vibrateFrequency) > 0)
+			mainHand.hapticFeedback ((ushort)(Mathf.Pow(charge/maxCharge,2)*hapticforce));
+
         if (mainHand.getTriggerUp())
-            dropThrowable();
+            dropFireBall();
 		
 
         lastPos = throwBase.position;
     }
-    void dropThrowable()
+    void dropFireBall()
     {
-		if (charge != 0) {
-			GameObject throwable = Instantiate (abilityPrefab, throwBase.position, throwBase.rotation);
-			throwable.GetComponent<Rigidbody> ().velocity = (throwBase.position - lastPos) / Time.deltaTime;
-			throwable.GetComponent<ThrowableAbility> ().chargeMulti = charge / maxCharge;
-			throwable.transform.localScale = abilityVis.transform.lossyScale;
+		if (charge > minCharge) {
+			GameObject fireball = Instantiate (fireBallPrefab, throwBase.position, throwBase.rotation);
+			fireball.GetComponent<Rigidbody> ().velocity = (throwBase.position - lastPos) / Time.deltaTime;
+			fireball.GetComponent<ThrowableAbility> ().chargeMulti = charge / maxCharge;
+			fireball.transform.localScale = fireBallVis.transform.lossyScale;
+			NetworkServer.Spawn(fireball);
 		}
-		abilityVis.SetActive (false);
+		fireBallVis.SetActive (false);
         charge = 0;
-		charging = false;
+		chargingFire = false;
+        fireAtt.attracting = false;
     }
 
-    private void OnTriggerStay(Collider other)
+
+    void UpdateAbilityPicker()
     {
-        if (other.CompareTag("abilityPool"))
-            Debug.Log("fibb");
+		if (((mainHand.currentItem == 3  && !chargingHeal)|| (mainHand.currentItem == 2 && !chargingFire )) && mainHand.getTrigger()&& charge < maxCharge)
+        {
+            abilityPicker.Lerp(abilityPicker, pickerVisible, Time.deltaTime);
+        }
+        else
+        {
+            abilityPicker.Lerp(abilityPicker, pickerInvisible, Time.deltaTime*4);
+        }
     }
+
+	void applyHealOrb()
+	{
+		if (mainHand.currentItem == 3) {
+			healPool.SetActive(true);
+			if (healPool.transform.localScale.magnitude < 0.99 * healPoolScale.magnitude)
+				healPool.transform.localScale = Vector3.Lerp(healPool.transform.localScale, healPoolScale, Time.deltaTime* poolGrowSpeed );
+		} 
+		else {			
+			if (healPool.transform.localScale.magnitude >= 0.01 * healPoolScale.magnitude)
+				healPool.transform.localScale = Vector3.Lerp(healPool.transform.localScale, Vector3.zero, Time.deltaTime * poolGrowSpeed);
+			else
+			healPool.SetActive(false);
+		}
+		if (mainHand.currentItem != 3 || mainHand.radialMenuAccessed)
+		{
+			if (chargingHeal)
+				dropHealOrb();
+			return;
+		}
+
+		if (mainHand.getTrigger() && picker.pooling && !chargingHeal && charge<maxCharge)
+		{
+			chargingHeal = true;
+			healOrbVis.SetActive(true);
+			healOrbAtt.attracting = true;
+		}
+		if (mainHand.getTrigger() && chargingHeal && charge<maxCharge && (mainHand.transform.position-offHand.transform.position).magnitude < maxChargeDistance)
+		{
+			charge += chargeRate * Time.deltaTime;
+			charge = Mathf.Clamp (charge, 0, maxCharge);
+			healOrbVis.transform.localScale = charge / maxCharge * healVisScale;
+			mainHand.hapticFeedback ((ushort)(charge/maxCharge*hapticforce));
+		}
+
+		if (charge >= maxCharge || (mainHand.transform.position - offHand.transform.position).magnitude >= maxChargeDistance)
+		{
+			healOrbAtt.attracting = false;
+			chargingHeal = false;
+		}
+		if(chargingHeal || Mathf.Sin(Time.time*Mathf.PI*2* vibrateFrequency) > 0)
+			mainHand.hapticFeedback ((ushort)(Mathf.Pow(charge/maxCharge,2)*hapticforce));
+
+		if (mainHand.getTriggerUp())
+			dropHealOrb();
+
+
+		lastPos = throwBase.position;
+	}
+	void dropHealOrb()
+	{
+		if (charge > minCharge) {
+			GameObject healOrb = Instantiate (healOrbPrefab, throwBase.position, throwBase.rotation);
+			healOrb.GetComponent<Rigidbody> ().velocity = (throwBase.position - lastPos) / Time.deltaTime;
+			healOrb.GetComponent<ThrowableAbility> ().chargeMulti = charge / maxCharge;
+			healOrb.transform.localScale = healOrbVis.transform.lossyScale;
+
+			NetworkServer.Spawn(healOrb);
+			Debug.Log("Spawned healorb");
+
+		}
+		healOrbVis.SetActive (false);
+		charge = 0;
+		chargingHeal = false;
+		healOrbAtt.attracting = false;
+	}
 
     void initVRUI ()
 	{

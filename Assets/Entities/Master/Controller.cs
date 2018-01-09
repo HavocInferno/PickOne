@@ -46,6 +46,7 @@ public class Controller : MonoBehaviour
         trackedObject = GetComponent<SteamVR_TrackedObject>();
         UI.SetActive(false);
 		initRadialMenu ();
+		device = SteamVR_Controller.Input ((int)trackedObject.index);
     }
 		
 	// Update is called once per frame
@@ -125,18 +126,61 @@ public class Controller : MonoBehaviour
 
 	public void hapticFeedback (ushort hapticforce)
 	{
+		if(trackedObject == null)
+			trackedObject = GetComponent<SteamVR_TrackedObject>();
+		if(device == null)
+			device = SteamVR_Controller.Input ((int)trackedObject.index);
 		device.TriggerHapticPulse (hapticforce);
 	}
 	public bool getTrigger()
 	{
+		if(trackedObject == null)
+			trackedObject = GetComponent<SteamVR_TrackedObject>();
+		if(device == null)
+			device = SteamVR_Controller.Input ((int)trackedObject.index);
 		return device.GetPress (SteamVR_Controller.ButtonMask.Trigger);
 	}
 	public bool getTriggerDown()
 	{
+		if(trackedObject == null)
+			trackedObject = GetComponent<SteamVR_TrackedObject>();
+		if(device == null)
+			device = SteamVR_Controller.Input ((int)trackedObject.index);
 		return device.GetPressDown (SteamVR_Controller.ButtonMask.Trigger);
 	}	
 	public bool getTriggerUp()
 	{
+		if(trackedObject == null)
+			trackedObject = GetComponent<SteamVR_TrackedObject>();
+		if(device == null)
+			device = SteamVR_Controller.Input ((int)trackedObject.index);
 		return device.GetPressUp (SteamVR_Controller.ButtonMask.Trigger);
 	}
+	public bool getGrip()
+	{
+		if(trackedObject == null)
+			trackedObject = GetComponent<SteamVR_TrackedObject>();
+		if(device == null)
+			device = SteamVR_Controller.Input ((int)trackedObject.index);
+		return device.GetPress (SteamVR_Controller.ButtonMask.Grip);
+	}
+	public bool getGripDown()
+	{
+		if(trackedObject == null)
+			trackedObject = GetComponent<SteamVR_TrackedObject>();
+		if(device == null)
+			device = SteamVR_Controller.Input ((int)trackedObject.index);
+		return device.GetPressDown (SteamVR_Controller.ButtonMask.Grip);
+	}	
+	public bool getGripUp()
+	{
+		if(trackedObject == null)
+			trackedObject = GetComponent<SteamVR_TrackedObject>();
+		if(device == null)
+			device = SteamVR_Controller.Input ((int)trackedObject.index);
+		return device.GetPressUp (SteamVR_Controller.ButtonMask.Grip);
+	}
+
+
+
 }

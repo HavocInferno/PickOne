@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class DungeonCamera : MonoBehaviour
 {
 	[Header("base cam options")]
 	public GameObject target;
 	public Vector3 offset;
+	public Vector3 pivotOffsetIntended;
+	private Vector3 pivotOffset;
+	private float pivotHitDist;
 
 	protected Transform tCamera;
 	protected Transform tParent;
@@ -21,6 +25,9 @@ public class DungeonCamera : MonoBehaviour
 	public float scrollDampeningIntended = 6f;
 	public float scrollDampeningObstructed = 40f;
 	private float scrollDampening = 6f;
+	public float pivotDampeningIntended = 1f;
+	public float pivotDampeningObstructed = 20f;
+	private float pivotDampening = 6f;
 
 	public Vector2 verticalRotationClamp = new Vector2(5f, 85f);
 	public Vector2 scrollDistanceClamp = new Vector2(1.5f, 30f);
@@ -43,8 +50,14 @@ public class DungeonCamera : MonoBehaviour
 
 	void Start()
     {
+		pivotOffset = pivotOffsetIntended;
+		pivotHitDist = pivotOffsetIntended.x;
+
 		tCamera = transform;
 		tParent = transform.parent;
+		//tParent.SetParent (target.transform);
+		StartCoroutine (parentCam());
+		tParent.localPosition = Vector3.zero + pivotOffset;
 
 		tCamera.localPosition = offset;
 
@@ -62,7 +75,7 @@ public class DungeonCamera : MonoBehaviour
 			return;
 
 		//sticks the cam rig to the target. alternatively better: in Start(), parent target to the cam rig, set cam rig to pos 0,0,0
-		tParent.position = target.transform.position;
+		//tParent.position = target.transform.position;
 
 		//while Alt is pressed, allow free look around player without affecting player rotation
 		/*if (Input.GetKeyDown (KeyCode.LeftAlt)) {
@@ -105,6 +118,25 @@ public class DungeonCamera : MonoBehaviour
 				distance = distanceIntended;
 				scrollDampening = scrollDampeningIntended;
 			}
+
+			Vector3 raycastDir1 = tParent.TransformPoint(pivotOffsetIntended) - target.transform.position;
+			RaycastHit hit1;
+			if (Physics.Raycast (
+					target.transform.position,
+					raycastDir1,
+					out hit1,
+					pivotHitDist,
+					mask)) {
+				pivotOffset = Vector3.zero;
+				pivotDampening = pivotDampeningObstructed;
+				//Debug.Log ("cam pivot obstructed (" + hit.distance + "u away)");
+			} else {
+				pivotOffset = pivotOffsetIntended;
+				pivotDampening = pivotDampeningIntended;
+				//Debug.Log ("cam pivot unobstructed");
+			}
+
+			tParent.localPosition = Vector3.Lerp(tParent.localPosition, pivotOffset, pivotDampening);
 
 			//scrolling (zoom) based on scroll wheel
 			/*if(Input.GetAxis("Mouse ScrollWheel") != 0f) {
@@ -153,5 +185,12 @@ public class DungeonCamera : MonoBehaviour
 			transform.localPosition += Random.insideUnitSphere * cumulativeShakeyStrength * Time.deltaTime;
 		}
 		transform.localPosition = Vector3.Lerp (transform.localPosition, originalPos, Time.deltaTime);
+	}
+
+	IEnumerator parentCam() {
+		while (!target) {
+			yield return new WaitForEndOfFrame ();
+		}
+		tParent.SetParent (target.transform);
 	}
 }
