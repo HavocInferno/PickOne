@@ -3,6 +3,13 @@
 [RequireComponent(typeof(Enemy))]
 abstract public class EnemyBehaviour : MonoBehaviour
 {
+    public enum Priority
+    {
+        Low = 1000,
+        Medium = 2000,
+        High = 3000
+    }
+
     protected Enemy enemy = null;
 
     public void Awake()

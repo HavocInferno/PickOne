@@ -60,7 +60,7 @@ public class Sword : BasicAttack
         // If it has one, call function to take damage
         if (stats != null)
         {
-            stats.Hit(damage, _attacker, transform.position,
+            stats.Hit(Damage, _attacker, transform.position,
                 (collision.transform.position - _attacker.transform.position).normalized);
         }
         else
@@ -72,9 +72,9 @@ public class Sword : BasicAttack
 
     public override void DoAttack(GenericCharacter attacker)
     {
-        if (!_ready) return;
+        if (!ready) return;
 
-        _ready = false;
+        ready = false;
 
         _attacker = attacker;
 		transform.localRotation = _defaultRot;
@@ -85,8 +85,8 @@ public class Sword : BasicAttack
 
 	IEnumerator AttackRoutine()
     {
-		yield return new WaitForSeconds(fireRate);
-        _ready = true;
+		yield return new WaitForSeconds(FireRate);
+        ready = true;
         blade.SetActive(false);
         _animActive = false;
 	}

@@ -19,7 +19,7 @@ public class MeleeCombatBehaviour : EnemyBehaviour
 
         if (currentTarget != null)
         {
-            enemy.Destination = currentTarget.position;
+            enemy.SetDestination(currentTarget.position, (int)Priority.Medium);
             float distance = Vector3.Distance(currentTarget.position, enemy.transform.position);
             if (distance < attackRange
                 && Time.time > lastAttackTime)

@@ -26,7 +26,7 @@ public class Gun : BasicAttack
 
     public override void DoAttack(GenericCharacter attacker)
     {
-        if (!_ready) return;
+        if (!ready) return;
 
         base.DoAttack(attacker);
 
@@ -40,7 +40,7 @@ public class Gun : BasicAttack
             BulletSpawn.rotation);
 
         // Set damage value of the bullet
-        bullet.GetComponent<Bullet>().damage = this.damage;
+        bullet.GetComponent<Bullet>().damage = this.Damage;
         bullet.GetComponent<Bullet>().attacker = attacker;
         bullet.GetComponent<Bullet>().direction = bullet.transform.forward;
 

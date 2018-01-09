@@ -2075,7 +2075,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 20, y: 8, z: 20}
+  m_Size: {x: 2, y: 8, z: 2}
   m_Center: {x: 0, y: 4, z: 0}
 --- !u!65 &65616372713371374
 BoxCollider:
@@ -2210,11 +2210,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   allowedConnections: 01000000
-  exitMarkers:
-  - {fileID: 114848137216245944}
-  - {fileID: 114103322003824454}
-  - {fileID: 114546704575472474}
-  - {fileID: 114132518410211302}
 --- !u!114 &114848137216245944
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -1,0 +1,434 @@
+fileFormatVersion: 2
+guid: 706ce948d87a25c4f9217730f2905f7f
+timeCreated: 1513537172
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: default
+    100002: default_MeshPart0
+    100004: default_MeshPart1
+    100006: default_MeshPart2
+    100008: default_MeshPart3
+    100010: //RootNode
+    400000: default
+    400002: default_MeshPart0
+    400004: default_MeshPart1
+    400006: default_MeshPart2
+    400008: default_MeshPart3
+    400010: //RootNode
+    2300000: default_MeshPart0
+    2300002: default_MeshPart1
+    2300004: default_MeshPart2
+    2300006: default_MeshPart3
+    3300000: default_MeshPart0
+    3300002: default_MeshPart1
+    3300004: default_MeshPart2
+    3300006: default_MeshPart3
+    4300000: default_MeshPart0
+    4300002: default_MeshPart1
+    4300004: default_MeshPart2
+    4300006: default_MeshPart3
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Aft_Vents
+    second: {fileID: 2100000, guid: 9f8342748e4a69647b38d26403484368, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ant
+    second: {fileID: 2100000, guid: d1154a612d3a656478246bf55fbcdfbf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body_Aft
+    second: {fileID: 2100000, guid: 4e5ed584de26ae94b9beae0b41482557, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body_Aft_Lower
+    second: {fileID: 2100000, guid: 943a0622b0632964eb0d766ac4623363, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body_Back
+    second: {fileID: 2100000, guid: cec6a7fd9155e50499e18762df2b615e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body_Back_Flat
+    second: {fileID: 2100000, guid: 83815a8d8f9f29e40950b76365605dc2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body_Back_Sides
+    second: {fileID: 2100000, guid: 9c519662cad220743969e2abcb3f6129, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bolt_Hole
+    second: {fileID: 2100000, guid: 31776a465f969c440b1910064d1cfe66, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cutout
+    second: {fileID: 2100000, guid: b0b51a93ab3458f4cb57665500f55bdb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cylinder_Grill
+    second: {fileID: 2100000, guid: 787f309f072c31643be601002b69638f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cylinder_Ring
+    second: {fileID: 2100000, guid: 615199a53d45aa54199b5d4ccb29631a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cylinder_Vent
+    second: {fileID: 2100000, guid: c7b4851c15a23ef4eaa99f86b0fda1d3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Default
+    second: {fileID: 2100000, guid: 55348edb94362954085cb24a9df044d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Disk2
+    second: {fileID: 2100000, guid: a228248a15ac8b6468ab447d5418a919, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Disk2_Inner
+    second: {fileID: 2100000, guid: dbe4ec082ff196d45b51ef4393f42804, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Disk3
+    second: {fileID: 2100000, guid: 3c0b24bd640760d48b45c7431b95c4a9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Disk3_Inner
+    second: {fileID: 2100000, guid: 9d7f00c048a65c444ba634a5b5a31ec9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Engine
+    second: {fileID: 2100000, guid: 7c44a73005249a14b88608f2210871c2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Engine2_Sphere
+    second: {fileID: 2100000, guid: efd2f3f5af37e3543b40d18d3ffabf65, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Engine_Dark
+    second: {fileID: 2100000, guid: 676dae7a278cd094a9fa2aba349c3e4d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Engine_FireWall
+    second: {fileID: 2100000, guid: 0a0ddff2f90cb7b4d91466184e95989b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Engine_FireWall_Cutout
+    second: {fileID: 2100000, guid: 781e9077aa70fe5469a6edea61bcaa05, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Engine_Nozzle
+    second: {fileID: 2100000, guid: e5be41cee859cda43873b31d042ccbe4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Engine_Nozzle_Ring
+    second: {fileID: 2100000, guid: 56b823fd54eefa84f87920e8bd7aa750, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Engine_Tubes
+    second: {fileID: 2100000, guid: 5b7f51a75f1f02c439886d8757df06da, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eye
+    second: {fileID: 2100000, guid: 8ad0daa2581ce93479c29121901d1363, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eye_Dome
+    second: {fileID: 2100000, guid: 338c92d17425db540a35ed387b606045, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eye_Metal
+    second: {fileID: 2100000, guid: 1f8dab88a889f4943881a3464617824d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eye_Metal_Cuts
+    second: {fileID: 2100000, guid: 59d686c00cc50b74aaf7e814afb55a0f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eye_Mount
+    second: {fileID: 2100000, guid: bae1c8d2afc4285498ad3ef2009c6800, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eye_Pivots
+    second: {fileID: 2100000, guid: c1146d125afe1dc42be64befb54cb78c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Face_Trim
+    second: {fileID: 2100000, guid: d1e0139e8a43c2642bca20ea4e092376, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Front_Trim
+    second: {fileID: 2100000, guid: df62271420956a84e819abde49a2d48b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gun_Armor
+    second: {fileID: 2100000, guid: 8712adc7ba17ce642a85f69d373282a1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gun_Camera
+    second: {fileID: 2100000, guid: d8c9d1d3b0e672844abf3606babdaf86, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gun_Camera_Glass
+    second: {fileID: 2100000, guid: ca985e1a2c7600942b175a99ca7ed90d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gun_Camera_Lens
+    second: {fileID: 2100000, guid: 1e3ce4e9288fd924daa1340f74d53466, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gun_Camera_Mounts
+    second: {fileID: 2100000, guid: 4f880593c55e1344ead34753d8b03f17, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gun_Camera_Tubes
+    second: {fileID: 2100000, guid: 3323cff727eb1df4cbb9f01bad8eff98, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gun_Covers
+    second: {fileID: 2100000, guid: 8287fbad526efec40aba16975b31ce71, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gun_Domes
+    second: {fileID: 2100000, guid: 9b9baa5c1f166464bb6df310ad648196, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gun_Domes_Dark
+    second: {fileID: 2100000, guid: 95c11f9b6fe03b94da7c05e29b4c2d36, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gun_Lens
+    second: {fileID: 2100000, guid: 5d0d73e37d6ca904b99afa683a7e10d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Guns
+    second: {fileID: 2100000, guid: 74e65a12b75ecca41b14622266ae65be, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hex_Plate
+    second: {fileID: 2100000, guid: 0968aba655a35924182eb41aba76ac96, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nozzle_Cap
+    second: {fileID: 2100000, guid: 2cca7ac73eb558a48965cb5422c110cd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nozzle_Fins
+    second: {fileID: 2100000, guid: f4dc63b3a9704b84abf6955f3e12acbe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nozzle_Ring1
+    second: {fileID: 2100000, guid: 41a06aeed82ebe9498063f678151fb58, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nozzle_Ring2
+    second: {fileID: 2100000, guid: 5af15e24eb96a95449022d5e9dd7f40a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nozzles
+    second: {fileID: 2100000, guid: 7e0ab3cbd40373642a9942d52f41b6cd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nozzles_Inner
+    second: {fileID: 2100000, guid: 424f8e8905f6f854b928c43653f9dc7c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Numbers
+    second: {fileID: 2100000, guid: c0d1f436fb76c8849a1dc029c29b7242, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rings
+    second: {fileID: 2100000, guid: 905dc2148e22a15469c7f476bfa969dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rings_Center
+    second: {fileID: 2100000, guid: 8e03b91466112e04ca7b9bb325ad3999, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rings_Inner
+    second: {fileID: 2100000, guid: f07f12dbb1a649e45889ab11c93820e7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rings_Mount
+    second: {fileID: 2100000, guid: c85a79a174960584ba5dcb4f65788ca4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Round_Plate
+    second: {fileID: 2100000, guid: 43e4c6db53ffa4e488b82b06ad09f592, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sphere
+    second: {fileID: 2100000, guid: 45847fb5a1f622b4fb36f8f1f157bd27, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Target_Laser
+    second: {fileID: 2100000, guid: 0313086190eafef40ae8a3affd1638a2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Target_Laser2
+    second: {fileID: 2100000, guid: 31fec9dd20815dd43a4002aef3d6f5a9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Target_Laser3
+    second: {fileID: 2100000, guid: 06dd4c6b743f1d04383bb905180690ee, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Target_Laser_Disk
+    second: {fileID: 2100000, guid: 53f8de82184ad2f448f223fd78239957, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Target_Laser_Disk_Inner
+    second: {fileID: 2100000, guid: 02c908f2d5ae9d64f8833ca5b601b49a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Target_Laser_Lens
+    second: {fileID: 2100000, guid: f2afcac5f264dfd48b7be1fc7020718d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Thrusters
+    second: {fileID: 2100000, guid: c736bceae2f38fa40859d1a7e9c9158b, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

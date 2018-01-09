@@ -30,7 +30,7 @@ public class SimplePatrolBehaviour : EnemyBehaviour
 
 		if (waits && Time.time > nextMovementTime && points.Count > 0)
         {
-            enemy.Destination = points[nextPointIndex].position;
+            enemy.SetDestination(points[nextPointIndex].position, (int)Priority.Low);
             waits = false;
         }
     }

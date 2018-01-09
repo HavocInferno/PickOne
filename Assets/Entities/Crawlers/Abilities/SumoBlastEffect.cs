@@ -46,7 +46,7 @@ public class SumoBlastEffect : AbstractEffect
 
         base.Disable(character, calledByLocalPlayer, calledByServer);
 
-        Destroy(character.gameObject.GetComponent<_SumoBlastEffect>());
+        Destroy(character.gameObject.GetComponentInChildren<_SumoBlastEffect>());
     }
 
     [RequireComponent(typeof(GenericCharacter))]
