@@ -190,12 +190,12 @@ Prefab:
     - target: {fileID: 224008034138491386, guid: 2948b64ad4251b44980724ec4421fe02,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 550
+      value: 552.5
       objectReference: {fileID: 0}
     - target: {fileID: 224008034138491386, guid: 2948b64ad4251b44980724ec4421fe02,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 309.5
+      value: 299
       objectReference: {fileID: 0}
     - target: {fileID: 224008034138491386, guid: 2948b64ad4251b44980724ec4421fe02,
         type: 2}
@@ -660,11 +660,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22459552, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 550
+      value: 552.5
       objectReference: {fileID: 0}
     - target: {fileID: 22459552, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 309.5
+      value: 299
       objectReference: {fileID: 0}
     - target: {fileID: 22459552, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1181,12 +1181,12 @@ GameObject:
   - component: {fileID: 1892519459}
   - component: {fileID: 1892519461}
   m_Layer: 0
-  m_Name: Audio Source
+  m_Name: Audio Source, do not turn back on
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &1892519459
 AudioSource:
   m_ObjectHideFlags: 0
