@@ -231,7 +231,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1331130867153266
 GameObject:
   m_ObjectHideFlags: 1
@@ -1548,7 +1548,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bad20317e47769b478a611739f8789f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goal: {fileID: 4682158048781522}
+  goal: {fileID: 4976564155223726}
   attracting: 0
   acceleration: 40
 --- !u!114 &114097341470729464
@@ -1601,7 +1601,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followed: {fileID: 0}
-  controller: {fileID: 0}
+  MainController: {fileID: 0}
+  OffController: {fileID: 0}
   master: {fileID: 0}
   pingArrow: {fileID: 4780954920430082}
   capsule: {fileID: 4091988142941768}
@@ -1610,6 +1611,10 @@ MonoBehaviour:
   growspeed: 20
   arrowscale: {x: 0, y: 0, z: 0}
   capsuleScale: {x: 0, y: 0, z: 0}
+  healA: {fileID: 114763645449893896}
+  fireA: {fileID: 114068650935945114}
+  firepoolScale: {x: 0, y: 0, z: 0}
+  healpoolScale: {x: 0, y: 0, z: 0}
 --- !u!114 &114453053967700304
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1762,7 +1767,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bad20317e47769b478a611739f8789f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goal: {fileID: 4682158048781522}
+  goal: {fileID: 4478619086470558}
   attracting: 0
   acceleration: 40
 --- !u!114 &114936997213444600

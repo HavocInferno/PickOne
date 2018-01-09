@@ -74,7 +74,19 @@ public class RightHandFollower : MasterFollower
 		} else {
 			fireBallVis.transform.localScale = fireVisScale * chargeFire;
 			healOrbVis.transform.localScale = healVisScale * chargeHeal;
+
+			if (fireBallVis.transform.localScale.magnitude < 0.01)
+				fireBallVis.SetActive (false);
+			else
+				fireBallVis.SetActive (true);
+
+			if (healOrbVis.transform.localScale.magnitude < 0.01)
+				healOrbVis.SetActive (false);
+			else
+				healOrbVis.SetActive (true);
 		}
+
+
 	}
 	
 	// Update is called once per frame
