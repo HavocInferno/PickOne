@@ -15,6 +15,9 @@ public class BuffVisualEffect : AbstractEffect
     {
         base.Enable(character, calledByLocalPlayer, calledByServer);
 
+        if (character.mainRenderer == null) return;
+        if (character.mainRenderer.material == null) return;
+
         var component = character.gameObject.AddComponent<_BuffVisualEffectScript>();
         component._Initialize(
             color, createLight,
@@ -27,6 +30,9 @@ public class BuffVisualEffect : AbstractEffect
         bool calledByServer)
     {
         base.Disable(character, calledByLocalPlayer, calledByServer);
+
+        if (character.mainRenderer == null) return;
+        if (character.mainRenderer.material == null) return;
 
         Destroy(character.gameObject.GetComponent<_BuffVisualEffectScript>());
     }
@@ -57,14 +63,14 @@ public class BuffVisualEffect : AbstractEffect
             _createLight = createLight;
             _character = character;
 
-            MeshRenderer renderer = GetBody().GetComponent<MeshRenderer>();
+            Renderer renderer = character.mainRenderer;
 			if(renderer != null)
             	renderer.material.EnableKeyword("EMISSION");
 
             if (_createLight)
             {
                 _lightNode = new GameObject("LightEffect", typeof(Light));
-                _lightNode.transform.SetParent(GetBody(), false);
+                _lightNode.transform.SetParent(character.transform, false);
                 Light light = _lightNode.GetComponent<Light>();
                 light.type = LightType.Point;
                 light.shadows = LightShadows.None;
@@ -76,22 +82,14 @@ public class BuffVisualEffect : AbstractEffect
             _startTime = Time.time;
         }
 
-        Transform GetBody()
-        {
-            Transform body = transform.Find("Body");
-            if (body != null) return body;
-            return transform;
-        }
-
         private void FixedUpdate()
         {
             float weight = GetWeight(Time.time - _startTime);
+            
+            _character.mainRenderer.material.SetColor("_EmissionColor", _baseColor);
 
-			MeshRenderer renderer = GetBody().GetComponent<MeshRenderer>();
-
-            Color newColor = _color * 2.0f * weight; newColor.a = 1.0f;
-			if(renderer != null)
-            	renderer.material.SetColor("_EmissionColor", _baseColor + newColor);
+            Color newColor = _color * 10.0f * weight; newColor.a = 1.0f;
+            _character.mainRenderer.material.SetColor("_EmissionColor", _baseColor + newColor);
 
             if (_createLight)
             {
@@ -102,9 +100,8 @@ public class BuffVisualEffect : AbstractEffect
 
         private void OnDisable()
         {
-            MeshRenderer renderer = GetBody().GetComponent<MeshRenderer>();
-			if(renderer != null)
-            	renderer.material.SetColor("_EmissionColor", _baseColor);
+
+            _character.mainRenderer.material.SetColor("_EmissionColor", _baseColor);
 
             if (_createLight)
                 Destroy(_lightNode);

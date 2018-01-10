@@ -28,6 +28,8 @@ public class GenericCharacter : NetworkBehaviour
 
     private List<AbstractEffect> _appliedEffects = new List<AbstractEffect>();
 
+    public Renderer mainRenderer = null;
+
     // Enable specified effect for a given period of time.
     public void EnableEffectDuration(AbstractEffect effect, float duration)
     {

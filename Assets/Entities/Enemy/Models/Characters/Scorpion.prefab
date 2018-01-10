@@ -1302,7 +1302,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1958256614993272}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc72ea761c874734aaa6bd09e6934661, type: 3}
   m_Name: 
@@ -1487,6 +1487,7 @@ MonoBehaviour:
   isDead: 0
   basicAttack: {fileID: 114046122123008926}
   passiveEffects: []
+  mainRenderer: {fileID: 137681447582349556}
   behaviours: []
   detectors: []
   possibleTargets: []
@@ -1500,7 +1501,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1958256614993272}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4ccc66562fceab4db71a2d2c6bae8a5, type: 3}
   m_Name: 
