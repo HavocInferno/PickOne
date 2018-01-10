@@ -88,7 +88,7 @@ public class BuffVisualEffect : AbstractEffect
             
             _character.mainRenderer.material.SetColor("_EmissionColor", _baseColor);
 
-            Color newColor = _color * 2.0f * weight; newColor.a = 1.0f;
+            Color newColor = _color * 10.0f * weight; newColor.a = 1.0f;
             _character.mainRenderer.material.SetColor("_EmissionColor", _baseColor + newColor);
 
             if (_createLight)
