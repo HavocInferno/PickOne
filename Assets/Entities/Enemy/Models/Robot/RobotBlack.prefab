@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 114744548163315844}
   - component: {fileID: 136435606711999256}
   - component: {fileID: 114088485493065326}
+  - component: {fileID: 114019256736011356}
   m_Layer: 11
   m_Name: RobotBlack
   m_TagString: Enemy
@@ -1477,6 +1478,21 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114019256736011356
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1203628426793638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc72ea761c874734aaa6bd09e6934661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseMat: {fileID: 2100000, guid: 13229a4cfb51a7b40891f5503c4d2e34, type: 2}
+  highlightMat: {fileID: 2100000, guid: b2dccd7d36d59624588dd530427965de, type: 2}
+  target: {fileID: 137807931604856498}
+  matIndex: 1
 --- !u!114 &114032495800461468
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1504,7 +1520,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1203628426793638}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4ccc66562fceab4db71a2d2c6bae8a5, type: 3}
   m_Name: 

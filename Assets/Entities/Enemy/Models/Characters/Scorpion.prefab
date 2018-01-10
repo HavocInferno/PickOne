@@ -601,6 +601,7 @@ GameObject:
   - component: {fileID: 114486196213630434}
   - component: {fileID: 114906250555358782}
   - component: {fileID: 114667712893406442}
+  - component: {fileID: 114064844730621144}
   m_Layer: 11
   m_Name: Scorpion
   m_TagString: Enemy
@@ -1222,6 +1223,21 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114064844730621144
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1958256614993272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc72ea761c874734aaa6bd09e6934661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseMat: {fileID: 2100000, guid: b6ec39ac6ee50df4dad8801180c79e55, type: 2}
+  highlightMat: {fileID: 2100000, guid: b2dccd7d36d59624588dd530427965de, type: 2}
+  target: {fileID: 137681447582349556}
+  matIndex: 0
 --- !u!114 &114158897692112870
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1411,7 +1427,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1958256614993272}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4ccc66562fceab4db71a2d2c6bae8a5, type: 3}
   m_Name: 
