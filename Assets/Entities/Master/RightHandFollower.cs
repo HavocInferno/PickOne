@@ -24,7 +24,7 @@ public class RightHandFollower : MasterFollower
 	public Material pingMaterial;
 
 	public Transform pingArrow, capsule;
-	public float growspeed =20;
+	public float growspeed =15;
 	public Vector3 arrowscale, capsuleScale;
 	[SyncVar]
 	float chargeFire =0; 

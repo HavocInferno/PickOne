@@ -1586,7 +1586,7 @@ MonoBehaviour:
   pingMaterial: {fileID: 2100000, guid: 02fc97f89c7577d42938d67865d452c2, type: 2}
   pingArrow: {fileID: 4575563792592894}
   capsule: {fileID: 4077073000264830}
-  growspeed: 20
+  growspeed: 15
   arrowscale: {x: 0, y: 0, z: 0}
   capsuleScale: {x: 0, y: 0, z: 0}
 --- !u!114 &114284063469467626
@@ -9085,7 +9085,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 100
+      scalar: 75
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -15731,7 +15731,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 100
+      scalar: 75
       minScalar: 10
       maxCurve:
         serializedVersion: 2
