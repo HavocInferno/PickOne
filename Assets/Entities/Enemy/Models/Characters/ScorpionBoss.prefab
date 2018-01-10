@@ -445,6 +445,7 @@ GameObject:
   - component: {fileID: 114219791969972502}
   - component: {fileID: 114810831399411714}
   - component: {fileID: 114823708993660582}
+  - component: {fileID: 114272147732736006}
   m_Layer: 11
   m_Name: ScorpionBoss
   m_TagString: Enemy
@@ -1234,6 +1235,21 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1792
   type: 0
+--- !u!114 &114272147732736006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1776535338110476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc72ea761c874734aaa6bd09e6934661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseMat: {fileID: 2100000, guid: f2735dc09a5b53641ba65ba813b6f488, type: 2}
+  highlightMat: {fileID: 2100000, guid: f1ac1cb2f6425504193bb5c06057b2bb, type: 2}
+  target: {fileID: 137509788149990388}
+  matIndex: 0
 --- !u!114 &114549505910402942
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1426,7 +1442,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1776535338110476}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4ccc66562fceab4db71a2d2c6bae8a5, type: 3}
   m_Name: 

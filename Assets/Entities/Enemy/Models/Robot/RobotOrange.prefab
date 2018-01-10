@@ -488,6 +488,7 @@ GameObject:
   - component: {fileID: 114019818434892196}
   - component: {fileID: 136070166625559254}
   - component: {fileID: 114980067602505662}
+  - component: {fileID: 114677769561641682}
   m_Layer: 11
   m_Name: RobotOrange
   m_TagString: Enemy
@@ -1608,6 +1609,21 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114677769561641682
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1535867880565272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc72ea761c874734aaa6bd09e6934661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseMat: {fileID: 2100000, guid: 626e706ebbc221849846a404b0cc028e, type: 2}
+  highlightMat: {fileID: 2100000, guid: b2dccd7d36d59624588dd530427965de, type: 2}
+  target: {fileID: 137780613006183404}
+  matIndex: 1
 --- !u!114 &114731431043439576
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1724,7 +1740,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1535867880565272}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4ccc66562fceab4db71a2d2c6bae8a5, type: 3}
   m_Name: 

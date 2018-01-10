@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: ScorpionBossMaterial
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 47, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _EMISSION _NORMALMAP
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
@@ -39,7 +39,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: 4b6227d1d921d404983b7435e09b8922, type: 3}
+        m_Texture: {fileID: 2800000, guid: 56ce799095f65f949988c736202c60de, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -68,9 +68,9 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.814
+    - _Glossiness: 0.125
     - _GlossyReflections: 1
-    - _Metallic: 0.3
+    - _Metallic: 0.544
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
@@ -81,7 +81,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 0.48782957, b: 0.2573529, a: 1}
-    - _EmissionColor: {r: 0.5, g: 0.1507352, b: 0.1507352, a: 1}
+    - _Color: {r: 1, g: 0.25735292, b: 0.25735292, a: 1}
+    - _EmissionColor: {r: 3, g: 0.904411, b: 0.904411, a: 1}
     - _ReflectColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _SpecColor: {r: 0.8455882, g: 0.8455882, b: 0.8455882, a: 1}

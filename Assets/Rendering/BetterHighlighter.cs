@@ -9,18 +9,20 @@ public class BetterHighlighter : MonoBehaviour
 	public Material highlightMat;
 	public Renderer target;
 
+	public int matIndex = 0;
+
 	// Use this for initialization
 	void Start ()
     {
-		target.material = baseMat;
+		target.materials [matIndex] = baseMat;
 	}
 	
 	public void EnableHL()
     {
-		target.material = highlightMat;
+		target.materials [matIndex] = highlightMat;
 	}
 
 	public void DisableHL() {
-		target.material = baseMat;
+		target.materials [matIndex] = baseMat;
 	}
 }
