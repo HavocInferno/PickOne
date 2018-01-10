@@ -58,7 +58,8 @@ public class BuffVisualEffect : AbstractEffect
             _character = character;
 
             MeshRenderer renderer = GetBody().GetComponent<MeshRenderer>();
-            renderer.material.EnableKeyword("EMISSION");
+			if(renderer != null)
+            	renderer.material.EnableKeyword("EMISSION");
 
             if (_createLight)
             {
@@ -86,10 +87,11 @@ public class BuffVisualEffect : AbstractEffect
         {
             float weight = GetWeight(Time.time - _startTime);
 
-            MeshRenderer renderer = GetBody().GetComponent<MeshRenderer>();
+			MeshRenderer renderer = GetBody().GetComponent<MeshRenderer>();
 
             Color newColor = _color * 2.0f * weight; newColor.a = 1.0f;
-            renderer.material.SetColor("_EmissionColor", _baseColor + newColor);
+			if(renderer != null)
+            	renderer.material.SetColor("_EmissionColor", _baseColor + newColor);
 
             if (_createLight)
             {
