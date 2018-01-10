@@ -24,7 +24,7 @@ public abstract class BasicAttack : MonoBehaviour
     protected float damage;             // Updated damage after damage calculations
     protected float fireRate;           // Updated fire rate after modications
 
-    protected bool ready = true;
+    protected bool _ready = true;
 
     protected virtual void Start()
     {
@@ -46,15 +46,26 @@ public abstract class BasicAttack : MonoBehaviour
     
     public virtual void DoAttack(GenericCharacter attacker)
     {
-        if (!ready) return;
+        if (!_ready) return;
 
-        ready = false;
+        PlayAnimation(attacker);
+        _ready = false;
         StartCoroutine(WaitForReload());
     }
 
     protected virtual IEnumerator WaitForReload()
     {
         yield return new WaitForSeconds(FireRate);
-        ready = true;
+        _ready = true;
+    }
+
+    protected void PlayAnimation(GenericCharacter character)
+    {
+        Animator animator = character.GetComponent<Animator>();
+        if (animator != null)
+        {
+            Debug.LogWarning("TriggerAttack");
+            animator.Play("Attack");
+        }
     }
 }

@@ -46,6 +46,8 @@ public class HighlightingRenderer : MonoBehaviour
             // highlightCameraObject.hideFlags = HideFlags.HideAndDontSave;
 
             highlightCamera.CopyFrom(camera);
+            highlightCamera.renderingPath = RenderingPath.Forward;
+            highlightCamera.forceIntoRenderTexture = true;
             highlightCamera.targetTexture = renderTexture;
             highlightCamera.SetReplacementShader(highlightShader, replacementTag);
             highlightCamera.enabled = false;

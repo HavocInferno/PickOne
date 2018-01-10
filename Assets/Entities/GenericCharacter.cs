@@ -23,7 +23,7 @@ public class GenericCharacter : NetworkBehaviour
     [Space(8)]
 
     [Header("Abilities")]
-    
+
     public List<AbstractEffect> passiveEffects = new List<AbstractEffect>();
 
     private List<AbstractEffect> _appliedEffects = new List<AbstractEffect>();
@@ -34,7 +34,7 @@ public class GenericCharacter : NetworkBehaviour
         AppliedEffect comp = gameObject.AddComponent<AppliedEffect>();
         comp.Initialize(effect, duration);
     }
-    
+
     public void EnableEffect(AbstractEffect effect)
     {
         if (!isServer) return;
@@ -107,7 +107,7 @@ public class GenericCharacter : NetworkBehaviour
     {
         if (basicAttack == null)
         {
-            Debug.LogErrorFormat("{0} | Basic attack not set", name);
+            Debug.LogWarningFormat("{0} | Basic attack not set", name);
         }
     }
 
@@ -116,8 +116,10 @@ public class GenericCharacter : NetworkBehaviour
     [ClientRpc]
     protected void RpcAttack()
     {
-        // TODO: Damage calculation
-        basicAttack.DoAttack(this);
+        if (basicAttack != null)
+            basicAttack.DoAttack(this);
+        else
+            Debug.LogErrorFormat("{0} | BasicAttack is not set", name);
     }
 
     //[ClientRpc]
@@ -184,4 +186,3 @@ public class GenericCharacter : NetworkBehaviour
         }
     }
 }
-
