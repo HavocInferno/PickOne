@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BetterHighlighter : MonoBehaviour {
+public class BetterHighlighter : MonoBehaviour
+{
 
 	public Material baseMat;
 	public Material highlightMat;
 	public Renderer target;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
 		target.material = baseMat;
 	}
 	
-	public void EnableHL() {
+	public void EnableHL()
+    {
 		target.material = highlightMat;
 	}
 

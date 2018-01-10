@@ -51,7 +51,7 @@ public class SumoSlap : BasicAttack
         // If it has one, call function to take damage
         if (stats != null)
         {
-            stats.Hit(_damage, _attacker, transform.position,
+            stats.Hit(Damage, _attacker, transform.position,
                 (other.transform.position - _attacker.transform.position).normalized);
         }
         else

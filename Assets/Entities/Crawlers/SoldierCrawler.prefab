@@ -326,7 +326,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1272645852402114}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.464158, y: 2.000001, z: 2.472261}
+  m_LocalPosition: {x: 7.400663, y: 6.6308517, z: -5.5574055}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4609409759258854}
@@ -748,8 +748,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63381684f6703774e981c15d58dacadc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamage: 20
-  baseFireRate: 0.1
+  baseDamage: 30
+  baseFireRate: 1
   BulletSpeed: 16
   BulletLife: 2
   BulletPrefab: {fileID: 1508484646266804, guid: 7a0aa34461054fd4081fb5f06250b983,
@@ -777,8 +777,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fafd1aff4a50d904aa66a168b0b40cd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamage: 60
-  baseFireRate: 0.4
+  baseDamage: 30
+  baseFireRate: 1
   swingSpeed: 6
   lifeTime: 0.5
   blade: {fileID: 1561657782694470}

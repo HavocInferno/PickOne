@@ -18,9 +18,9 @@ public class FlameThrowerAttack : BasicAttack
 
     public override void DoAttack(GenericCharacter attacker)
     {
-        if (!ready) return;
+        if (!_ready) return;
 
-        ready = false;
+        _ready = false;
         _attacker = attacker;
         PlayAnimation(attacker);
         StartCoroutine(EnableEffectRoutine());
@@ -44,6 +44,6 @@ public class FlameThrowerAttack : BasicAttack
     IEnumerator AttackRoutine()
     {
         yield return new WaitForSeconds(FireRate);
-        ready = true;
+        _ready = true;
     }
 }

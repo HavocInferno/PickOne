@@ -72,9 +72,9 @@ public class Sword : BasicAttack
 
     public override void DoAttack(GenericCharacter attacker)
     {
-        if (!ready) return;
+        if (!_ready) return;
 
-        ready = false;
+        _ready = false;
 
         _attacker = attacker;
 		transform.localRotation = _defaultRot;
@@ -86,7 +86,7 @@ public class Sword : BasicAttack
 	IEnumerator AttackRoutine()
     {
 		yield return new WaitForSeconds(FireRate);
-        ready = true;
+        _ready = true;
         blade.SetActive(false);
         _animActive = false;
 	}

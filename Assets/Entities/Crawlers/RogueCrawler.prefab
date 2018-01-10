@@ -532,9 +532,6 @@ MonoBehaviour:
   - _max: 100
     name: Health
     bar: {fileID: 224258476899130700}
-  - _max: 100
-    name: Adrenaline
-    bar: {fileID: 0}
   attackMultiplier: 1
   defenseMultiplier: 1
   destroyOnDeath: 0
@@ -552,8 +549,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fafd1aff4a50d904aa66a168b0b40cd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseDamage: 30
-  _baseFireRate: 1
+  baseDamage: 30
+  baseFireRate: 1
   swingSpeed: 4
   lifeTime: 0.7
   blade: {fileID: 1907591340474998}
@@ -598,7 +595,7 @@ MonoBehaviour:
   isDead: 0
   basicAttack: {fileID: 114225731833222284}
   passiveEffects:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 3166d152cc481c24cae1dfb5adba5388, type: 2}
   nameTag: {fileID: 114572391937189462}
   pName: player
   playerColor: {r: 0, g: 0, b: 1, a: 1}
@@ -609,12 +606,12 @@ MonoBehaviour:
     attributeName: 
     name: Cloak
     effects:
-    - {fileID: 0}
+    - {fileID: 11400000, guid: c30af1f30c0430c488d0ba17165ef8de, type: 2}
   - type: 0
     attributeName: 
     name: Detect Enemies
     effects:
-    - {fileID: 0}
+    - {fileID: 11400000, guid: 538a7aa52253ae245854be874f4be8bd, type: 2}
   tpsUI: {fileID: 1331759435515112}
 --- !u!114 &114312325543870292
 MonoBehaviour:

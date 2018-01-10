@@ -487,6 +487,7 @@ GameObject:
   - component: {fileID: 114797360678104148}
   - component: {fileID: 114019818434892196}
   - component: {fileID: 136070166625559254}
+  - component: {fileID: 114980067602505662}
   m_Layer: 11
   m_Name: RobotOrange
   m_TagString: Enemy
@@ -1311,7 +1312,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1535867880565272}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.640816, y: 1.0000013, z: -68.38257}
+  m_LocalPosition: {x: -59.563557, y: 0.9999999, z: 9.0118885}
   m_LocalScale: {x: 1.9, y: 1.9, z: 1.9}
   m_Children:
   - {fileID: 4465964062456092}
@@ -1717,6 +1718,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c869a8da806c9ab43869dedcbf3149df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114980067602505662
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1535867880565272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ccc66562fceab4db71a2d2c6bae8a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  replacementTag: Highlight
+  colorAttributeName: _HighlightColor
+  color: {r: 0.32017732, g: 0.8512066, b: 0.9264706, a: 0.5}
 --- !u!136 &136070166625559254
 CapsuleCollider:
   m_ObjectHideFlags: 1

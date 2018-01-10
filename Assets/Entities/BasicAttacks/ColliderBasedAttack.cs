@@ -38,9 +38,9 @@ public class ColliderBasedAttack : BasicAttack
 
     public override void DoAttack(GenericCharacter attacker)
     {
-        if (!ready) return;
+        if (!_ready) return;
 
-        ready = false;
+        _ready = false;
         _attacker = attacker;
         PlayAnimation(attacker);
         StartCoroutine(AttackRoutine());
@@ -51,6 +51,6 @@ public class ColliderBasedAttack : BasicAttack
     {
         yield return new WaitForSeconds(FireRate);
         GetComponent<Collider>().enabled = false;
-        ready = true;
+        _ready = true;
     }
 }

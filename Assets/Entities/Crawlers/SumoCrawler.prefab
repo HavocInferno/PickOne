@@ -535,9 +535,6 @@ MonoBehaviour:
   - _max: 150
     name: Health
     bar: {fileID: 224624800740530514}
-  - _max: 100
-    name: Adrenaline
-    bar: {fileID: 0}
   attackMultiplier: 1
   defenseMultiplier: 1
   destroyOnDeath: 0
@@ -567,8 +564,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3bf235c1a360348864f85f1d98f1c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseDamage: 30
-  _baseFireRate: 1
+  baseDamage: 30
+  baseFireRate: 1
   attackCollider: {fileID: 65340534322467880}
   particleSystem: {fileID: 198841109139935714}
 --- !u!114 &114578588377981744

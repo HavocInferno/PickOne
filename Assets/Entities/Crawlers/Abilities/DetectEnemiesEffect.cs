@@ -15,8 +15,8 @@ public class DetectEnemiesEffect : AbstractEffect
         if (calledByLocalPlayer)
         {
             GameObject camera = GameObject.FindWithTag("MainCamera");
-            //camera.GetComponent<HighlightingRenderer>().enabled = true;
-			camera.GetComponent<BetterHLRendering>().EnableHighlightAll();
+            camera.GetComponent<HighlightingRenderer>().enabled = true;
+			// camera.GetComponent<BetterHLRendering>().EnableHighlightAll();
         }
     }
 
@@ -30,8 +30,8 @@ public class DetectEnemiesEffect : AbstractEffect
         if (calledByLocalPlayer)
         {
             GameObject camera = GameObject.FindWithTag("MainCamera");
-            //camera.GetComponent<HighlightingRenderer>().enabled = false;
-			camera.GetComponent<BetterHLRendering>().DisableHighlightAll();
+            camera.GetComponent<HighlightingRenderer>().enabled = false;
+			// camera.GetComponent<BetterHLRendering>().DisableHighlightAll();
         }
     }
 }
