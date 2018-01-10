@@ -103,7 +103,8 @@ public class BuffVisualEffect : AbstractEffect
         private void OnDisable()
         {
             MeshRenderer renderer = GetBody().GetComponent<MeshRenderer>();
-            renderer.material.SetColor("_EmissionColor", _baseColor);
+			if(renderer != null)
+            	renderer.material.SetColor("_EmissionColor", _baseColor);
 
             if (_createLight)
                 Destroy(_lightNode);
