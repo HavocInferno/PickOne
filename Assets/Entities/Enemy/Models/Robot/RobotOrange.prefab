@@ -1313,7 +1313,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1535867880565272}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.640816, y: 1.0000013, z: -68.38257}
+  m_LocalPosition: {x: -59.563557, y: 0.9999999, z: 9.0118885}
   m_LocalScale: {x: 1.9, y: 1.9, z: 1.9}
   m_Children:
   - {fileID: 4465964062456092}
@@ -1615,7 +1615,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1535867880565272}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc72ea761c874734aaa6bd09e6934661, type: 3}
   m_Name: 
@@ -1638,6 +1638,7 @@ MonoBehaviour:
   isDead: 0
   basicAttack: {fileID: 114937138178086542}
   passiveEffects: []
+  mainRenderer: {fileID: 137780613006183404}
   behaviours: []
   detectors: []
   possibleTargets: []
@@ -1740,7 +1741,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1535867880565272}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4ccc66562fceab4db71a2d2c6bae8a5, type: 3}
   m_Name: 

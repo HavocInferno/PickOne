@@ -34,14 +34,11 @@ public class ShotgunAttack : BasicAttack
 
         base.DoAttack(attacker);
 
-        Debug.LogError("Attack!");
-
         if (BulletPrefab == null)
             return;
 
         for (int i = 0; i < count; ++i)
         {
-            Debug.LogError("Spawn bullet!");
             // Create the Bullet from the Bullet Prefab
             var bullet = Instantiate(
                 BulletPrefab,
