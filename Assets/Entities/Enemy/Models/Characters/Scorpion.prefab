@@ -600,6 +600,7 @@ GameObject:
   - component: {fileID: 114158897692112870}
   - component: {fileID: 114486196213630434}
   - component: {fileID: 114906250555358782}
+  - component: {fileID: 114667712893406442}
   m_Layer: 11
   m_Name: Scorpion
   m_TagString: Enemy
@@ -1404,6 +1405,20 @@ MonoBehaviour:
   rotationSpeed: 240
   meleeRange: 10
   isEndConditionKill: 1
+--- !u!114 &114667712893406442
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1958256614993272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ccc66562fceab4db71a2d2c6bae8a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  replacementTag: Highlight
+  colorAttributeName: _HighlightColor
+  color: {r: 0.47794116, g: 0.9783975, b: 1, a: 0.503}
 --- !u!114 &114906250555358782
 MonoBehaviour:
   m_ObjectHideFlags: 1

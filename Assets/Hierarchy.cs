@@ -34,7 +34,7 @@ static public class Hierarchy
 
     static public IEnumerable<Material> GetMaterials(Transform root)
     {
-        foreach (var meshRenderer in GetComponents<MeshRenderer>(root))
+        foreach (var meshRenderer in GetComponents<Renderer>(root))
         { 
             if (meshRenderer != null && meshRenderer.material != null)
                 yield return meshRenderer.material;

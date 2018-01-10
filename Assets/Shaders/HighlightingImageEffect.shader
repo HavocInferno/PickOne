@@ -57,7 +57,7 @@
                 for (int k = 0; k < NumberOfIterations; ++k)
                 {
                     //increase our output color by the pixels in the area
-                    float2 uv = float2(i.uv.x, 1.0 - i.uv.y) +
+                    float2 uv = float2(i.uv.x, i.uv.y) +
                         float2((k - NumberOfIterations * 0.5) * step, 0);
                     intensity += tex2D(_AdditionalTex, uv) / NumberOfIterations;
                 }

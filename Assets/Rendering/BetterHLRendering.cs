@@ -6,13 +6,13 @@ public class BetterHLRendering : MonoBehaviour {
 
 	public void EnableHighlightAll() {
 		foreach (Transform tfE in FindObjectOfType<PlayersManager>().enemies) {
-			tfE.gameObject.GetComponent<BetterHighlighter> ().EnableHL ();
+			tfE.gameObject.GetComponent<BetterHighlighter>().EnableHL();
 		}
 	}
 
 	public void DisableHighlightAll() {
 		foreach (Transform tfE in FindObjectOfType<PlayersManager>().enemies) {
-			tfE.gameObject.GetComponent<BetterHighlighter> ().DisableHL();
+			tfE.gameObject.GetComponent<BetterHighlighter>().DisableHL();
 		}
 	}
 }

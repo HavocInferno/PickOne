@@ -444,6 +444,7 @@ GameObject:
   - component: {fileID: 114549505910402942}
   - component: {fileID: 114219791969972502}
   - component: {fileID: 114810831399411714}
+  - component: {fileID: 114823708993660582}
   m_Layer: 11
   m_Name: ScorpionBoss
   m_TagString: Enemy
@@ -1419,6 +1420,20 @@ MonoBehaviour:
     i15: 209
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114823708993660582
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1776535338110476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ccc66562fceab4db71a2d2c6bae8a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  replacementTag: Highlight
+  colorAttributeName: _HighlightColor
+  color: {r: 1, g: 0.16176468, b: 0.16176468, a: 0.516}
 --- !u!114 &114897743084019762
 MonoBehaviour:
   m_ObjectHideFlags: 1
