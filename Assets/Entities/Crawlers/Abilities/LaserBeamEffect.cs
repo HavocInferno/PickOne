@@ -103,11 +103,19 @@ public class LaserBeamEffect : AbstractEffect
             foreach (var hit in hits)
             {
                 float damage = _damageRegisterRate * _damagePerSecond;
-                hit.transform.GetComponent<Stats>().Hit(
-                    damage,
-                    _character,
-                    hit.point,
-                    direction.normalized);
+                var enemyStats = hit.transform.GetComponent<Stats>();
+                if (enemyStats)
+                {
+                    enemyStats.Hit(
+                        damage,
+                        _character,
+                        hit.point,
+                        direction.normalized);
+                }
+                else
+                {
+                    Debug.LogWarning("Laser hit enemy without stats!");
+                }
             }
         }
 
