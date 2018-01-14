@@ -12,6 +12,7 @@ public class Master : NetworkBehaviour {
 
 	//Buff/Debuff Variables
 	[SerializeField]
+	public Material aidLineMaterial;
 	private float maxRayOffset = 10;
 	public Transform rayOrigin; 
 	[SerializeField]
@@ -141,10 +142,11 @@ public class Master : NetworkBehaviour {
 				}
 				//for some weird reason we might not be buffing at this stage
 				if (!buffing)
-					startBuffing();
+					startBuffing ();
+			} else {
+				aidLineMaterial.Lerp (aidLineMaterial, pickerVisible, Time.deltaTime);
+				stopBuffing ();
 			}
-			else
-				stopBuffing();
 		}
 		if (mainHand.getTriggerUp ()) 
 			stopBuffing ();
@@ -154,6 +156,7 @@ public class Master : NetworkBehaviour {
 	{
 		if (currentBuffTarget != -1 && !buffing)
 		{
+			aidLineMaterial.Lerp (aidLineMaterial, pickerInvisible, 1);
 			buffing = true;
 			buffRay.Draw = true;
 			playerManager.players[currentBuffTarget].GetComponent<Crawler>().EnableEffect(buffEffect);
@@ -198,14 +201,15 @@ public class Master : NetworkBehaviour {
 						stopDebuffing (); 
 					currentDebuffTarget = closest;
 					startDebuffing ();
-					Debug.Log("New enemy target! closest: " + closest +", currentDebuffTarget: "+currentDebuffTarget);
-					mainHand.hapticFeedback(hapticforce);
+					Debug.Log ("New enemy target! closest: " + closest + ", currentDebuffTarget: " + currentDebuffTarget);
+					mainHand.hapticFeedback (hapticforce);
 				}
 				if (!debuffing)
-					startDebuffing();
+					startDebuffing ();
+			} else {
+				aidLineMaterial.Lerp (aidLineMaterial, pickerVisible, Time.deltaTime);
+				stopDebuffing ();
 			}
-			else
-				stopDebuffing();
 		}
 		if (mainHand.getTriggerUp ()) 
 			stopDebuffing ();
@@ -216,6 +220,7 @@ public class Master : NetworkBehaviour {
 	{
 		if (currentDebuffTarget != -1 && !debuffing)
 		{
+			aidLineMaterial.Lerp (aidLineMaterial, pickerInvisible, 1);
 			debuffing = true;
 			debuffRay.Draw = true;
 			playerManager.enemies[currentDebuffTarget].GetComponent<Enemy>().EnableEffect(debuffEffect);
