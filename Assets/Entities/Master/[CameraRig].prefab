@@ -855,7 +855,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4314864241452762}
   - component: {fileID: 114416149371778328}
-  - component: {fileID: 114118159271495708}
+  - component: {fileID: 114133630651436522}
   m_Layer: 12
   m_Name: Controller (left)
   m_TagString: Untagged
@@ -3953,7 +3953,7 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114118159271495708
+--- !u!114 &114133630651436522
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -3961,7 +3961,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1608888770143690}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65aeebcd11ca96e499f91f4c76eb35ec, type: 3}
+  m_Script: {fileID: 11500000, guid: f86bb0f9bebe703498ca3f8e84b6f5db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemDistance: 40
@@ -3970,11 +3970,12 @@ MonoBehaviour:
   highlightScale: 2
   highlightSpeed: 8
   highlightPopColor: {r: 1, g: 1, b: 1, a: 1}
-  highlightColor: {r: 0.3897059, g: 0.56648076, b: 1, a: 1}
+  highlightColor: {r: 0.26666665, g: 0.5411765, b: 1, a: 0.5}
   items:
-  - Do
-  - Not
-  - Use
+  - North
+  - East
+  - South
+  - West
   UI: {fileID: 1485814174661670}
   textPrefab: {fileID: 1450557133612732, guid: 44b45c66f029b5241a9aac9fd85ece88, type: 2}
   _currentItem: -1
@@ -4005,11 +4006,11 @@ MonoBehaviour:
   hapticforce: 3999
   vibrateFrequency: 4
   mainHand: {fileID: 114358846076510912}
-  offHand: {fileID: 114118159271495708}
-  maxRayOffset: 10
+  offHand: {fileID: 114133630651436522}
+  aidLineMaterial: {fileID: 2100000, guid: 087dbdc5e00c9a342965dcd817101401, type: 2}
   rayOrigin: {fileID: 4375111632283262}
   playerManager: {fileID: 0}
-  raySpeed: 30
+  raySpeed: 20
   buffRay: {fileID: 114646373978396348}
   currentBuffTarget: -1
   debuffRay: {fileID: 114366031100295128}
@@ -4162,7 +4163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   origin: {fileID: 4220737958393748}
   destination: {x: 0, y: 0, z: 0}
-  material: {fileID: 2100000, guid: 475b6a806f173d34783903ef1fa178c8, type: 2}
+  material: {fileID: 2100000, guid: 5be946ed94fe7fa40a2b56b591d4f640, type: 2}
   segmentCount: 60
   thickness: 0.1
   name: Debuff
@@ -4240,7 +4241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   origin: {fileID: 4220737958393748}
   destination: {x: 0, y: 0, z: 0}
-  material: {fileID: 2100000, guid: 96abe1d9319700643a809bcb153842ee, type: 2}
+  material: {fileID: 2100000, guid: 7e6f44a133e5a0f4ebb62b7d0f17abc1, type: 2}
   segmentCount: 60
   thickness: 0.1
   name: Buff
