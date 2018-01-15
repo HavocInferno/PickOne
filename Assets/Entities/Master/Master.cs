@@ -100,7 +100,8 @@ public class Master : NetworkBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		applyBuff ();
+        UpdateAidRay();
+        applyBuff ();
 		applyDebuff ();
         UpdateAbilityPicker();
         applyFireBall();
@@ -144,8 +145,8 @@ public class Master : NetworkBehaviour {
 				if (!buffing)
 					startBuffing ();
 			} else {
-				aidLineMaterial.Lerp (aidLineMaterial, pickerVisible, Time.deltaTime);
-				stopBuffing ();
+                debuffDestination = rayOrigin.position;
+                stopBuffing ();
 			}
 		}
 		if (mainHand.getTriggerUp ()) 
@@ -207,7 +208,7 @@ public class Master : NetworkBehaviour {
 				if (!debuffing)
 					startDebuffing ();
 			} else {
-				aidLineMaterial.Lerp (aidLineMaterial, pickerVisible, Time.deltaTime);
+                debuffDestination = rayOrigin.position;
 				stopDebuffing ();
 			}
 		}
@@ -242,7 +243,19 @@ public class Master : NetworkBehaviour {
 		playerManager = GameObject.Find ("PlayerManagers").GetComponent<PlayersManager>();
 	}
 
-	void initThrowables ()
+    void UpdateAidRay()
+    {
+        if (((mainHand.currentItem == 0 && !buffing) || (mainHand.currentItem == 1 && !debuffing)) && mainHand.getTrigger())
+        {
+            aidLineMaterial.Lerp(aidLineMaterial, pickerVisible, Time.deltaTime);
+        }
+        else
+        {
+            aidLineMaterial.Lerp(aidLineMaterial, pickerInvisible, Time.deltaTime * 4);
+        }
+    }
+
+    void initThrowables ()
 	{
 		fireBallVis.SetActive (false);
 		fireVisScale = fireBallVis.transform.localScale;
