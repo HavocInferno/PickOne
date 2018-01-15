@@ -5,44 +5,44 @@ using UnityEngine.UI;
 
 public class Controller : MonoBehaviour
 {
-    private SteamVR_TrackedObject trackedObject;
-    private SteamVR_Controller.Device device;
-    private Vector2 trackpad;
+	protected SteamVR_TrackedObject trackedObject;
+	protected SteamVR_Controller.Device device;
+	protected Vector2 trackpad;
 
     //radial menu
 	[SerializeField]
-	private float itemDistance = 15;
+	protected float itemDistance = 15;
 	[SerializeField]
-	private ushort hapticforce = 3999;
+	protected ushort hapticforce = 3999;
 	[SerializeField]
-	private float highlightPopScale = 1.6f;
+	protected float highlightPopScale = 1.6f;
 	[SerializeField]
-	private float highlightScale = 1.3f;
+	protected float highlightScale = 1.3f;
 	[SerializeField]
-	private float highlightSpeed = 10f;
+	protected float highlightSpeed = 10f;
 	[SerializeField]
-	private Color highlightPopColor = Color.white;
+	protected Color highlightPopColor = Color.white;
 	[SerializeField]
-	private Color highlightColor = Color.blue;
+	protected Color highlightColor = Color.blue;
 	[SerializeField]
-	private string[] items = {"Buff", "Debuff"};
+	protected string[] items = {"Buff", "Debuff"};
 	[SerializeField]
-	private GameObject UI;
+	protected GameObject UI;
 	[SerializeField]
-	private GameObject textPrefab;
+	protected GameObject textPrefab;
 	[SerializeField]
 
-    private int _currentItem =-1, lastItem =-1;
-	private bool _radialMenuAccessed = false;
-	private Text[] texts;
-    private Color currentColor;
-	private Vector3 currentScale;
+	protected int _currentItem =-1, lastItem =-1;
+	protected bool _radialMenuAccessed = false;
+	protected Text[] texts;
+	protected Color currentColor;
+	protected Vector3 currentScale;
 
 	public int currentItem{ get{ return _currentItem;}}
 	public bool radialMenuAccessed{get{return _radialMenuAccessed;}}
 
 	// Use this for initialization
-    void Start () {
+    public void Start () {
         trackedObject = GetComponent<SteamVR_TrackedObject>();
         UI.SetActive(false);
 		initRadialMenu ();
@@ -50,11 +50,11 @@ public class Controller : MonoBehaviour
     }
 		
 	// Update is called once per frame
-	void Update () {
+	public void Update () {
 		pollRadialMenu ();
 	}
 
-	void initRadialMenu ()
+	protected void initRadialMenu ()
 	{
 		GameObject tempGameObject;
 		texts = new Text[items.Length];
@@ -68,7 +68,7 @@ public class Controller : MonoBehaviour
 		currentColor = texts [0].color;
 	}
 
-	void pollRadialMenu ()
+	protected void pollRadialMenu ()
 	{
 		device = SteamVR_Controller.Input ((int)trackedObject.index);
 		trackpad = device.GetAxis ();
@@ -86,21 +86,21 @@ public class Controller : MonoBehaviour
 		}
 	}
 
-	void openRadialMenu ()
+	protected void openRadialMenu ()
 	{
 		hapticFeedback (hapticforce);
 		UI.SetActive (true);
 		_radialMenuAccessed = true;
 	}
 
-	void closeRadialMenu ()
+	protected void closeRadialMenu ()
 	{
 		hapticFeedback (hapticforce);
 		UI.SetActive (false);
 		_radialMenuAccessed = false;
 	}
 
-	void updateRadialMenu ()
+	protected void updateRadialMenu ()
 	{
 		lastItem = _currentItem;
 		_currentItem = getCurrentRadialMenuItemIndex ();
@@ -119,7 +119,7 @@ public class Controller : MonoBehaviour
 		texts [_currentItem].color = Color.Lerp (texts [_currentItem].color, highlightColor, Time.deltaTime * highlightSpeed);
 	}
 
-	private int getCurrentRadialMenuItemIndex()
+	protected virtual int getCurrentRadialMenuItemIndex()
 	{
 		return (int) ((items.Length-(((Mathf.Atan2(trackpad.y, trackpad.x) / Mathf.PI * 180)+270-(360/items.Length/2))%360) / (360 / items.Length)));
 	}
