@@ -25,6 +25,9 @@ public class CompassController : Controller {
 	}
 	protected override int getCurrentRadialMenuItemIndex()
 	{
-		return (int) ((items.Length-(((Mathf.Atan2(trackpad.y, trackpad.x) / Mathf.PI * 180)- transform.rotation.eulerAngles.y+630-(360/items.Length/2))%360) / (360 / items.Length)))%items.Length;
+		if (trackPadMagnitude < selectMagnitude)
+			return -1;
+		else
+			return (int) ((items.Length-(((Mathf.Atan2(trackpad.y, trackpad.x) / Mathf.PI * 180)- transform.rotation.eulerAngles.y+630-(360/items.Length/2))%360) / (360 / items.Length)))%items.Length;
 	}
 }

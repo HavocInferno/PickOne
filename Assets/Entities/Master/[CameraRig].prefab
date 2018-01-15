@@ -611,6 +611,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1489942858346054
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4014715651674068}
+  - component: {fileID: 33980322641171724}
+  - component: {fileID: 23418494566995034}
+  m_Layer: 12
+  m_Name: TeleportHopper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1490289199350356
 GameObject:
   m_ObjectHideFlags: 1
@@ -1442,7 +1459,6 @@ GameObject:
   - component: {fileID: 33827353734953760}
   - component: {fileID: 114841672364706120}
   - component: {fileID: 114170348880738168}
-  - component: {fileID: 114485472308018388}
   m_Layer: 12
   m_Name: '[CameraRig]'
   m_TagString: Untagged
@@ -1571,6 +1587,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4055463019797176}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4014715651674068
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1489942858346054}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.23, z: 0}
+  m_LocalScale: {x: 1, y: 0.1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4336840645475572}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4033533582067968
 Transform:
@@ -2065,6 +2094,7 @@ Transform:
   - {fileID: 4314864241452762}
   - {fileID: 4070861456241098}
   - {fileID: 4176315501823028}
+  - {fileID: 4014715651674068}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3232,6 +3262,40 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!23 &23418494566995034
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1489942858346054}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 5155d95355d963345935afba420bb90b, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!23 &23436316490221954
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -3780,6 +3844,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1810949770891516}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &33980322641171724
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1489942858346054}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!54 &54169434433787860
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -3970,16 +4041,16 @@ MonoBehaviour:
   highlightScale: 2
   highlightSpeed: 8
   highlightPopColor: {r: 1, g: 1, b: 1, a: 1}
-  highlightColor: {r: 0.26666665, g: 0.5411765, b: 1, a: 0.5}
+  highlightColor: {r: 1, g: 1, b: 0.5019608, a: 0.5}
   items:
   - North
   - East
   - South
   - West
+  selectMagnitude: 0.3
   UI: {fileID: 1485814174661670}
-  textPrefab: {fileID: 1450557133612732, guid: 44b45c66f029b5241a9aac9fd85ece88, type: 2}
-  _currentItem: -1
-  lastItem: -1
+  textPrefab: {fileID: 1450557133612732, guid: 00162094d47fb8f42b14092ba2c158c1, type: 2}
+  trackPadMagnitude: 0
 --- !u!114 &114151913669464006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4042,6 +4113,16 @@ MonoBehaviour:
   healOrbVis: {fileID: 1509535148535866}
   healPool: {fileID: 1810949770891516}
   healOrbAtt: {fileID: 114667983422010602}
+  telePlat: {fileID: 4014715651674068}
+  teleMat: {fileID: 2100000, guid: 5155d95355d963345935afba420bb90b, type: 2}
+  teleMatHigh: {fileID: 2100000, guid: 9616c2bf28f08bc4f93f014a2a6b0d75, type: 2}
+  teleMatLow: {fileID: 2100000, guid: 21e8d39058ea1574091b60c3b8b88dbb, type: 2}
+  teleMatBlock: {fileID: 2100000, guid: ee98c4c1bc0e9a04a9a04b72c210ffdf, type: 2}
+  teleFrequency: 5
+  telePlatThiccness: 0.1
+  playArea: {fileID: 114841672364706120}
+  maxTel: {x: 2, y: 1, z: -2, w: -1}
+  currTel: {x: 0, y: 0}
 --- !u!114 &114212901342848296
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4145,11 +4226,10 @@ MonoBehaviour:
   - Debuff
   - Feyre
   - Heal
-  - Fist
+  selectMagnitude: 0.3
   UI: {fileID: 1739167695516104}
   textPrefab: {fileID: 1450557133612732, guid: 44b45c66f029b5241a9aac9fd85ece88, type: 2}
-  _currentItem: -1
-  lastItem: -1
+  trackPadMagnitude: 0
 --- !u!114 &114366031100295128
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4180,20 +4260,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: -1
   origin: {fileID: 0}
---- !u!114 &114485472308018388
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1932592510573424}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce16956cc6042e149b1f473764fc48c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shakeybakeys: []
-  cumulativeShakeyStrength: 0
-  maxCumStrength: 10
 --- !u!114 &114573951966764314
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4334,17 +4400,17 @@ MonoBehaviour:
   wireframeHeight: 2
   drawWireframeWhenSelectedOnly: 0
   drawInGame: 0
-  size: 2
+  size: 0
   color: {r: 0, g: 1, b: 0.08965492, a: 1}
   vertices:
-  - {x: 1.5, y: 0.01, z: -1.125}
-  - {x: -1.5, y: 0.01, z: -1.125}
-  - {x: -1.5, y: 0.01, z: 1.125}
-  - {x: 1.5, y: 0.01, z: 1.125}
-  - {x: 1.65, y: 0.01, z: -1.275}
-  - {x: -1.65, y: 0.01, z: -1.275}
-  - {x: -1.65, y: 0.01, z: 1.275}
-  - {x: 1.65, y: 0.01, z: 1.275}
+  - {x: 1.1000004, y: 0.01, z: -0.8000004}
+  - {x: -1.1000004, y: 0.01, z: -0.8000004}
+  - {x: -1.1000004, y: 0.01, z: 0.8000004}
+  - {x: 1.1000004, y: 0.01, z: 0.8000004}
+  - {x: 1.2500004, y: 0.01, z: -0.9500004}
+  - {x: -1.2500004, y: 0.01, z: -0.9500004}
+  - {x: -1.2500004, y: 0.01, z: 0.9500004}
+  - {x: 1.2500004, y: 0.01, z: 0.9500004}
 --- !u!114 &114853580978552728
 MonoBehaviour:
   m_ObjectHideFlags: 1
