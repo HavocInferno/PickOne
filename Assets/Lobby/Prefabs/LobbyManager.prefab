@@ -394,6 +394,7 @@ GameObject:
   - component: {fileID: 22488586}
   - component: {fileID: 22221880}
   - component: {fileID: 11478224}
+  - component: {fileID: 114367252500029598}
   m_Layer: 5
   m_Name: ServerListPanel
   m_TagString: Untagged
@@ -605,7 +606,6 @@ GameObject:
   - component: {fileID: 11475086}
   - component: {fileID: 11415508}
   - component: {fileID: 114754437715353856}
-  - component: {fileID: 114355133401576092}
   m_Layer: 5
   m_Name: LobbyManager
   m_TagString: Untagged
@@ -1796,7 +1796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13333334, g: 0.17254902, b: 0.21568628, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1806,7 +1806,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: 04a842e316b6f44bf8da702de26a8ed6, type: 3}
     m_FontSize: 28
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
@@ -2819,7 +2819,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13333334, g: 0.17254902, b: 0.21568628, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2829,7 +2829,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: 04a842e316b6f44bf8da702de26a8ed6, type: 3}
     m_FontSize: 28
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
@@ -3208,8 +3208,8 @@ MonoBehaviour:
   m_SpawnPrefabs:
   - {fileID: 1272645852402114, guid: cf3a28b16b1c7b647abadfb5e9c38cd7, type: 2}
   - {fileID: 1026321081107524, guid: 18bd534c03e45584cbe2cc9ea21bd227, type: 2}
-  - {fileID: 1026321081107524, guid: 188342a590a1db6478c61c92ce86b6d9, type: 2}
-  - {fileID: 1026321081107524, guid: 18bd534c03e45584cbe2cc9ea21bd227, type: 2}
+  - {fileID: 1788217248877348, guid: defd66c9500b2ec44ae0a27548de14d4, type: 2}
+  - {fileID: 1509735570345952, guid: 434bdc199633ba04d8b5126d5eac2dd2, type: 2}
   - {fileID: 1508484646266804, guid: 7a0aa34461054fd4081fb5f06250b983, type: 2}
   - {fileID: 1267355592298342, guid: 19cad6e6906082a43b84246ca1a12bc8, type: 2}
   - {fileID: 1105925389560420, guid: eeaea4d88f7115e42a855dbeab532d4e, type: 2}
@@ -5815,18 +5815,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43b85abb62c44ec44a7c15526ee07692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114355133401576092
+--- !u!114 &114367252500029598
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 155310}
+  m_GameObject: {fileID: 140634}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1f7f9542d6ce174aaf84b04f68bfbfe, type: 3}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneBuildIndex: 2
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.050980393, g: 0.08235294, b: 0.18431373, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!114 &114439751624130600
 MonoBehaviour:
   m_ObjectHideFlags: 1
