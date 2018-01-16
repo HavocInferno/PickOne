@@ -296,6 +296,11 @@ namespace Prototype.NetworkLobby
 			class3Button.gameObject.SetActive (true);
 			class4Button.gameObject.SetActive (true);
 
+			class1Button.gameObject.GetComponent<UIHoverInfo>().EnableHover();
+			class2Button.gameObject.GetComponent<UIHoverInfo>().EnableHover();
+			class3Button.gameObject.GetComponent<UIHoverInfo>().EnableHover();
+			class4Button.gameObject.GetComponent<UIHoverInfo>().EnableHover();
+
 			class1Button.onValueChanged.RemoveAllListeners ();
 			class1Button.onValueChanged.AddListener (delegate {ClassPicker (class1Button.name, class1Button.isOn);});
 			class2Button.onValueChanged.RemoveAllListeners ();
@@ -311,6 +316,11 @@ namespace Prototype.NetworkLobby
 			class2Button.interactable = false;
 			class3Button.interactable = false;
 			class4Button.interactable = false;
+
+			class1Button.gameObject.GetComponent<UIHoverInfo>().DisableHover();
+			class2Button.gameObject.GetComponent<UIHoverInfo>().DisableHover();
+			class3Button.gameObject.GetComponent<UIHoverInfo>().DisableHover();
+			class4Button.gameObject.GetComponent<UIHoverInfo>().DisableHover();
 
 			class1Button.gameObject.SetActive (false);
 			class2Button.gameObject.SetActive (false);
