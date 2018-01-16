@@ -9973,6 +9973,16 @@ GameObject:
   m_PrefabParentObject: {fileID: 1750476604758044, guid: 62b8525bf79144e4ab5cfcf4e9899fca,
     type: 2}
   m_PrefabInternal: {fileID: 1305787291}
+--- !u!1 &1305787294 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1838863390150598, guid: 62b8525bf79144e4ab5cfcf4e9899fca,
+    type: 2}
+  m_PrefabInternal: {fileID: 1305787291}
+--- !u!1 &1305787295 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1086986599790388, guid: 62b8525bf79144e4ab5cfcf4e9899fca,
+    type: 2}
+  m_PrefabInternal: {fileID: 1305787291}
 --- !u!1001 &1306764467
 Prefab:
   m_ObjectHideFlags: 0
@@ -13573,7 +13583,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1836381342
 Transform:
   m_ObjectHideFlags: 0
@@ -13600,8 +13610,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sign: {fileID: 1305787293}
-  riftPart: {fileID: 0}
-  vivePart: {fileID: 0}
+  riftPart: {fileID: 1305787295}
+  vivePart: {fileID: 1305787294}
 --- !u!1001 &1841150231
 Prefab:
   m_ObjectHideFlags: 0
