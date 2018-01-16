@@ -27,16 +27,19 @@ public class Controller : MonoBehaviour
 	[SerializeField]
 	protected string[] items = {"Buff", "Debuff"};
 	[SerializeField]
+	protected float selectMagnitude = .3f;
+	[SerializeField]
 	protected GameObject UI;
 	[SerializeField]
 	protected GameObject textPrefab;
 	[SerializeField]
 
+	protected float trackPadMagnitude;
 	protected int _currentItem =-1, lastItem =-1;
 	protected bool _radialMenuAccessed = false;
 	protected Text[] texts;
-	protected Color currentColor;
-	protected Vector3 currentScale;
+	protected Color[] colors;
+	protected Vector3[] scales;
 
 	public int currentItem{ get{ return _currentItem;}}
 	public bool radialMenuAccessed{get{return _radialMenuAccessed;}}
@@ -57,21 +60,26 @@ public class Controller : MonoBehaviour
 	protected void initRadialMenu ()
 	{
 		GameObject tempGameObject;
+		colors = new Color[items.Length];
 		texts = new Text[items.Length];
+		scales = new Vector3[items.Length]; 
 		for (int i = 0; i < items.Length; i++) {
 			tempGameObject = Instantiate (textPrefab, UI.transform);
 			float angle = (360 / items.Length) * i;
 			tempGameObject.transform.localPosition = new Vector3 (Mathf.Sin (angle / 180 * Mathf.PI), Mathf.Cos (angle / 180 * Mathf.PI), 0) * itemDistance;
 			texts [i] = tempGameObject.GetComponent<Text> ();
 			texts [i].text = items [i];
+			colors[i] = texts [i].color;
+			scales [i] = texts [i].rectTransform.localScale;
 		}
-		currentColor = texts [0].color;
+
 	}
 
 	protected void pollRadialMenu ()
 	{
 		device = SteamVR_Controller.Input ((int)trackedObject.index);
 		trackpad = device.GetAxis ();
+		trackPadMagnitude = trackpad.magnitude;
 		if (trackpad.x != 0 || trackpad.y != 0) {
 			trackpad.Normalize ();
 		}
@@ -105,23 +113,29 @@ public class Controller : MonoBehaviour
 		lastItem = _currentItem;
 		_currentItem = getCurrentRadialMenuItemIndex ();
 		if (_currentItem != lastItem) {
-			if (lastItem != -1)
-				texts [lastItem].color = currentColor;
-			currentColor = texts [_currentItem].color;
-			texts [_currentItem].color = highlightPopColor;
-			if (lastItem != -1)
-				texts [lastItem].rectTransform.localScale = currentScale;
-			currentScale = texts [_currentItem].rectTransform.localScale;
-			texts [_currentItem].transform.localScale *= highlightPopScale;
+			if (currentItem != -1) {
+				texts [_currentItem].transform.localScale *= highlightPopScale;
+				texts [_currentItem].color = highlightPopColor;
+			}
 			hapticFeedback (hapticforce);
 		}
-		texts [_currentItem].rectTransform.localScale = Vector3.Lerp (texts [_currentItem].rectTransform.localScale, highlightScale * currentScale, Time.deltaTime * highlightSpeed);
-		texts [_currentItem].color = Color.Lerp (texts [_currentItem].color, highlightColor, Time.deltaTime * highlightSpeed);
+		for (int i = 0; i < items.Length; i++) {
+			if (currentItem == i) {
+				texts [i].rectTransform.localScale = Vector3.Lerp (texts [i].rectTransform.localScale, highlightScale * scales [i], Time.deltaTime * highlightSpeed);
+				texts [i].color = Color.Lerp (texts [i].color, highlightColor, Time.deltaTime * highlightSpeed);
+			} else {
+				texts [i].rectTransform.localScale = Vector3.Lerp (texts [i].rectTransform.localScale, scales [i], Time.deltaTime * highlightSpeed);
+				texts [i].color = Color.Lerp (texts [i].color, colors [i], Time.deltaTime * highlightSpeed);
+			}
+		}
 	}
 
 	protected virtual int getCurrentRadialMenuItemIndex()
 	{
-		return (int) ((items.Length-(((Mathf.Atan2(trackpad.y, trackpad.x) / Mathf.PI * 180)+270-(360/items.Length/2))%360) / (360 / items.Length)));
+		if (trackPadMagnitude < selectMagnitude)
+			return -1;
+		else
+			return (int) ((items.Length-(((Mathf.Atan2(trackpad.y, trackpad.x) / Mathf.PI * 180)+270-(360/items.Length/2))%360) / (360 / items.Length)));
 	}
 
 	public void hapticFeedback (ushort hapticforce)
@@ -179,6 +193,30 @@ public class Controller : MonoBehaviour
 		if(device == null)
 			device = SteamVR_Controller.Input ((int)trackedObject.index);
 		return device.GetPressUp (SteamVR_Controller.ButtonMask.Grip);
+	}
+	public bool getTouchpad()
+	{
+		if(trackedObject == null)
+			trackedObject = GetComponent<SteamVR_TrackedObject>();
+		if(device == null)
+			device = SteamVR_Controller.Input ((int)trackedObject.index);
+		return device.GetPress (SteamVR_Controller.ButtonMask.Touchpad);
+	}
+	public bool getTouchpadDown()
+	{
+		if(trackedObject == null)
+			trackedObject = GetComponent<SteamVR_TrackedObject>();
+		if(device == null)
+			device = SteamVR_Controller.Input ((int)trackedObject.index);
+		return device.GetPressDown (SteamVR_Controller.ButtonMask.Touchpad);
+	}	
+	public bool getTouchpadUp()
+	{
+		if(trackedObject == null)
+			trackedObject = GetComponent<SteamVR_TrackedObject>();
+		if(device == null)
+			device = SteamVR_Controller.Input ((int)trackedObject.index);
+		return device.GetPressUp (SteamVR_Controller.ButtonMask.Touchpad);
 	}
 
 
