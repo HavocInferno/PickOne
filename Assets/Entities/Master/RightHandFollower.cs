@@ -11,7 +11,11 @@ public class RightHandFollower : MasterFollower
 	public Master master;
 	[SyncVar]
 	public bool isBuffed, isDebuffed;
-	public ParticleSystem buffSystem, debuffSystem;
+	public Transform buffChargeIndicator;
+	private Vector3 chargeIndicatorScale;
+	public ParticleSystem[] buffSystems, debuffSystems;
+	[SyncVar]
+	public float buffCharge, debuffCharge;
 
 	public GameObject healOrbVis;
 	Vector3 healVisScale;
@@ -21,6 +25,8 @@ public class RightHandFollower : MasterFollower
 	public Material masterMaterial;
 	public Material defaultMaterial;
 	public Material[] abilityMaterials;
+	public Material buffActive;
+	public Material debuffActive;
 	public Material pingMaterial;
 
 	public Transform pingArrow, capsule;
@@ -40,8 +46,11 @@ public class RightHandFollower : MasterFollower
 	// Use this for initialization
 	void Start()
     {
-		buffSystem.enableEmission = false; 
-		debuffSystem.enableEmission = false; 
+		chargeIndicatorScale = buffChargeIndicator.localScale;
+		foreach(var buffSystem in buffSystems)
+			buffSystem.enableEmission = false; 
+		foreach(var debuffSystem in debuffSystems)
+			debuffSystem.enableEmission = false; 
 		arrowscale = pingArrow.localScale;
 		capsuleScale = capsule.localScale;
         if (followed.gameObject.activeInHierarchy)
@@ -104,6 +113,9 @@ public class RightHandFollower : MasterFollower
 			debuffTarget = master.debuffDestination;
 			isDebuffed = master.debuffing;
 			lastItem = currentitem;
+			buffCharge = Mathf.Clamp01(master.BuffCharge/master.maxBuffCharge);
+			debuffCharge = Mathf.Clamp01(master.DebuffCharge/master.maxDebuffCharge);
+
 			if (controller == null)
 				controller = followed.GetComponentInParent<Controller> ();
 			else {
@@ -118,11 +130,29 @@ public class RightHandFollower : MasterFollower
 			debuff.destination = debuffTarget;
 			debuff.Draw = isDebuffed;
         }
+		foreach(var buffSystem in buffSystems)
+			buffSystem.enableEmission = isBuffed;
+		foreach(var debuffSystem in debuffSystems)
+			debuffSystem.enableEmission = isDebuffed;
 
-		buffSystem.enableEmission = isBuffed; 
-		debuffSystem.enableEmission = isDebuffed; 
+		Vector3 handScale = chargeIndicatorScale;
+		if (currentitem == 0)
+			handScale -= new Vector3 (0,0,(1-buffCharge)*chargeIndicatorScale.z);
+		if(currentitem == 1)
+			handScale -= new Vector3 (0,0,(1-debuffCharge)*chargeIndicatorScale.z);
+		buffChargeIndicator.localScale = Vector3.Lerp(buffChargeIndicator.localScale, handScale, Time.deltaTime*growspeed);
 
-		if (currentitem >= 0 && currentitem < abilityMaterials.Length)
+		if (buffChargeIndicator.localScale.z < 0.001)
+			buffChargeIndicator.localScale = new Vector3 (buffChargeIndicator.localScale.x, buffChargeIndicator.localScale.y, 0.001f);
+
+
+		if (isBuffed) {
+			masterMaterial.Lerp(masterMaterial,buffActive,Time.deltaTime*growspeed);
+		}
+		else if (isDebuffed) {
+			masterMaterial.Lerp(masterMaterial,debuffActive,Time.deltaTime*growspeed);
+		}
+		else if (currentitem >= 0 && currentitem < abilityMaterials.Length)
 			masterMaterial.Lerp (masterMaterial, abilityMaterials [currentitem], Time.deltaTime);
 		else
 			masterMaterial.Lerp (masterMaterial, defaultMaterial, Time.deltaTime);

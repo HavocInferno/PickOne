@@ -15,6 +15,7 @@ public class MasterHeadFollower : MasterFollower {
 	float blinkMin = 2, blinkMax = 5, blinkTime = 0.1f;
 	[SerializeField]
 	float singleWeight = 5, doubleWeight =2;
+    public float minEyeScale = 0.001f;
 
 	public Controller controller;
 	[SyncVar]
@@ -61,11 +62,11 @@ public class MasterHeadFollower : MasterFollower {
 			yield return new WaitForSeconds (Random.Range(blinkMin, blinkMax));
 			if (Random.Range (0, singleWeight + doubleWeight) < singleWeight) {
 				//simple blink
-				while (left.localScale.y > 0) {
+				while (left.localScale.y > minEyeScale) {
 					yield return new WaitForEndOfFrame ();
 					changeEyes (-eyeScaleY, -intensity);
 				}
-				setEyes (0,0);
+				setEyes (minEyeScale, minEyeScale);
 
 				while (left.localScale.y < eyeScaleY) {
 					yield return new WaitForEndOfFrame ();
@@ -74,11 +75,11 @@ public class MasterHeadFollower : MasterFollower {
 				setEyes (eyeScaleY,intensity);
 			} else {
 				//double blink
-				while (left.localScale.y > 0) {
+				while (left.localScale.y > minEyeScale) {
 					yield return new WaitForEndOfFrame ();
 					changeEyes (-eyeScaleY, -intensity);
 				}
-				setEyes (0,0);
+				setEyes (minEyeScale, minEyeScale);
 
 				while (left.localScale.y < eyeScaleY) {
 					yield return new WaitForEndOfFrame ();
@@ -86,11 +87,11 @@ public class MasterHeadFollower : MasterFollower {
 				}
 				setEyes (eyeScaleY,intensity);				
 
-				while (left.localScale.y > 0) {
+				while (left.localScale.y > minEyeScale) {
 					yield return new WaitForEndOfFrame ();
 					changeEyes (-eyeScaleY, -intensity);
 				}
-				setEyes (0,0);
+				setEyes (minEyeScale, minEyeScale);
 
 				while (left.localScale.y < eyeScaleY) {
 					yield return new WaitForEndOfFrame ();

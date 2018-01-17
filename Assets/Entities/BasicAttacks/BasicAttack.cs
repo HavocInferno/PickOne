@@ -26,12 +26,17 @@ public abstract class BasicAttack : MonoBehaviour
 
     protected bool _ready = true;
 
+	public AudioClip sound;
+	public AudioSource selfAS;
+
     protected virtual void Start()
     {
         damage = baseDamage;
         fireRate = baseFireRate;
         baseDamage = Mathf.Clamp(baseDamage, 0, int.MaxValue);
         baseFireRate = Mathf.Clamp(baseFireRate, 0, float.MaxValue);
+
+		selfAS = GetComponent<AudioSource> ();
     }
 
     public virtual void UpdateDamage(int mDamage)
@@ -49,6 +54,7 @@ public abstract class BasicAttack : MonoBehaviour
         if (!_ready) return;
 
         PlayAnimation(attacker);
+		selfAS.PlayOneShot(sound);
         _ready = false;
         StartCoroutine(WaitForReload());
     }

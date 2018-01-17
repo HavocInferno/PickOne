@@ -66,6 +66,8 @@ public class SoldierSpecialAttackEffect : AbstractEffect
                 _back = false;
             }
 
+			_gun.selfAS.PlayOneShot (_gun.sound);
+
             // Create the Bullet from the Bullet Prefab
             var bullet = Instantiate(
                 _gun.BulletPrefab,

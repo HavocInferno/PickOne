@@ -21,6 +21,9 @@ public class SettingsUI : MonoBehaviour {
 	public AudioSource musicSource;
 	public Slider musicVolumeSlider;
 
+	//game controls
+	public Toggle showVRTutorialToggle;
+
 
 	//---------------------------------------------------------
 
@@ -42,6 +45,7 @@ public class SettingsUI : MonoBehaviour {
 		//antialiasingDropdown.onValueChanged.AddListener (delegate {	OnAntialiasingChange ();	});
 		vSyncDropdown.onValueChanged.AddListener (delegate {	OnVSyncChange ();	});
 		//musicVolumeSlider.onValueChanged.AddListener (delegate {	OnMusicVolumeChange ();	});
+		showVRTutorialToggle.onValueChanged.AddListener (delegate {	OnShowVRTutorialToggle ();	});
 
 		resolutions = Screen.resolutions;
 		resolutionDropdown.options.Clear ();
@@ -108,6 +112,12 @@ public class SettingsUI : MonoBehaviour {
 		dirtySetting = true;
 	}
 
+	public void OnShowVRTutorialToggle() {
+		gameSettings.showVRTutorial = showVRTutorialToggle.isOn;
+
+		dirtySetting = true;
+	}
+
 	public void OnApplyButtonClick() {
 		SaveSettings ();
 	}
@@ -139,6 +149,7 @@ public class SettingsUI : MonoBehaviour {
 			//antialiasingDropdown.value = gameSettings.antialiasing;
 			vSyncDropdown.value = gameSettings.vSync;
 			presetDropdown.value = gameSettings.presetIndex;
+			showVRTutorialToggle.isOn = gameSettings.showVRTutorial;
 
 			//audio controls
 			//musicVolumeSlider.value = gameSettings.musicVolume;

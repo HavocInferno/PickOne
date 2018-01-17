@@ -1316,6 +1316,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseDamage: 1.5
   baseFireRate: 2.3
+  sound: {fileID: 0}
+  selfAS: {fileID: 0}
   flameEffect: {fileID: 198249129697097322}
   startTime: 0.1
   endTime: 2.1
@@ -1393,7 +1395,7 @@ MonoBehaviour:
   attackMultiplier: 1
   defenseMultiplier: 1
   destroyOnDeath: 0
-  hitEffect: {fileID: 1027569601392326, guid: 7a1a8d7d8d2ed034390200e100c60347, type: 2}
+  hitEffect: {fileID: 1217518463097192, guid: 03dcddbe0f036b246b9e920a2387aa20, type: 2}
   deathEffect: {fileID: 1105925389560420, guid: eeaea4d88f7115e42a855dbeab532d4e,
     type: 2}
 --- !u!114 &114813550490754452

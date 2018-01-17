@@ -10,4 +10,7 @@
 
 	//audio
 	public float musicVolume;
+
+	//game
+	public bool showVRTutorial;
 }

@@ -106,6 +106,7 @@ public class Enemy : GenericCharacter
     private bool RotateTowards(Vector3 position)
     {
         Vector3 direction = (position - transform.position).normalized;
+		if(direction.magnitude < 1e-06f) return false;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         float angle = Quaternion.Angle(transform.rotation, lookRotation);
         if (angle < 1e-06f) return false;
