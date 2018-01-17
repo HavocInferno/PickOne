@@ -421,6 +421,15 @@ public class Master : NetworkBehaviour {
         fireAtt.attracting = false;
     }
 
+	public void FireBallCollected()
+	{
+		firePoolSize = Mathf.Clamp (firePoolSize+maxCharge, 0, maxFirePoolSize);
+	}
+
+	public void HealOrbCollected()
+	{
+		healPoolSize = Mathf.Clamp (healPoolSize+maxCharge, 0, maxHealPoolSize);
+	}
 
     void UpdateAbilityPicker()
     {

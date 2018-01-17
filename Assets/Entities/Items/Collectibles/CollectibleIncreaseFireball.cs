@@ -10,7 +10,9 @@ public class CollectibleIncreaseFireball : Collectible
 
         if (isServer)
         {
-            // TODO
+			foreach (var mas in GameObject.Find("[CameraRig]").GetComponents<Master>()) {
+				mas.FireBallCollected ();
+			}
         }
     }
 }

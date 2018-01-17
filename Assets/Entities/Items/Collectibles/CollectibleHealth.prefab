@@ -103,7 +103,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1216745002579018}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25.89, y: 2.54, z: -30.83}
+  m_LocalPosition: {x: 122.25849, y: -89.20047, z: 748.875}
   m_LocalScale: {x: 0.4, y: 1, z: 0.4}
   m_Children:
   - {fileID: 4915558205919456}
@@ -380,7 +380,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 912709160
+  randomSeed: 1361163377
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4185,7 +4185,7 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 5
     enabled: 1
-    type: 0
+    type: 5
     angle: 45.88
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
@@ -4193,9 +4193,9 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 1, y: 1, z: 1}
+    m_Scale: {x: 0.4, y: 1, z: 0.4}
     placementMode: 0
-    m_Mesh: {fileID: 0}
+    m_Mesh: {fileID: 4300002, guid: 622a87b3379022740be7e2efea3ebd33, type: 3}
     m_MeshRenderer: {fileID: 0}
     m_SkinnedMeshRenderer: {fileID: 0}
     m_MeshMaterialIndex: 0
@@ -4203,7 +4203,7 @@ ParticleSystem:
     m_UseMeshMaterialIndex: 0
     m_UseMeshColors: 1
     alignToDirection: 0
-    randomDirectionAmount: 0
+    randomDirectionAmount: 1
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
