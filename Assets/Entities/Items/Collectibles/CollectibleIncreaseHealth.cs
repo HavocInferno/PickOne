@@ -10,6 +10,8 @@ public class CollectibleIncreaseHealth : Collectible
 
         if (isServer)
         {
+            GameObject masterTransform = GameObject.Find("[CameraRig]");
+            if (masterTransform == null) return;
 			foreach (var mas in GameObject.Find("[CameraRig]").GetComponents<Master>()) {
 				mas.HealOrbCollected ();
 			}
