@@ -129,10 +129,12 @@ public class Enemy : GenericCharacter
         var navMeshAgent = GetComponent<NavMeshAgent>();
         if (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance && !RotateTowards(Destination))
         {
+            Debug.LogError("Run anim OFF!!!");
             if (animator != null) animator.SetBool("IsRunning", false);
         }
         else
         {
+            Debug.LogError("Run anim ON!!!");
             if (animator != null) animator.SetBool("IsRunning", true);
         }
 

@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 136435606711999256}
   - component: {fileID: 114088485493065326}
   - component: {fileID: 114019256736011356}
+  - component: {fileID: 114420656262686560}
   m_Layer: 11
   m_Name: RobotBlack
   m_TagString: Enemy
@@ -1588,6 +1589,25 @@ MonoBehaviour:
     i15: 236
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114420656262686560
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1203628426793638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 95814563475124458}
+  m_ParameterSendBits: 0
+  param0: 
+  param1: 
+  param2: 
+  param3: 
+  param4: 
+  param5: 
 --- !u!114 &114451861858357118
 MonoBehaviour:
   m_ObjectHideFlags: 1
