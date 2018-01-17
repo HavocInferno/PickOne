@@ -1722,8 +1722,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c560ae8a679a884e98a3901cfa298fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamage: 10
+  baseDamage: 15
   baseFireRate: 0.4
+  sound: {fileID: 0}
+  selfAS: {fileID: 0}
 --- !u!114 &114977851636407542
 MonoBehaviour:
   m_ObjectHideFlags: 1
