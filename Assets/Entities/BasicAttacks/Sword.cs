@@ -79,6 +79,7 @@ public class Sword : BasicAttack
         _attacker = attacker;
 		transform.localRotation = _defaultRot;
 		_animActive = true;
+		selfAS.PlayOneShot(sound);
 		StartCoroutine(AttackRoutine());
         blade.SetActive(true);
 	}
