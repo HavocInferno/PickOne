@@ -11,13 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc2882f58ba75f54a8b382497a6e4338, type: 3}
   m_Name: LaserBeamEffect
   m_EditorClassIdentifier: 
-  baseCost: 20
-  baseDuration: 1.5
+  baseCost: 30
+  baseDuration: 2
   icon: {fileID: 21300000, guid: 66107305dfc2a4f44a18886dd6b742b1, type: 3}
   laserBeamPrefab: {fileID: 1595428073098470, guid: 6a134e87703fbc14191b465e65fc9754,
     type: 2}
   damagePerSecond: 30
-  damageRegisterRate: 0.1
+  damageRegisterRate: 0.25
   maxLength: 100
   laserHitMask:
     serializedVersion: 2

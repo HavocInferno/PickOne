@@ -102,6 +102,13 @@ public class Master : NetworkBehaviour {
     public ParticleAttractor fireAtt;
     Vector3 firePoolScale;
 
+	[SerializeField]
+	float maxFirePoolSize = 300;
+	[SerializeField]
+	float FirePoolRecharge = 3;
+	[SerializeField]
+	float firePoolSize = 30;
+
 	//healOrb
 	bool chargingHeal = false;
 	public float chargeHeal{
@@ -116,6 +123,13 @@ public class Master : NetworkBehaviour {
 	public GameObject healPool;
 	public ParticleAttractor healOrbAtt;
 	Vector3 healPoolScale;
+
+	[SerializeField]
+	float maxHealPoolSize = 300;
+	[SerializeField]
+	float healPoolRecharge = 3;
+	[SerializeField]
+	float healPoolSize= 30;
 
 
 	//Teleportation
@@ -339,17 +353,19 @@ public class Master : NetworkBehaviour {
 
     void applyFireBall()
     {
-		
 		if (mainHand.currentItem == 2) {
 			firePool.SetActive(true);
 			if (firePool.transform.localScale.magnitude < 0.99 * firePoolScale.magnitude)
-				firePool.transform.localScale = Vector3.Lerp(firePool.transform.localScale, firePoolScale, Time.deltaTime* poolGrowSpeed );
+				firePool.transform.localScale = Vector3.Lerp(firePool.transform.localScale, firePoolScale*Mathf.Pow(Mathf.Clamp01(firePoolSize/maxFirePoolSize),1f/3f), Time.deltaTime* poolGrowSpeed );
 		} else {
 			if (firePool.transform.localScale.magnitude >= 0.01 * firePoolScale.magnitude)
 				firePool.transform.localScale = Vector3.Lerp(firePool.transform.localScale, Vector3.zero, Time.deltaTime * poolGrowSpeed);
 			else
 				firePool.SetActive(false);
 		}
+
+		if (!chargingFire)
+			firePoolSize += FirePoolRecharge * Time.deltaTime; 
 
         if (mainHand.currentItem != 2 || mainHand.radialMenuAccessed)
         {
@@ -359,21 +375,23 @@ public class Master : NetworkBehaviour {
             return;
         }
 
-        if (mainHand.getTrigger() && picker.pooling && !chargingFire && charge<maxCharge)
+		if (mainHand.getTrigger() && picker.pooling && !chargingFire && charge<maxCharge && firePoolSize >= minCharge)
         {
 				chargingFire = true;
                 fireBallVis.SetActive(true);
                 fireAtt.attracting = true;
         }
-        if (mainHand.getTrigger() && chargingFire && charge<maxCharge && (mainHand.transform.position-offHand.transform.position).magnitude < maxChargeDistance)
+		if (mainHand.getTrigger() && chargingFire && charge<maxCharge && (mainHand.transform.position-offHand.transform.position).magnitude < maxChargeDistance &&  firePoolSize > 0.1)
         {
-            charge += chargeRate * Time.deltaTime;
+			float chargePlus = Mathf.Min (chargeRate * Time.deltaTime, firePoolSize);
+			charge += chargePlus;
+			firePoolSize -= chargePlus;
 			charge = Mathf.Clamp (charge, 0, maxCharge);
 			fireBallVis.transform.localScale = charge / maxCharge * fireVisScale;
 			mainHand.hapticFeedback ((ushort)(charge/maxCharge*hapticforce));
 		}
 
-        if (charge >= maxCharge || (mainHand.transform.position - offHand.transform.position).magnitude >= maxChargeDistance)
+		if (charge >= maxCharge || (mainHand.transform.position - offHand.transform.position).magnitude >= maxChargeDistance || firePoolSize <= 0.1)
         {
             fireAtt.attracting = false;
             chargingFire = false;
@@ -384,8 +402,9 @@ public class Master : NetworkBehaviour {
         if (mainHand.getTriggerUp())
             dropFireBall();
 		
-
         lastPos = throwBase.position;
+
+		firePoolSize = Mathf.Clamp (firePoolSize, 0, 300);
     }
     void dropFireBall()
     {
@@ -405,7 +424,7 @@ public class Master : NetworkBehaviour {
 
     void UpdateAbilityPicker()
     {
-		if (((mainHand.currentItem == 3  && !chargingHeal)|| (mainHand.currentItem == 2 && !chargingFire )) && mainHand.getTrigger()&& charge < maxCharge)
+		if (((mainHand.currentItem == 3  && !chargingHeal && healPoolSize >= minCharge)|| (mainHand.currentItem == 2 && !chargingFire  && firePoolSize >= minCharge)) && mainHand.getTrigger()&& charge < maxCharge)
         {
             abilityPicker.Lerp(abilityPicker, pickerVisible, Time.deltaTime);
         }
@@ -420,7 +439,7 @@ public class Master : NetworkBehaviour {
 		if (mainHand.currentItem == 3) {
 			healPool.SetActive(true);
 			if (healPool.transform.localScale.magnitude < 0.99 * healPoolScale.magnitude)
-				healPool.transform.localScale = Vector3.Lerp(healPool.transform.localScale, healPoolScale, Time.deltaTime* poolGrowSpeed );
+				healPool.transform.localScale = Vector3.Lerp(healPool.transform.localScale, healPoolScale*Mathf.Pow(Mathf.Clamp01(healPoolSize/maxHealPoolSize), 1f/3f), Time.deltaTime* poolGrowSpeed );
 		} 
 		else {			
 			if (healPool.transform.localScale.magnitude >= 0.01 * healPoolScale.magnitude)
@@ -428,6 +447,8 @@ public class Master : NetworkBehaviour {
 			else
 			healPool.SetActive(false);
 		}
+		if (!chargingHeal)
+			healPoolSize += healPoolRecharge * Time.deltaTime; 
 		if (mainHand.currentItem != 3 || mainHand.radialMenuAccessed)
 		{
 			if (chargingHeal)
@@ -435,21 +456,23 @@ public class Master : NetworkBehaviour {
 			return;
 		}
 
-		if (mainHand.getTrigger() && picker.pooling && !chargingHeal && charge<maxCharge)
+		if (mainHand.getTrigger() && picker.pooling && !chargingHeal && charge<maxCharge && healPoolSize >= minCharge)
 		{
 			chargingHeal = true;
 			healOrbVis.SetActive(true);
 			healOrbAtt.attracting = true;
 		}
-		if (mainHand.getTrigger() && chargingHeal && charge<maxCharge && (mainHand.transform.position-offHand.transform.position).magnitude < maxChargeDistance)
+		if (mainHand.getTrigger() && chargingHeal && charge<maxCharge && (mainHand.transform.position-offHand.transform.position).magnitude < maxChargeDistance && healPoolSize > 0.1)
 		{
-			charge += chargeRate * Time.deltaTime;
+			float chargePlus = Mathf.Min (chargeRate * Time.deltaTime, healPoolSize);
+			charge += chargePlus;
+			healPoolSize -= chargePlus;
 			charge = Mathf.Clamp (charge, 0, maxCharge);
 			healOrbVis.transform.localScale = charge / maxCharge * healVisScale;
 			mainHand.hapticFeedback ((ushort)(charge/maxCharge*hapticforce));
 		}
 
-		if (charge >= maxCharge || (mainHand.transform.position - offHand.transform.position).magnitude >= maxChargeDistance)
+		if (charge >= maxCharge || (mainHand.transform.position - offHand.transform.position).magnitude >= maxChargeDistance || healPoolSize <= 0.1)
 		{
 			healOrbAtt.attracting = false;
 			chargingHeal = false;
@@ -459,8 +482,8 @@ public class Master : NetworkBehaviour {
 
 		if (mainHand.getTriggerUp())
 			dropHealOrb();
-
-
+		
+		healPoolSize = Mathf.Clamp (healPoolSize, 0, maxHealPoolSize);
 		lastPos = throwBase.position;
 	}
 	void dropHealOrb()

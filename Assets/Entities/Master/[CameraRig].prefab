@@ -4035,7 +4035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f86bb0f9bebe703498ca3f8e84b6f5db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemDistance: 40
+  itemDistance: 50
   hapticforce: 3999
   highlightPopScale: 2.5
   highlightScale: 2
@@ -4047,9 +4047,14 @@ MonoBehaviour:
   - East
   - South
   - West
+  Colors:
+  - {r: 1, g: 1, b: 0, a: 1}
+  - {r: 1, g: 1, b: 0, a: 1}
+  - {r: 1, g: 1, b: 0, a: 1}
+  - {r: 1, g: 1, b: 0, a: 1}
   selectMagnitude: 0.3
   UI: {fileID: 1485814174661670}
-  textPrefab: {fileID: 1450557133612732, guid: 00162094d47fb8f42b14092ba2c158c1, type: 2}
+  textPrefab: {fileID: 1716351121271674, guid: 44b45c66f029b5241a9aac9fd85ece88, type: 2}
   trackPadMagnitude: 0
 --- !u!114 &114151913669464006
 MonoBehaviour:
@@ -4084,8 +4089,16 @@ MonoBehaviour:
   raySpeed: 20
   buffRay: {fileID: 114646373978396348}
   currentBuffTarget: -1
+  maxBuffCharge: 50
+  BuffChargeRate: 8
+  BuffDechargeRate: 10
+  buffCharge: 0
   debuffRay: {fileID: 114366031100295128}
   currentDebuffTarget: -1
+  maxDebuffCharge: 50
+  DebuffChargeRate: 8
+  DebuffDechargeRate: 10
+  debuffCharge: 0
   buffEffect: {fileID: 11400000, guid: 47293973425a6214b8d032764d7da0ed, type: 2}
   debuffEffect: {fileID: 11400000, guid: cfd9fa65d1f6bbe45980e1238a4a9b85, type: 2}
   vrEndScreenUI: {fileID: 0}
@@ -4108,11 +4121,17 @@ MonoBehaviour:
   fireBallVis: {fileID: 1733253785202252}
   firePool: {fileID: 1971361807232884}
   fireAtt: {fileID: 114264656863335628}
+  maxFirePoolSize: 300
+  FirePoolRecharge: 3
+  firePoolSize: 30
   healOrbPrefab: {fileID: 1524338109988192, guid: 1636dc4cbf179ca489577bae552e320c,
     type: 2}
   healOrbVis: {fileID: 1509535148535866}
   healPool: {fileID: 1810949770891516}
   healOrbAtt: {fileID: 114667983422010602}
+  maxHealPoolSize: 300
+  healPoolRecharge: 3
+  healPoolSize: 30
   telePlat: {fileID: 4014715651674068}
   teleMat: {fileID: 2100000, guid: 5155d95355d963345935afba420bb90b, type: 2}
   teleMatHigh: {fileID: 2100000, guid: 9616c2bf28f08bc4f93f014a2a6b0d75, type: 2}
@@ -4214,21 +4233,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65aeebcd11ca96e499f91f4c76eb35ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemDistance: 40
+  itemDistance: 50
   hapticforce: 3999
   highlightPopScale: 2.5
   highlightScale: 2
   highlightSpeed: 8
   highlightPopColor: {r: 1, g: 1, b: 1, a: 1}
-  highlightColor: {r: 0.3897059, g: 0.56648076, b: 1, a: 1}
+  highlightColor: {r: 0.8161765, g: 0.8161765, b: 0.8161765, a: 1}
   items:
   - Buff
   - Debuff
-  - Feyre
+  - Fire
   - Heal
+  Colors:
+  - {r: 0, g: 0.7515213, b: 0.7862069, a: 1}
+  - {r: 0.6091276, g: 0, b: 0.7965517, a: 1}
+  - {r: 1, g: 0.5019608, b: 0, a: 1}
+  - {r: 0.14964508, g: 0.7827586, b: 0, a: 1}
   selectMagnitude: 0.3
   UI: {fileID: 1739167695516104}
-  textPrefab: {fileID: 1450557133612732, guid: 44b45c66f029b5241a9aac9fd85ece88, type: 2}
+  textPrefab: {fileID: 1716351121271674, guid: 44b45c66f029b5241a9aac9fd85ece88, type: 2}
   trackPadMagnitude: 0
 --- !u!114 &114366031100295128
 MonoBehaviour:

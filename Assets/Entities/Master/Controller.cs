@@ -11,7 +11,7 @@ public class Controller : MonoBehaviour
 
     //radial menu
 	[SerializeField]
-	protected float itemDistance = 15;
+	protected float itemDistance = 50;
 	[SerializeField]
 	protected ushort hapticforce = 3999;
 	[SerializeField]
@@ -26,6 +26,8 @@ public class Controller : MonoBehaviour
 	protected Color highlightColor = Color.blue;
 	[SerializeField]
 	protected string[] items = {"Buff", "Debuff"};
+	[SerializeField]
+	protected Color[] Colors = new Color[0];
 	[SerializeField]
 	protected float selectMagnitude = .3f;
 	[SerializeField]
@@ -65,10 +67,15 @@ public class Controller : MonoBehaviour
 		scales = new Vector3[items.Length]; 
 		for (int i = 0; i < items.Length; i++) {
 			tempGameObject = Instantiate (textPrefab, UI.transform);
-			float angle = (360 / items.Length) * i;
+			float angle = (360 / items.Length) * i + 45;
 			tempGameObject.transform.localPosition = new Vector3 (Mathf.Sin (angle / 180 * Mathf.PI), Mathf.Cos (angle / 180 * Mathf.PI), 0) * itemDistance;
 			texts [i] = tempGameObject.GetComponent<Text> ();
 			texts [i].text = items [i];
+			foreach (var tex in tempGameObject.GetComponentsInChildren<Text>())
+				tex.text = items [i];
+			if(i<Colors.Length){
+				texts [i].color = Colors [i];
+			}
 			colors[i] = texts [i].color;
 			scales [i] = texts [i].rectTransform.localScale;
 		}
@@ -122,7 +129,7 @@ public class Controller : MonoBehaviour
 		for (int i = 0; i < items.Length; i++) {
 			if (currentItem == i) {
 				texts [i].rectTransform.localScale = Vector3.Lerp (texts [i].rectTransform.localScale, highlightScale * scales [i], Time.deltaTime * highlightSpeed);
-				texts [i].color = Color.Lerp (texts [i].color, highlightColor, Time.deltaTime * highlightSpeed);
+				texts [i].color = Color.Lerp (texts [i].color, Color.Lerp(Color.white, colors[i], 0.5f), Time.deltaTime * highlightSpeed);
 			} else {
 				texts [i].rectTransform.localScale = Vector3.Lerp (texts [i].rectTransform.localScale, scales [i], Time.deltaTime * highlightSpeed);
 				texts [i].color = Color.Lerp (texts [i].color, colors [i], Time.deltaTime * highlightSpeed);
@@ -135,7 +142,7 @@ public class Controller : MonoBehaviour
 		if (trackPadMagnitude < selectMagnitude)
 			return -1;
 		else
-			return (int) ((items.Length-(((Mathf.Atan2(trackpad.y, trackpad.x) / Mathf.PI * 180)+270-(360/items.Length/2))%360) / (360 / items.Length)));
+			return (int) ((items.Length-(((Mathf.Atan2(trackpad.y, trackpad.x) / Mathf.PI * 180)+315-(360/items.Length/2))%360) / (360 / items.Length)));
 	}
 
 	public void hapticFeedback (ushort hapticforce)

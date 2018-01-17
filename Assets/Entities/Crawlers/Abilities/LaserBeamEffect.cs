@@ -102,6 +102,10 @@ public class LaserBeamEffect : AbstractEffect
 
             foreach (var hit in hits)
             {
+                // Move on if friendly fire
+                if (hit.transform.CompareTag(GetComponentInParent<GenericCharacter>().tag))
+                    continue;
+
                 float damage = _damageRegisterRate * _damagePerSecond;
                 var enemyStats = hit.transform.GetComponent<Stats>();
                 if (enemyStats)
