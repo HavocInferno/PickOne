@@ -1622,7 +1622,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Animator: {fileID: 95119779905545388}
-  m_ParameterSendBits: 0
+  m_ParameterSendBits: 1
   param0: 
   param1: 
   param2: 
@@ -1744,6 +1744,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseDamage: 10
   baseFireRate: 0.4
+  sound: {fileID: 0}
+  selfAS: {fileID: 0}
 --- !u!114 &114977851636407542
 MonoBehaviour:
   m_ObjectHideFlags: 1
