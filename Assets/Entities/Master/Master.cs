@@ -25,11 +25,37 @@ public class Master : NetworkBehaviour {
 	private BezierCurve buffRay;
 	[SerializeField]
 	private int currentBuffTarget = -1;
+	[SerializeField]
+	public float maxBuffCharge = 50;	
+	[SerializeField]
+	private float BuffChargeRate = 8;	
+	[SerializeField]
+	private float BuffDechargeRate = 10;
+	[SerializeField]
+	private float buffCharge;
+	public float BuffCharge{
+		get{ 
+			return buffCharge;
+		}
+	}
 
 	[SerializeField]
 	private BezierCurve debuffRay;	
 	[SerializeField]
 	private int currentDebuffTarget = -1;
+	[SerializeField]
+	public float maxDebuffCharge = 50;	
+	[SerializeField]
+	private float DebuffChargeRate = 8;	
+	[SerializeField]
+	private float DebuffDechargeRate = 10;
+	[SerializeField]
+	private float debuffCharge;
+	public float DebuffCharge{
+		get{ 
+			return debuffCharge;
+		}
+	}
 
 	[SerializeField]
 	private AbstractEffect buffEffect;
@@ -128,43 +154,59 @@ public class Master : NetworkBehaviour {
 		if (mainHand.currentItem != 0 || mainHand.radialMenuAccessed) {
 			if (buffing)
 				stopBuffing ();
+			buffCharge += BuffChargeRate * Time.deltaTime;
 			return;
 		}
 
-		if (mainHand.getTrigger()) {
-			int closest = -1;
-			float closestdistance = maxRayOffset;
-			for (int i = 0; i < playerManager.players.Count; i++) {
-				if (playerManager.players [i] == null)
-					continue;
-				if (Vector3.Cross (rayOrigin.forward, playerManager.players [i].position - rayOrigin.position).magnitude < closestdistance && Vector3.Dot (rayOrigin.forward, playerManager.players [i].position - rayOrigin.position) > 0.1) {
-					closestdistance = Vector3.Cross (rayOrigin.forward, playerManager.players [i].position - rayOrigin.position).magnitude;
-					closest = i;
+		if (mainHand.getTrigger ()) {
+			if (buffCharge > 0) {
+				int closest = -1;
+				float closestdistance = maxRayOffset;
+				for (int i = 0; i < playerManager.players.Count; i++) {
+					if (playerManager.players [i] == null)
+						continue;
+					if (Vector3.Cross (rayOrigin.forward, playerManager.players [i].position - rayOrigin.position).magnitude < closestdistance && Vector3.Dot (rayOrigin.forward, playerManager.players [i].position - rayOrigin.position) > 0.1) {
+						closestdistance = Vector3.Cross (rayOrigin.forward, playerManager.players [i].position - rayOrigin.position).magnitude;
+						closest = i;
+					}
 				}
-			}
-			if (closest != -1) {
-				buffDestination = Vector3.Lerp (buffDestination, playerManager.players [closest].position, Time.deltaTime * raySpeed);
-				buffRay.destination = buffDestination; 
-				if (closest == currentBuffTarget)
-					mainHand.hapticFeedback ((ushort)(1000 * Mathf.Pow (Vector3.Cross (rayOrigin.forward, playerManager.players [closest].position - rayOrigin.position).magnitude / maxRayOffset, 2)));
-				else {
-					//new target
-					if (currentBuffTarget != -1)
-						stopBuffing ();
-					currentBuffTarget = closest;
-					startBuffing ();
-					mainHand.hapticFeedback (hapticforce);
+				if (closest != -1) {
+					buffCharge -= BuffDechargeRate * Time.deltaTime;
+					buffDestination = Vector3.Lerp (buffDestination, playerManager.players [closest].position, Time.deltaTime * raySpeed);
+					buffRay.destination = buffDestination; 
+					if (closest == currentBuffTarget)
+						mainHand.hapticFeedback ((ushort)(1000 * Mathf.Pow (Vector3.Cross (rayOrigin.forward, playerManager.players [closest].position - rayOrigin.position).magnitude / maxRayOffset, 2)));
+					else {
+						//new target
+						if (currentBuffTarget != -1)
+							stopBuffing ();
+						currentBuffTarget = closest;
+						startBuffing ();
+						mainHand.hapticFeedback (hapticforce);
+					}
+					//for some weird reason we might not be buffing at this stage
+					if (!buffing)
+						startBuffing ();
+				} else {
+					debuffDestination = rayOrigin.position;
+					stopBuffing ();
 				}
-				//for some weird reason we might not be buffing at this stage
-				if (!buffing)
-					startBuffing ();
 			} else {
-                debuffDestination = rayOrigin.position;
-                stopBuffing ();
+				if (buffing)
+					stopBuffing ();
+				mainHand.vibrateFrequently (hapticforce, vibrateFrequency);
+				
 			}
+		} else {
+			buffCharge += BuffChargeRate * Time.deltaTime;
 		}
-		if (mainHand.getTriggerUp ()) 
+		if (mainHand.getTriggerUp ()) {
+			debuffDestination = rayOrigin.position;
 			stopBuffing ();
+		}
+
+
+		buffCharge = Mathf.Clamp (buffCharge, 0, maxBuffCharge);
 	}
 
 	private void startBuffing()
@@ -191,43 +233,57 @@ public class Master : NetworkBehaviour {
 		if (mainHand.currentItem != 1 || mainHand.radialMenuAccessed) {
 			if (debuffing)
 				stopDebuffing ();
+			debuffCharge += DebuffChargeRate * Time.deltaTime;
 			return;
 		}
 
-		if (mainHand.getTrigger() && mainHand.currentItem == 1) {
-			int closest = -1;
-			float closestdistance = maxRayOffset;
-			for (int i = 0; i < playerManager.enemies.Count; i++) {
-				if (playerManager.enemies [i] == null)
-					continue;
-				if (Vector3.Cross (rayOrigin.forward, playerManager.enemies [i].position - rayOrigin.position).magnitude < closestdistance && Vector3.Dot (rayOrigin.forward, playerManager.enemies [i].position - rayOrigin.position) > 0.1) {
-					closestdistance = Vector3.Cross (rayOrigin.forward, playerManager.enemies [i].position - rayOrigin.position).magnitude;
-					closest = i;
+		if (mainHand.getTrigger ()) {
+			if (debuffCharge > 0) {
+				int closest = -1;
+				float closestdistance = maxRayOffset;
+				for (int i = 0; i < playerManager.enemies.Count; i++) {
+					if (playerManager.enemies [i] == null)
+						continue;
+					if (Vector3.Cross (rayOrigin.forward, playerManager.enemies [i].position - rayOrigin.position).magnitude < closestdistance && Vector3.Dot (rayOrigin.forward, playerManager.enemies [i].position - rayOrigin.position) > 0.1) {
+						closestdistance = Vector3.Cross (rayOrigin.forward, playerManager.enemies [i].position - rayOrigin.position).magnitude;
+						closest = i;
+					}
 				}
-			}
-			if (closest != -1) {
-				debuffDestination = Vector3.Lerp (debuffDestination, playerManager.enemies [closest].position, Time.deltaTime * raySpeed);
-				debuffRay.destination = debuffDestination; 
-				if (closest == currentDebuffTarget)
-					mainHand.hapticFeedback ((ushort)(1000 * Mathf.Pow (Vector3.Cross (rayOrigin.forward, playerManager.enemies [closest].position - rayOrigin.position).magnitude / maxRayOffset, 2)));
-				else {
-					//new target
-					if (currentDebuffTarget != -1)
-						stopDebuffing (); 
-					currentDebuffTarget = closest;
-					startDebuffing ();
-					Debug.Log ("New enemy target! closest: " + closest + ", currentDebuffTarget: " + currentDebuffTarget);
-					mainHand.hapticFeedback (hapticforce);
+				if (closest != -1) {
+					debuffCharge -= DebuffDechargeRate * Time.deltaTime;
+					debuffDestination = Vector3.Lerp (debuffDestination, playerManager.enemies [closest].position, Time.deltaTime * raySpeed);
+					debuffRay.destination = debuffDestination; 
+					if (closest == currentDebuffTarget)
+						mainHand.hapticFeedback ((ushort)(1000 * Mathf.Pow (Vector3.Cross (rayOrigin.forward, playerManager.enemies [closest].position - rayOrigin.position).magnitude / maxRayOffset, 2)));
+					else {
+						//new target
+						if (currentDebuffTarget != -1)
+							stopDebuffing (); 
+						currentDebuffTarget = closest;
+						startDebuffing ();
+						Debug.Log ("New enemy target! closest: " + closest + ", currentDebuffTarget: " + currentDebuffTarget);
+						mainHand.hapticFeedback (hapticforce);
+					}
+					if (!debuffing)
+						startDebuffing ();
+				} else {
+					debuffDestination = rayOrigin.position;
+					stopDebuffing ();
 				}
-				if (!debuffing)
-					startDebuffing ();
 			} else {
-                debuffDestination = rayOrigin.position;
-				stopDebuffing ();
+				if (debuffing)
+					stopDebuffing ();
+				mainHand.vibrateFrequently (hapticforce, vibrateFrequency);
+
 			}
+		} else {
+			debuffCharge += DebuffChargeRate * Time.deltaTime;
 		}
-		if (mainHand.getTriggerUp ()) 
+		if (mainHand.getTriggerUp ()) {
+			debuffDestination = rayOrigin.position;
 			stopDebuffing ();
+		}
+		debuffCharge = Mathf.Clamp (debuffCharge, 0, maxDebuffCharge);
 		
 	}
 
@@ -252,6 +308,8 @@ public class Master : NetworkBehaviour {
 
 	void initRays ()
 	{
+		buffCharge = maxBuffCharge;
+		debuffCharge = maxDebuffCharge;
 		debuffDestination = buffDestination = rayOrigin.position;
 		debuffRay.origin = buffRay.origin = rayOrigin;
 		playerManager = GameObject.Find ("PlayerManagers").GetComponent<PlayersManager>();
@@ -259,7 +317,7 @@ public class Master : NetworkBehaviour {
 
     void UpdateAidRay()
     {
-        if (((mainHand.currentItem == 0 && !buffing) || (mainHand.currentItem == 1 && !debuffing)) && mainHand.getTrigger())
+		if (((mainHand.currentItem == 0 && !buffing && buffCharge != 0) || (mainHand.currentItem == 1 && !debuffing && debuffCharge != 0)) && mainHand.getTrigger())
         {
             aidLineMaterial.Lerp(aidLineMaterial, pickerVisible, Time.deltaTime);
         }

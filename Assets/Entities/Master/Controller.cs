@@ -219,6 +219,10 @@ public class Controller : MonoBehaviour
 		return device.GetPressUp (SteamVR_Controller.ButtonMask.Touchpad);
 	}
 
-
+	public void vibrateFrequently(ushort hapticforce,float vibrateFrequency)
+	{
+		if(Mathf.Sin(Time.time*Mathf.PI*2* vibrateFrequency) > 0)
+			hapticFeedback (hapticforce);
+	}
 
 }
