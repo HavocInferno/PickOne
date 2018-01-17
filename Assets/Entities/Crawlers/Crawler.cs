@@ -91,6 +91,8 @@ public class Crawler : GenericCharacter
                 FindObjectOfType<AbilitiesPanel>().Initialize(activeAbilities);
 			}
         }
+
+		Cursor.visible = false;
     }
 
     //is called when the local client's scene starts

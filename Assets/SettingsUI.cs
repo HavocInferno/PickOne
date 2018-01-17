@@ -44,7 +44,7 @@ public class SettingsUI : MonoBehaviour {
 		//textureQualityDropdown.onValueChanged.AddListener (delegate {	OnTextureQualityChange ();	});
 		//antialiasingDropdown.onValueChanged.AddListener (delegate {	OnAntialiasingChange ();	});
 		vSyncDropdown.onValueChanged.AddListener (delegate {	OnVSyncChange ();	});
-		//musicVolumeSlider.onValueChanged.AddListener (delegate {	OnMusicVolumeChange ();	});
+		musicVolumeSlider.onValueChanged.AddListener (delegate {	OnMusicVolumeChange ();	});
 		showVRTutorialToggle.onValueChanged.AddListener (delegate {	OnShowVRTutorialToggle ();	});
 
 		resolutions = Screen.resolutions;
@@ -107,7 +107,7 @@ public class SettingsUI : MonoBehaviour {
 	}
 
 	public void OnMusicVolumeChange() {
-		musicSource.volume = gameSettings.musicVolume = musicVolumeSlider.value;
+		AudioListener.volume = gameSettings.musicVolume = musicVolumeSlider.value;
 
 		dirtySetting = true;
 	}
@@ -152,7 +152,7 @@ public class SettingsUI : MonoBehaviour {
 			showVRTutorialToggle.isOn = gameSettings.showVRTutorial;
 
 			//audio controls
-			//musicVolumeSlider.value = gameSettings.musicVolume;
+			musicVolumeSlider.value = gameSettings.musicVolume;
 			dirtySetting = false;
 			MainMenu.s_Singleton.StopDisplayInfo ();
 		}
