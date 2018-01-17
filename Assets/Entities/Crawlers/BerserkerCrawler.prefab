@@ -1055,6 +1055,9 @@ MonoBehaviour:
   activeAbilities:
   - type: 0
     attributeName: 
+    readyIcon: {fileID: 21300000, guid: d6210c51de68543409e515b9e484c672, type: 3}
+    activeIcon: {fileID: 21300000, guid: 801da8a0bddb0094da362ade1eec3a87, type: 3}
+    unavailableIcon: {fileID: 21300000, guid: 79cf982bcb2d52e40b0aa9e77d98efd8, type: 3}
     name: Rage
     effects:
     - {fileID: 11400000, guid: 73a941762eff7074d842b8394127ec9c, type: 2}
@@ -1191,13 +1194,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12e8e63662bccd54f9482f12da343d27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamage: 5
+  baseDamage: 6
   baseFireRate: 1
   sound: {fileID: 8300000, guid: 890af690a6489f64892077aa35d2d8e5, type: 3}
   selfAS: {fileID: 0}
-  angle: 7
-  count: 15
-  BulletSpeed: 20
+  angle: 10
+  count: 6
+  BulletSpeed: 30
   BulletLife: 1
   BulletPrefab: {fileID: 1508484646266804, guid: 7a0aa34461054fd4081fb5f06250b983,
     type: 2}
