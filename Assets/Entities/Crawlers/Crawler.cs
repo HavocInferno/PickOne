@@ -104,6 +104,7 @@ public class Crawler : GenericCharacter
         if (isVRMasterPlayer)
         {
             UnityEngine.XR.XRSettings.enabled = true;
+			QualitySettings.vSyncCount = 0; //this is an ugly fix, proper fix would be to globally save the player-set vsync state and recover it after the match is done.
             FindObjectOfType<CameraManager>().nonVRCamera.SetActive(false);
             FindObjectOfType<CameraManager>().vrCamera.SetActive(true);
             transform.position += Vector3.up;
