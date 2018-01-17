@@ -35,7 +35,7 @@ public class SumoSlap : BasicAttack
 
         _ready = false;
         _attacker = attacker;
-
+		selfAS.PlayOneShot(sound);
         StartCoroutine(AttackRoutine());
     }
 

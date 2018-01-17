@@ -23,6 +23,8 @@ GameObject:
   - component: {fileID: 199420075584958316}
   - component: {fileID: 114485590358084976}
   - component: {fileID: 114049344009647488}
+  - component: {fileID: 82328887911760024}
+  - component: {fileID: 114927949575262848}
   m_Layer: 0
   m_Name: Robot Hit Effect
   m_TagString: Untagged
@@ -43,6 +45,86 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &82328887911760024
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1217518463097192}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114049344009647488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -57,7 +139,7 @@ MonoBehaviour:
   duration: 0.5
   destroyAfterDuration: 1
   origin: {fileID: 4344581854864278}
-  shakeyStrength: 3
+  shakeyStrength: 2
   maxShakeDistance: 5
 --- !u!114 &114485590358084976
 MonoBehaviour:
@@ -91,6 +173,22 @@ MonoBehaviour:
     i15: 32
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114927949575262848
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1217518463097192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d77f70fea11e715499437d62e0906b0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - {fileID: 8300000, guid: cf2bbc0cac3656c438300c23d5df47e8, type: 3}
+  - {fileID: 8300000, guid: ed08b79dfd53bf34b8b3cd81901e8d37, type: 3}
+  - {fileID: 8300000, guid: 12c9f823a4129fc4491ffcb38a89c349, type: 3}
+  - {fileID: 8300000, guid: fa4d82eced12ac64998db2e2880696b9, type: 3}
 --- !u!198 &198996774159094558
 ParticleSystem:
   m_ObjectHideFlags: 1

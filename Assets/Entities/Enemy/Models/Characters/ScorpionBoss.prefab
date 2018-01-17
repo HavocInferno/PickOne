@@ -1314,6 +1314,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseDamage: 1.5
   baseFireRate: 2.3
+  sound: {fileID: 0}
+  selfAS: {fileID: 0}
   flameEffect: {fileID: 198249129697097322}
   startTime: 0.1
   endTime: 2.1
@@ -1352,7 +1354,7 @@ MonoBehaviour:
   isDead: 0
   basicAttack: {fileID: 114602332095756710}
   passiveEffects: []
-  mainRenderer: {fileID: 0}
+  mainRenderer: {fileID: 137509788149990388}
   behaviours: []
   detectors: []
   possibleTargets: []

@@ -45,7 +45,7 @@ public class ShotgunAttack : BasicAttack
                 BulletSpawn.position,
                 BulletSpawn.rotation);
 
-            Vector3 angles = angle * (new Vector3(Random.value, Random.value, Random.value));
+			Vector3 angles = angle * (new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0)); //Vector3 angles = angle * (new Vector3(Random.value, Random.value, Random.value));
             bullet.transform.Rotate(angles);
 
             // Set damage value of the bullet
