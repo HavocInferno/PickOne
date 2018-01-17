@@ -17,6 +17,10 @@ public class ActiveAbility
     public AvailabilityType type;
     public string attributeName;
 
+    public Sprite readyIcon;
+    public Sprite activeIcon;
+    public Sprite unavailableIcon;
+
     private bool _isAvailable = true;
 
     public bool IsAvailable { get { return _isAvailable; } }
@@ -27,7 +31,7 @@ public class ActiveAbility
 
     [SerializeField]
     private List<AbstractEffect> effects;
-
+    
     private IEnumerator WaitAndRecharge(float deltaTime, GenericCharacter character)
     {
         yield return new WaitForSeconds(deltaTime);

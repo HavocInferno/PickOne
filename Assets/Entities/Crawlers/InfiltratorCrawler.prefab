@@ -769,11 +769,17 @@ MonoBehaviour:
   activeAbilities:
   - type: 0
     attributeName: 
+    readyIcon: {fileID: 21300000, guid: d341e18fbda8fa449b86333975810fa3, type: 3}
+    activeIcon: {fileID: 21300000, guid: e7c1501d0e518f84d9b6ab102e1cdff8, type: 3}
+    unavailableIcon: {fileID: 21300000, guid: 169540a6d72668c4b9e618dd0213237a, type: 3}
     name: Cloak
     effects:
     - {fileID: 11400000, guid: 3e6465abd78d38c489c59165b5f01a23, type: 2}
   - type: 0
     attributeName: 
+    readyIcon: {fileID: 21300000, guid: b8a4a9a923055c34fbf6d1453ae79290, type: 3}
+    activeIcon: {fileID: 21300000, guid: 484b6254cd4211048b0c31fe1c6265be, type: 3}
+    unavailableIcon: {fileID: 21300000, guid: 4516e594dc766064fb70d51451e66412, type: 3}
     name: Detect Enemies
     effects:
     - {fileID: 11400000, guid: 538a7aa52253ae245854be874f4be8bd, type: 2}
