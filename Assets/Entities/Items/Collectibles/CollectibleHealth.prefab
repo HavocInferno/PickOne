@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 199404242949009176}
   - component: {fileID: 114720015977945082}
   - component: {fileID: 114702233800609006}
-  - component: {fileID: 114705655881824914}
   m_Layer: 0
   m_Name: CollectiblePermanentEffect
   m_TagString: Untagged
@@ -43,8 +42,8 @@ GameObject:
   - component: {fileID: 65181472210964972}
   - component: {fileID: 23557663673440124}
   - component: {fileID: 114365198803811050}
-  - component: {fileID: 114095865495233016}
   - component: {fileID: 54561523703872140}
+  - component: {fileID: 114570701062849734}
   m_Layer: 16
   m_Name: CollectibleHealth
   m_TagString: Untagged
@@ -64,7 +63,6 @@ GameObject:
   - component: {fileID: 199100822905485152}
   - component: {fileID: 114812814849988162}
   - component: {fileID: 114755432972919046}
-  - component: {fileID: 114174343325084330}
   m_Layer: 0
   m_Name: CollectibleActivateEffect
   m_TagString: Untagged
@@ -181,35 +179,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114095865495233016
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1216745002579018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3cec37868bda844891f4eb1f4de9f28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  permanentEffect: {fileID: 198998688748450974}
-  activeEffect: {fileID: 198928389334655468}
---- !u!114 &114174343325084330
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1564005158622326}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d77f70fea11e715499437d62e0906b0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &114365198803811050
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -242,6 +211,19 @@ MonoBehaviour:
     i15: 254
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114570701062849734
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1216745002579018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80f58c003ce66f64db44f05deb9cd535, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  permanentEffect: {fileID: 198998688748450974}
+  activeEffect: {fileID: 198928389334655468}
 --- !u!114 &114702233800609006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -258,22 +240,6 @@ MonoBehaviour:
   origin: {fileID: 4915558205919456}
   shakeyStrength: 2
   maxShakeDistance: 5
---- !u!114 &114705655881824914
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1055510999672850}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d77f70fea11e715499437d62e0906b0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &114720015977945082
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7093,8 +7059,8 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: a6492a173e6c03f48899880b96cca600, type: 2}
-  - {fileID: 0}
+  - {fileID: 2100000, guid: a19fe525e78d20741b7fd0e04f1787b1, type: 2}
+  - {fileID: 2100000, guid: a19fe525e78d20741b7fd0e04f1787b1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7147,8 +7113,8 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: a6492a173e6c03f48899880b96cca600, type: 2}
-  - {fileID: 0}
+  - {fileID: 2100000, guid: a19fe525e78d20741b7fd0e04f1787b1, type: 2}
+  - {fileID: 2100000, guid: a19fe525e78d20741b7fd0e04f1787b1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 199132617459996026}
   - component: {fileID: 114351509822548320}
   - component: {fileID: 114016746056377326}
-  - component: {fileID: 114522796215923272}
   m_Layer: 0
   m_Name: CollectibleActivateEffect
   m_TagString: Untagged
@@ -43,8 +42,8 @@ GameObject:
   - component: {fileID: 65472449288403630}
   - component: {fileID: 23677795742084038}
   - component: {fileID: 114918068676462694}
-  - component: {fileID: 114514374472859068}
   - component: {fileID: 54274958327496072}
+  - component: {fileID: 114845826741479900}
   m_Layer: 16
   m_Name: CollectibleFireball
   m_TagString: Untagged
@@ -64,7 +63,6 @@ GameObject:
   - component: {fileID: 199573778956535950}
   - component: {fileID: 114466206754303736}
   - component: {fileID: 114939081887713182}
-  - component: {fileID: 114244189908043222}
   m_Layer: 0
   m_Name: CollectiblePermanentEffect
   m_TagString: Untagged
@@ -197,22 +195,6 @@ MonoBehaviour:
   origin: {fileID: 4228486348240218}
   shakeyStrength: 2
   maxShakeDistance: 5
---- !u!114 &114244189908043222
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1612065042780826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d77f70fea11e715499437d62e0906b0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &114351509822548320
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -277,7 +259,7 @@ MonoBehaviour:
     i15: 58
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
---- !u!114 &114514374472859068
+--- !u!114 &114845826741479900
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -285,27 +267,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1442241841679408}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3cec37868bda844891f4eb1f4de9f28, type: 3}
+  m_Script: {fileID: 11500000, guid: a821e715a944f914b94bf31c789b6b58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   permanentEffect: {fileID: 198179034570726940}
   activeEffect: {fileID: 198757876544494714}
---- !u!114 &114522796215923272
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1101919307926226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d77f70fea11e715499437d62e0906b0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &114918068676462694
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7093,8 +7059,8 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: a6492a173e6c03f48899880b96cca600, type: 2}
-  - {fileID: 0}
+  - {fileID: 2100000, guid: a19fe525e78d20741b7fd0e04f1787b1, type: 2}
+  - {fileID: 2100000, guid: a19fe525e78d20741b7fd0e04f1787b1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7147,8 +7113,8 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: a6492a173e6c03f48899880b96cca600, type: 2}
-  - {fileID: 0}
+  - {fileID: 2100000, guid: a19fe525e78d20741b7fd0e04f1787b1, type: 2}
+  - {fileID: 2100000, guid: a19fe525e78d20741b7fd0e04f1787b1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
