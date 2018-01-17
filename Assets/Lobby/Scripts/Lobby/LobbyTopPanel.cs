@@ -28,6 +28,8 @@ namespace Prototype.NetworkLobby
             {
                 ToggleVisibility(!isDisplayed);
 				quitButton.gameObject.SetActive (false);
+
+				Cursor.visible = isDisplayed;
             }
 
         }

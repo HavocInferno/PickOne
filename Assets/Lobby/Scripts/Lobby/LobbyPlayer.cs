@@ -4,7 +4,7 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine.VR;
+using UnityEngine.XR;
 
 namespace Prototype.NetworkLobby
 {
@@ -117,7 +117,8 @@ namespace Prototype.NetworkLobby
             ChangeReadyButtonColor(NotReadyColor);
 
 			//VR Master and HMD capability checks
-			CheckMasterToggle ();
+			//CheckMasterToggle ();
+			//CheckMasterIcon ();
 			CheckHMDToggle ();
 			if(!isVRMasterPlayer)
 				OnMyClassIndex (classIndex);
@@ -192,6 +193,12 @@ namespace Prototype.NetworkLobby
 				vrMasterToggle.gameObject.SetActive (true);
 			}
 
+			/*if (isVRMasterPlayer) {
+				vrMasterIcon.SetActive (true);
+			}*/
+		}
+		public void CheckMasterIcon()
+		{
 			if (isVRMasterPlayer) {
 				vrMasterIcon.SetActive (true);
 			}
@@ -224,6 +231,11 @@ namespace Prototype.NetworkLobby
 				class2Button.interactable = false;
 				class3Button.interactable = false;
 				class4Button.interactable = false;
+
+				if (isLocalPlayer && isVRMasterPlayer)
+					UnityEngine.XR.XRSettings.enabled = true;
+				else if(isLocalPlayer)
+					UnityEngine.XR.XRSettings.enabled = false;
             }
             else
             {
