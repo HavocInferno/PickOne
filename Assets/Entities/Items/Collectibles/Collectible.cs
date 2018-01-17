@@ -12,8 +12,8 @@ public class Collectible : NetworkBehaviour
     {
         if (isServer)
         {
-            RpcCollect(other.gameObject);
             GetComponent<Collider>().enabled = false;
+            RpcCollect(other.gameObject);
             Destroy(gameObject, 10.0f);
         }
     }

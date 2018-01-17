@@ -14,7 +14,7 @@ public class DungeonCamera : MonoBehaviour
 	protected Transform tCamera;
 	protected Transform tParent;
 
-	protected Vector3 localRot;
+	public Vector3 localRot;
 	private Vector3 preUnlockLocalRot;
 	public float distanceIntended = 10f;
 	private float distance = 10f;

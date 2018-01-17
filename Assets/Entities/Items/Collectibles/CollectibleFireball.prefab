@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 198757876544494714}
   - component: {fileID: 199132617459996026}
   - component: {fileID: 114351509822548320}
-  - component: {fileID: 114016746056377326}
   m_Layer: 0
   m_Name: CollectibleActivateEffect
   m_TagString: Untagged
@@ -62,7 +61,6 @@ GameObject:
   - component: {fileID: 198179034570726940}
   - component: {fileID: 199573778956535950}
   - component: {fileID: 114466206754303736}
-  - component: {fileID: 114939081887713182}
   m_Layer: 0
   m_Name: CollectiblePermanentEffect
   m_TagString: Untagged
@@ -179,22 +177,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114016746056377326
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1101919307926226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a69d53d23ae31546a7db9710a970137, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration: 0.5
-  destroyAfterDuration: 1
-  origin: {fileID: 4228486348240218}
-  shakeyStrength: 2
-  maxShakeDistance: 5
 --- !u!114 &114351509822548320
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -304,22 +286,6 @@ MonoBehaviour:
     i15: 58
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
---- !u!114 &114939081887713182
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1612065042780826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a69d53d23ae31546a7db9710a970137, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration: 0.5
-  destroyAfterDuration: 1
-  origin: {fileID: 4146552060149052}
-  shakeyStrength: 2
-  maxShakeDistance: 5
 --- !u!198 &198179034570726940
 ParticleSystem:
   m_ObjectHideFlags: 1

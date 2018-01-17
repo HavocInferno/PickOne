@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class Crawler : GenericCharacter
@@ -98,12 +99,30 @@ public class Crawler : GenericCharacter
     //is called when the local client's scene starts
     public override void OnStartLocalPlayer()
     {
+        float minDistance = 0.0f;
+        NetworkStartPosition closestPosition = null;
+        foreach (var point in FindObjectsOfType<NetworkStartPosition>())
+        {
+            float dist = Vector3.Distance(point.transform.position, transform.position);
+            if (closestPosition == null || dist < minDistance)
+            {
+                minDistance = dist;
+                closestPosition = point;
+            }
+        }
+
+        // CANNOT ROTATE CAMERA WITH THE PLAYER.
+        // transform.rotation = closestPosition.transform.rotation;
+
+        if (GetComponent<NavMeshAgent>())
+            GetComponent<NavMeshAgent>().enabled = true;
+
         /*if this is the VR Master, do:
-		 * enable VR if not done already
-		 * disable the default camera
-		 * enable the OpenVR cam rig
-		 * move transform up a bit (to compensate for the scale increase in Start()) [this is a temporary visualisation, to be removed once a proper Master representation is done]
-		 * append (VR MASTER) to the player name */
+        * enable VR if not done already
+        * disable the default camera
+        * enable the OpenVR cam rig
+        * move transform up a bit (to compensate for the scale increase in Start()) [this is a temporary visualisation, to be removed once a proper Master representation is done]
+        * append (VR MASTER) to the player name */
         if (isVRMasterPlayer)
         {
             UnityEngine.XR.XRSettings.enabled = true;
