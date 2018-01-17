@@ -22,11 +22,12 @@ public class EndScreenUI : NetworkBehaviour {
 	}
 
 	public void SetEndScreen(bool won) {
+		Cursor.visible = true;
 		if (won) {
-			conditionLabel.text = "Winner Wnr Chkn Dnr";
+			conditionLabel.text = "You won. Good job! All enemy forces eliminated.";
 			background.color = bkgndWinColor;
 		} else {
-			conditionLabel.text = "Sucks to be a loser";
+			conditionLabel.text = "Enemy forces overwhelmed you. Better luck next time!";
 			background.color = bkgndLoseColor;
 		}
 	}
