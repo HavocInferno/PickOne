@@ -9,11 +9,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35d1daf9006cad1429c5abc3fb8bfeaa, type: 3}
-  m_Name: RageEffect
+  m_Name: CloakAndDaggerEffect
   m_EditorClassIdentifier: 
-  baseCost: 45
-  baseDuration: 10
-  icon: {fileID: 21300000, guid: 801da8a0bddb0094da362ade1eec3a87, type: 3}
+  baseCost: 15
+  baseDuration: 8
+  icon: {fileID: 21300000, guid: e7c1501d0e518f84d9b6ab102e1cdff8, type: 3}
   effects:
-  - {fileID: 11400000, guid: fc2195a1799962a4a97cd8282e0d28da, type: 2}
-  - {fileID: 11400000, guid: cb7e0d03be964d94f9b8a4f695b5b250, type: 2}
+  - {fileID: 11400000, guid: c30af1f30c0430c488d0ba17165ef8de, type: 2}
+  - {fileID: 11400000, guid: 3166d152cc481c24cae1dfb5adba5388, type: 2}
