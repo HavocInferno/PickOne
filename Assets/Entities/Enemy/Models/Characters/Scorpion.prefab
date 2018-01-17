@@ -328,7 +328,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4997654936093594}
   - component: {fileID: 137681447582349556}
-  - component: {fileID: 95918317536480810}
   m_Layer: 11
   m_Name: PA_Warrior
   m_TagString: Untagged
@@ -620,6 +619,7 @@ GameObject:
   - component: {fileID: 114906250555358782}
   - component: {fileID: 114667712893406442}
   - component: {fileID: 114064844730621144}
+  - component: {fileID: 114917887158781940}
   m_Layer: 11
   m_Name: Scorpion
   m_TagString: Enemy
@@ -1247,23 +1247,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95918317536480810
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1556626573808790}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d5bf97bad128764439db1fb51a271f38, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114046122123008926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1532,6 +1515,25 @@ MonoBehaviour:
   hitEffect: {fileID: 1217518463097192, guid: 03dcddbe0f036b246b9e920a2387aa20, type: 2}
   deathEffect: {fileID: 1105925389560420, guid: eeaea4d88f7115e42a855dbeab532d4e,
     type: 2}
+--- !u!114 &114917887158781940
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1958256614993272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 95256968386986944}
+  m_ParameterSendBits: 1
+  param0: 
+  param1: 
+  param2: 
+  param3: 
+  param4: 
+  param5: 
 --- !u!114 &114921938945245428
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -71,7 +71,8 @@ public abstract class BasicAttack : MonoBehaviour
         if (animator != null)
         {
             Debug.LogWarning("TriggerAttack");
-            animator.Play("Attack");
+            if (character.isServer)
+                animator.Play("Attack");
         }
     }
 }

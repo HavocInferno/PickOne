@@ -489,6 +489,7 @@ GameObject:
   - component: {fileID: 136070166625559254}
   - component: {fileID: 114980067602505662}
   - component: {fileID: 114677769561641682}
+  - component: {fileID: 114623429965163542}
   m_Layer: 11
   m_Name: RobotOrange
   m_TagString: Enemy
@@ -1609,6 +1610,25 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114623429965163542
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1535867880565272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 95119779905545388}
+  m_ParameterSendBits: 1
+  param0: 
+  param1: 
+  param2: 
+  param3: 
+  param4: 
+  param5: 
 --- !u!114 &114677769561641682
 MonoBehaviour:
   m_ObjectHideFlags: 1
