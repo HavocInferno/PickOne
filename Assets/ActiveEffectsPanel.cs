@@ -33,6 +33,7 @@ public class ActiveEffectsPanel : MonoBehaviour
     private void FixedUpdate()
     {
         if (_toRemove.Count == 0) return;
+
         GameObject obj = _toRemove.Peek();
         RectTransform transform = obj.GetComponent<RectTransform>();
         transform.sizeDelta = new Vector2(

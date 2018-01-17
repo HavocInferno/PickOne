@@ -28,6 +28,11 @@ public class ActiveAbility
     [SerializeField]
     private List<AbstractEffect> effects;
 
+    [SerializeField]
+    private Sprite readyIcon;
+    [SerializeField]
+    private Sprite unavailableIcon;
+
     private IEnumerator WaitAndRecharge(float deltaTime, GenericCharacter character)
     {
         yield return new WaitForSeconds(deltaTime);
@@ -99,6 +104,9 @@ public class ActiveAbility
             float newValue = stats.GetAttributeValue(attributeName) - totalBaseCost;
             stats.SetAttributeValue(attributeName, newValue);
         }
+
+        // Update the crawler UI
+        var panel = Object.FindObjectOfType<ActiveEffectsPanel>();
     }
 
     // Explicitly recharge this ability for the character if it is activated.
