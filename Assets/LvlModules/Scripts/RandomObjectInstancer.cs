@@ -21,16 +21,6 @@ public class RandomObjectInstancer : MonoBehaviour {
 	public GameObject rolledObject;
 	public GameObject instance;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
 	public void showObject() {
 		if (instance)
 			DestroyImmediate (instance);
