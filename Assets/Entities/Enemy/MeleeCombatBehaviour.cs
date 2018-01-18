@@ -9,9 +9,9 @@ public class MeleeCombatBehaviour : EnemyBehaviour
     private float lastAttackTime = 0.0f;
     private Transform currentTarget = null;
 
-    public override void OnFixedUpdate()
+    public override void OnUpdate()
     {
-        base.OnFixedUpdate();
+        base.OnUpdate();
 
         if (Time.time <= lastUpdate)
             return;

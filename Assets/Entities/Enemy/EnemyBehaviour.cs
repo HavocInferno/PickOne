@@ -20,6 +20,6 @@ abstract public class EnemyBehaviour : MonoBehaviour
 
     virtual public void OnDetectTarget(Transform target) { }
     virtual public void OnLoseTarget(Transform target) { }
-    virtual public void OnFixedUpdate() { }
+    virtual public void OnUpdate() { }
     virtual public void OnReachDestination() { }
 }

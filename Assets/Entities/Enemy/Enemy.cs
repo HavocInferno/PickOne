@@ -17,8 +17,9 @@ public class Enemy : GenericCharacter
     public float detectionCheckRate = 1.0f;
     public float rotationSpeed = 240.0f;
     public float meleeRange = 10.0f;
+    private PlayersManager playersManager = null;
 
-	public bool isEndConditionKill = true;
+    public bool isEndConditionKill = true;
 
     public ReadOnlyCollection<Transform> DetectedTargets
     {
@@ -111,19 +112,22 @@ public class Enemy : GenericCharacter
         float angle = Quaternion.Angle(transform.rotation, lookRotation);
         if (angle < 1e-06f) return false;
         transform.rotation = Quaternion.RotateTowards(
-            transform.rotation, lookRotation, Time.fixedDeltaTime * rotationSpeed);
+            transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
         return true;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (!isServer)
             return;
 
+        if (playersManager == null)
+            playersManager = FindObjectOfType<PlayersManager>();
+
         // Update enemy AI.
         foreach (var behaviour in behaviours)
         {
-            behaviour.OnFixedUpdate();
+            behaviour.OnUpdate();
         }
 
         var animator = GetComponent<Animator>();
@@ -159,7 +163,7 @@ public class Enemy : GenericCharacter
         lastDetectionCheck = Time.time + detectionCheckRate;
 
         // Perform detection checks against all possible targets.
-		foreach (var target in FindObjectOfType<PlayersManager>().players)
+		foreach (var target in playersManager.players)
         {
 			if (target == null)
 				continue;

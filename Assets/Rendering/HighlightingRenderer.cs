@@ -120,7 +120,7 @@ public class HighlightingRenderer : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         RefreshRenderTexture();
         RefreshHighlightCamera();

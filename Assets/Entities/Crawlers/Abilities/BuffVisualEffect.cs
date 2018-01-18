@@ -82,7 +82,7 @@ public class BuffVisualEffect : AbstractEffect
             _startTime = Time.time;
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             float weight = GetWeight(Time.time - _startTime);
             

@@ -24,7 +24,7 @@ public class AbilitiesPanel : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         foreach (var ability in _elements.Keys)
         {

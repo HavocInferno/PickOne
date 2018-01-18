@@ -11,12 +11,13 @@ public class Screenshaker : MonoBehaviour {
 	float shakenibba;
 	public float maxShakeDistance;
 
-	void Start() {
-		shakenibba = shakeyStrength;
-		if(FindObjectOfType<ScreenShakey> ())
-			FindObjectOfType<ScreenShakey> ().shakeybakeys.Add (this);
-		if(FindObjectOfType<DungeonCamera> ())
-			FindObjectOfType<DungeonCamera> ().shakeybakeys.Add (this);
+    void Start()
+    {
+        ScreenShakey screenShakey = Camera.main.GetComponent<ScreenShakey>();
+        DungeonCamera dungeonCamera = Camera.main.GetComponent<DungeonCamera>();
+        shakenibba = shakeyStrength;
+		if (screenShakey) screenShakey.shakeybakeys.Add(this);
+		if (dungeonCamera) dungeonCamera.shakeybakeys.Add(this);
 
 		if (duration > 0) {
 			if (destroyAfterDuration)
@@ -24,14 +25,17 @@ public class Screenshaker : MonoBehaviour {
 		}
 	}
 
-	void Update() {
-		shakeyStrength -= shakenibba * Time.deltaTime/duration;
+	void Update()
+    {
+		shakeyStrength -= shakenibba * Time.deltaTime / duration;
 	}
 
-	void OnDestroy() {
-		if(FindObjectOfType<ScreenShakey> ())
-			FindObjectOfType<ScreenShakey> ().shakeybakeys.Remove (this);
-		if(FindObjectOfType<DungeonCamera> ())
-			FindObjectOfType<DungeonCamera> ().shakeybakeys.Remove (this);
+	void OnDestroy()
+    {
+        ScreenShakey screenShakey = Camera.main.GetComponent<ScreenShakey>();
+        DungeonCamera dungeonCamera = Camera.main.GetComponent<DungeonCamera>();
+
+        if (screenShakey) screenShakey.shakeybakeys.Remove(this);
+		if (dungeonCamera) dungeonCamera.shakeybakeys.Remove(this);
 	}
 }

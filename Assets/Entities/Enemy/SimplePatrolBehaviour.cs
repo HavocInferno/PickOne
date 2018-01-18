@@ -24,9 +24,9 @@ public class SimplePatrolBehaviour : EnemyBehaviour
     [SerializeField]
     public Type type = Type.Loop;
 
-    public override void OnFixedUpdate()
+    public override void OnUpdate()
     {
-        base.OnFixedUpdate();
+        base.OnUpdate();
 
 		if (waits && Time.time > nextMovementTime && points.Count > 0)
         {

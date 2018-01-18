@@ -81,7 +81,7 @@ public class LaserBeamEffect : AbstractEffect
             _registerDamage = registerDamage;
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             if (!_registerDamage) return;
 
