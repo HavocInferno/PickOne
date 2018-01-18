@@ -84,7 +84,16 @@ public class Sword : BasicAttack
         blade.SetActive(true);
 	}
 
-	IEnumerator AttackRoutine()
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+        _ready = true;
+        blade.SetActive(false);
+        _animActive = false;
+        transform.localRotation = _defaultRot;
+    }
+
+    IEnumerator AttackRoutine()
     {
 		yield return new WaitForSeconds(FireRate);
         _ready = true;
