@@ -22,6 +22,7 @@ public class EndScreenUI : NetworkBehaviour {
 	}
 
 	public void SetEndScreen(bool won) {
+		Cursor.lockState = CursorLockMode.Confined;
 		Cursor.visible = true;
 		if (won) {
 			conditionLabel.text = "You won. Good job! All enemy forces eliminated.";
