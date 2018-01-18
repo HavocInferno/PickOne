@@ -236,10 +236,10 @@ public class Master : NetworkBehaviour {
 
 	private void stopBuffing()
 	{
+        if (currentBuffTarget != -1 && playerManager.players[currentBuffTarget] != null && playerManager.players[currentBuffTarget].GetComponent<Crawler>() != null)
+            playerManager.players[currentBuffTarget].GetComponent<Crawler>().DisableEffect(buffEffect);
 		buffing = false;
 		buffRay.Draw = false;
-        if (currentBuffTarget != -1 && buffing && playerManager.players[currentBuffTarget] != null && playerManager.players[currentBuffTarget].GetComponent<Crawler>() != null)
-            playerManager.players[currentBuffTarget].GetComponent<Crawler>().DisableEffect(buffEffect);
     }
 
 	void applyDebuff ()
@@ -314,10 +314,10 @@ public class Master : NetworkBehaviour {
 
 	private void stopDebuffing()
 	{
-        debuffing = false;
-        debuffRay.Draw = false;
-        if (currentDebuffTarget != -1 && debuffing && playerManager.enemies[currentDebuffTarget]!= null && playerManager.enemies[currentDebuffTarget].GetComponent<Enemy>() != null)
+        if (currentDebuffTarget != -1 && playerManager.enemies[currentDebuffTarget]!= null && playerManager.enemies[currentDebuffTarget].GetComponent<Enemy>() != null)
 			playerManager.enemies[currentDebuffTarget].GetComponent<Enemy>().DisableEffect(debuffEffect);
+		debuffing = false;
+		debuffRay.Draw = false;
 	}
 
 	void initRays ()

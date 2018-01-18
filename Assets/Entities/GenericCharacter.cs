@@ -53,6 +53,8 @@ public class GenericCharacter : NetworkBehaviour
 
     private void LocalEnableEffect(AbstractEffect effect)
     {
+		if (_appliedEffects.Contains (effect))
+			return;
         Debug.LogFormat("{0} | Effect {1} enabled", name, effect.name);
         effect.Enable(this, isLocalPlayer, isServer);
         _appliedEffects.Add(effect);
@@ -75,6 +77,8 @@ public class GenericCharacter : NetworkBehaviour
 
     private void LocalDisableEffect(AbstractEffect effect)
     {
+		if (!_appliedEffects.Contains (effect))
+			return;
         effect.Disable(this, isLocalPlayer, isServer);
         Debug.LogFormat("{0} | Effect {1} disabled", name, effect.name);
         _appliedEffects.Remove(effect);
