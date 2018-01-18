@@ -9,6 +9,8 @@ public class AttributesPanel : MonoBehaviour
     {
         public string name;
         public Color color;
+		public Color backgroundColor;
+		public Color textColor;
         public Sprite icon;
     }
 
@@ -32,11 +34,11 @@ public class AttributesPanel : MonoBehaviour
                 if (text != null)
                 {
                     text.GetComponent<Text>().text = attributeInfo.name;
-                    text.GetComponent<Text>().color = new Color(
+					text.GetComponent<Text> ().color = attributeInfo.textColor; /*new Color(
                         attributeInfo.color.r * 0.9f,
                         attributeInfo.color.g * 0.9f,
                         attributeInfo.color.b * 0.9f,
-                        attributeInfo.color.a * 0.9f);
+                        attributeInfo.color.a * 0.9f);*/
                 }
                 if (foreground != null)
                 {
@@ -45,11 +47,11 @@ public class AttributesPanel : MonoBehaviour
                 }
                 if (background != null)
                 {
-                    background.GetComponent<Image>().color = new Color(
+					background.GetComponent<Image>().color = attributeInfo.backgroundColor; /*new Color(
                         attributeInfo.color.r * 0.3f,
                         attributeInfo.color.g * 0.3f,
                         attributeInfo.color.b * 0.3f,
-                        attributeInfo.color.a * 0.7f);
+                        attributeInfo.color.a * 0.7f);*/
                 }
             }
         }

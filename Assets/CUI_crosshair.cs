@@ -7,6 +7,8 @@ public class CUI_crosshair : MonoBehaviour {
 	public Transform tCrawler;
 	public Crawler cCrawler;
 	public Camera cam; 
+	public Vector3 offset;
+	public float forwardFactor = 20f;
 
 	void Start() {
 		cam = Camera.main;
@@ -15,7 +17,7 @@ public class CUI_crosshair : MonoBehaviour {
 	void Update() {
 		if (tCrawler) {
 			cam = Camera.main;
-			Vector3 screenPos = cam.WorldToScreenPoint (tCrawler.position + tCrawler.forward * 15f);
+			Vector3 screenPos = cam.WorldToScreenPoint (tCrawler.TransformPoint(offset) + (tCrawler.forward * forwardFactor));
 			GetComponent<RectTransform> ().position = screenPos;
 		}
 	}

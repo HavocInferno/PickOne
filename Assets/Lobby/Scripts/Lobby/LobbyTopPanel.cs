@@ -30,6 +30,10 @@ namespace Prototype.NetworkLobby
 				quitButton.gameObject.SetActive (false);
 
 				Cursor.visible = isDisplayed;
+				if(isDisplayed)
+					Cursor.lockState = CursorLockMode.Confined;
+				else
+					Cursor.lockState = CursorLockMode.Locked;
             }
 
         }

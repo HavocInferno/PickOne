@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(VerticalLayoutGroup))]
+[RequireComponent(typeof(HorizontalLayoutGroup))]
 public class AbilitiesPanel : MonoBehaviour
 {
     public GameObject elementPrefab;

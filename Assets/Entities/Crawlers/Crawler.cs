@@ -94,6 +94,7 @@ public class Crawler : GenericCharacter
         }
 
 		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
     }
 
     //is called when the local client's scene starts
