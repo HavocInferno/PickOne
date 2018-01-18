@@ -1213,7 +1213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minScanRange: 0
-  maxScanRange: 100
+  maxScanRange: 40
   mask:
     serializedVersion: 2
     m_Bits: 1792
@@ -1360,7 +1360,7 @@ MonoBehaviour:
   behaviours: []
   detectors: []
   possibleTargets: []
-  detectionCheckRate: 1.5
+  detectionCheckRate: 2
   rotationSpeed: 120
   meleeRange: 20
   isEndConditionKill: 1
