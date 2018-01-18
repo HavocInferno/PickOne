@@ -7,8 +7,8 @@ public class DungeonCamera : MonoBehaviour
 	[Header("base cam options")]
 	public GameObject target;
 	public Vector3 offset;
-	public Vector3 pivotOffsetIntended = new Vector3(2f,0.6f,0f);
-	public Vector3 pivotOffsetObstructed = new Vector3(0f,0.6f,0f);
+	public Vector3 pivotOffsetIntended = new Vector3(1.5f,1f,0f);
+	public Vector3 pivotOffsetObstructed = new Vector3(0f,1f,0f);
 	private Vector3 pivotOffset;
 	private float pivotHitDist;
 
