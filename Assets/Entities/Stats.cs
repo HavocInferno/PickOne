@@ -54,6 +54,7 @@ public class Stats : NetworkBehaviour
     public bool destroyOnDeath;
 	public GameObject hitEffect;
     public GameObject deathEffect;
+	public float deathEffectDuration;
 
     private GenericCharacter _character;
 
@@ -185,7 +186,8 @@ public class Stats : NetworkBehaviour
                 NetworkServer.Spawn(ded);
 
                 // Destroy the effect after 2.15 seconds
-                Destroy(ded, 2.15f);
+				if(deathEffectDuration > 0f)
+                	Destroy(ded, deathEffectDuration);
             }
         }
     }
