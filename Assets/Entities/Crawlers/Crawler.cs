@@ -202,5 +202,6 @@ public class Crawler : GenericCharacter
 		nameTag.text += " [DEAD]";
 		gameObject.GetComponentInChildren<CrawlerController>().enabled = false;
         Destroy(gameObject.GetComponent<DetectableObject>());
+		FindObjectOfType<EndScreenUI> ().SetDeathScreen (true);
 	}
 }

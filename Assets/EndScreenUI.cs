@@ -12,6 +12,12 @@ public class EndScreenUI : NetworkBehaviour {
 	public Color bkgndWinColor;
 	public Color bkgndLoseColor;
 
+	public GameObject endScreenObj;
+
+	public GameObject deathScreenObj;
+
+	private bool gameEnded;
+
 	public void OnRetToLobbyClicked()
 	{
 		Debug.Log("a CLIENT wants to return to lobby");
@@ -22,14 +28,37 @@ public class EndScreenUI : NetworkBehaviour {
 	}
 
 	public void SetEndScreen(bool won) {
+		gameEnded = true;
 		Cursor.lockState = CursorLockMode.Confined;
 		Cursor.visible = true;
+		endScreenObj.SetActive (true);
+		SetDeathScreen (false);
 		if (won) {
 			conditionLabel.text = "You won. Good job! All enemy forces eliminated.";
 			background.color = bkgndWinColor;
 		} else {
 			conditionLabel.text = "Enemy forces overwhelmed you. Better luck next time!";
 			background.color = bkgndLoseColor;
+		}
+	}
+
+	public void SetAbandonedScreen() {
+		gameEnded = true;
+		Cursor.lockState = CursorLockMode.Confined;
+		Cursor.visible = true;
+		conditionLabel.text = "A fellow abandoned the cause. You cannot complete this match.";
+		background.color = bkgndLoseColor;
+	}
+
+	public void SetDeathScreen(bool state) {
+		if (gameEnded)
+			return;
+		
+		deathScreenObj.SetActive (state);
+
+		if (state) {
+			Camera.main.GetComponent<DungeonCamera> ().enabled = false;
+			GetComponent<DeathCamMover> ().enabled = true;
 		}
 	}
 }
