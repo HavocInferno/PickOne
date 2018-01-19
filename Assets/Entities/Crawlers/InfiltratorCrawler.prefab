@@ -119,6 +119,7 @@ GameObject:
   - component: {fileID: 224647250578571086}
   - component: {fileID: 222792438674185248}
   - component: {fileID: 114262702703448074}
+  - component: {fileID: 114092413691835654}
   m_Layer: 10
   m_Name: Background
   m_TagString: Untagged
@@ -207,6 +208,7 @@ GameObject:
   - component: {fileID: 224584842614346750}
   - component: {fileID: 222741991972542738}
   - component: {fileID: 114572391937189462}
+  - component: {fileID: 114197195079201672}
   m_Layer: 10
   m_Name: Nametag
   m_TagString: Untagged
@@ -717,6 +719,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c869a8da806c9ab43869dedcbf3149df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114092413691835654
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1331759435515112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b59e4a2a3ae5914588b8e4c1b021a71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiObj: {fileID: 224647250578571086}
+  vrSize: 3
 --- !u!114 &114096316784340284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -747,8 +762,21 @@ MonoBehaviour:
   defenseMultiplier: 1
   destroyOnDeath: 0
   hitEffect: {fileID: 1428753401126268, guid: 6445b425064fcb343a223bdba0f82eba, type: 2}
-  deathEffect: {fileID: 1105925389560420, guid: eeaea4d88f7115e42a855dbeab532d4e,
+  deathEffect: {fileID: 1649011861724946, guid: d8451859cf46ccb41b0dce9ab1a02546,
     type: 2}
+--- !u!114 &114197195079201672
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1947627479454122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b59e4a2a3ae5914588b8e4c1b021a71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiObj: {fileID: 224584842614346750}
+  vrSize: 4
 --- !u!114 &114225731833222284
 MonoBehaviour:
   m_ObjectHideFlags: 1
