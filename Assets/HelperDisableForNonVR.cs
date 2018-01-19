@@ -6,7 +6,9 @@ public class HelperDisableForNonVR : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		if(!GetComponentInParent<Crawler>().isVRMasterPlayer) //if (!UnityEngine.XR.XRSettings.enabled)
+		if(FindObjectOfType<Master>() && UnityEngine.XR.XRSettings.enabled)
+			gameObject.SetActive (true);
+		else
 			gameObject.SetActive (false);
 	}
 }
