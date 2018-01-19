@@ -146,6 +146,7 @@ GameObject:
   - component: {fileID: 224107116836503968}
   - component: {fileID: 222456486429413516}
   - component: {fileID: 114970074317530478}
+  - component: {fileID: 114683999746021262}
   m_Layer: 10
   m_Name: Background
   m_TagString: Untagged
@@ -182,6 +183,7 @@ GameObject:
   - component: {fileID: 224625789365760192}
   - component: {fileID: 222598977740940120}
   - component: {fileID: 114699860992264840}
+  - component: {fileID: 114163500561498304}
   m_Layer: 10
   m_Name: Nametag
   m_TagString: Untagged
@@ -612,6 +614,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114163500561498304
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1736952965067820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b59e4a2a3ae5914588b8e4c1b021a71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiObj: {fileID: 224625789365760192}
+  vrSize: 4
 --- !u!114 &114206939751205856
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -826,6 +841,19 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 2.5
+--- !u!114 &114683999746021262
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1717808264712818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b59e4a2a3ae5914588b8e4c1b021a71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiObj: {fileID: 224107116836503968}
+  vrSize: 3
 --- !u!114 &114699860992264840
 MonoBehaviour:
   m_ObjectHideFlags: 1
