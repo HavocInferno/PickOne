@@ -189,7 +189,7 @@ namespace Prototype.NetworkLobby
 		//This enable/disable the vr master selection buttons for the host
 		public void CheckMasterToggle()
 		{
-			if (isServer) {
+			if (isServer && vrDeviceModel != -1) {
 				vrMasterToggle.gameObject.SetActive (true);
 			}
 
