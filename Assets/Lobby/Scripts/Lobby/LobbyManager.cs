@@ -367,6 +367,14 @@ namespace Prototype.NetworkLobby
             return true;
         }
 
+		public override void OnServerDisconnect(NetworkConnection conn) //THIS IS ACTUALLY CALLED! (on server, when a client disconnects)
+		{
+			//TODO: do some rpc call here to all clients, telling them oh snap someone disconnected -> enable abandoned screen in EndScreenUI
+			Debug.Log ("OSD"); 
+			base.OnServerDisconnect(conn);
+			//ChangeTo(mainMenuPanel);
+		}
+
         // --- Countdown management
 
         public override void OnLobbyServerPlayersReady()
@@ -444,8 +452,9 @@ namespace Prototype.NetworkLobby
         }
 
 
-        public override void OnClientDisconnect(NetworkConnection conn)
+		public override void OnClientDisconnect(NetworkConnection conn) //THIS IS ACTUALLY CALLED TOO (on client, when server disconnects)
         {
+			Debug.Log ("OCD");
             base.OnClientDisconnect(conn);
             ChangeTo(mainMenuPanel);
         }

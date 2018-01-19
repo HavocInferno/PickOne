@@ -16,6 +16,8 @@ public class EndScreenUI : NetworkBehaviour {
 
 	public GameObject deathScreenObj;
 
+	public GameObject crawlerUI;
+
 	private bool gameEnded;
 
 	public void OnRetToLobbyClicked()
@@ -55,6 +57,7 @@ public class EndScreenUI : NetworkBehaviour {
 			return;
 		
 		deathScreenObj.SetActive (state);
+		crawlerUI.SetActive (!state);
 
 		if (state) {
 			Camera.main.GetComponent<DungeonCamera> ().enabled = false;
