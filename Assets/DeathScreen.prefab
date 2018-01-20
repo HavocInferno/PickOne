@@ -39,15 +39,13 @@ GameObject:
   - component: {fileID: 223617713984429642}
   - component: {fileID: 114617139407893808}
   - component: {fileID: 114259616471323154}
-  - component: {fileID: 114633726932599212}
-  - component: {fileID: 114055176401415958}
   m_Layer: 5
   m_Name: DeathScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1673697277470142
 GameObject:
   m_ObjectHideFlags: 1
@@ -100,38 +98,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &114055176401415958
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1496733163300602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 137
-    i1: 157
-    i2: 247
-    i3: 234
-    i4: 138
-    i5: 205
-    i6: 132
-    i7: 244
-    i8: 11
-    i9: 136
-    i10: 218
-    i11: 162
-    i12: 1
-    i13: 219
-    i14: 159
-    i15: 172
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!114 &114259616471323154
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -229,23 +195,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &114633726932599212
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1496733163300602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db9cf003f18091a4e9869ec42a753a6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  conditionLabel: {fileID: 114741155940966064}
-  background: {fileID: 114597887393395460}
-  bkgndWinColor: {r: 0.75735295, g: 1, b: 0.9698783, a: 0.627451}
-  bkgndLoseColor: {r: 1, g: 0.83137256, b: 0.88235295, a: 0.627451}
-  deathScreen: {fileID: 0}
-  deathCamT: {fileID: 0}
 --- !u!114 &114687794215163764
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -345,7 +294,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114633726932599212}
+      - m_Target: {fileID: 0}
         m_MethodName: OnRetToLobbyClicked
         m_Mode: 1
         m_Arguments:

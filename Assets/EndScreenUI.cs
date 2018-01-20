@@ -13,8 +13,8 @@ public class EndScreenUI : NetworkBehaviour {
 	public Color bkgndLoseColor;
 
 	public GameObject endScreenObj;
-
 	public GameObject deathScreenObj;
+	public GameObject abandonScreenObj;
 
 	public GameObject crawlerUI;
 
@@ -48,15 +48,15 @@ public class EndScreenUI : NetworkBehaviour {
 		gameEnded = true;
 		Cursor.lockState = CursorLockMode.Confined;
 		Cursor.visible = true;
-		conditionLabel.text = "A fellow abandoned the cause. You cannot complete this match.";
-		background.color = bkgndLoseColor;
+		abandonScreenObj.SetActive (true);
+		crawlerUI.SetActive (false);
 	}
 
 	[ClientRpc]
 	public void RpcAbandoned()
 	{
-		Debug.LogError ("Error: WOOPS-0");
-		//SetEndScreen (false);
+		Debug.LogError ("Error: WOOPS-0 --- A player left the match");
+		SetAbandonedScreen ();
 	}
 
 	public void SetDeathScreen(bool state) {
