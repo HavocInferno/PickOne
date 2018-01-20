@@ -55,7 +55,7 @@ public class EndScreenUI : NetworkBehaviour {
 	[ClientRpc]
 	public void RpcAbandoned()
 	{
-		Debug.LogError ("Error: WOOPS-0 --- A player left the match");
+		Debug.LogError ("Error: WOOPS-1 --- A player left the match");
 		SetAbandonedScreen ();
 	}
 
