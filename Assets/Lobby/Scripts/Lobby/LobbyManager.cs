@@ -45,6 +45,8 @@ namespace Prototype.NetworkLobby
 		public GameObject mainMenuUI;
 		public bool straightToLobby;
 
+        public GameObject loadingScreen;
+
         //Client numPlayers from NetworkManager is always 0, so we count (throught connect/destroy in LobbyPlayer) the number
         //of players, so that even client know how many player there is.
         [HideInInspector]
@@ -72,11 +74,14 @@ namespace Prototype.NetworkLobby
             GetComponent<Canvas>().enabled = true;
 
             DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(loadingScreen);
 
             SetServerInfo("Offline", "None");
 
 			if(!mainMenuUI)
 				mainMenuUI = MainMenu.s_Singleton.gameObject;
+
+            DisableLoadingScreen();
         }
 
         public override void OnLobbyClientSceneChanged(NetworkConnection conn)
@@ -235,9 +240,7 @@ namespace Prototype.NetworkLobby
         {
             conn.Send(MsgKicked, new KickMsg());
         }
-
-
-
+        
 
         public void KickedMessageHandler(NetworkMessage netMsg)
         {
@@ -391,8 +394,10 @@ namespace Prototype.NetworkLobby
 				}
 			}
 
-			if(allready)
-				StartCoroutine(ServerCountdownCoroutine());
+            if (allready)
+            {
+                StartCoroutine(ServerCountdownCoroutine());
+            }
         }
 
         public IEnumerator ServerCountdownCoroutine()
@@ -429,7 +434,19 @@ namespace Prototype.NetworkLobby
                 }
             }
 
+            EnableLoadingScreen();
+
             ServerChangeScene(playScene);
+        }
+
+        public void EnableLoadingScreen()
+        {
+            loadingScreen.SetActive(true);
+        }
+
+        public void DisableLoadingScreen()
+        {
+            loadingScreen.SetActive(false);
         }
 
         // ----------------- Client callbacks ------------------
@@ -452,8 +469,13 @@ namespace Prototype.NetworkLobby
             }
         }
 
-
-		public override void OnClientDisconnect(NetworkConnection conn) //THIS IS ACTUALLY CALLED TOO (on client, when server disconnects)
+        public override void OnClientSceneChanged(NetworkConnection conn)
+        {
+            base.OnClientSceneChanged(conn);
+            DisableLoadingScreen();
+        }
+        
+        public override void OnClientDisconnect(NetworkConnection conn) //THIS IS ACTUALLY CALLED TOO (on client, when server disconnects)
         {
 			straightToLobby = true;
 			Debug.LogError ("Error: WOOPS-0 --- Connection to server lost");
