@@ -457,14 +457,15 @@ namespace Prototype.NetworkLobby
         {
 			Debug.LogError ("Error: WOOPS-1 --- Connection to server lost");
             base.OnClientDisconnect(conn);
-			infoPanel.Display("Error: WOOPS-1 --- Connection to server lost", "OK", null);
-            //ChangeTo(mainMenuPanel);
+            ChangeTo(mainMenuPanel);
+			mainMenuPanel.GetComponent<MainMenu> ().OnClickPlay ();
+			infoPanel.Display("Error: WOOPS-1\nConnection to server lost", "OK", null);
         }
 
         public override void OnClientError(NetworkConnection conn, int errorCode)
         {
-            ChangeTo(mainMenuPanel);
-            infoPanel.Display("Cient error : " + (errorCode == 6 ? "timeout" : errorCode.ToString()), "Close", null);
+            //ChangeTo(mainMenuPanel);
+            //infoPanel.Display("Cient error : " + (errorCode == 6 ? "timeout" : errorCode.ToString()), "Close", null);
         }
 
 
