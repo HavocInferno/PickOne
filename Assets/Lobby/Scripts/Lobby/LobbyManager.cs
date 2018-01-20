@@ -455,9 +455,10 @@ namespace Prototype.NetworkLobby
 
 		public override void OnClientDisconnect(NetworkConnection conn) //THIS IS ACTUALLY CALLED TOO (on client, when server disconnects)
         {
-			Debug.Log ("OCD");
+			Debug.LogError ("Error: WOOPS-1 --- Connection to server lost");
             base.OnClientDisconnect(conn);
-            ChangeTo(mainMenuPanel);
+			infoPanel.Display("Error: WOOPS-1 --- Connection to server lost", "OK", null);
+            //ChangeTo(mainMenuPanel);
         }
 
         public override void OnClientError(NetworkConnection conn, int errorCode)
