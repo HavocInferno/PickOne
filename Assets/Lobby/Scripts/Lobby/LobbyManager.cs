@@ -370,6 +370,7 @@ namespace Prototype.NetworkLobby
 		public override void OnServerDisconnect(NetworkConnection conn) //THIS IS ACTUALLY CALLED! (on server, when a client disconnects)
 		{
 			//TODO: do some rpc call here to all clients, telling them oh snap someone disconnected -> enable abandoned screen in EndScreenUI
+			FindObjectOfType<EndScreenUI>().RpcAbandoned();
 			Debug.Log ("OSD"); 
 			base.OnServerDisconnect(conn);
 			//ChangeTo(mainMenuPanel);

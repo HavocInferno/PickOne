@@ -52,6 +52,13 @@ public class EndScreenUI : NetworkBehaviour {
 		background.color = bkgndLoseColor;
 	}
 
+	[ClientRpc]
+	public void RpcAbandoned()
+	{
+		Debug.LogError ("Error: WOOPS-0");
+		//SetEndScreen (false);
+	}
+
 	public void SetDeathScreen(bool state) {
 		if (gameEnded)
 			return;
