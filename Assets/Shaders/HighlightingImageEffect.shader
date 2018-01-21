@@ -45,7 +45,7 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
-                int NumberOfIterations = 20;
+                int NumberOfIterations = 12;
 
                 //split texel size into smaller words
                 float step = _MainTex_TexelSize.x;
@@ -57,11 +57,12 @@
                 for (int k = 0; k < NumberOfIterations; ++k)
                 {
                     //increase our output color by the pixels in the area
-                    float2 uv = float2(i.uv.x, i.uv.y) +
-                        float2((k - NumberOfIterations * 0.5) * step, 0);
+                    float offset = (k - NumberOfIterations * 0.5);
+                    float2 uv = i.uv.xy + float2(offset * step * 0.25, 0);
                     intensity += tex2D(_AdditionalTex, uv) / NumberOfIterations;
                 }
 
+                intensity = abs(intensity);
                 return intensity;
             }
             ENDCG
@@ -106,7 +107,7 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
-                int NumberOfIterations = 20;
+                int NumberOfIterations = 12;
 
                 //split texel size into smaller words
                 float step = _MainTex_TexelSize.y;
@@ -118,11 +119,13 @@
                 for (int k = 0; k < NumberOfIterations; ++k)
                 {
                     //increase our output color by the pixels in the area
-                    float2 uv = i.uv.xy + float2(0, (k - NumberOfIterations * 0.5) * step);
-                    intensity += tex2D(_GrabTexture, uv) / NumberOfIterations;
+                    float offset = (k - NumberOfIterations * 0.5);
+                    float2 uv = i.uv.xy + float2(0, offset * step * 0.25);
+                    intensity += tex2D(_GrabTexture, uv) * offset / NumberOfIterations;
                 }
+                intensity = abs(intensity);
 
-                return lerp(tex2D(_MainTex, i.uv.xy), intensity, intensity.a);
+                return 0.1f * tex2D(_AdditionalTex, i.uv.xy) + lerp(tex2D(_MainTex, i.uv.xy), intensity, intensity.a);
             }
             ENDCG
         }

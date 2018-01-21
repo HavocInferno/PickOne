@@ -43,7 +43,7 @@ public class HighlightingRenderer : MonoBehaviour
             highlightCameraObject = new GameObject("_Camera");
             highlightCameraObject.transform.SetParent(transform, false);
             highlightCamera = highlightCameraObject.AddComponent<Camera>();
-            // highlightCameraObject.hideFlags = HideFlags.HideAndDontSave;
+            highlightCameraObject.hideFlags = HideFlags.HideAndDontSave;
 
             highlightCamera.CopyFrom(camera);
             highlightCamera.clearFlags = CameraClearFlags.SolidColor;
@@ -54,6 +54,7 @@ public class HighlightingRenderer : MonoBehaviour
             highlightCamera.SetReplacementShader(highlightShader, replacementTag);
             highlightCamera.enabled = false;
             highlightCamera.cullingMask = cullingMask;
+            highlightCamera.useOcclusionCulling = false;
 
             RefreshRenderTexture();
         }
