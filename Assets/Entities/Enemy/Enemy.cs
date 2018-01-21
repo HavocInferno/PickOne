@@ -129,16 +129,15 @@ public class Enemy : GenericCharacter
         {
             behaviour.OnUpdate();
         }
-
-        var animator = GetComponent<Animator>();
+        
         var navMeshAgent = GetComponent<NavMeshAgent>();
         if (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance && !RotateTowards(Destination))
         {
-            if (animator != null) animator.SetBool("IsRunning", false);
+            RpcSetRunningAnimation(false);
         }
         else
         {
-            if (animator != null) animator.SetBool("IsRunning", true);
+            RpcSetRunningAnimation(true);
         }
 
         // Check if the enemy is idle.
@@ -180,6 +179,13 @@ public class Enemy : GenericCharacter
                 LoseTarget(target);
             }
         }
+    }
+
+    [ClientRpc]
+    void RpcSetRunningAnimation(bool on)
+    {
+        var animator = GetComponent<Animator>();
+        if (animator != null) animator.SetBool("IsRunning", on);
     }
 
     public void Attack(Transform target)
