@@ -143,13 +143,13 @@ GameObject:
   - component: {fileID: 195008732129447952}
   - component: {fileID: 114179423800730870}
   - component: {fileID: 114032495800461468}
-  - component: {fileID: 114659983269267694}
   - component: {fileID: 114451861858357118}
   - component: {fileID: 114951747073187460}
   - component: {fileID: 114744548163315844}
   - component: {fileID: 136435606711999256}
   - component: {fileID: 114088485493065326}
   - component: {fileID: 114019256736011356}
+  - component: {fileID: 114876422964635576}
   m_Layer: 11
   m_Name: RobotBlack
   m_TagString: Enemy
@@ -1613,27 +1613,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c869a8da806c9ab43869dedcbf3149df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114659983269267694
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1203628426793638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TransformSyncMode: 1
-  m_SendInterval: 0.07692308
-  m_SyncRotationAxis: 7
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_VelocityThreshold: 0.0001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
 --- !u!114 &114744548163315844
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1683,6 +1662,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114876422964635576
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1203628426793638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a68307ea14c73d428791d144cbd3c83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114879884426482688
 MonoBehaviour:
   m_ObjectHideFlags: 1

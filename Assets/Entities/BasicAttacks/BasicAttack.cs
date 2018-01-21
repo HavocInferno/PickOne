@@ -36,7 +36,7 @@ public abstract class BasicAttack : MonoBehaviour
         baseDamage = Mathf.Clamp(baseDamage, 0, int.MaxValue);
         baseFireRate = Mathf.Clamp(baseFireRate, 0, float.MaxValue);
 
-		selfAS = GetComponent<AudioSource> ();
+		selfAS = GetComponent<AudioSource>();
     }
 
     public virtual void UpdateDamage(int mDamage)

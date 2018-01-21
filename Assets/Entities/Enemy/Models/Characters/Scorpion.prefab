@@ -611,7 +611,6 @@ GameObject:
   - component: {fileID: 95256968386986944}
   - component: {fileID: 65774119480091804}
   - component: {fileID: 114377382682175200}
-  - component: {fileID: 114512956614128898}
   - component: {fileID: 195403254817792316}
   - component: {fileID: 114614299867566488}
   - component: {fileID: 114158897692112870}
@@ -619,6 +618,7 @@ GameObject:
   - component: {fileID: 114906250555358782}
   - component: {fileID: 114667712893406442}
   - component: {fileID: 114064844730621144}
+  - component: {fileID: 114031936983858794}
   m_Layer: 11
   m_Name: Scorpion
   m_TagString: Enemy
@@ -1246,6 +1246,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114031936983858794
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1958256614993272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a68307ea14c73d428791d144cbd3c83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114046122123008926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1382,27 +1393,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1792
   type: 0
---- !u!114 &114512956614128898
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1958256614993272}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TransformSyncMode: 1
-  m_SendInterval: 0.05
-  m_SyncRotationAxis: 7
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_VelocityThreshold: 0.0001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
 --- !u!114 &114544986605379562
 MonoBehaviour:
   m_ObjectHideFlags: 1

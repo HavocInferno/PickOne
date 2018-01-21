@@ -130,12 +130,12 @@ GameObject:
   - component: {fileID: 136038960146748544}
   - component: {fileID: 23726706784541748}
   - component: {fileID: 114188004311654200}
-  - component: {fileID: 114949738922044834}
   - component: {fileID: 195180831173883094}
   - component: {fileID: 114356623818849974}
   - component: {fileID: 114283735527426568}
   - component: {fileID: 114175650945361692}
   - component: {fileID: 114422353097686790}
+  - component: {fileID: 114033627075932564}
   m_Layer: 10
   m_Name: BerserkerCrawler
   m_TagString: Crawler
@@ -907,6 +907,17 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114033627075932564
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1509735570345952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 080aad5c07000494d8776da4bd495f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114132974047019736
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1290,27 +1301,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiObj: {fileID: 224448538210392940}
   vrSize: 7
---- !u!114 &114949738922044834
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1509735570345952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TransformSyncMode: 1
-  m_SendInterval: 0.045454547
-  m_SyncRotationAxis: 7
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_VelocityThreshold: 0.0001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
 --- !u!135 &135660935347901730
 SphereCollider:
   m_ObjectHideFlags: 1

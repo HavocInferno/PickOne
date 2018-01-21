@@ -23,12 +23,12 @@ GameObject:
   - component: {fileID: 136613658059362854}
   - component: {fileID: 23094202992334332}
   - component: {fileID: 114460425986535490}
-  - component: {fileID: 114868273254256822}
   - component: {fileID: 195181867980207442}
   - component: {fileID: 114287941068917330}
   - component: {fileID: 114617330058028490}
   - component: {fileID: 114519803537739844}
   - component: {fileID: 114124324291853746}
+  - component: {fileID: 114388878247558574}
   m_Layer: 10
   m_Name: InfiltratorCrawler
   m_TagString: Crawler
@@ -910,6 +910,17 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 2.5
+--- !u!114 &114388878247558574
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1026321081107524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 080aad5c07000494d8776da4bd495f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114460425986535490
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1079,27 +1090,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &114868273254256822
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1026321081107524}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TransformSyncMode: 1
-  m_SendInterval: 0.045454547
-  m_SyncRotationAxis: 7
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_VelocityThreshold: 0.0001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
 --- !u!114 &114954804720811364
 MonoBehaviour:
   m_ObjectHideFlags: 1
