@@ -75,4 +75,9 @@ public abstract class BasicAttack : MonoBehaviour
                 animator.Play("Attack");
         }
     }
+
+    private void OnEnable()
+    {
+        _ready = true;
+    }
 }
