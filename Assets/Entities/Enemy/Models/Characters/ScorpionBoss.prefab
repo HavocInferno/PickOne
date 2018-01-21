@@ -446,7 +446,6 @@ GameObject:
   - component: {fileID: 114810831399411714}
   - component: {fileID: 114823708993660582}
   - component: {fileID: 114272147732736006}
-  - component: {fileID: 114485301124619442}
   m_Layer: 11
   m_Name: ScorpionBoss
   m_TagString: Enemy
@@ -1233,25 +1232,6 @@ MonoBehaviour:
   highlightMat: {fileID: 2100000, guid: f1ac1cb2f6425504193bb5c06057b2bb, type: 2}
   target: {fileID: 137509788149990388}
   matIndex: 0
---- !u!114 &114485301124619442
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1776535338110476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Animator: {fileID: 95409464380746262}
-  m_ParameterSendBits: 1
-  param0: 
-  param1: 
-  param2: 
-  param3: 
-  param4: 
-  param5: 
 --- !u!114 &114549505910402942
 MonoBehaviour:
   m_ObjectHideFlags: 1

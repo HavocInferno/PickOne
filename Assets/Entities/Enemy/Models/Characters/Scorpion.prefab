@@ -619,7 +619,6 @@ GameObject:
   - component: {fileID: 114906250555358782}
   - component: {fileID: 114667712893406442}
   - component: {fileID: 114064844730621144}
-  - component: {fileID: 114917887158781940}
   m_Layer: 11
   m_Name: Scorpion
   m_TagString: Enemy
@@ -1516,25 +1515,6 @@ MonoBehaviour:
   deathEffect: {fileID: 1105925389560420, guid: eeaea4d88f7115e42a855dbeab532d4e,
     type: 2}
   deathEffectDuration: 2.15
---- !u!114 &114917887158781940
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1958256614993272}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Animator: {fileID: 95256968386986944}
-  m_ParameterSendBits: 1
-  param0: 
-  param1: 
-  param2: 
-  param3: 
-  param4: 
-  param5: 
 --- !u!114 &114921938945245428
 MonoBehaviour:
   m_ObjectHideFlags: 1
