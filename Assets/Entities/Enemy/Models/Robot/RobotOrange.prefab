@@ -489,6 +489,7 @@ GameObject:
   - component: {fileID: 114980067602505662}
   - component: {fileID: 114677769561641682}
   - component: {fileID: 114423598764799712}
+  - component: {fileID: 114843631869089362}
   m_Layer: 11
   m_Name: RobotOrange
   m_TagString: Enemy
@@ -1589,7 +1590,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1535867880565272}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a68307ea14c73d428791d144cbd3c83, type: 3}
   m_Name: 
@@ -1702,6 +1703,27 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1792
   type: 0
+--- !u!114 &114843631869089362
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1535867880565272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.06666667
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 1
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 0.5
 --- !u!114 &114937138178086542
 MonoBehaviour:
   m_ObjectHideFlags: 1
