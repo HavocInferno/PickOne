@@ -29,6 +29,7 @@ GameObject:
   - component: {fileID: 114519803537739844}
   - component: {fileID: 114124324291853746}
   - component: {fileID: 114388878247558574}
+  - component: {fileID: 114665774729051370}
   m_Layer: 10
   m_Name: InfiltratorCrawler
   m_TagString: Crawler
@@ -916,7 +917,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1026321081107524}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 080aad5c07000494d8776da4bd495f58, type: 3}
   m_Name: 
@@ -1010,6 +1011,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movSpeed: {x: 8, y: 8}
+--- !u!114 &114665774729051370
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1026321081107524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.0625
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 1
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 0.5
 --- !u!114 &114760175275415628
 MonoBehaviour:
   m_ObjectHideFlags: 1
