@@ -81,7 +81,8 @@ namespace Prototype.NetworkLobby
 			if(!mainMenuUI)
 				mainMenuUI = MainMenu.s_Singleton.gameObject;
 
-            DisableLoadingScreen();
+			if(loadingScreen.activeInHierarchy)
+            	DisableLoadingScreen();
         }
 
         public override void OnLobbyClientSceneChanged(NetworkConnection conn)
@@ -446,7 +447,8 @@ namespace Prototype.NetworkLobby
 
         public void DisableLoadingScreen()
         {
-            loadingScreen.SetActive(false);
+            //loadingScreen.SetActive(false);
+			loadingScreen.GetComponent<LoadingScreenScript> ().FadeOut ();
         }
 
         // ----------------- Client callbacks ------------------
