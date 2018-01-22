@@ -19,6 +19,7 @@ public class EndScreenUI : NetworkBehaviour {
 	public GameObject crawlerUI;
 
 	private bool gameEnded;
+	private bool gameWon;
 
 	public void OnRetToLobbyClicked()
 	{
@@ -31,6 +32,7 @@ public class EndScreenUI : NetworkBehaviour {
 
 	public void SetEndScreen(bool won) {
 		gameEnded = true;
+		gameWon = won;
 		Cursor.lockState = CursorLockMode.Confined;
 		Cursor.visible = true;
 		if(endScreenObj)
@@ -63,7 +65,7 @@ public class EndScreenUI : NetworkBehaviour {
 	}
 
 	public void SetDeathScreen(bool state) {
-		if (gameEnded)
+		if (gameWon)
 			return;
 		
 		if(deathScreenObj)

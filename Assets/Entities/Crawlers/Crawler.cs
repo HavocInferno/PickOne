@@ -206,5 +206,6 @@ public class Crawler : GenericCharacter
 		if (isLocalPlayer && isDead) {
 			FindObjectOfType<EndScreenUI> ().SetDeathScreen (true);
 		}
+		/* here disable collider and renderer? also disable UI ring thing */
 	}
 }

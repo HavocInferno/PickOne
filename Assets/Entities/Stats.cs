@@ -172,7 +172,7 @@ public class Stats : NetworkBehaviour
 			Destroy(hit, 2.15f);
 		}
 
-		if (Health <= 0.0f & !gameObject.GetComponent<GenericCharacter>().isDead)
+		if (Health <= 0.0f && !gameObject.GetComponent<GenericCharacter>().isDead)
         {
             gameObject.GetComponent<GenericCharacter>().isDead = true;
 
