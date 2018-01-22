@@ -19,7 +19,7 @@ public class Crawler : GenericCharacter
 
     [Header("Skills")]
 
-    public CrawlerClass crawlerClass;
+    //public CrawlerClass crawlerClass;
     public List<ActiveAbility> activeAbilities = new List<ActiveAbility>();
 
 	[Header("UI (to be disabled for local)")]
@@ -57,8 +57,9 @@ public class Crawler : GenericCharacter
     //called after scene loaded
     protected override void Start()
     {
-        if (crawlerClass != null)
-            crawlerClass.Apply(this);
+        //if (crawlerClass != null)
+        //    crawlerClass.Apply(this);
+
         foreach (var activeAbility in activeAbilities)
             activeAbility.Recharge(this);
 

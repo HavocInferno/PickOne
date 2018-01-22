@@ -844,21 +844,16 @@ MonoBehaviour:
   pName: player
   playerColor: {r: 0, g: 0, b: 1, a: 1}
   isVRMasterPlayer: 0
-  crawlerClass: {fileID: 0}
   activeAbilities:
   - type: 0
     attributeName: 
-    readyIcon: {fileID: 21300000, guid: 0e2281628a2affb49a1d15e837528edf, type: 3}
-    activeIcon: {fileID: 0}
-    unavailableIcon: {fileID: 0}
+    icon: {fileID: 21300000, guid: 0e2281628a2affb49a1d15e837528edf, type: 3}
     name: Cloak
     effects:
     - {fileID: 11400000, guid: 3e6465abd78d38c489c59165b5f01a23, type: 2}
   - type: 0
     attributeName: 
-    readyIcon: {fileID: 21300000, guid: 8846d04f82353874d8e3264ecb53e57b, type: 3}
-    activeIcon: {fileID: 0}
-    unavailableIcon: {fileID: 0}
+    icon: {fileID: 21300000, guid: 8846d04f82353874d8e3264ecb53e57b, type: 3}
     name: Detect Enemies
     effects:
     - {fileID: 11400000, guid: 538a7aa52253ae245854be874f4be8bd, type: 2}

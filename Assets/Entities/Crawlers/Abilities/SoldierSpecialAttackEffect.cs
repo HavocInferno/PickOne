@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Assets/Effects/SoldierSpecialAttackEffect")]
 public class SoldierSpecialAttackEffect : AbstractEffect
 {
+    public float bulletDamage = 10;
     public float angle = 3.0f;
     public int count = 10;
     public float delay = 0.1f;
@@ -14,7 +15,7 @@ public class SoldierSpecialAttackEffect : AbstractEffect
         bool calledByLocalPlayer,
         bool calledByServer)
     {
-        character.gameObject.AddComponent<_SoldierSpecialAttackEffect>().Initialize(count, angle, delay);
+        character.gameObject.AddComponent<_SoldierSpecialAttackEffect>().Initialize(count, bulletDamage, angle, delay);
     }
 
     public override void Disable(
@@ -23,8 +24,7 @@ public class SoldierSpecialAttackEffect : AbstractEffect
         bool calledByServer)
     {
         base.Disable(character, calledByLocalPlayer, calledByServer);
-
-
+        
         Destroy(character.gameObject.GetComponent<_SoldierSpecialAttackEffect>());
     }
 
@@ -34,15 +34,17 @@ public class SoldierSpecialAttackEffect : AbstractEffect
         int _step = 0;
         bool _back = false;
         int _count = 0;
+        float _bulletDamage = 0;
         float _angle = 0.0f;
         float _delay = 0.0f;
         float _nextTime = 0.0f;
         Gun _gun;
         GenericCharacter _character;
         
-        public void Initialize(int count, float angle, float delay)
+        public void Initialize(int count, float damage, float angle, float delay)
         {
             _step = -count / 2;
+            _bulletDamage = damage;
             _count = count;
             _angle = angle;
             _delay = delay;
@@ -77,7 +79,7 @@ public class SoldierSpecialAttackEffect : AbstractEffect
             bullet.transform.Rotate(bullet.transform.up, (_step - _count / 2) * _angle);
 
             // Set damage value of the bullet
-            bullet.GetComponent<Bullet>().damage = _gun.Damage;
+            bullet.GetComponent<Bullet>().damage = _bulletDamage;
             bullet.GetComponent<Bullet>().attacker = _character;
             bullet.GetComponent<Bullet>().direction = bullet.transform.forward;
 

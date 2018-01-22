@@ -7,12 +7,13 @@ using UnityEngine;
 /// a cone in front of the player.
 /// </summary>
 public class SumoSlap : BasicAttack
-{
+{ 
     public Collider attackCollider;
+    public float colliderTime;
     public new ParticleSystem particleSystem;
-
+    
     GenericCharacter _attacker;
-
+    
     protected override void Start()
     {
         base.Start();
@@ -65,13 +66,17 @@ public class SumoSlap : BasicAttack
     {
         // Enable the collider in front of the crawler
         attackCollider.enabled = true;
+
         if (particleSystem)
         {
             particleSystem.Play();
         }
 
-		yield return new WaitForSeconds(fireRate);
-        _ready = true;
+        yield return new WaitForSeconds(colliderTime);
+
         attackCollider.enabled = false;
+
+        yield return new WaitForSeconds(fireRate - colliderTime);
+        _ready = true;
 	}
 }

@@ -17,9 +17,7 @@ public class ActiveAbility
     public AvailabilityType type;
     public string attributeName;
 
-    public Sprite readyIcon;
-    public Sprite activeIcon;
-    public Sprite unavailableIcon;
+    public Sprite icon;
 
     private bool _isAvailable = true;
 

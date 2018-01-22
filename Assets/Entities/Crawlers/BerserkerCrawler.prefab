@@ -1086,13 +1086,10 @@ MonoBehaviour:
   pName: player
   playerColor: {r: 0, g: 0, b: 1, a: 1}
   isVRMasterPlayer: 0
-  crawlerClass: {fileID: 0}
   activeAbilities:
   - type: 1
     attributeName: Adrenaline
-    readyIcon: {fileID: 21300000, guid: e46b44e3732d5d34fba223c08921e5b9, type: 3}
-    activeIcon: {fileID: 0}
-    unavailableIcon: {fileID: 0}
+    icon: {fileID: 21300000, guid: 2b12bf38393b7474084952f127b25cb8, type: 3}
     name: Rage
     effects:
     - {fileID: 11400000, guid: 73a941762eff7074d842b8394127ec9c, type: 2}

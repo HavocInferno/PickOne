@@ -15,6 +15,13 @@ public class Bullet : MonoBehaviour
     void OnCollisionEnter(Collision collision)
 	{
         var hit = collision.gameObject;
+
+        if (attacker.gameObject.CompareTag(hit.tag))
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        
 		var stats = hit.GetComponent<Stats>();
 		if (stats != null)
         {

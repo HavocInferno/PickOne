@@ -17,28 +17,6 @@ public class CloakEffect : AbstractEffect
         character.gameObject.AddComponent<_CloakEffectScript>()._Initialize(cloakMaterial);
     }
 
-    public override void OnMakeDamage(
-        float amount, 
-        GenericCharacter attacker,
-        GenericCharacter target, 
-        Vector3 hitPoint, 
-        Vector3 hitDirection, 
-        bool calledByLocalPlayer, 
-        bool calledByServer)
-    {
-        base.OnMakeDamage(
-            amount, 
-            attacker,
-            target, 
-            hitPoint,
-            hitDirection,
-            calledByLocalPlayer, 
-            calledByServer);
-
-        // On damage of an enemy, disable this ability
-        Disable(attacker, calledByLocalPlayer, calledByServer);
-    }
-
     public override void Disable(
         GenericCharacter character,
         bool calledByLocalPlayer,

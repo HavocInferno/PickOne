@@ -19,7 +19,7 @@ public class AbilitiesPanel : MonoBehaviour
         {
             GameObject newObject = GameObject.Instantiate(elementPrefab, transform);
             Image image = newObject.transform.Find("EffectIcon").GetComponentInChildren<Image>();
-            image.sprite = ability.readyIcon;
+            image.sprite = ability.icon;
             image.color = new Color(0.0f, 0.0f, 0.0f, 0.9f);
             _elements.Add(ability, newObject);
         }
