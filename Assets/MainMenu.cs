@@ -21,6 +21,7 @@ public class MainMenu : MonoBehaviour {
 	void Start () {
 		Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.Confined;
+		LobbyManager.s_Singleton.GetComponent<Canvas> ().enabled = false;
 
 		if(LobbyManager.s_Singleton)
 			LobbyManager.s_Singleton.mainMenuUI = gameObject;
@@ -34,6 +35,7 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	public void OnClickPlay() {
+		LobbyManager.s_Singleton.GetComponent<Canvas> ().enabled = true;
 		gameObject.SetActive (false);
 	}
 

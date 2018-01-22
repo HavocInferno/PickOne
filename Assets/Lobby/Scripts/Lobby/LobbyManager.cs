@@ -497,6 +497,7 @@ namespace Prototype.NetworkLobby
 		public void OnBackToMainUI()
 		{
 			mainMenuUI.SetActive (true);
+			LobbyManager.s_Singleton.GetComponent<Canvas> ().enabled = false;
 		}
     }
 }
