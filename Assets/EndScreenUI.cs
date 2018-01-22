@@ -33,7 +33,8 @@ public class EndScreenUI : NetworkBehaviour {
 		gameEnded = true;
 		Cursor.lockState = CursorLockMode.Confined;
 		Cursor.visible = true;
-		endScreenObj.SetActive (true);
+		if(endScreenObj)
+			endScreenObj.SetActive (true);
 		SetDeathScreen (false);
 		if (won) {
 			conditionLabel.text = "You won. Good job! All enemy forces eliminated.";
@@ -48,8 +49,10 @@ public class EndScreenUI : NetworkBehaviour {
 		gameEnded = true;
 		Cursor.lockState = CursorLockMode.Confined;
 		Cursor.visible = true;
-		abandonScreenObj.SetActive (true);
-		crawlerUI.SetActive (false);
+		if(abandonScreenObj)
+			abandonScreenObj.SetActive (true);
+		if(crawlerUI)
+			crawlerUI.SetActive (false);
 	}
 
 	[ClientRpc]
@@ -63,8 +66,10 @@ public class EndScreenUI : NetworkBehaviour {
 		if (gameEnded)
 			return;
 		
-		deathScreenObj.SetActive (state);
-		crawlerUI.SetActive (!state);
+		if(deathScreenObj)
+			deathScreenObj.SetActive (state);
+		if(crawlerUI)
+			crawlerUI.SetActive (!state);
 
 		if (state) {
 			Camera.main.GetComponent<DungeonCamera> ().enabled = false;
