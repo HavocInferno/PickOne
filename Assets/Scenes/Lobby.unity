@@ -283,6 +283,7 @@ GameObject:
   - component: {fileID: 521054950}
   - component: {fileID: 521054951}
   - component: {fileID: 521054952}
+  - component: {fileID: 521054953}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -328,7 +329,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 5500
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -395,6 +396,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d7edce1adbab0146981ad5376d316be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &521054953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 521054944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1f7f9542d6ce174aaf84b04f68bfbfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneBuildIndex: 2
 --- !u!1001 &722304180
 Prefab:
   m_ObjectHideFlags: 0
@@ -1215,22 +1228,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1469263912 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 155310, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 2}
-  m_PrefabInternal: {fileID: 1469263911}
---- !u!114 &1469263913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1469263912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1f7f9542d6ce174aaf84b04f68bfbfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneBuildIndex: 2
 --- !u!1 &1551070997
 GameObject:
   m_ObjectHideFlags: 0
