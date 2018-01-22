@@ -20,6 +20,7 @@ public class AbilitiesPanel : MonoBehaviour
             GameObject newObject = GameObject.Instantiate(elementPrefab, transform);
             Image image = newObject.transform.Find("EffectIcon").GetComponentInChildren<Image>();
             image.sprite = ability.readyIcon;
+            image.color = new Color(0.0f, 0.0f, 0.0f, 0.9f);
             _elements.Add(ability, newObject);
         }
     }
@@ -30,15 +31,13 @@ public class AbilitiesPanel : MonoBehaviour
         {
             if (ability.IsAvailable)
             {
-                _elements[ability]
-                    .transform.Find("EffectIcon")
-                    .GetComponentInChildren<Image>().sprite = ability.readyIcon;
+                _elements[ability].GetComponent<Image>().color =
+                    new Color(0.1f, 0.9f, 0.1f, 1.0f);
             }
             else
             {
-                _elements[ability]
-                    .transform.Find("EffectIcon")
-                    .GetComponentInChildren<Image>().sprite = ability.unavailableIcon;
+                _elements[ability].GetComponent<Image>().color =
+                    new Color(0.5f, 0.1f, 0.1f, 1.0f);
             }
         }
     }
