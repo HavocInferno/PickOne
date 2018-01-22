@@ -726,8 +726,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63381684f6703774e981c15d58dacadc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamage: 20
-  baseFireRate: 0.75
+  baseDamage: 9
+  baseFireRate: 0.2
   sound: {fileID: 8300000, guid: 974917c74d2076743a45b1e182eb0bdb, type: 3}
   selfAS: {fileID: 0}
   BulletSpeed: 50
@@ -877,13 +877,13 @@ MonoBehaviour:
   activeAbilities:
   - type: 0
     attributeName: 
-    icon: {fileID: 21300000, guid: dccf23a4d0dea0e44a064a2bf01e3ee5, type: 3}
+    icon: {fileID: 0}
     name: Special Attack
     effects:
     - {fileID: 11400000, guid: 88b55c4f2a1ff434885fe68596573655, type: 2}
   - type: 0
     attributeName: 
-    icon: {fileID: 21300000, guid: 61657ee7415ab8b4589aaffb1455a8e1, type: 3}
+    icon: {fileID: 0}
     name: Laser Beam
     effects:
     - {fileID: 11400000, guid: 8bea51102c5fb83439e6bf9800d49a26, type: 2}
