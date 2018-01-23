@@ -37,7 +37,9 @@ public class EndScreenUI : NetworkBehaviour {
 		Cursor.visible = true;
 		if(endScreenObj)
 			endScreenObj.SetActive (true);
-		SetDeathScreen (false);
+		//SetDeathScreen (false);
+		if(crawlerUI)
+			crawlerUI.SetActive (false);
 		if (won) {
 			conditionLabel.text = "You won. Good job! All enemy forces eliminated.";
 			background.color = bkgndWinColor;
