@@ -5,48 +5,56 @@ using UnityEngine.Networking;
 
 public class SyncEnemyTransformScript : NetworkBehaviour
 {
-    Vector3 prevPosition;
-    Vector3 currPosition;
-    Vector3 lastPosition;
-    float prevRotation;
-    float currRotation;
-    float lastRotation;
-    float lastRpc = 0.0f;
+	Vector2 prevPosition;
+	Vector2 currPosition;
+	Vector2 lastPosition;
+	int prevRotationY;
+	int currRotationY;
+	int lastRotationY;
+	float lastRpc = 0.0f;
 
-    private float updateInterval;
+	private float updateInterval;
+	public int updateRate = 9;
+	private float updateRateF;
+	public float distThreshold = 0.005f;
 
-    private void Start()
-    {
-        prevPosition = transform.position;
-        currPosition = transform.position;
-        lastPosition = transform.position;
-    }
+	private void Start()
+	{
+		updateRateF = 1f / (float)updateRate;
+
+		prevPosition = new Vector2(transform.position.x, transform.position.z);
+		currPosition = new Vector2(transform.position.x, transform.position.z);;
+		lastPosition = new Vector2(transform.position.x, transform.position.z);;
+	}
 
     void Update()
     {
         if (isServer)
         {
-            prevPosition = currPosition;
-            currPosition = transform.position;
-            prevRotation = currRotation;
-            currRotation = transform.rotation.eulerAngles.y;
-            float dist = Vector3.Distance(prevPosition, currPosition) + Mathf.Abs(currRotation - prevRotation);
-            // update the server with position/rotation
-            updateInterval += Time.deltaTime;
-            if (updateInterval > 0.11f && dist > 0.001f)
-            {
-                updateInterval = 0;
-                RpcSync(transform.position, transform.rotation.eulerAngles.y);
+			prevPosition = currPosition;
+			currPosition = new Vector2(transform.position.x, transform.position.z);
+			prevRotationY = currRotationY;
+			currRotationY = (int)(transform.rotation.eulerAngles.y*1000f);
+			float dist = Vector2.Distance(prevPosition, currPosition) + Mathf.Abs(currRotationY - prevRotationY);
+			// update the server with position/rotation
+			updateInterval += Time.deltaTime;
+			if (updateInterval > updateRateF && dist > distThreshold)
+			{
+				updateInterval = 0f;
+				RpcSync(currPosition, currRotationY);
             }
         }
         else
         {
-            transform.position = Vector3.Lerp(lastPosition, (1.5f * currPosition - 0.5f * prevPosition), (Time.time - lastRpc) / 0.11f);
-            float targetRot = Mathf.LerpAngle(prevRotation, currRotation, 1.5f);
-            transform.transform.eulerAngles = new Vector3(
-                transform.transform.eulerAngles.x,
-                Mathf.Lerp(lastRotation, targetRot, (Time.time - lastRpc) / 0.11f),
-                transform.transform.eulerAngles.z);
+			Vector2 interpPosV2 = Vector2.Lerp(lastPosition, (1.5f * currPosition - 0.5f * prevPosition), (Time.time - lastRpc) / updateRateF);
+			Vector3 interpPosV3 = new Vector3 (interpPosV2.x, transform.position.y, interpPosV2.y);
+			transform.position = interpPosV3;
+
+			float targetRot = Mathf.LerpAngle(((float)(prevRotationY)/1000f), ((float)(currRotationY)/1000f), 1.5f);
+			transform.transform.eulerAngles = new Vector3(
+				transform.transform.eulerAngles.x,
+				Mathf.Lerp(((float)(lastRotationY)/1000f), targetRot, (Time.time - lastRpc) / updateRateF),
+				transform.transform.eulerAngles.z);
         }
     }
 
@@ -55,13 +63,13 @@ public class SyncEnemyTransformScript : NetworkBehaviour
     {
         if (!isServer)
         {
-            lastRpc = Time.time;
-            lastPosition = transform.position;
-            prevPosition = currPosition;
-            currPosition = position;
-            lastRotation = transform.rotation.eulerAngles.y;
-            prevRotation = currRotation;
-            currRotation = rotation;
+			lastRpc = Time.time;
+			lastPosition = new Vector2(transform.position.x, transform.position.z);;
+			prevPosition = currPosition;
+			currPosition = position;
+			lastRotationY = (int)(transform.rotation.eulerAngles.y*1000f);
+			prevRotationY = currRotationY;
+			currRotationY = rotation;
         }
     }
 }

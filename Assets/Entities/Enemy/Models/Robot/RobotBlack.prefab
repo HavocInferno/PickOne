@@ -1492,7 +1492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 1
   m_SendInterval: 0.06666667
-  m_SyncRotationAxis: 7
+  m_SyncRotationAxis: 2
   m_RotationSyncCompression: 1
   m_SyncSpin: 0
   m_MovementTheshold: 0.005
@@ -1536,6 +1536,7 @@ MonoBehaviour:
   detectionCheckRate: 2
   rotationSpeed: 200
   meleeRange: 10
+  isRunning: 0
   isEndConditionKill: 1
 --- !u!114 &114088485493065326
 MonoBehaviour:
