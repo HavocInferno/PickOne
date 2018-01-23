@@ -59,7 +59,7 @@ public class SyncEnemyTransformScript : NetworkBehaviour
     }
 
     [ClientRpc]
-    void RpcSync(Vector3 position, float rotation)
+    void RpcSync(Vector2 position, int rotation)
     {
         if (!isServer)
         {
