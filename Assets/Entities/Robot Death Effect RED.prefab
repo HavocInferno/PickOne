@@ -38,8 +38,6 @@ GameObject:
   - component: {fileID: 4193497135578214}
   - component: {fileID: 198769150772920118}
   - component: {fileID: 199430222687151960}
-  - component: {fileID: 114329848207676396}
-  - component: {fileID: 114467721897653472}
   m_Layer: 0
   m_Name: Robot Death Effect GREEN (1)
   m_TagString: Untagged
@@ -86,7 +84,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1943653839060240}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18.130653, y: 1.43, z: 63.200394}
+  m_LocalPosition: {x: 0, y: 1.0000001, z: 0}
   m_LocalScale: {x: 1.7, y: 1.7, z: 1.7}
   m_Children:
   - {fileID: 4979857388475532}
@@ -101,7 +99,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1645258607559380}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.222218, y: 1.977, z: -0.0675869}
+  m_LocalPosition: {x: 0, y: 1.977, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4710061213979516}
@@ -113,38 +111,6 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1943653839060240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 174
-    i1: 13
-    i2: 138
-    i3: 204
-    i4: 91
-    i5: 44
-    i6: 47
-    i7: 212
-    i8: 136
-    i9: 6
-    i10: 77
-    i11: 102
-    i12: 28
-    i13: 15
-    i14: 47
-    i15: 205
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
---- !u!114 &114329848207676396
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1667479024092352}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
@@ -185,22 +151,6 @@ MonoBehaviour:
   duration: 0.5
   destroyAfterDuration: 1
   origin: {fileID: 4710061213979516}
-  shakeyStrength: 3
-  maxShakeDistance: 5
---- !u!114 &114467721897653472
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1667479024092352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a69d53d23ae31546a7db9710a970137, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration: 0.5
-  destroyAfterDuration: 1
-  origin: {fileID: 4193497135578214}
   shakeyStrength: 3
   maxShakeDistance: 5
 --- !u!198 &198201957218871310
@@ -263,7 +213,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1076517735
+  randomSeed: 1393782192
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3625,7 +3575,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1888235740
+  randomSeed: 864098525
   InitialModule:
     serializedVersion: 3
     enabled: 1
