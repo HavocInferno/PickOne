@@ -18,6 +18,7 @@ public class Enemy : GenericCharacter
     public float rotationSpeed = 240.0f;
     public float meleeRange = 10.0f;
     private PlayersManager playersManager = null;
+    public bool isRunning = false;
 
     public bool isEndConditionKill = true;
 
@@ -133,11 +134,19 @@ public class Enemy : GenericCharacter
         var navMeshAgent = GetComponent<NavMeshAgent>();
         if (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance && !RotateTowards(Destination))
         {
-            RpcSetRunningAnimation(false);
+            if (isRunning)
+            {
+                isRunning = false;
+                RpcSetRunningAnimation(false);
+            }
         }
         else
         {
-            RpcSetRunningAnimation(true);
+            if (!isRunning)
+            {
+                isRunning = true;
+                RpcSetRunningAnimation(true);
+            }
         }
 
         // Check if the enemy is idle.
