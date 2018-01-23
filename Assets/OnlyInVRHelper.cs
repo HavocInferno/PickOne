@@ -8,7 +8,6 @@ public class OnlyInVRHelper : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		if (XRDevice.userPresence == UserPresenceState.Unsupported) {
-			GetComponent<Canvas> ().enabled = false;
 			this.enabled = false;
 		}
 	}
