@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 /// <summary>
 /// Stats that belong to any GenericCharacter.
@@ -25,6 +26,7 @@ public class Stats : NetworkBehaviour
 
         public string name = "";
         public RectTransform bar;
+		public CUI_lowStat lowS; 
 
         public float Value
         {
@@ -42,6 +44,7 @@ public class Stats : NetworkBehaviour
         {
             _value = Mathf.Min(_value, _max);
             if (bar) bar.sizeDelta = new Vector2(100.0f * _value / _max, bar.sizeDelta.y);
+			if (lowS) lowS.UpdateValues(_value, _max, name);
         }
     }
     public Dictionary<string, Attribute> attributes = new Dictionary<string, Attribute>();
