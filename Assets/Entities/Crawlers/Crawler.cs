@@ -86,12 +86,14 @@ public class Crawler : GenericCharacter
         if (isLocalPlayer)
         {
             FindObjectOfType<AttributesPanel>().Register(GetComponent<Stats>());
+			FindObjectOfType<CUI_lowStat>().Register(GetComponent<Stats>());
 			if (tpsUI)
 				tpsUI.SetActive (false);
 			if (!isVRMasterPlayer) {
 				FindObjectOfType<CUI_crosshair> ().registerCrawler (this);
                 FindObjectOfType<AbilitiesPanel>().Initialize(activeAbilities);
 			}
+
         }
 
 		Cursor.visible = false;
