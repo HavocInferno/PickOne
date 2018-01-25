@@ -6,6 +6,8 @@ public class CrawlerController : NetworkBehaviour
 {
     public Vector2 movSpeed = new Vector2(4f, 4f);
 
+	public Vector2 mov;
+	public bool att;
     //called once per frame
     void Update()
     {
@@ -30,7 +32,9 @@ public class CrawlerController : NetworkBehaviour
 
         //player movement..hor is forward/backward, ver is strafing
         Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        direction = Time.deltaTime * Vector2.Scale(direction.normalized, movSpeed);
+		mov = direction;
+		att = Input.GetButton ("Fire1");
+        direction = Time.deltaTime * Vector2.Scale(direction, movSpeed);
         transform.Translate(direction.x, 0, direction.y);
     }
 }
