@@ -5623,6 +5623,8 @@ MonoBehaviour:
   target: {fileID: 0}
   offset: {x: 0, y: 0, z: -5}
   pivotOffsetIntended: {x: 0, y: 0, z: 0}
+  pivotOffsetObstructed: {x: 0, y: 1, z: 0}
+  localRot: {x: 0, y: 0, z: 0}
   distanceIntended: 10
   mouseSense: 4
   scrollSense: 2
@@ -14441,7 +14443,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1b0e31a1614a30e4f889325f14b2faf2, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0.14
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -14453,7 +14455,7 @@ AudioSource:
   MaxDistance: 741.1
   Pan2D: 0
   rolloffMode: 1
-  BypassEffects: 0
+  BypassEffects: 1
   BypassListenerEffects: 0
   BypassReverbZones: 0
   rolloffCustomCurve:
@@ -15727,7 +15729,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5f565a1e9e6755647abc83ff08135cb1, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.15
+  m_Volume: 0.08
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -15739,7 +15741,7 @@ AudioSource:
   MaxDistance: 973.99
   Pan2D: 0
   rolloffMode: 1
-  BypassEffects: 0
+  BypassEffects: 1
   BypassListenerEffects: 0
   BypassReverbZones: 0
   rolloffCustomCurve:
@@ -15927,7 +15929,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ad22f4eeae54b1e4fbb2367fc80a2cc7, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.15
+  m_Volume: 0.09
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -15939,7 +15941,7 @@ AudioSource:
   MaxDistance: 1120.9
   Pan2D: 0
   rolloffMode: 1
-  BypassEffects: 0
+  BypassEffects: 1
   BypassListenerEffects: 0
   BypassReverbZones: 0
   rolloffCustomCurve:

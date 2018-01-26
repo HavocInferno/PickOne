@@ -524,7 +524,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 70395266baa4c89449fc09a52eb5ba14, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.4
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -759,6 +759,7 @@ MonoBehaviour:
   - _max: 80
     name: Health
     bar: {fileID: 224258476899130700}
+    lowS: {fileID: 0}
   attackMultiplier: 1
   defenseMultiplier: 1
   destroyOnDeath: 0
@@ -1008,6 +1009,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movSpeed: {x: 8, y: 8}
+  mov: {x: 0, y: 0}
+  att: 0
 --- !u!114 &114665774729051370
 MonoBehaviour:
   m_ObjectHideFlags: 1
