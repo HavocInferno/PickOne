@@ -30,6 +30,8 @@ public class GenericCharacter : NetworkBehaviour
 
     public Renderer mainRenderer = null;
 
+	public Animator anim; 
+
     // Enable specified effect for a given period of time.
     public void EnableEffectDuration(AbstractEffect effect, float duration)
     {
@@ -160,6 +162,9 @@ public class GenericCharacter : NetworkBehaviour
         Vector3 hitPoint,
         Vector3 hitDirection)
     {
+
+		if (anim != null)
+			anim.SetTrigger ("Hit");
         foreach (AbstractEffect effect in _appliedEffects)
         {
             effect.OnReceiveDamage(

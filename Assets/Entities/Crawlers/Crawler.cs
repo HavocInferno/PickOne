@@ -71,8 +71,8 @@ public class Crawler : GenericCharacter
         //    mr.material = defaultMaterial;
         //    mr.material.color = playerColor;
         //}
-        ParticleSystem.MainModule mm = GetComponentInChildren<ParticleSystem>().main;
-        mm.startColor = playerColor;
+        //ParticleSystem.MainModule mm = GetComponentInChildren<ParticleSystem>().main;
+        //mm.startColor = playerColor;
         nameTag.text = pName;
 
         //scale up the player object if this is the VR master [this is a temporary visualisation, to be removed once a proper Master representation is done]
