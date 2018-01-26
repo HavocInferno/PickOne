@@ -5,8 +5,11 @@ using UnityEngine;
 public class IK : MonoBehaviour {
     public Animator animator;
 
-    public bool ikActive = false;
+    public bool rightHand = false;
+    public bool leftHand = false;
+    public bool head = false;
     public Transform rightHandObj = null;
+    public Transform leftHandObj = null;
     public Transform lookObj = null;
 
     // Use this for initialization
@@ -24,18 +27,15 @@ public class IK : MonoBehaviour {
         {
 
             //if the IK is active, set the position and rotation directly to the goal. 
-            if (ikActive)
-            {
-
                 // Set the look target position, if one has been assigned
-                if (lookObj != null)
+                if (head && lookObj != null)
                 {
                     animator.SetLookAtWeight(1);
                     animator.SetLookAtPosition(lookObj.position);
                 }
 
                 // Set the right hand target position and rotation, if one has been assigned
-                if (rightHandObj != null)
+                if (rightHand && rightHandObj != null)
                 {
                     animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
                     animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
@@ -43,7 +43,14 @@ public class IK : MonoBehaviour {
                     animator.SetIKRotation(AvatarIKGoal.RightHand, rightHandObj.rotation);
                 }
 
+            if (leftHand && rightHandObj != null)
+            {
+                animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
+                animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1);
+                animator.SetIKPosition(AvatarIKGoal.LeftHand, leftHandObj.position);
+                animator.SetIKRotation(AvatarIKGoal.LeftHand, leftHandObj.rotation);
             }
+
 
             //if the IK is not active, set the position and rotation of the hand and head back to the original position
             else
