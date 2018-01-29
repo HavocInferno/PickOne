@@ -11,7 +11,7 @@ public class Sword : BasicAttack
 
     private bool _animActive = false;
 	private Quaternion _defaultRot;
-    GenericCharacter _attacker;
+    
 
     protected override void Start()
     {
@@ -60,7 +60,7 @@ public class Sword : BasicAttack
         // If it has one, call function to take damage
         if (stats != null)
         {
-            stats.Hit(Damage, _attacker, transform.position,
+            stats.Hit(damage, _attacker, transform.position,
                 (collision.transform.position - _attacker.transform.position).normalized);
         }
         else
@@ -72,16 +72,17 @@ public class Sword : BasicAttack
 
     public override void DoAttack(GenericCharacter attacker)
     {
-        if (!_ready) return;
+        base.DoAttack(attacker);
 
-        _ready = false;
+        //if (!_ready) return;
 
-        _attacker = attacker;
+        //_ready = false;
+        
 		transform.localRotation = _defaultRot;
 		_animActive = true;
-		selfAS.PlayOneShot(sound);
-		StartCoroutine(AttackRoutine());
         blade.SetActive(true);
+		//selfAS.PlayOneShot(sound);
+		//StartCoroutine(WaitForReload());
 	}
 
     private void OnDisable()
@@ -93,10 +94,10 @@ public class Sword : BasicAttack
         transform.localRotation = _defaultRot;
     }
 
-    IEnumerator AttackRoutine()
+    protected override IEnumerator AttackRoutine()
     {
-		yield return new WaitForSeconds(FireRate);
-        _ready = true;
+        yield return base.AttackRoutine();
+
         blade.SetActive(false);
         _animActive = false;
 	}

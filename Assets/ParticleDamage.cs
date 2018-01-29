@@ -16,7 +16,7 @@ public class ParticleDamage : MonoBehaviour
         // If it has one, call function to take damage
         if (stats != null)
         {
-            stats.Hit(attack.Damage, attacker, transform.position,
+            stats.Hit(attack.damage, attacker, transform.position,
                 (other.transform.position - transform.position).normalized);
         }
         else

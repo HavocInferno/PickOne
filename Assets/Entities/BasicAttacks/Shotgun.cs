@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShotgunAttack : BasicAttack
+public class Shotgun : BasicAttack
 {
     public float angle;
     public int count;
@@ -12,6 +12,13 @@ public class ShotgunAttack : BasicAttack
     public float BulletLife = 2f;
     public GameObject BulletPrefab;
     public Transform BulletSpawn;
+
+    [Space(8)]
+    [Tooltip("Time in seconds before the gun is restored to its original rotation.")]
+    public float resetDelay = 1.0f;
+
+    protected Quaternion _initialRotation;
+    protected Coroutine _resetCoroutine;
 
     override protected void Start()
     {
@@ -28,14 +35,34 @@ public class ShotgunAttack : BasicAttack
         }
     }
 
+    public virtual void AimGun(GenericCharacter attacker)
+    {
+        // Figure out where the crosshair is aiming
+        var ray = Camera.main.ScreenPointToRay(
+            new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0));
+
+        RaycastHit rayHit;
+        if (Physics.Raycast(ray, out rayHit, 100))
+        {
+            // Rotate the gun to point to the... point
+            transform.LookAt(rayHit.point);
+        }
+
+        // Start the coroutine to reset the gun
+        if (_resetCoroutine != null)
+            StopCoroutine(_resetCoroutine);
+
+        _resetCoroutine = StartCoroutine(ResetGun());
+    }
+
     public override void DoAttack(GenericCharacter attacker)
     {
-        if (!_ready) return;
-
         base.DoAttack(attacker);
 
         if (BulletPrefab == null)
             return;
+
+        AimGun(attacker);
 
         for (int i = 0; i < count; ++i)
         {
@@ -49,7 +76,7 @@ public class ShotgunAttack : BasicAttack
             bullet.transform.Rotate(angles);
 
             // Set damage value of the bullet
-            bullet.GetComponent<Bullet>().damage = this.Damage;
+            bullet.GetComponent<Bullet>().damage = this.damage;
             bullet.GetComponent<Bullet>().attacker = attacker;
             bullet.GetComponent<Bullet>().direction = bullet.transform.forward;
 
@@ -59,6 +86,16 @@ public class ShotgunAttack : BasicAttack
             // Destroy the bullet after 2 seconds
             Destroy(bullet, Random.value * BulletLife);
         }
+    }
+
+    /// <summary>
+    /// Resets the rotation of the gun to its intial position.
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator ResetGun()
+    {
+        yield return new WaitForSeconds(resetDelay);
+        gameObject.transform.localRotation = _initialRotation;
     }
 }
 

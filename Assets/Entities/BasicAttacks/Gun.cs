@@ -1,53 +1,102 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Networking;
 
 public class Gun : BasicAttack
 {
     [Header("Bullet Details")]
-    public float BulletSpeed = 5f;
-    public float BulletLife = 2f;
-    public GameObject BulletPrefab;
-    public Transform BulletSpawn;
+    public float bulletSpeed = 5f;
+    public float bulletLife = 2f;
+    public GameObject bulletPrefab;
+    public Transform bulletSpawn;
 
+    [Space(8)]
+    [Tooltip("Time in seconds before the gun is restored to its original rotation.")]
+    public float resetDelay = 1.0f;
+
+    //protected CUI_crosshair _crosshair;
+    protected Quaternion _initialRotation;
+    protected Coroutine _resetCoroutine;
+    
     override protected void Start()
     {
         base.Start();
 
-        if (BulletPrefab == null)
+        //_defaultPosiiton = gameObject.transform.position;
+
+        if (bulletPrefab == null)
         {
             Debug.LogError("Bullet prefab not set.");
         }
 
-        if (BulletSpawn == null)
+        if (bulletSpawn == null)
         {
             Debug.LogError("Bullet spawn transform not set.");
         }
+
+        // TODO: Find alterantive
+        //_crosshair = Object.FindObjectOfType<CUI_crosshair>();
+    }
+
+    protected void OnValidate()
+    {
+
+    }
+
+    public virtual void AimGun(GenericCharacter attacker)
+    {
+        // Figure out where the crosshair is aiming
+        var ray = Camera.main.ScreenPointToRay(
+            new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0));
+
+        RaycastHit rayHit;
+        if (Physics.Raycast(ray, out rayHit, 100))
+        {
+            // Rotate the gun to point to the... point
+            transform.LookAt(rayHit.point);
+        }
+
+        // Start the coroutine to reset the gun
+        if (_resetCoroutine != null)
+            StopCoroutine(_resetCoroutine);
+
+        _resetCoroutine = StartCoroutine(ResetGun());
     }
 
     public override void DoAttack(GenericCharacter attacker)
     {
-        if (!_ready) return;
-
         base.DoAttack(attacker);
 
-        if (BulletPrefab == null)
+        if (!bulletPrefab || !bulletSpawn)
             return;
 
+        AimGun(attacker);
+        
         // Create the Bullet from the Bullet Prefab
         var bullet = Instantiate(
-            BulletPrefab,
-            BulletSpawn.position,
-            BulletSpawn.rotation);
+            bulletPrefab,
+            bulletSpawn.position,
+            bulletSpawn.rotation);
 
         // Set damage value of the bullet
-        bullet.GetComponent<Bullet>().damage = this.Damage;
+        bullet.GetComponent<Bullet>().damage = this.damage;
         bullet.GetComponent<Bullet>().attacker = attacker;
         bullet.GetComponent<Bullet>().direction = bullet.transform.forward;
 
         // Add velocity to the bullet
-        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * BulletSpeed;
+        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;
 
         // Destroy the bullet after 2 seconds
-        Destroy(bullet, BulletLife);
+        Destroy(bullet, bulletLife);
+    }
+
+    /// <summary>
+    /// Resets the rotation of the gun to its intial position.
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator ResetGun()
+    {
+        yield return new WaitForSeconds(resetDelay);
+        gameObject.transform.localRotation = _initialRotation;
     }
 }

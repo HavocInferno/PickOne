@@ -6,62 +6,67 @@ public abstract class BasicAttack : MonoBehaviour
 {
     // Public getters for external scripts
     [HideInInspector]
-    public float BaseDamage { get { return baseDamage; } }
+    public float baseDamage { get { return _baseDamage; } }
     [HideInInspector]
-    public float BaseFireRate { get { return baseFireRate; } }
+    public float baseFireRate { get { return _baseFireRate; } }
     [HideInInspector]
-    public float Damage { get { return damage; } }
+    public float damage { get { return _damage; } }
     [HideInInspector]
-    public float FireRate { get { return fireRate; } }
+    public float fireRate { get { return _fireRate; } }
 
     [Header("Basic Details")]
     [SerializeField]
-    protected float baseDamage = 30.0f;    // Base damage before damage modications
+    protected float _baseDamage = 30.0f;    // Base damage before damage modications
     [SerializeField]
     
-    protected float baseFireRate = 1.0f;// Base fire rate before buff/debuff
+    protected float _baseFireRate = 1.0f;// Base fire rate before buff/debuff
 
-    protected float damage;             // Updated damage after damage calculations
-    protected float fireRate;           // Updated fire rate after modications
+    protected float _damage;             // Updated damage after damage calculations
+    protected float _fireRate;           // Updated fire rate after modications
 
     protected bool _ready = true;
+    protected GenericCharacter _attacker;
 
-	public AudioClip sound;
+    public AudioClip sound;
 	public AudioSource selfAS;
 
     protected virtual void Start()
     {
-        damage = baseDamage;
-        fireRate = baseFireRate;
-        baseDamage = Mathf.Clamp(baseDamage, 0, int.MaxValue);
-        baseFireRate = Mathf.Clamp(baseFireRate, 0, float.MaxValue);
+        _damage = _baseDamage;
+        _fireRate = _baseFireRate;
+        _baseDamage = Mathf.Clamp(_baseDamage, 0, int.MaxValue);
+        _baseFireRate = Mathf.Clamp(_baseFireRate, 0, float.MaxValue);
 
 		selfAS = GetComponent<AudioSource>();
     }
 
     public virtual void UpdateDamage(int mDamage)
     {
-        damage = Mathf.Clamp(mDamage, 0, int.MaxValue);
+        _damage = Mathf.Clamp(mDamage, 0, int.MaxValue);
     }
 
     public virtual void UpdateFireRate(float mFireRate)
     {
-        fireRate = Mathf.Clamp(mFireRate, 0, float.MaxValue);
+        _fireRate = Mathf.Clamp(mFireRate, 0, float.MaxValue);
     }
     
     public virtual void DoAttack(GenericCharacter attacker)
     {
         if (!_ready) return;
 
-        PlayAnimation(attacker);
-		selfAS.PlayOneShot(sound);
         _ready = false;
-        StartCoroutine(WaitForReload());
+        _attacker = attacker;
+
+        PlayAnimation(attacker);
+
+		selfAS.PlayOneShot(sound);
+
+        StartCoroutine(AttackRoutine());
     }
 
-    protected virtual IEnumerator WaitForReload()
+    protected virtual IEnumerator AttackRoutine()
     {
-        yield return new WaitForSeconds(FireRate);
+        yield return new WaitForSeconds(fireRate);
         _ready = true;
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ColliderBasedAttack : BasicAttack
 {
-    GenericCharacter _attacker;
+    //GenericCharacter _attacker;
 
     protected override void Start()
     {
@@ -25,7 +25,7 @@ public class ColliderBasedAttack : BasicAttack
         // If it has one, call function to take damage
         if (stats != null)
         {
-            stats.Hit(Damage, _attacker, transform.position,
+            stats.Hit(damage, _attacker, transform.position,
                 (collision.transform.position - _attacker.transform.position).normalized);
             GetComponent<Collider>().enabled = false;
         }
@@ -38,19 +38,24 @@ public class ColliderBasedAttack : BasicAttack
 
     public override void DoAttack(GenericCharacter attacker)
     {
-        if (!_ready) return;
+        //if (!_ready) return;
 
-        _ready = false;
-        _attacker = attacker;
-        PlayAnimation(attacker);
-        StartCoroutine(AttackRoutine());
+        //_ready = false;
+        //_attacker = attacker;
+        //PlayAnimation(attacker);
+        //StartCoroutine(AttackRoutine());
+
+        base.DoAttack(attacker);
+
         GetComponent<Collider>().enabled = true;
     }
 
-    IEnumerator AttackRoutine()
+    protected override IEnumerator AttackRoutine()
     {
-        yield return new WaitForSeconds(FireRate);
+        yield return base.AttackRoutine();
+
         GetComponent<Collider>().enabled = false;
-        _ready = true;
+        
+        //_ready = true;
     }
 }

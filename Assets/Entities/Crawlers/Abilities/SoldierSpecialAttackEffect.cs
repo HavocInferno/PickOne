@@ -72,9 +72,9 @@ public class SoldierSpecialAttackEffect : AbstractEffect
 
             // Create the Bullet from the Bullet Prefab
             var bullet = Instantiate(
-                _gun.BulletPrefab,
-                _gun.BulletSpawn.position,
-                _gun.BulletSpawn.rotation);
+                _gun.bulletPrefab,
+                _gun.bulletSpawn.position,
+                _gun.bulletSpawn.rotation);
 
             bullet.transform.Rotate(bullet.transform.up, (_step - _count / 2) * _angle);
 
@@ -83,9 +83,9 @@ public class SoldierSpecialAttackEffect : AbstractEffect
             bullet.GetComponent<Bullet>().attacker = _character;
             bullet.GetComponent<Bullet>().direction = bullet.transform.forward;
 
-            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * _gun.BulletSpeed;
+            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * _gun.bulletSpeed;
 
-            Destroy(bullet, _gun.BulletLife * 0.33f);
+            Destroy(bullet, _gun.bulletLife * 0.33f);
 
             _nextTime = Time.time + _delay;
         }

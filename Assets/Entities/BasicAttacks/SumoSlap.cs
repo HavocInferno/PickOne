@@ -12,7 +12,7 @@ public class SumoSlap : BasicAttack
     public float colliderTime;
     public new ParticleSystem particleSystem;
     
-    GenericCharacter _attacker;
+    //GenericCharacter _attacker;
     
     protected override void Start()
     {
@@ -52,7 +52,7 @@ public class SumoSlap : BasicAttack
         // If it has one, call function to take damage
         if (stats != null)
         {
-            stats.Hit(Damage, _attacker, transform.position,
+            stats.Hit(damage, _attacker, transform.position,
                 (other.transform.position - _attacker.transform.position).normalized);
         }
         else
@@ -62,7 +62,7 @@ public class SumoSlap : BasicAttack
         }
     }
 
-    IEnumerator AttackRoutine()
+    protected override IEnumerator AttackRoutine()
     {
         // Enable the collider in front of the crawler
         attackCollider.enabled = true;
@@ -76,7 +76,7 @@ public class SumoSlap : BasicAttack
 
         attackCollider.enabled = false;
 
-        yield return new WaitForSeconds(fireRate - colliderTime);
+        yield return new WaitForSeconds(_fireRate - colliderTime);
         _ready = true;
 	}
 }

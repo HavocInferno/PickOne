@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FlameThrowerAttack : BasicAttack
 {
-    GenericCharacter _attacker;
+    //GenericCharacter _attacker;
     public ParticleSystem flameEffect;
     public float startTime = 0.1f;
     public float endTime = 0.9f;
@@ -18,11 +18,14 @@ public class FlameThrowerAttack : BasicAttack
 
     public override void DoAttack(GenericCharacter attacker)
     {
-        if (!_ready) return;
+        //if (!_ready) return;
 
-        _ready = false;
-        _attacker = attacker;
-        PlayAnimation(attacker);
+        //_ready = false;
+        //_attacker = attacker;
+        //PlayAnimation(attacker);
+
+        base.DoAttack(attacker);
+
         StartCoroutine(EnableEffectRoutine());
         StartCoroutine(AttackRoutine());
     }
@@ -41,9 +44,8 @@ public class FlameThrowerAttack : BasicAttack
         flameEffect.Stop();
     }
 
-    IEnumerator AttackRoutine()
+    protected override IEnumerator AttackRoutine()
     {
-        yield return new WaitForSeconds(FireRate);
-        _ready = true;
+        yield return base.AttackRoutine();
     }
 }
