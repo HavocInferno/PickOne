@@ -10,6 +10,8 @@ public class Gun : BasicAttack
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
 	public MuzzleFlash muzz;
+	public Transform ejectionPort; 
+	public GameObject shell;
 
     [Space(8)]
     [Tooltip("Time in seconds before the gun is restored to its original rotation.")]
@@ -86,6 +88,8 @@ public class Gun : BasicAttack
 		if (muzz != null)
 			muzz.fire = true;
         // Destroy the bullet after 2 seconds
+		if (ejectionPort != null && shell != null)
+			Instantiate (shell, ejectionPort.position, ejectionPort.rotation);
         Destroy(bullet, bulletLife);
     }
 
