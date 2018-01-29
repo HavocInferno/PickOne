@@ -1530,6 +1530,7 @@ MonoBehaviour:
   basicAttack: {fileID: 114885647918110196}
   passiveEffects: []
   mainRenderer: {fileID: 137807931604856498}
+  anim: {fileID: 0}
   behaviours: []
   detectors: []
   possibleTargets: []
@@ -1651,6 +1652,7 @@ MonoBehaviour:
   - _max: 60
     name: Health
     bar: {fileID: 224944659400683586}
+    lowS: {fileID: 0}
   attackMultiplier: 1
   defenseMultiplier: 1
   destroyOnDeath: 0
@@ -1730,8 +1732,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c560ae8a679a884e98a3901cfa298fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamage: 10
-  baseFireRate: 0.5
+  _baseDamage: 10
+  _baseFireRate: 0.5
   sound: {fileID: 0}
   selfAS: {fileID: 0}
 --- !u!114 &114951747073187460

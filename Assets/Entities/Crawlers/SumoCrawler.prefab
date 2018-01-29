@@ -745,6 +745,7 @@ MonoBehaviour:
   - _max: 200
     name: Health
     bar: {fileID: 224624800740530514}
+    lowS: {fileID: 0}
   attackMultiplier: 1
   defenseMultiplier: 1
   destroyOnDeath: 0
@@ -764,6 +765,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movSpeed: {x: 8, y: 8}
+  mov: {x: 0, y: 0}
+  att: 0
 --- !u!114 &114563604081636206
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -775,8 +778,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3bf235c1a360348864f85f1d98f1c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamage: 20
-  baseFireRate: 1
+  _baseDamage: 18
+  _baseFireRate: 0.6
   sound: {fileID: 8300000, guid: 78b92975f14aa5f4fa89b7474f14dec1, type: 3}
   selfAS: {fileID: 0}
   attackCollider: {fileID: 65340534322467880}
@@ -797,6 +800,7 @@ MonoBehaviour:
   basicAttack: {fileID: 114563604081636206}
   passiveEffects: []
   mainRenderer: {fileID: 23340590033254770}
+  anim: {fileID: 0}
   nameTag: {fileID: 114699860992264840}
   pName: player
   playerColor: {r: 0, g: 0, b: 1, a: 1}
