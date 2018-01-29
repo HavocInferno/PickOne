@@ -9,6 +9,7 @@ public class Gun : BasicAttack
     public float bulletLife = 2f;
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
+	public MuzzleFlash muzz;
 
     [Space(8)]
     [Tooltip("Time in seconds before the gun is restored to its original rotation.")]
@@ -82,6 +83,8 @@ public class Gun : BasicAttack
         // Add velocity to the bullet
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;
 
+		if (muzz != null)
+			muzz.fire = true;
         // Destroy the bullet after 2 seconds
         Destroy(bullet, bulletLife);
     }

@@ -73,14 +73,17 @@ public class Crawler : GenericCharacter
         //    mr.material = defaultMaterial;
         //    mr.material.color = playerColor;
         //}
-        ParticleSystem mm = GetComponentInChildren<ParticleSystem>();
-		if (mm != null) {
-			ParticleSystem.MainModule mm2 = mm.main;
-			mm2.startColor = playerColor;
-		}
+
 		mesh = GetComponentInChildren<SkinnedMeshRenderer>();
 		if (mesh != null)
-			mesh.material.color = playerColor; 
+			mesh.material.color = playerColor;
+		else {
+			ParticleSystem mm = GetComponentInChildren<ParticleSystem>();
+			if (mm != null) {
+				ParticleSystem.MainModule mm2 = mm.main;
+				mm2.startColor = playerColor;
+			}
+		}
         
         nameTag.text = pName;
 
