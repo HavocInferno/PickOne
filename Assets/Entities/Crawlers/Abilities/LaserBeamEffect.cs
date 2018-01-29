@@ -27,9 +27,12 @@ public class LaserBeamEffect : AbstractEffect
 
         base.Enable(character, calledByLocalPlayer, calledByServer);
 
-        var component = character.gameObject.AddComponent<_LaserBeamEffectScript>();
+        var gun = character.GetComponentInChildren<Gun>();
+
+        var component = gun.gameObject.AddComponent<_LaserBeamEffectScript>();
+
         component._Initialize(
-            Instantiate(laserBeamPrefab, character.basicAttack.transform),
+            Instantiate(laserBeamPrefab, gun.bulletSpawn),
             damageRegisterRate,
             damagePerSecond,
             laserHitMask,
@@ -49,7 +52,7 @@ public class LaserBeamEffect : AbstractEffect
 
         base.Disable(character, calledByLocalPlayer, calledByServer);
 
-        Destroy(character.gameObject.GetComponent<_LaserBeamEffectScript>());
+        Destroy(character.gameObject.GetComponentInChildren<_LaserBeamEffectScript>());
     }
 
     [RequireComponent(typeof(GenericCharacter))]
@@ -89,6 +92,7 @@ public class LaserBeamEffect : AbstractEffect
             _nextDamageCheckTime = Time.time + _damageRegisterRate;
 
             LineRenderer line = _laserInstance.GetComponent<LineRenderer>();
+            
             Vector3 origin = _laserInstance.transform.TransformPoint(
                 line.GetPosition(0));
             Vector3 direction = _laserInstance.transform.TransformDirection(

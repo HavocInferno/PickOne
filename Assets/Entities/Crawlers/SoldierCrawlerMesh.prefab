@@ -585,6 +585,7 @@ GameObject:
   - component: {fileID: 114681351039798892}
   - component: {fileID: 114188003827591668}
   - component: {fileID: 82912847838686598}
+  - component: {fileID: 114644608520420828}
   m_Layer: 10
   m_Name: Gun
   m_TagString: Untagged
@@ -1102,7 +1103,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1272645852402114}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.74634, y: 1.92, z: 63.28}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4609409759258854}
@@ -1892,6 +1893,21 @@ MonoBehaviour:
     effects:
     - {fileID: 11400000, guid: 8bea51102c5fb83439e6bf9800d49a26, type: 2}
   tpsUI: {fileID: 1373608158622600}
+--- !u!114 &114644608520420828
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1808786816948046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3651984939dccc478d636792c63bd10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSpawn: {fileID: 4423622272816700}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 72449
 --- !u!114 &114681351039798892
 MonoBehaviour:
   m_ObjectHideFlags: 1

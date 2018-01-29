@@ -14,9 +14,8 @@ public class Gun : BasicAttack
     [Tooltip("Time in seconds before the gun is restored to its original rotation.")]
     public float resetDelay = 1.0f;
 
-    //protected CUI_crosshair _crosshair;
-    protected Quaternion _initialRotation;
-    protected Coroutine _resetCoroutine;
+    //protected Quaternion _initialRotation;
+    //protected Coroutine _resetCoroutine;
     
     override protected void Start()
     {
@@ -33,35 +32,32 @@ public class Gun : BasicAttack
         {
             Debug.LogError("Bullet spawn transform not set.");
         }
-
-        // TODO: Find alterantive
-        //_crosshair = Object.FindObjectOfType<CUI_crosshair>();
     }
 
     protected void OnValidate()
     {
 
     }
+    
+    //public virtual void AimGun(GenericCharacter attacker)
+    //{
+    //    // Figure out where the crosshair is aiming
+    //    var ray = Camera.main.ScreenPointToRay(
+    //        new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0));
 
-    public virtual void AimGun(GenericCharacter attacker)
-    {
-        // Figure out where the crosshair is aiming
-        var ray = Camera.main.ScreenPointToRay(
-            new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0));
+    //    RaycastHit rayHit;
+    //    if (Physics.Raycast(ray, out rayHit, 100))
+    //    {
+    //        // Rotate the gun to point to the... point
+    //        transform.LookAt(rayHit.point);
+    //    }
 
-        RaycastHit rayHit;
-        if (Physics.Raycast(ray, out rayHit, 100))
-        {
-            // Rotate the gun to point to the... point
-            transform.LookAt(rayHit.point);
-        }
+    //    // Start the coroutine to reset the gun
+    //    if (_resetCoroutine != null)
+    //        StopCoroutine(_resetCoroutine);
 
-        // Start the coroutine to reset the gun
-        if (_resetCoroutine != null)
-            StopCoroutine(_resetCoroutine);
-
-        _resetCoroutine = StartCoroutine(ResetGun());
-    }
+    //    _resetCoroutine = StartCoroutine(ResetGun());
+    //}
 
     public override void DoAttack(GenericCharacter attacker)
     {
@@ -70,7 +66,7 @@ public class Gun : BasicAttack
         if (!bulletPrefab || !bulletSpawn)
             return;
 
-        AimGun(attacker);
+        //AimGun(attacker);
         
         // Create the Bullet from the Bullet Prefab
         var bullet = Instantiate(
@@ -94,9 +90,9 @@ public class Gun : BasicAttack
     /// Resets the rotation of the gun to its intial position.
     /// </summary>
     /// <returns></returns>
-    IEnumerator ResetGun()
-    {
-        yield return new WaitForSeconds(resetDelay);
-        gameObject.transform.localRotation = _initialRotation;
-    }
+    //IEnumerator ResetGun()
+    //{
+    //    yield return new WaitForSeconds(resetDelay);
+    //    gameObject.transform.localRotation = _initialRotation;
+    //}
 }

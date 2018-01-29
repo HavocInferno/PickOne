@@ -37,6 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4805485687901600}
   - component: {fileID: 114634181216996434}
+  - component: {fileID: 114646562563715706}
   m_Layer: 10
   m_Name: Shotgun
   m_TagString: Untagged
@@ -1275,6 +1276,21 @@ MonoBehaviour:
     type: 2}
   BulletSpawn: {fileID: 4456171009169014}
   resetDelay: 1
+--- !u!114 &114646562563715706
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1071743215820670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3651984939dccc478d636792c63bd10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSpawn: {fileID: 4456171009169014}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 72449
 --- !u!114 &114756310000615058
 MonoBehaviour:
   m_ObjectHideFlags: 1
