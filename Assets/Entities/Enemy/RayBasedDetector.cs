@@ -26,6 +26,8 @@ public class RayBasedDetector : EnemyTargetDetector
                     out hit,
                     maxScanRange,
                     mask);
+			if(!hitSomething)
+				return hitSomething; 
             var component = hit.collider.gameObject.GetComponent<DetectableObject>();
             return hitSomething
                 && component != null

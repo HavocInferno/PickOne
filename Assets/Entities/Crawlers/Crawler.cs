@@ -16,7 +16,9 @@ public class Crawler : GenericCharacter
     public Color playerColor = Color.white;
     [SyncVar]
     public bool isVRMasterPlayer = false;
-
+	public SkinnedMeshRenderer mesh;
+	public GameObject ragdoll;
+	Vector3 lastHitDir;
     [Header("Skills")]
 
     //public CrawlerClass crawlerClass;
@@ -71,8 +73,15 @@ public class Crawler : GenericCharacter
         //    mr.material = defaultMaterial;
         //    mr.material.color = playerColor;
         //}
-        //ParticleSystem.MainModule mm = GetComponentInChildren<ParticleSystem>().main;
-        //mm.startColor = playerColor;
+        ParticleSystem mm = GetComponentInChildren<ParticleSystem>();
+		if (mm != null) {
+			ParticleSystem.MainModule mm2 = mm.main;
+			mm2.startColor = playerColor;
+		}
+		mesh = GetComponentInChildren<SkinnedMeshRenderer>();
+		if (mesh != null)
+			mesh.material.color = playerColor; 
+        
         nameTag.text = pName;
 
         //scale up the player object if this is the VR master [this is a temporary visualisation, to be removed once a proper Master representation is done]
@@ -151,6 +160,16 @@ public class Crawler : GenericCharacter
         }
     }
 
+	public override void OnReceiveDamage(
+		float amount,
+		GenericCharacter attacker,
+		Vector3 hitPoint,
+		Vector3 hitDirection)
+	{
+		base.OnReceiveDamage (amount,attacker,hitPoint, hitDirection);
+		lastHitDir = hitDirection.normalized*amount; 
+	}
+
     public void Attack()
     {
         if (!isLocalPlayer)
@@ -208,7 +227,22 @@ public class Crawler : GenericCharacter
 		if (isLocalPlayer && isDead) {
 			FindObjectOfType<EndScreenUI> ().SetDeathScreen (true);
 		}
+		if (ragdoll != null) {
+			foreach (var rend in GetComponentsInChildren<Renderer>())
+				rend.enabled = false;
+			foreach (var col in GetComponentsInChildren<Collider>())
+				col.enabled = false;
+			GameObject rag = Instantiate (ragdoll, transform.position, transform.rotation);
+			mesh = rag.GetComponentInChildren<SkinnedMeshRenderer>();
+			if (mesh != null)
+				mesh.material.color = playerColor; 
+			Debug.Log (lastHitDir.magnitude);
+			foreach (Rigidbody rig in rag.GetComponentsInChildren<Rigidbody>()) {
+				rig.AddExplosionForce (lastHitDir.magnitude,transform.position+lastHitDir.normalized, 100,1,ForceMode.VelocityChange);
+			}
 
+
+		}
 		/* here disable collider and renderer? also disable UI ring thing */
 	}
 }
