@@ -140,8 +140,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fafd1aff4a50d904aa66a168b0b40cd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamage: 40
-  baseFireRate: 0.5
+  _baseDamage: 20
+  _baseFireRate: 1
+  sound: {fileID: 0}
+  selfAS: {fileID: 0}
   swingSpeed: 4
   lifeTime: 0.7
   blade: {fileID: 1180671759890578}
