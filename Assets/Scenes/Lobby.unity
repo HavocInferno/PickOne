@@ -113,34 +113,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &141781771 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1460689938921324, guid: 2948b64ad4251b44980724ec4421fe02,
-    type: 2}
-  m_PrefabInternal: {fileID: 722304180}
---- !u!65 &141781772
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 141781771}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 100, y: 100, z: 0}
-  m_Center: {x: 50, y: 0, z: 0}
---- !u!114 &141781773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 141781771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44902da7f2698f84295e41d8a4319e85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &256823495
 GameObject:
   m_ObjectHideFlags: 0
@@ -753,41 +725,9 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: -4475.711
       objectReference: {fileID: 0}
-    - target: {fileID: 1065608761668422, guid: 2948b64ad4251b44980724ec4421fe02, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2948b64ad4251b44980724ec4421fe02, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1253754707 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1065608761668422, guid: 2948b64ad4251b44980724ec4421fe02,
-    type: 2}
-  m_PrefabInternal: {fileID: 722304180}
---- !u!65 &1253754708
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1253754707}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 176, y: 52, z: 0}
-  m_Center: {x: 88, y: 0, z: 0}
---- !u!114 &1253754709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1253754707}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44902da7f2698f84295e41d8a4319e85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1333136513
 GameObject:
   m_ObjectHideFlags: 0
@@ -1282,7 +1222,7 @@ Prefab:
       objectReference: {fileID: 504068618}
     - target: {fileID: 1581758238289584, guid: 5893716de8ee7304d9df12f5eed37279, type: 2}
       propertyPath: m_Name
-      value: '[CameraRig]'
+      value: '[CameraRig] Menu'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5893716de8ee7304d9df12f5eed37279, type: 2}
