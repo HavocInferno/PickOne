@@ -41,12 +41,12 @@ public class AnimatorSync : MonoBehaviour {
 
 			//if the IK is active, set the position and rotation directly to the goal. 
 			// Set the look target position, if one has been assigned
-			if (head && lookObj != null)
-			{
-				animator.SetLookAtWeight(1);
-				animator.SetLookAtPosition(lookObj.position);
+			if (head && lookObj != null) {
+				animator.SetLookAtWeight (1);
+				animator.SetLookAtPosition (lookObj.position);
+			} else {
+				animator.SetLookAtWeight(0);
 			}
-
 			// Set the right hand target position and rotation, if one has been assigned
 			if (rightHand && rightHandObj != null)
 			{
@@ -54,24 +54,26 @@ public class AnimatorSync : MonoBehaviour {
 				animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
 				animator.SetIKPosition(AvatarIKGoal.RightHand, rightHandObj.position);
 				animator.SetIKRotation(AvatarIKGoal.RightHand, rightHandObj.rotation);
+			}			
+			else
+			{
+				animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 0);
+				animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 0);
 			}
 
-			if (leftHand && rightHandObj != null)
+			if (leftHand && leftHandObj != null)
 			{
 				animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
 				animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1);
 				animator.SetIKPosition(AvatarIKGoal.LeftHand, leftHandObj.position);
 				animator.SetIKRotation(AvatarIKGoal.LeftHand, leftHandObj.rotation);
 			}
-
-
-			//if the IK is not active, set the position and rotation of the hand and head back to the original position
 			else
 			{
-				animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 0);
-				animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 0);
-				animator.SetLookAtWeight(0);
+				animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0);
+				animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 0);
 			}
+
 		}
 	}
 }

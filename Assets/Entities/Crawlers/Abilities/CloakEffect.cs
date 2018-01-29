@@ -37,9 +37,13 @@ public class CloakEffect : AbstractEffect
                 gameObject.GetComponent<DetectableObject>();
             if (detectionComponent != null)
                 detectionComponent.isVisuallyDetectable = false;
-            var meshRenderer = transform.Find("Body").GetComponent<MeshRenderer>();
-            oldMaterial = meshRenderer.material;
-            meshRenderer.material = cloakMaterial;
+			Renderer meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+			if(meshRenderer == null)
+				meshRenderer = transform.Find("Body").GetComponent<MeshRenderer>();
+			if (meshRenderer != null) {
+				oldMaterial = meshRenderer.material;
+				meshRenderer.material = cloakMaterial;
+			}
         }
 
         private void OnDisable()
@@ -47,9 +51,13 @@ public class CloakEffect : AbstractEffect
             var detectionComponent =
                 gameObject.gameObject.GetComponent<DetectableObject>();
             if (detectionComponent != null)
-                detectionComponent.isVisuallyDetectable = true;
-            var meshRenderer = transform.Find("Body").GetComponent<MeshRenderer>();
-            meshRenderer.material = oldMaterial;
+				detectionComponent.isVisuallyDetectable = true;			
+			Renderer meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+			if(meshRenderer == null)
+				meshRenderer = transform.Find("Body").GetComponent<MeshRenderer>();
+			if (meshRenderer != null) {
+				meshRenderer.material = oldMaterial;
+			}
         }
     }
 }

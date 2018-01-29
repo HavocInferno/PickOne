@@ -31,7 +31,7 @@ public class Sword : BasicAttack
 			transform.localRotation =
                 Quaternion.LerpUnclamped(
 				    transform.localRotation,
-				    Quaternion.Euler(0f, -175f, -45f),  // This is not 180 to prevent rotating behind the attacker
+				    Quaternion.Euler(0f, -175f, -45f),	//  Quaternion.Euler(0f, -120f, 45f), This is not 180 to prevent rotating behind the attacker
 				    swingSpeed * Time.deltaTime);
 		}
     }
