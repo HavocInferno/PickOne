@@ -12,6 +12,7 @@ public class Gun : BasicAttack
 	public MuzzleFlash muzz;
 	public Transform ejectionPort; 
 	public GameObject shell;
+	public Recoiler recoil; 
 
     [Space(8)]
     [Tooltip("Time in seconds before the gun is restored to its original rotation.")]
@@ -87,12 +88,12 @@ public class Gun : BasicAttack
         // Add velocity to the bullet
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;
 
-		if (muzz != null)
-			muzz.fire = true;
+
 
         // Destroy the bullet after 2 seconds
-		if (ejectionPort != null && shell != null)
-			Instantiate (shell, ejectionPort.position, ejectionPort.rotation);
+		muzzleFlash ();
+		shellEjection ();
+		applyRecoil ();
         Destroy(bullet, bulletLife);
     }
 
@@ -105,4 +106,22 @@ public class Gun : BasicAttack
     //    yield return new WaitForSeconds(resetDelay);
     //    gameObject.transform.localRotation = _initialRotation;
     //}
+
+	public void muzzleFlash ()
+	{
+		if (muzz != null)
+			muzz.fire = true;
+	}
+
+	public void shellEjection ()
+	{
+		if (ejectionPort != null && shell != null)
+			Instantiate (shell, ejectionPort.position, ejectionPort.rotation);
+	}
+
+	public void applyRecoil ()
+	{
+		if (recoil != null)
+			recoil.recoil ();
+	}
 }
