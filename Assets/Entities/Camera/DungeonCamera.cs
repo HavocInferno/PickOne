@@ -49,7 +49,7 @@ public class DungeonCamera : MonoBehaviour
 	private bool shaking = false;
 	public Transform shakeDistanceTarget;
 
-    float intended;
+    float? intended = null;
 
 	void Start()
     {
@@ -70,14 +70,17 @@ public class DungeonCamera : MonoBehaviour
 		originalPos = transform.localPosition;
 		if (!shakeDistanceTarget)
 			shakeDistanceTarget = transform;
-
-        intended = (tCamera.position - target.transform.position).magnitude;
     }
 
 	void LateUpdate()
     {
 		if (!target)
 			return;
+        if (intended == null)
+        {
+            tParent.position = target.transform.position + pivotOffsetIntended;
+            intended = (tCamera.position - target.transform.position).magnitude;
+        }
 
 		//sticks the cam rig to the target. alternatively better: in Start(), parent target to the cam rig, set cam rig to pos 0,0,0
 		//tParent.position = target.transform.position;
@@ -115,12 +118,12 @@ public class DungeonCamera : MonoBehaviour
 				    target.transform.position,
 				    raycastDir,
 				    out hit,
-				    intended,
+				    intended.Value,
 				    mask)) {
 				distance = hit.distance * 0.95f;
 				scrollDampening = scrollDampeningObstructed;
 			} else {
-				distance = intended;
+				distance = intended.Value;
 				scrollDampening = scrollDampeningIntended;
 			}
             if (raycastDir.magnitude > 0.001f)
