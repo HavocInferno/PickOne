@@ -62,6 +62,8 @@ public class Gun : BasicAttack
 
     public override void DoAttack(GenericCharacter attacker)
     {
+        if (!_ready) return;
+
         base.DoAttack(attacker);
 
         if (!bulletPrefab || !bulletSpawn)

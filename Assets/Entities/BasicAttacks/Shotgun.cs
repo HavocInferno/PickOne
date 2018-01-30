@@ -57,6 +57,8 @@ public class Shotgun : BasicAttack
 
     public override void DoAttack(GenericCharacter attacker)
     {
+        if (!_ready) return;
+
         base.DoAttack(attacker);
 
         if (BulletPrefab == null)

@@ -1121,6 +1121,8 @@ MonoBehaviour:
   pName: player
   playerColor: {r: 0, g: 0, b: 1, a: 1}
   isVRMasterPlayer: 0
+  mesh: {fileID: 0}
+  ragdoll: {fileID: 0}
   activeAbilities:
   - type: 1
     attributeName: Adrenaline
@@ -1265,9 +1267,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 8
-  _baseFireRate: 1
+  _baseFireRate: 7
   sound: {fileID: 8300000, guid: 890af690a6489f64892077aa35d2d8e5, type: 3}
-  selfAS: {fileID: 0}
+  selfAS: {fileID: 82677175191867982}
   angle: 10
   count: 7
   BulletSpeed: 30

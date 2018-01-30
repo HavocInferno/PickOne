@@ -34,10 +34,10 @@ public abstract class BasicAttack : MonoBehaviour
     {
         _damage = _baseDamage;
         _fireRate = _baseFireRate;
-        _baseDamage = Mathf.Clamp(_baseDamage, 0, int.MaxValue);
-        _baseFireRate = Mathf.Clamp(_baseFireRate, 0, float.MaxValue);
+        // _baseDamage = Mathf.Clamp(_baseDamage, 0, int.MaxValue);
+        // _baseFireRate = Mathf.Clamp(_baseFireRate, 0, float.MaxValue);
 
-		selfAS = GetComponent<AudioSource>();
+		// selfAS = GetComponent<AudioSource>();
     }
 
     public virtual void UpdateDamage(int mDamage)
