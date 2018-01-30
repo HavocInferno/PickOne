@@ -18,7 +18,7 @@ public class FlameThrowerAttack : BasicAttack
 
     public override void DoAttack(GenericCharacter attacker)
     {
-        //if (!_ready) return;
+        if (!_ready) return;
 
         //_ready = false;
         //_attacker = attacker;

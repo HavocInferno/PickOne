@@ -89,6 +89,7 @@ public class Gun : BasicAttack
 
 		if (muzz != null)
 			muzz.fire = true;
+
         // Destroy the bullet after 2 seconds
 		if (ejectionPort != null && shell != null)
 			Instantiate (shell, ejectionPort.position, ejectionPort.rotation);

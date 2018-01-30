@@ -34,10 +34,12 @@ public class SumoSlap : BasicAttack
         // Default checks before attacking
         if (!_ready) return;
 
-        _ready = false;
-        _attacker = attacker;
-		selfAS.PlayOneShot(sound);
-        StartCoroutine(AttackRoutine());
+        //_ready = false;
+        //_attacker = attacker;
+        //selfAS.PlayOneShot(sound);
+        //StartCoroutine(AttackRoutine());
+
+        base.DoAttack(attacker);
     }
 
     protected void OnCollisionEnter(Collision other)
