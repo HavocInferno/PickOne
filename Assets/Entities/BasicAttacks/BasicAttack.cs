@@ -58,8 +58,8 @@ public abstract class BasicAttack : MonoBehaviour
         _attacker = attacker;
 
         PlayAnimation(attacker);
-
-		selfAS.PlayOneShot(sound);
+        if(selfAS != null && sound != null)
+		    selfAS.PlayOneShot(sound);
 
         StartCoroutine(AttackRoutine());
     }

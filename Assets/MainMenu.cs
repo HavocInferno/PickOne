@@ -14,12 +14,15 @@ public class MainMenu : MonoBehaviour {
 	static public MainMenu s_Singleton;
 
 	void Awake () {
-		s_Singleton = this;
+        if (s_Singleton == null)
+            s_Singleton = this;
 	}
 
 	// Use this for initialization
 	void Start () {
-		Cursor.visible = true;
+        if(s_Singleton == null)
+            s_Singleton = this;
+        Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.Confined;
 		LobbyManager.s_Singleton.GetComponent<Canvas> ().enabled = false;
 
