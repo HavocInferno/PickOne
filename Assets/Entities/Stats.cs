@@ -87,7 +87,8 @@ public class Stats : NetworkBehaviour
 
     public void SetAttributeValue(string name, float value)
     {
-        Debug.Assert(isServer, "Only server can change character stats!");
+        //Debug.Assert(isServer, "Only server can change character stats!");
+
         if (isServer)
         {
             attributes[name].Value = value;

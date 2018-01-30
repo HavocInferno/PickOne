@@ -22,19 +22,24 @@ public class MainMenu : MonoBehaviour {
 	void Start () {
         if(s_Singleton == null)
             s_Singleton = this;
+
         Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.Confined;
-		LobbyManager.s_Singleton.GetComponent<Canvas> ().enabled = false;
+		
+        if (LobbyManager.s_Singleton)
+        {
+            LobbyManager.s_Singleton.mainMenuUI = gameObject;
+            LobbyManager.s_Singleton.GetComponent<Canvas>().enabled = false;
 
-		if(LobbyManager.s_Singleton)
-			LobbyManager.s_Singleton.mainMenuUI = gameObject;
+            if (LobbyManager.s_Singleton.straightToLobby)
+            {
+                OnClickPlay();
+                LobbyManager.s_Singleton.straightToLobby = false;
+            }
+        }
 
-		if (LobbyManager.s_Singleton.straightToLobby) {
-			OnClickPlay ();
-			LobbyManager.s_Singleton.straightToLobby = false;
-		}
 
-		ChangeTo (mainPanel);
+        ChangeTo (mainPanel);
 	}
 
 	public void OnClickPlay() {
