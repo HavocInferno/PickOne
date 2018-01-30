@@ -49,6 +49,8 @@ public class DungeonCamera : MonoBehaviour
 	private bool shaking = false;
 	public Transform shakeDistanceTarget;
 
+    float intended;
+
 	void Start()
     {
 		pivotOffset = pivotOffsetIntended;
@@ -68,7 +70,9 @@ public class DungeonCamera : MonoBehaviour
 		originalPos = transform.localPosition;
 		if (!shakeDistanceTarget)
 			shakeDistanceTarget = transform;
-	}
+
+        intended = (tCamera.position - target.transform.position).magnitude;
+    }
 
 	void LateUpdate()
     {
@@ -105,28 +109,34 @@ public class DungeonCamera : MonoBehaviour
 				}
 			}
 
-			Vector3 raycastDir = transform.position - target.transform.position;
+            Vector3 raycastDir = tCamera.position - target.transform.position;
 			RaycastHit hit;
 			if (Physics.Raycast (
 				    target.transform.position,
 				    raycastDir,
 				    out hit,
-				    distanceIntended,
+				    intended,
 				    mask)) {
-				distance = hit.distance;
+				distance = hit.distance * 0.95f;
 				scrollDampening = scrollDampeningObstructed;
 			} else {
-				distance = distanceIntended;
+				distance = intended;
 				scrollDampening = scrollDampeningIntended;
 			}
-
-			Vector3 raycastDir1 = tParent.TransformPoint(pivotOffsetIntended) - target.transform.position;
+            if (raycastDir.magnitude > 0.001f)
+            {
+                tCamera.Translate(
+                    (raycastDir.normalized * distance - raycastDir) * Time.deltaTime * 10.0f,
+                    Space.World);
+            }
+            /*
+            Vector3 raycastDir1 = tParent.right;
 			RaycastHit hit1;
 			if (Physics.Raycast (
-					target.transform.position,
+                    tParent.localPosition,
 					raycastDir1,
 					out hit1,
-					pivotHitDist,
+                    pivotOffsetIntended.x * 1.1f,
 					mask)) {
 				pivotOffset = pivotOffsetObstructed; //Vector3.zero;
 				pivotDampening = pivotDampeningObstructed;
@@ -136,11 +146,19 @@ public class DungeonCamera : MonoBehaviour
 				pivotDampening = pivotDampeningIntended;
 				//Debug.Log ("cam pivot unobstructed");
 			}
+            */
+            /*
+            if (Mathf.Abs(tParent.localPosition.x - pivotOffset.x) > 0.001f)
+            {
+                tCamera.Translate(0.0f, 0.0f, (-tParent.localPosition.x + pivotOffset.x) * Time.deltaTime * 10.0f);
+                Debug.LogError(distance);
+            }
+            */
 
-			tParent.localPosition = Vector3.Lerp(tParent.localPosition, pivotOffset, pivotDampening);
+            // tParent.localPosition = Vector3.Lerp(tParent.localPosition, pivotOffset, Time.deltaTime * 10.0f);
 
-			//scrolling (zoom) based on scroll wheel
-			/*if(Input.GetAxis("Mouse ScrollWheel") != 0f) {
+            //scrolling (zoom) based on scroll wheel
+            /*if(Input.GetAxis("Mouse ScrollWheel") != 0f) {
 				float scrollAmount = Input.GetAxis ("Mouse ScrollWheel") * scrollSense;
 
 				//faster zoom at longer distance instead of linear speed
@@ -150,22 +168,19 @@ public class DungeonCamera : MonoBehaviour
 
 				distanceIntended = Mathf.Clamp (distanceIntended, scrollDistanceClamp.x, scrollDistanceClamp.y);
 			}*/
-		}
+        }
 
 		//actual cam rig transformations
 		Quaternion QT = Quaternion.Euler(localRot.y, localRot.x, 0f);
 		tParent.rotation = Quaternion.Lerp (tParent.rotation, QT, Time.deltaTime * orbitDampening);
 
-		//Debug.Log ("Cam lpos is off by " + Mathf.Abs (tCamera.localPosition.z - (camDist * -1f)));
-		if (Mathf.Abs (tCamera.localPosition.z - (distance * -1f)) > 0.0001f) {
-			tCamera.localPosition = new Vector3 (
-											0f, 
-											0f, 
-											Mathf.Lerp (
-													tCamera.localPosition.z, 
-													distance * -1f, 
-													Time.deltaTime * scrollDampening));
+        /*
+        //Debug.Log ("Cam lpos is off by " + Mathf.Abs (tCamera.localPosition.z - (camDist * -1f)));
+        if (Mathf.Abs (tCamera.localPosition.z + distance) > 0.001f) {
+            tCamera.Translate(0.0f, 0.0f, (-tCamera.localPosition.z - distance) * Time.deltaTime * 10.0f);
+            Debug.LogError(distance);
 		}
+        */
 
 		shakeScreen ();
 	}
