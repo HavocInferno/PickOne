@@ -26,5 +26,7 @@ public class Recoiler : MonoBehaviour {
 	{
 		transform.localPosition -= recoilPos;
 		transform.Rotate (Random.Range(-recoilRot,recoilRot),Random.Range(-recoilRot,recoilRot),Random.Range(-recoilRot,recoilRot),Space.Self);
+		if (transform.localPosition.magnitude > recoilPos.magnitude)
+			transform.localPosition *= .75f;
 	}
 }

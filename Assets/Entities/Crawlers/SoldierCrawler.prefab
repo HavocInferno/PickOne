@@ -136,6 +136,8 @@ GameObject:
   - component: {fileID: 114944430408673822}
   - component: {fileID: 114839070912762380}
   - component: {fileID: 114492684386948226}
+  - component: {fileID: 95499039437422074}
+  - component: {fileID: 114818262078351694}
   m_Layer: 10
   m_Name: SoldierCrawler
   m_TagString: Crawler
@@ -1511,6 +1513,23 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95499039437422074
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1272645852402114}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 2
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!108 &108117388694099700
 Light:
   m_ObjectHideFlags: 1
@@ -1949,6 +1968,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiObj: {fileID: 224709079113356608}
   vrSize: 4.5
+--- !u!114 &114818262078351694
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1272645852402114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 95413924386534396}
+  m_ParameterSendBits: 19
+  param0: 
+  param1: 
+  param2: 
+  param3: 
+  param4: 
+  param5: 
 --- !u!114 &114819378929024606
 MonoBehaviour:
   m_ObjectHideFlags: 1
