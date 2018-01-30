@@ -507,6 +507,7 @@ GameObject:
   - component: {fileID: 114185666042790002}
   - component: {fileID: 114384581969965546}
   - component: {fileID: 82010390968319138}
+  - component: {fileID: 114027932935962648}
   m_Layer: 10
   m_Name: Gun
   m_TagString: Untagged
@@ -1609,6 +1610,21 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 2.5
+--- !u!114 &114027932935962648
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1606018291474980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3651984939dccc478d636792c63bd10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSpawn: {fileID: 4795386301546264}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 72449
 --- !u!114 &114094203658262518
 MonoBehaviour:
   m_ObjectHideFlags: 1
