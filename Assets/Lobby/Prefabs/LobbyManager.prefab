@@ -1094,6 +1094,7 @@ GameObject:
   - component: {fileID: 11484364}
   - component: {fileID: 65318241198655030}
   - component: {fileID: 114065808603365078}
+  - component: {fileID: 114950906875849776}
   m_Layer: 5
   m_Name: InputField
   m_TagString: Untagged
@@ -3227,7 +3228,7 @@ MonoBehaviour:
   m_OfflineScene: Lobby
   m_OnlineScene: 
   m_SpawnPrefabs:
-  - {fileID: 1272645852402114, guid: f88bd131a77e9c2449e160f2aa6258ee, type: 2}
+  - {fileID: 1272645852402114, guid: cf3a28b16b1c7b647abadfb5e9c38cd7, type: 2}
   - {fileID: 1026321081107524, guid: 18bd534c03e45584cbe2cc9ea21bd227, type: 2}
   - {fileID: 1788217248877348, guid: defd66c9500b2ec44ae0a27548de14d4, type: 2}
   - {fileID: 1509735570345952, guid: 434bdc199633ba04d8b5126d5eac2dd2, type: 2}
@@ -4400,9 +4401,9 @@ Canvas:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 155310}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 2
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -6542,6 +6543,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114950906875849776
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 198742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23e6b6fb571e41448b2b906d48e527bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultText: Server-
+  inputField: {fileID: 11484364}
 --- !u!114 &114963729126836290
 MonoBehaviour:
   m_ObjectHideFlags: 1
