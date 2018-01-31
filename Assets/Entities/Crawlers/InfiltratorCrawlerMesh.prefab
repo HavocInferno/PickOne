@@ -1579,6 +1579,11 @@ MonoBehaviour:
     effects:
     - {fileID: 11400000, guid: 538a7aa52253ae245854be874f4be8bd, type: 2}
   tpsUI: {fileID: 1508908973728614}
+  pingMasterEffect: {fileID: 100000, guid: 00718395eefb6084bb25555f962f25c0, type: 3}
+  pingLocalEffect: {fileID: 1000012006197310, guid: 465c505844950da499dcf096a6da4409,
+    type: 2}
+  pingEffectLifetime: 5
+  pingCooldownSeconds: 20
 --- !u!114 &114312325543870292
 MonoBehaviour:
   m_ObjectHideFlags: 1

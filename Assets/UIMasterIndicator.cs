@@ -13,6 +13,7 @@ public class UIMasterIndicator : MonoBehaviour {
 	public Vector3 arrowOffset;
 	public float fadeSpeed = 8f;
 	public float onScreenRim = 0.2f;
+	bool isEnabled = true;
 
 	void Start() {
 		arrowCol = indicatorArrow.GetComponent<Renderer> ().material.color;
@@ -23,6 +24,18 @@ public class UIMasterIndicator : MonoBehaviour {
 	void Update () {
         if (master != null)
         {
+			if (master.transform.position.y < 0f && isEnabled) {
+				isEnabled = false;
+				indicatorArrow.SetActive (false);
+				indicatorText.enabled = false;
+				return;
+			} else if (master.transform.position.y > 0f && !isEnabled) {
+				isEnabled = true;
+				indicatorArrow.SetActive (true);
+				indicatorText.enabled = true;
+				return;
+			}
+			
             Vector3 masterScreenPoint = Camera.main.WorldToViewportPoint(master.transform.position);
             bool onScreen = (masterScreenPoint.z > 0
                             && masterScreenPoint.x > (0f + onScreenRim)
