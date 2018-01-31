@@ -27,12 +27,13 @@ public class Crawler : GenericCharacter
 	[Header("UI (to be disabled for local)")]
 	public GameObject tpsUI;
 
-    /*public enum ActionState {
-		NONE,
-		ATTACK
-	}
-	[SyncVar(hook = "OnChangeActionState")]
-	public ActionState actionState = ActionState.NONE;*/
+	[Header("Ping effects")]
+	public GameObject pingMasterEffect;
+	public GameObject pingLocalEffect;
+	public float pingEffectLifetime;
+	CUI_Ping pingIndicator;
+	public float pingCooldownSeconds;
+	float pingLastUseTime;
 
     public override void OnStartServer()
     {
@@ -111,6 +112,16 @@ public class Crawler : GenericCharacter
 
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Confined;
+
+		if (!pingIndicator) {
+			pingIndicator = FindObjectOfType<CUI_Ping> ();
+		}
+		if(pingIndicator) {
+			pingIndicator.TogglePingIcon (true);
+		}
+		if (!FindObjectOfType<Master> ()) {
+			pingIndicator.TogglePingIcon (false);
+		}
     }
 
     //is called when the local client's scene starts
@@ -191,6 +202,43 @@ public class Crawler : GenericCharacter
         CmdActivateAbility(index);
     }
 
+	public void Ping() {
+		if (!isLocalPlayer)
+			return;
+
+		if (!FindObjectOfType<Master> ())
+			return;
+		
+		if (!(Time.time - pingCooldownSeconds > pingLastUseTime))
+			return;
+
+		pingLastUseTime = Time.time;
+
+		if (!pingIndicator) {
+			pingIndicator = FindObjectOfType<CUI_Ping> ();
+		}
+		if(pingIndicator) {
+			pingIndicator.TogglePingIcon (false);
+			StartCoroutine (PingIndicatorReset ());
+		}
+
+		CmdPingMaster (); 
+
+		//show local effect
+		Destroy(Instantiate(pingLocalEffect, this.gameObject.transform), pingEffectLifetime);
+	}
+
+	IEnumerator PingIndicatorReset() {
+		//reset cooldown
+		yield return new WaitForSeconds(pingCooldownSeconds);
+		pingIndicator.TogglePingIcon (true);
+	}
+
+	public void PingMastervis() {
+		//show master effect
+		Destroy(Instantiate(pingMasterEffect, this.gameObject.transform), pingEffectLifetime);
+	}
+
     //###################### COMMAND CALLS #####################################
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
     [Command]
@@ -204,6 +252,12 @@ public class Crawler : GenericCharacter
     {
         RpcActivateAbility(index);
     }
+
+	[Command]
+	void CmdPingMaster() {
+		//show master effect
+		PingMastervis();
+	}
 
     //###################### RPC CALLS #####################################
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV

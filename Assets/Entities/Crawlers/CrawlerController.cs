@@ -29,6 +29,11 @@ public class CrawlerController : NetworkBehaviour
             GetComponent<Crawler>().ActivateAbility(1);
         }
 
+		if (Input.GetButtonDown("Ping"))
+		{
+			GetComponent<Crawler>().Ping();
+		}
+
         //player movement..hor is forward/backward, ver is strafing
         Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 		mov = direction;
