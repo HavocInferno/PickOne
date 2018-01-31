@@ -71,7 +71,7 @@ namespace Prototype.NetworkLobby
             currentPanel = mainMenuPanel;
 
             backButton.gameObject.SetActive(false);
-            GetComponent<Canvas>().enabled = true;
+            //GetComponent<Canvas>().enabled = true;
 
             DontDestroyOnLoad(gameObject);
             DontDestroyOnLoad(loadingScreen);
