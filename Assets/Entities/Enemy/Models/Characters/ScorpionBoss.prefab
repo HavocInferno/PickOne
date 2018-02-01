@@ -1296,7 +1296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 1.5
-  _baseFireRate: 3
+  _baseFireRate: 2
   sound: {fileID: 0}
   selfAS: {fileID: 0}
   flameEffect: {fileID: 198249129697097322}
@@ -7138,7 +7138,7 @@ ParticleSystem:
     m_Bounce:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -7179,7 +7179,7 @@ ParticleSystem:
     m_EnergyLossOnCollision:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 0.1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -7222,8 +7222,8 @@ ParticleSystem:
     radiusScale: 0.5
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294964991
-    maxCollisionShapes: 256
+      m_Bits: 1792
+    maxCollisionShapes: 160
     quality: 0
     voxelSize: 0.5
     collisionMessages: 1

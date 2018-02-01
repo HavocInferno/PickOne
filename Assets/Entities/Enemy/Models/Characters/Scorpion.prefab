@@ -1271,8 +1271,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fcaf87c0ef2d0a4f8b078d95db248a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseDamage: 1.3
-  _baseFireRate: 2.3
+  _baseDamage: 1
+  _baseFireRate: 1
   sound: {fileID: 0}
   selfAS: {fileID: 0}
   flameEffect: {fileID: 198876602946358798}
@@ -10585,7 +10585,7 @@ ParticleSystem:
     m_Bounce:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -10626,7 +10626,7 @@ ParticleSystem:
     m_EnergyLossOnCollision:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 0.1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -10669,8 +10669,8 @@ ParticleSystem:
     radiusScale: 0.5
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294965247
-    maxCollisionShapes: 256
+      m_Bits: 1792
+    maxCollisionShapes: 128
     quality: 0
     voxelSize: 0.5
     collisionMessages: 1

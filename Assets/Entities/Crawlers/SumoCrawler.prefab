@@ -805,6 +805,8 @@ MonoBehaviour:
   pName: player
   playerColor: {r: 0, g: 0, b: 1, a: 1}
   isVRMasterPlayer: 0
+  mesh: {fileID: 0}
+  ragdoll: {fileID: 0}
   activeAbilities:
   - type: 0
     attributeName: 
@@ -813,6 +815,12 @@ MonoBehaviour:
     effects:
     - {fileID: 11400000, guid: 62c3b6b0e01fbc2459c7e71bc94de57a, type: 2}
   tpsUI: {fileID: 1717808264712818}
+  pingMasterEffect: {fileID: 1475608578198954, guid: 2c2d2948f893bfb4fa4a28353f0e6fbb,
+    type: 2}
+  pingLocalEffect: {fileID: 1366816137073156, guid: c0989d23485784e4eabd541f0d4194cd,
+    type: 2}
+  pingEffectLifetime: 5
+  pingCooldownSeconds: 20
 --- !u!114 &114601725233237570
 MonoBehaviour:
   m_ObjectHideFlags: 1
