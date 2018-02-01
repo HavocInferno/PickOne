@@ -13,6 +13,11 @@ public class AnimatorSync : MonoBehaviour {
 	public bool rightHand = false;
 	public bool leftHand = false;
 	public bool head = false;
+
+	public float leftHandWeight = 1;
+	public float rightHandWeight = 1;
+	public float headWeight = 1;
+
 	public Transform rightHandObj = null;
 	public Transform leftHandObj = null;
 	public Transform lookObj = null;
@@ -50,8 +55,8 @@ public class AnimatorSync : MonoBehaviour {
 			// Set the right hand target position and rotation, if one has been assigned
 			if (rightHand && rightHandObj != null)
 			{
-				animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
-				animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
+				animator.SetIKPositionWeight(AvatarIKGoal.RightHand, rightHandWeight);
+				animator.SetIKRotationWeight(AvatarIKGoal.RightHand, rightHandWeight);
 				animator.SetIKPosition(AvatarIKGoal.RightHand, rightHandObj.position);
 				animator.SetIKRotation(AvatarIKGoal.RightHand, rightHandObj.rotation);
 			}			
@@ -63,15 +68,15 @@ public class AnimatorSync : MonoBehaviour {
 
 			if (leftHand && leftHandObj != null)
 			{
-				animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
-				animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1);
+				animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, leftHandWeight);
+				animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, leftHandWeight);
 				animator.SetIKPosition(AvatarIKGoal.LeftHand, leftHandObj.position);
 				animator.SetIKRotation(AvatarIKGoal.LeftHand, leftHandObj.rotation);
 			}
 			else
 			{
-				animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0);
-				animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 0);
+				animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, headWeight);
+				animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, headWeight);
 			}
 
 		}

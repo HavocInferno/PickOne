@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Jesus Christ, why is this not a child class of "gun"?
 public class Shotgun : BasicAttack
 {
     public float angle;
@@ -12,6 +13,10 @@ public class Shotgun : BasicAttack
     public float BulletLife = 2f;
     public GameObject BulletPrefab;
     public Transform BulletSpawn;
+	public MuzzleFlash muzz;
+	public Transform ejectionPort; 
+	public GameObject shell;
+	public Recoiler recoil; 
 
     [Space(8)]
     [Tooltip("Time in seconds before the gun is restored to its original rotation.")]
@@ -88,6 +93,9 @@ public class Shotgun : BasicAttack
             // Destroy the bullet after 2 seconds
             Destroy(bullet, Random.value * BulletLife);
         }
+		muzzleFlash ();
+		shellEjection ();
+		applyRecoil ();
     }
 
     /// <summary>
@@ -99,5 +107,22 @@ public class Shotgun : BasicAttack
     //    yield return new WaitForSeconds(resetDelay);
     //    gameObject.transform.localRotation = _initialRotation;
     //}
+	public void muzzleFlash ()
+	{
+		if (muzz != null)
+			muzz.fire = true;
+	}
+
+	public void shellEjection ()
+	{
+		if (ejectionPort != null && shell != null)
+			Instantiate (shell, ejectionPort.position, ejectionPort.rotation);
+	}
+
+	public void applyRecoil ()
+	{
+		if (recoil != null)
+			recoil.recoil ();
+	}
 }
 

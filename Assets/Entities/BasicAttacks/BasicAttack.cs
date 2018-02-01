@@ -30,6 +30,8 @@ public abstract class BasicAttack : MonoBehaviour
     public AudioClip sound;
 	public AudioSource selfAS;
 
+	public GameObject dropWeaponPrefab;
+
     protected virtual void Start()
     {
         _damage = _baseDamage;
