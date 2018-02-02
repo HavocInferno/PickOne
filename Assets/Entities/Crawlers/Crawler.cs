@@ -16,6 +16,7 @@ public class Crawler : GenericCharacter
     public Color playerColor = Color.white;
     [SyncVar]
     public bool isVRMasterPlayer = false;
+    public Sprite icon;
 	public SkinnedMeshRenderer mesh;
 	public GameObject ragdoll;
 	Vector3 lastHitDir;
@@ -107,7 +108,12 @@ public class Crawler : GenericCharacter
 				FindObjectOfType<CUI_crosshair> ().registerCrawler (this);
                 FindObjectOfType<AbilitiesPanel>().Initialize(activeAbilities);
 			}
+        }
 
+        if (!isLocalPlayer && !isVRMasterPlayer)
+        {
+            // Add this player to the team status panel
+            FindObjectOfType<TeamStatusPanel>().Register(this);
         }
 
 		Cursor.visible = false;

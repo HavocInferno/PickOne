@@ -17,7 +17,7 @@ public class AbilitiesPanel : MonoBehaviour
     {
         foreach (var ability in abilities)
         {
-            GameObject newObject = GameObject.Instantiate(elementPrefab, transform);
+            GameObject newObject = Instantiate(elementPrefab, transform);
             Image image = newObject.transform.Find("EffectIcon").GetComponentInChildren<Image>();
             image.sprite = ability.icon;
             image.color = new Color(0.0f, 0.0f, 0.0f, 0.9f);
