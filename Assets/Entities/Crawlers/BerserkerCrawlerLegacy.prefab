@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 114033627075932564}
   - component: {fileID: 114252233598610238}
   m_Layer: 10
-  m_Name: BerserkerCrawler
+  m_Name: BerserkerCrawlerLegacy
   m_TagString: Crawler
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -999,22 +999,22 @@ MonoBehaviour:
   m_SceneId:
     m_Value: 0
   m_AssetId:
-    i0: 67
-    i1: 75
-    i2: 220
-    i3: 25
-    i4: 150
-    i5: 51
-    i6: 186
-    i7: 4
-    i8: 216
-    i9: 181
-    i10: 18
-    i11: 109
-    i12: 94
-    i13: 172
-    i14: 45
-    i15: 210
+    i0: 197
+    i1: 104
+    i2: 125
+    i3: 126
+    i4: 77
+    i5: 130
+    i6: 77
+    i7: 180
+    i8: 154
+    i9: 145
+    i10: 254
+    i11: 165
+    i12: 175
+    i13: 254
+    i14: 210
+    i15: 16
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
 --- !u!114 &114252233598610238
@@ -1276,6 +1276,7 @@ MonoBehaviour:
   _baseFireRate: 0.8
   sound: {fileID: 8300000, guid: 890af690a6489f64892077aa35d2d8e5, type: 3}
   selfAS: {fileID: 0}
+  dropWeaponPrefab: {fileID: 0}
   angle: 10
   count: 7
   BulletSpeed: 30
@@ -1283,6 +1284,10 @@ MonoBehaviour:
   BulletPrefab: {fileID: 1508484646266804, guid: 7a0aa34461054fd4081fb5f06250b983,
     type: 2}
   BulletSpawn: {fileID: 4456171009169014}
+  muzz: {fileID: 0}
+  ejectionPort: {fileID: 0}
+  shell: {fileID: 0}
+  recoil: {fileID: 0}
   resetDelay: 1
 --- !u!114 &114646562563715706
 MonoBehaviour:
@@ -1314,6 +1319,7 @@ MonoBehaviour:
   _baseFireRate: 1
   sound: {fileID: 8300000, guid: 871c8239ac4315640a9bca4e23d3a11a, type: 3}
   selfAS: {fileID: 0}
+  dropWeaponPrefab: {fileID: 0}
   swingSpeed: 12
   lifeTime: 0.25
   blade: {fileID: 1488036904697918}
