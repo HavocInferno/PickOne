@@ -50,6 +50,9 @@ public class EndScreenUI : NetworkBehaviour {
 	}
 
 	public void SetAbandonedScreen() {
+		if (gameEnded)
+			return;
+		
 		gameEnded = true;
 		Cursor.lockState = CursorLockMode.Confined;
 		Cursor.visible = true;
