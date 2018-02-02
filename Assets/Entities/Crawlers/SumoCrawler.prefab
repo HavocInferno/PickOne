@@ -782,6 +782,7 @@ MonoBehaviour:
   _baseFireRate: 0.6
   sound: {fileID: 8300000, guid: 78b92975f14aa5f4fa89b7474f14dec1, type: 3}
   selfAS: {fileID: 0}
+  dropWeaponPrefab: {fileID: 0}
   attackCollider: {fileID: 65340534322467880}
   colliderTime: 0.1
   particleSystem: {fileID: 198841109139935714}
@@ -805,6 +806,7 @@ MonoBehaviour:
   pName: player
   playerColor: {r: 0, g: 0, b: 1, a: 1}
   isVRMasterPlayer: 0
+  icon: {fileID: 21300000, guid: 382eab1bb6ce707429221356fdf113c6, type: 3}
   mesh: {fileID: 0}
   ragdoll: {fileID: 0}
   activeAbilities:

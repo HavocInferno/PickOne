@@ -117,7 +117,7 @@ public class Stats : NetworkBehaviour
 
     public float GetAttributeMax(string name)
     {
-        return attributes[name].Value;
+        return attributes[name].Max;
     }
 
     [ClientRpc]
