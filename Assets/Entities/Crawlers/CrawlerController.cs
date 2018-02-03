@@ -35,7 +35,9 @@ public class CrawlerController : NetworkBehaviour
 		}
 
         //player movement..hor is forward/backward, ver is strafing
-        Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+		Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+		if (direction.magnitude > 1)
+			direction /= direction.magnitude;
 		mov = direction;
 		att = Input.GetButtonDown("Fire1");
         direction = Time.deltaTime * Vector2.Scale(direction, movSpeed);

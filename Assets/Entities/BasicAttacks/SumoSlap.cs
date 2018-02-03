@@ -11,6 +11,8 @@ public class SumoSlap : BasicAttack
     public Collider attackCollider;
     public float colliderTime;
     public new ParticleSystem particleSystem;
+
+	public Animator animator;
     
     //GenericCharacter _attacker;
     
@@ -38,7 +40,6 @@ public class SumoSlap : BasicAttack
         //_attacker = attacker;
         //selfAS.PlayOneShot(sound);
         //StartCoroutine(AttackRoutine());
-
         base.DoAttack(attacker);
     }
 
@@ -67,6 +68,8 @@ public class SumoSlap : BasicAttack
     protected override IEnumerator AttackRoutine()
     {
         // Enable the collider in front of the crawler
+		if (animator != null)
+			animator.SetTrigger ("SumoSlap");
         attackCollider.enabled = true;
 
         if (particleSystem)
