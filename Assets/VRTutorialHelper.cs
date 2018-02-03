@@ -17,7 +17,13 @@ public class VRTutorialHelper : MonoBehaviour {
 
 		if (!tutOn)
 			return;
-		
+
+		if(!UnityEngine.XR.XRSettings.enabled) {
+			vivePart.SetActive (false);
+			riftPart.SetActive (false);
+			return;
+		}
+
 		QueryVRDeviceModel ();
 
 		if (vrDeviceModel == 1) {
