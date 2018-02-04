@@ -125,9 +125,9 @@ public class Crawler : GenericCharacter
 		if(pingIndicator) {
 			pingIndicator.TogglePingIcon (true);
 		}
-		if (!FindObjectOfType<Master> ()) {
+		/*if (!FindObjectOfType<Master> ()) {
 			pingIndicator.TogglePingIcon (false);
-		}
+		}*/
     }
 
     //is called when the local client's scene starts
@@ -211,13 +211,10 @@ public class Crawler : GenericCharacter
 	public void Ping() {
 		if (!isLocalPlayer)
 			return;
-
-		if (!FindObjectOfType<Master> ())
-			return;
 		
 		if (!(Time.time - pingCooldownSeconds > pingLastUseTime))
 			return;
-
+		
 		pingLastUseTime = Time.time;
 
 		if (!pingIndicator) {
@@ -242,6 +239,9 @@ public class Crawler : GenericCharacter
 
 	public void PingMastervis() {
 		//show master effect
+		if (!FindObjectOfType<Master> ())
+			return;
+		
 		Destroy(Instantiate(pingMasterEffect, this.gameObject.transform), pingEffectLifetime);
 	}
 

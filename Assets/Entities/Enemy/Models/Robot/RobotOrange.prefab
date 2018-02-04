@@ -1513,7 +1513,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1838,6 +1838,8 @@ MonoBehaviour:
   _baseFireRate: 0.4
   sound: {fileID: 8300000, guid: 1532355227deda14ab740bc2d5bde642, type: 3}
   selfAS: {fileID: 82912316819609604}
+  dropWeaponPrefab: {fileID: 0}
+  playSoundInCoroutine: 0
 --- !u!114 &114977851636407542
 MonoBehaviour:
   m_ObjectHideFlags: 1
