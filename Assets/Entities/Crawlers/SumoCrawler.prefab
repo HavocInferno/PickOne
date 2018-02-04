@@ -577,6 +577,7 @@ GameObject:
   - component: {fileID: 114535597807449486}
   - component: {fileID: 114905518117501142}
   - component: {fileID: 114379022197445020}
+  - component: {fileID: 114315271017107470}
   m_Layer: 10
   m_Name: SumoCrawler
   m_TagString: Crawler
@@ -1332,6 +1333,21 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114315271017107470
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1788217248877348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32d56898b3de2bc4a96a770cdf8681ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderers: []
+  minThreshold: 2.5
+  maxThreshold: 3.5
+  invisible: 0
 --- !u!114 &114379022197445020
 MonoBehaviour:
   m_ObjectHideFlags: 1

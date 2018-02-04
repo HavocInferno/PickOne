@@ -15,6 +15,8 @@ public class CloakEffect : AbstractEffect
         base.Enable(character, calledByLocalPlayer, calledByServer);
 
         character.gameObject.AddComponent<_CloakEffectScript>()._Initialize(cloakMaterial);
+        var c = character.gameObject.GetComponent<CloseCameraTransparency>();
+        c.invisible = true;
     }
 
     public override void Disable(
@@ -24,6 +26,8 @@ public class CloakEffect : AbstractEffect
     {
         base.Disable(character, calledByLocalPlayer, calledByServer);
 
+        var c = character.gameObject.GetComponent<CloseCameraTransparency>();
+        c.invisible = false;
         Destroy(character.gameObject.GetComponent<_CloakEffectScript>());
     }
 

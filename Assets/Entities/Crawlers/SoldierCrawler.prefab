@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 114492684386948226}
   - component: {fileID: 95499039437422074}
   - component: {fileID: 114818262078351694}
+  - component: {fileID: 114073211769949298}
   m_Layer: 10
   m_Name: SoldierCrawler
   m_TagString: Crawler
@@ -1602,6 +1603,21 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 72449
+--- !u!114 &114073211769949298
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1272645852402114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32d56898b3de2bc4a96a770cdf8681ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderers: []
+  minThreshold: 2.5
+  maxThreshold: 3.5
+  invisible: 0
 --- !u!114 &114094203658262518
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1701,6 +1717,7 @@ MonoBehaviour:
   _baseFireRate: 0.2
   sound: {fileID: 8300000, guid: 974917c74d2076743a45b1e182eb0bdb, type: 3}
   selfAS: {fileID: 0}
+  dropWeaponPrefab: {fileID: 0}
   bulletSpeed: 50
   bulletLife: 2
   bulletPrefab: {fileID: 1508484646266804, guid: 7a0aa34461054fd4081fb5f06250b983,
@@ -1882,6 +1899,9 @@ MonoBehaviour:
   rightHand: 1
   leftHand: 1
   head: 0
+  leftHandWeight: 1
+  rightHandWeight: 1
+  headWeight: 1
   rightHandObj: {fileID: 4218891585091828}
   leftHandObj: {fileID: 4940964083054368}
   lookObj: {fileID: 0}
