@@ -758,7 +758,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1026321081107524}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.6124848, y: 1, z: -2.712976}
+  m_LocalPosition: {x: -3.5166736, y: 1.4342506, z: 3.8223724}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4867694799717664}
@@ -1516,6 +1516,7 @@ MonoBehaviour:
   sound: {fileID: 8300000, guid: 469e9f28254567c4e827d2825a0ec7ef, type: 3}
   selfAS: {fileID: 0}
   dropWeaponPrefab: {fileID: 0}
+  playSoundInCoroutine: 0
   swingSpeed: 4
   lifeTime: 0.7
   blade: {fileID: 1907591340474998}
@@ -2040,7 +2041,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 1
+  m_BaseOffset: 0.9
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!222 &222094200743770610
