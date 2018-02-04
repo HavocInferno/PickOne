@@ -751,7 +751,7 @@ Transform:
   m_GameObject: {fileID: 1776535338110476}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 46.38188, y: 1.000001, z: -42.345383}
-  m_LocalScale: {x: 7, y: 7, z: 7}
+  m_LocalScale: {x: 8, y: 8, z: 8}
   m_Children:
   - {fileID: 4590790682316066}
   - {fileID: 4581388088364916}
@@ -1299,6 +1299,7 @@ MonoBehaviour:
   _baseFireRate: 2
   sound: {fileID: 0}
   selfAS: {fileID: 0}
+  dropWeaponPrefab: {fileID: 0}
   flameEffect: {fileID: 198249129697097322}
   startTime: 0.1
   endTime: 2.1
