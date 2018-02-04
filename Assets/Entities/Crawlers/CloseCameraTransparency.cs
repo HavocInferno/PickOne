@@ -13,6 +13,8 @@ public class CloseCameraTransparency : MonoBehaviour
     [HideInInspector()]
     public bool invisible = false;
 
+	float alpha = 0.0f;
+
     private void Start()
     {
         // Who split prefabs.... I hate you
@@ -28,7 +30,11 @@ public class CloseCameraTransparency : MonoBehaviour
     void Update ()
     {
         float dist = Vector3.Distance(Camera.main.transform.position, transform.position);
-	    float alpha = (invisible ? 0.1f : 1.0f) * Mathf.Clamp((dist - minThreshold) / (maxThreshold - minThreshold), 0.0f, 1.0f);
+
+		if (dist > maxThreshold && alpha > 0.999f)
+			return;
+		
+	    alpha = (invisible ? 0.1f : 1.0f) * Mathf.Clamp((dist - minThreshold) / (maxThreshold - minThreshold), 0.0f, 1.0f);
         foreach (var r in renderers)
         {
             Color color_diffuse = r.material.GetColor("_Color");
