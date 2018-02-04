@@ -8,9 +8,12 @@ public class MenuSwapVRHelper : MonoBehaviour {
 
 	public Canvas target;
 
+	//have to manually set the recttransform values for world space mode with every switch
+	//---recttransform world space custom values here
+
 	// Use this for initialization
 	void Start () {
-		if (XRDevice.userPresence == UserPresenceState.Unsupported) {
+		if (!XRDevice.isPresent) {
 			target.renderMode = RenderMode.ScreenSpaceOverlay;
 			this.enabled = false;
 		}
