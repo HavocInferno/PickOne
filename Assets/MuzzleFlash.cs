@@ -18,6 +18,7 @@ public class MuzzleFlash : MonoBehaviour {
 		for(int i = 0; i< lights.Length; i++)
 		{
 			intens [i] = lights [i].intensity;
+			lights [i].intensity = 0;
 		}
 	}
 	// Update is called once per frame

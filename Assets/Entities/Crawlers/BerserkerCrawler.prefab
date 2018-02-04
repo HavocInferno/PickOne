@@ -2329,6 +2329,7 @@ MonoBehaviour:
   selfAS: {fileID: 0}
   dropWeaponPrefab: {fileID: 1473530911774126, guid: 69d5ca2967c114a4c8f2b8cb3a4c5c4d,
     type: 2}
+  playSoundInCoroutine: 0
   angle: 10
   count: 15
   BulletSpeed: 30
@@ -2373,6 +2374,7 @@ MonoBehaviour:
   selfAS: {fileID: 0}
   dropWeaponPrefab: {fileID: 1214563044932148, guid: b8bbb4f5054461b46abe2d1e5ded5227,
     type: 2}
+  playSoundInCoroutine: 0
   swingSpeed: 12
   lifeTime: 0.25
   blade: {fileID: 1488036904697918}
@@ -2540,7 +2542,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 1
+  m_BaseOffset: 0.9
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!198 &198756447210731230
