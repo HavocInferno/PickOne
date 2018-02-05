@@ -36,8 +36,9 @@ static public class Hierarchy
     {
         foreach (var meshRenderer in GetComponents<Renderer>(root))
         { 
-            if (meshRenderer != null && meshRenderer.material != null)
-                yield return meshRenderer.material;
+            if (meshRenderer != null)
+                foreach (var m in meshRenderer.materials)
+                    yield return m;
         }
     }
 }
