@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 114918767391616488}
   - component: {fileID: 114090576779478122}
   - component: {fileID: 114962020193691868}
+  - component: {fileID: 82227295981652472}
   m_Layer: 13
   m_Name: HealOrb
   m_TagString: ThrowableAbility
@@ -164,6 +165,86 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!82 &82227295981652472
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1524338109988192}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 63098fd887676a84397fe4f9c9d5588d, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!108 &108335967133514428
 Light:
   m_ObjectHideFlags: 1
@@ -214,6 +295,8 @@ MonoBehaviour:
   isDead: 0
   basicAttack: {fileID: 0}
   passiveEffects: []
+  mainRenderer: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!114 &114514240204866150
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -235,6 +318,7 @@ MonoBehaviour:
   explosionPrefab: {fileID: 1567200062633362, guid: c0c8d2fa3c376364aa2abf41cc81f98b,
     type: 2}
   dieTime: 20
+  sound: {fileID: 82227295981652472}
   maxHeal: 100
 --- !u!114 &114918767391616488
 MonoBehaviour:

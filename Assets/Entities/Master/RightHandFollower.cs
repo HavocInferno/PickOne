@@ -14,6 +14,8 @@ public class RightHandFollower : MasterFollower
 	public Transform buffChargeIndicator;
 	private Vector3 chargeIndicatorScale;
 	public ParticleSystem[] buffSystems, debuffSystems;
+	public AudioSource buffSource, debuffSource;
+	public AudioSource raySpark, ping; 
 	[SyncVar]
 	public float buffCharge, debuffCharge;
 
@@ -130,6 +132,9 @@ public class RightHandFollower : MasterFollower
 			debuff.destination = debuffTarget;
 			debuff.Draw = isDebuffed;
         }
+		buffSource.enabled = isBuffed;
+		debuffSource.enabled = isDebuffed;
+
 		foreach(var buffSystem in buffSystems)
 			buffSystem.enableEmission = isBuffed;
 		foreach(var debuffSystem in debuffSystems)
@@ -144,6 +149,11 @@ public class RightHandFollower : MasterFollower
 
 		if (buffChargeIndicator.localScale.z < 0.001)
 			buffChargeIndicator.localScale = new Vector3 (buffChargeIndicator.localScale.x, buffChargeIndicator.localScale.y, 0.001f);
+
+
+		buffSource.pitch = (float) 0.5f + buffCharge * 0.5f;
+		debuffSource.pitch = (float) 0.5f + debuffCharge * 0.5f;
+		raySpark.enabled = isBuffed || isDebuffed;
 
 
 		if (isBuffed) {
@@ -166,6 +176,7 @@ public class RightHandFollower : MasterFollower
 			capsule.localScale = Vector3.Lerp (capsule.localScale, capsuleScale, Time.deltaTime*growspeed);
 			
 		}
+		ping.enabled = (pingArrow.localScale.magnitude > 0.01);
 		updateThrowables ();
     }
 }

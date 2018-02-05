@@ -14,6 +14,7 @@ public class LeftHandFollower : MasterFollower {
 	public float growspeed =20;
 	public Vector3 arrowscale, capsuleScale;
 	public ParticleAttractor healA, fireA;
+	public AudioSource fireSound, healSound, ping;
 
 	[SyncVar]
 	public Vector3 firepoolScale, healpoolScale;
@@ -56,6 +57,14 @@ public class LeftHandFollower : MasterFollower {
 			else
 				firePool.gameObject.SetActive (true);
 		}
+
+		fireSound.enabled = (firepoolScale.magnitude > 0.15);
+		fireSound.pitch = (float) (0.5+0.5*(1- Mathf.Clamp01(firepoolScale.magnitude)));
+		fireSound.volume = (float) Mathf.Clamp01(firepoolScale.magnitude);
+		healSound.enabled = (healpoolScale.magnitude > 0.15);
+		healSound.pitch = (float) (0.5+0.5*(1- Mathf.Clamp01(healpoolScale.magnitude)));
+		healSound.volume = (float) Mathf.Clamp01(healpoolScale.magnitude);
+
 		if (gripping) {
 			pingArrow.localScale = Vector3.Lerp (pingArrow.localScale, arrowscale, Time.deltaTime * growspeed);
 			capsule.localScale = Vector3.Lerp (capsule.localScale, Vector3.zero, Time.deltaTime * growspeed);
@@ -79,6 +88,7 @@ public class LeftHandFollower : MasterFollower {
 				healPool.localScale = Vector3.Lerp (healPool.localScale, Vector3.zero, Time.deltaTime * growspeed);
 			}
 		}
+		ping.enabled = (pingArrow.localScale.magnitude > 0.01);
 
 
 	}

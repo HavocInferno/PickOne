@@ -12,9 +12,11 @@ public class ThrowableAbility : MonoBehaviour {
     public AbstractEffect effect;
     public GameObject explosionPrefab;
     public float dieTime = 20;
+	public AudioSource sound;  
 
     private Rigidbody rb;
     private PlayersManager playerManager;
+	bool ded;
 
     // Use this for initialization
     void Start () {
@@ -23,11 +25,18 @@ public class ThrowableAbility : MonoBehaviour {
         StartCoroutine(die());
         foreach (Light lit in GetComponentsInChildren<Light>())
             lit.range = maxDistance*chargeMulti;
+		if (sound!=null) {
+			sound.volume = chargeMulti;
+			sound.pitch = (float)(0.5+0.5*(1- chargeMulti));
+		}
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (ded) {
+			sound.volume = Mathf.Lerp(sound.volume,0,Time.deltaTime*3);
+			sound.pitch = Mathf.Lerp(sound.pitch,0,Time.deltaTime*3);
+		}
 	}
     public void OnTriggerEnter(Collider other)
     {
@@ -66,6 +75,7 @@ public class ThrowableAbility : MonoBehaviour {
                     applyEffect(totalMulti, enemy.GetComponent<Enemy>());
             }
         }
+		ded = true;
         kill(velMulti);
     }
 
