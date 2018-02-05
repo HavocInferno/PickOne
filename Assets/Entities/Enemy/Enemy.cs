@@ -211,4 +211,17 @@ public class Enemy : GenericCharacter
 
         NetworkServer.Destroy(gameObject);
     }
+
+    public override void OnReceiveDamage(
+        float amount,
+        GenericCharacter attacker,
+        Vector3 hitPoint,
+        Vector3 hitDirection)
+    {
+        base.OnReceiveDamage(amount, attacker, hitPoint, hitDirection);
+
+        if (!isServer)
+            return;
+        DetectTarget(attacker.transform);
+    }
 }
