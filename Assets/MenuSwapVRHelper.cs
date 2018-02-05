@@ -18,6 +18,12 @@ public class MenuSwapVRHelper : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		//sadly this needs to be in since for no good reason whenever a match is hosted from inside VR, players cant choose classes anymore. Makes no sense...
+		if (true) {
+			target.renderMode = RenderMode.ScreenSpaceOverlay;
+			this.enabled = false;
+		}
+		
 		rectTPos = GetComponent<RectTransform> ().position;
 		rectTRot = GetComponent<RectTransform> ().eulerAngles;
 		rectTScl = GetComponent<RectTransform> ().localScale;
