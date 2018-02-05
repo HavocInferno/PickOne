@@ -8,11 +8,21 @@ public class MenuSwapVRHelper : MonoBehaviour {
 
 	public Canvas target;
 
+	public Vector3 rectTPos;
+	public Vector3 rectTRot;
+	public Vector3 rectTScl;
+	public Vector2 rectTDlt;
+
 	//have to manually set the recttransform values for world space mode with every switch
 	//---recttransform world space custom values here
 
 	// Use this for initialization
 	void Start () {
+		rectTPos = GetComponent<RectTransform> ().position;
+		rectTRot = GetComponent<RectTransform> ().eulerAngles;
+		rectTScl = GetComponent<RectTransform> ().localScale;
+		rectTDlt = GetComponent<RectTransform> ().sizeDelta;
+
 		if (!XRDevice.isPresent) {
 			target.renderMode = RenderMode.ScreenSpaceOverlay;
 			this.enabled = false;
@@ -24,6 +34,11 @@ public class MenuSwapVRHelper : MonoBehaviour {
 		if (XRDevice.userPresence == UserPresenceState.Present && !(target.renderMode == RenderMode.WorldSpace)) {
 			Debug.Log("VR user detected, switching Lobby to World Space");
 			target.renderMode = RenderMode.WorldSpace;
+
+			GetComponent<RectTransform> ().position = rectTPos;
+			GetComponent<RectTransform> ().eulerAngles = rectTRot;
+			GetComponent<RectTransform> ().localScale = rectTScl;
+			GetComponent<RectTransform> ().sizeDelta = rectTDlt;
 		}
 
 		if (XRDevice.userPresence == UserPresenceState.NotPresent && !(target.renderMode == RenderMode.ScreenSpaceOverlay)) {
