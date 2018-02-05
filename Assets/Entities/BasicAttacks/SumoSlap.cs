@@ -9,7 +9,7 @@ using UnityEngine;
 public class SumoSlap : BasicAttack
 { 
     public Collider attackCollider;
-    public float colliderTime;
+    public float colliderTime, animTime;
     public new ParticleSystem particleSystem;
 
 	public Animator animator;
@@ -70,8 +70,10 @@ public class SumoSlap : BasicAttack
         // Enable the collider in front of the crawler
 		if (animator != null)
 			animator.SetTrigger ("SumoSlap");
+		yield return new WaitForSeconds(animTime);
         attackCollider.enabled = true;
-
+		if (selfAS != null && sound != null)
+			selfAS.PlayOneShot(sound);
         if (particleSystem)
         {
             particleSystem.Play();
@@ -81,7 +83,7 @@ public class SumoSlap : BasicAttack
 
         attackCollider.enabled = false;
 
-        yield return new WaitForSeconds(_fireRate - colliderTime);
+        yield return new WaitForSeconds(_fireRate - colliderTime- animTime);
         _ready = true;
 	}
 }

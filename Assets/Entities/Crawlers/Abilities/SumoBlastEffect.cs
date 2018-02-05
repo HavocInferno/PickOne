@@ -9,6 +9,7 @@ public class SumoBlastEffect : AbstractEffect
     public float maxDamage = 100.0f;
     public float minDamage = 50.0f;
     public float maxDistance = 4;
+	public float delay = .5f;
 
     public override void Enable(
         GenericCharacter character,
@@ -23,7 +24,7 @@ public class SumoBlastEffect : AbstractEffect
 
         base.Enable(character, calledByLocalPlayer, calledByServer);
 
-        var blast = Instantiate(sumoBlastPrefab, character.transform);
+		var blast = Instantiate(sumoBlastPrefab, character.transform);
         var component = blast.AddComponent<_SumoBlastEffect>();
         component._Initialize(
             blast,
@@ -31,9 +32,13 @@ public class SumoBlastEffect : AbstractEffect
             minDamage,
             maxDistance,
             character,
-            calledByServer);
+            calledByServer,
+			delay);
+		Animator a = character.GetComponentInChildren<Animator> ();
+		if (a != null)
+			a.SetTrigger ("SumoSpecial");
     }
-
+		
     public override void Disable(
         GenericCharacter character,
         bool calledByLocalPlayer,
@@ -58,6 +63,7 @@ public class SumoBlastEffect : AbstractEffect
         float _maxDistance;
         bool _registerDamage;
         GenericCharacter _character;
+		float _delay;
 
         public void _Initialize(
             GameObject blastInstance,
@@ -65,7 +71,8 @@ public class SumoBlastEffect : AbstractEffect
             float minDamage,
             float maxDistance,
             GenericCharacter character,
-            bool registerDamage)
+            bool registerDamage,
+			float delay)
         {
             _maxDamage = maxDamage;
             _minDamage = minDamage;
@@ -74,14 +81,37 @@ public class SumoBlastEffect : AbstractEffect
 
             _sumoBlastInstance = blastInstance;
             _character = character;
+			_delay = delay;
             
             _registerDamage = registerDamage;
 
             // Prevents pre-emptive collisions
             var collider = GetComponent<SphereCollider>();
             collider.radius = _maxDistance;
-            collider.enabled = true;
+            collider.enabled = false;
+			StartCoroutine (delayEnable ());
         }
+		public IEnumerator delayEnable()
+		{
+			yield return new WaitForSeconds (_delay);
+			var s = GetComponent<AudioSource> ();
+			if (s != null)
+				s.Play ();
+			MuzzleFlash m = GetComponent<MuzzleFlash> ();
+			if (m != null)
+				m.fire = true;
+			var collider = GetComponent<SphereCollider>();
+			collider.enabled = true;
+
+			Collider[] colliders = Physics.OverlapSphere(transform.position, _maxDistance);
+			foreach (Collider hit in colliders)
+			{
+				Rigidbody rb = hit.GetComponent<Rigidbody>();
+				if (rb != null)
+					rb.AddExplosionForce(_maxDamage, transform.position, _maxDistance, 3.0F, ForceMode.Impulse);
+			}
+
+		}
 
         private void OnCollisionEnter(Collision collision)
         {

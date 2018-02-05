@@ -32,6 +32,8 @@ public abstract class BasicAttack : MonoBehaviour
 
 	public GameObject dropWeaponPrefab;
 
+	public bool playSoundInCoroutine = false;
+
     protected virtual void Start()
     {
         _damage = _baseDamage;
@@ -60,7 +62,7 @@ public abstract class BasicAttack : MonoBehaviour
         _attacker = attacker;
 
         PlayAnimation(attacker);
-        if(selfAS != null && sound != null)
+		if(selfAS != null && sound != null && !playSoundInCoroutine)
 		    selfAS.PlayOneShot(sound);
 
         StartCoroutine(AttackRoutine());

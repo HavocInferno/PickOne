@@ -1467,13 +1467,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3bf235c1a360348864f85f1d98f1c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseDamage: 25
+  _baseDamage: 35
   _baseFireRate: 1
   sound: {fileID: 8300000, guid: 78b92975f14aa5f4fa89b7474f14dec1, type: 3}
   selfAS: {fileID: 0}
   dropWeaponPrefab: {fileID: 0}
+  playSoundInCoroutine: 1
   attackCollider: {fileID: 65340534322467880}
   colliderTime: 0.1
+  animTime: 0.3
   particleSystem: {fileID: 198841109139935714}
   animator: {fileID: 95321322992597808}
 --- !u!114 &114578588377981744
@@ -1498,7 +1500,7 @@ MonoBehaviour:
   isVRMasterPlayer: 0
   icon: {fileID: 21300000, guid: 382eab1bb6ce707429221356fdf113c6, type: 3}
   mesh: {fileID: 137272166093991480}
-  ragdoll: {fileID: 0}
+  ragdoll: {fileID: 1026375033273154, guid: fa158c35284d4a34b9b66ab314946a08, type: 2}
   activeAbilities:
   - type: 0
     attributeName: 
@@ -1758,7 +1760,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300000, guid: 7e15121f5f042ed46aba81406403f2d2, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 61c8693c29e33f842b061a8a911b94f9, type: 3}
   m_Bones:
   - {fileID: 4514494325138782}
   - {fileID: 4421986235030944}

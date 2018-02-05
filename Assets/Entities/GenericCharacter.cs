@@ -109,6 +109,11 @@ public class GenericCharacter : NetworkBehaviour
         {
             LocalEnableEffect(effect);
         }
+		var netanim = GetComponentInChildren<NetworkAnimator> ();
+		if (netanim != null) {
+			netanim.SetParameterAutoSend (0, true);
+			netanim.SetParameterAutoSend (1, true);
+		}
     }
 
     void OnValidate()
