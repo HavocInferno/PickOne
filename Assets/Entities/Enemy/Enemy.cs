@@ -212,6 +212,7 @@ public class Enemy : GenericCharacter
         NetworkServer.Destroy(gameObject);
     }
 
+    /*
     public override void OnReceiveDamage(
         float amount,
         GenericCharacter attacker,
@@ -224,4 +225,5 @@ public class Enemy : GenericCharacter
             return;
         DetectTarget(attacker.transform);
     }
+    */
 }

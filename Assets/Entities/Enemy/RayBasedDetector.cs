@@ -21,7 +21,7 @@ public class RayBasedDetector : EnemyTargetDetector
             RaycastHit hit;
 
             bool hitSomething = Physics.Raycast(
-                    enemy.transform.position,
+                    enemy.transform.position + Vector3.up * 2.0f,
                     direction,
                     out hit,
                     maxScanRange,
