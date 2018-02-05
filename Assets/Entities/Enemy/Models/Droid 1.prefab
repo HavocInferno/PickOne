@@ -833,6 +833,7 @@ MonoBehaviour:
   sound: {fileID: 0}
   selfAS: {fileID: 0}
   dropWeaponPrefab: {fileID: 0}
+  playSoundInCoroutine: 0
   bulletSpeed: 40
   bulletLife: 4
   bulletPrefab: {fileID: 1984984193329390, guid: 23dd551dd3c58ec4faf518cf0ddf6a1c,
@@ -899,11 +900,11 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
-  m_Speed: 20
-  m_Acceleration: 5
+  m_Speed: 15
+  m_Acceleration: 6
   avoidancePriority: 50
   m_AngularSpeed: 200
-  m_StoppingDistance: 35
+  m_StoppingDistance: 30
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
