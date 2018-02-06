@@ -16,11 +16,12 @@ public class Bullet : MonoBehaviour
 	{
         var hit = collision.gameObject;
 
-        if (attacker.gameObject.CompareTag(hit.tag))
-        {
-            Destroy(this.gameObject);
-            return;
-        }
+		if (attacker) {
+			if (attacker.gameObject.CompareTag (hit.tag)) {
+				Destroy (this.gameObject);
+				return;
+			}
+		}
         
 		var stats = hit.GetComponent<Stats>();
 		if (stats != null)
