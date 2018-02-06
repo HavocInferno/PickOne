@@ -717,7 +717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79ec5183c6bac341a36c1d6a850315c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 40
+  attackRange: 50
   attackRate: 0.5
   updateRate: 0.5
 --- !u!114 &114311803624026916
@@ -764,7 +764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minScanRange: 0
-  maxScanRange: 200
+  maxScanRange: 225
   mask:
     serializedVersion: 2
     m_Bits: 1792
@@ -877,7 +877,7 @@ MonoBehaviour:
   possibleTargets: []
   detectionCheckRate: 2
   rotationSpeed: 240
-  meleeRange: 10
+  meleeRange: 39
   isRunning: 0
   isEndConditionKill: 1
 --- !u!114 &114782455204082444
@@ -967,7 +967,7 @@ NavMeshAgent:
   m_Acceleration: 6
   avoidancePriority: 50
   m_AngularSpeed: 200
-  m_StoppingDistance: 30
+  m_StoppingDistance: 40
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
