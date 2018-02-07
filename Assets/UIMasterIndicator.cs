@@ -19,8 +19,8 @@ public class UIMasterIndicator : MonoBehaviour {
 		arrowCol = indicatorArrow.GetComponent<Renderer> ().material.color;
 		textCol = indicatorText.color;
 
-		if (FindObjectOfType<Master> ())
-			this.gameObject.SetActive (false);
+		//if (FindObjectOfType<Master> ())
+		//	this.gameObject.SetActive (false);
 	}
 
 	// Update is called once per frame
